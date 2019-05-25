@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,13 +12,14 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
-
 #include "BZUtils.h"
+
+#include <cstring>
+
 #include "Exception.h"
 #include "format.h"
 
@@ -41,7 +42,7 @@ BZFilter::~BZFilter() {
 
 bool BZFilter::operator()(const void* in, size_t& insize, void* out, size_t& outsize) {
     if(outsize == 0)
-        return 0;
+        return false;
 
     zs.avail_in = insize;
     zs.next_in = (char*)in;
@@ -82,7 +83,7 @@ UnBZFilter::~UnBZFilter() {
 
 bool UnBZFilter::operator()(const void* in, size_t& insize, void* out, size_t& outsize) {
     if(outsize == 0)
-        return 0;
+        return false;
 
     zs.avail_in = insize;
     zs.next_in = (char*)in;

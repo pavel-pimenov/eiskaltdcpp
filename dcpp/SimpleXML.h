@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,14 +12,17 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
+#include "NonCopyable.h"
+
+#include "forward.h"
 #include "Exception.h"
 #include "Streams.h"
+
 #include "SimpleXMLReader.h"
 
 namespace dcpp {
@@ -30,7 +33,7 @@ STANDARD_EXCEPTION(SimpleXMLException);
  * A simple XML class that loads an XML-ish structure into an internal tree
  * and allows easy access to each element through a "current location".
  */
-class SimpleXML : private boost::noncopyable
+class SimpleXML : private NonCopyable
 {
 public:
     SimpleXML() : root("BOGUSROOT", Util::emptyString, NULL), current(&root), found(false) {
@@ -102,6 +105,15 @@ public:
         return (*currentChild)->data;
     }
 
+    StringMap getCurrentChildren() {
+        dcassert(current != NULL);
+        StringMap d;
+        for(Tag::Iter i = current->children.begin(); i != current->children.end(); ++i) {
+            d[(*i)->name] = (*i)->data;
+        }
+        return d;
+    }
+
     const string& getChildAttrib(const string& aName, const string& aDefault = Util::emptyString) {
         checkChildSelected();
         return (*currentChild)->getAttrib(aName, aDefault);
@@ -119,11 +131,11 @@ public:
         checkChildSelected();
         const string& tmp = getChildAttrib(aName);
 
-        return !tmp.empty() && tmp[0] == '1';
+        return (!tmp.empty()) && tmp[0] == '1';
     }
 
     void fromXML(const string& aXML);
-    string toXML() { string tmp; StringOutputStream os(tmp); toXML(&os); return tmp; }
+    string toXML();
     void toXML(OutputStream* f) { if(!root.children.empty()) root.children[0]->toXML(0, f); }
 
     static const string& escape(const string& str, string& tmp, bool aAttrib, bool aLoading = false, const string &encoding = Text::utf8) {
@@ -144,7 +156,7 @@ public:
     }
     static const string utf8Header;
 private:
-    class Tag {
+    class Tag : private NonCopyable {
     public:
         typedef Tag* Ptr;
         typedef vector<Ptr> List;
@@ -178,7 +190,7 @@ private:
         }
 
         const string& getAttrib(const string& aName, const string& aDefault = Util::emptyString) {
-            StringPairIter i = find_if(attribs.begin(), attribs.end(), CompareFirst<string,string>(aName));
+            auto i = find_if(attribs.begin(), attribs.end(), CompareFirst<string,string>(aName));
             return (i == attribs.end()) ? aDefault : i->second;
         }
         void toXML(int indent, OutputStream* f);
@@ -186,27 +198,24 @@ private:
         void appendAttribString(string& tmp);
         /** Delete all children! */
         ~Tag() {
-            for(Iter i = children.begin(); i != children.end(); ++i) {
-                delete *i;
+            for(auto i: children) {
+                delete i;
             }
         }
-
-    private:
-        Tag(const Tag&);
-        Tag& operator=(Tag&);
     };
 
     class TagReader : public SimpleXMLReader::CallBack {
     public:
         TagReader(Tag* root) : cur(root) { }
-        virtual bool getData(string&) { return false; }
-        virtual void startTag(const string& name, StringPairList& attribs, bool simple) {
+        void startTag(const string& name, StringPairList& attribs, bool simple) {
             cur->children.push_back(new Tag(name, attribs, cur));
             if(!simple)
                 cur = cur->children.back();
         }
-        virtual void endTag(const string&, const string& d) {
-            cur->data = d;
+        void data(const string& data) {
+            cur->data += data;
+        }
+        void endTag(const string&) {
             if(cur->parent == NULL)
                 throw SimpleXMLException("Invalid end tag");
             cur = cur->parent;

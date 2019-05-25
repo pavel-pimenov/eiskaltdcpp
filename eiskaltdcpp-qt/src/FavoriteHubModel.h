@@ -25,7 +25,7 @@ class FavoriteHubItem{
 
 public:
 
-    FavoriteHubItem(const QList<QVariant> &data, FavoriteHubItem *parent = NULL);
+    FavoriteHubItem(const QList<QVariant> &data, FavoriteHubItem *parent = nullptr);
     ~FavoriteHubItem();
 
     void appendChild(FavoriteHubItem *child);
@@ -39,7 +39,7 @@ public:
 
     QList<FavoriteHubItem*> childItems;
 
-    void updateColumn(unsigned, QVariant);
+    void updateColumn(const int, const QVariant &);
 
 private:
     QList<QVariant> itemData;
@@ -50,7 +50,7 @@ class FavoriteHubModel : public QAbstractItemModel
 {
     Q_OBJECT
 public:
-    FavoriteHubModel(QObject *parent = 0);
+    FavoriteHubModel(QObject *parent = nullptr);
     virtual ~FavoriteHubModel();
 
     /** */

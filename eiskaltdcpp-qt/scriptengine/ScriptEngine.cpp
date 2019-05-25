@@ -54,7 +54,7 @@ QScriptValue ScriptVarMapToScriptValue(QScriptEngine* eng, const VarMap& map);
 void ScriptVarMapFromScriptValue( const QScriptValue& value, VarMap& map);
 
 ScriptEngine::ScriptEngine() :
-        QObject(NULL)
+        QObject(nullptr)
 {
     DEBUG_BLOCK
 
@@ -149,10 +149,9 @@ void ScriptEngine::stopScripts(){
     DEBUG_BLOCK
 
     QMap<QString, ScriptObject*> s = scripts;
-    auto it = s.begin();
-
-    for (; it != s.end(); ++it)
-        stopScript(it.key());
+    for (const QString &key : scripts.keys()) {
+        stopScript(key);
+    }
 
     scripts.clear();
 }
@@ -296,9 +295,10 @@ void ScriptEngine::slotWSKeyChanged(const QString &key, const QString &value){
         }
 
         QMap<QString, ScriptObject*> copy = scripts;
-        for (it = copy.begin(); it != copy.end(); ++it){
-            if (!enabled.contains(it.key()))
-                stopScript(it.key());
+        for (const QString &key : copy.keys()){
+            if (!enabled.contains(key)) {
+                stopScript(key);
+            }
         }
     }
 }
@@ -377,7 +377,7 @@ static QScriptValue staticMemberConstructor(QScriptContext *context, QScriptEngi
     QScriptValue self = context->callee();
     const QString className = self.property("className").toString();
 
-    QObject *obj = NULL;
+    QObject *obj = nullptr;
 
     if (className == "AntiSpam"){
         if (!AntiSpam::getInstance()){
@@ -450,7 +450,7 @@ static QScriptValue dynamicMemberConstructor(QScriptContext *context, QScriptEng
     QScriptValue self = context->callee();
     const QString className = self.property("className").toString();
 
-    QObject *obj = NULL;
+    QObject *obj = nullptr;
 
     if (className == "HubFrame"){
         if (context->argumentCount() == 2){
@@ -507,7 +507,7 @@ static QScriptValue parseChatLinks(QScriptContext *ctx, QScriptEngine *engine){
     if (ctx->argumentCount() != 1)
         return engine->undefinedValue();
 
-    return QScriptValue(HubFrame::LinkParser::parseForLinks(ctx->argument(0).toString(), 0));
+    return QScriptValue(HubFrame::LinkParser::parseForLinks(ctx->argument(0).toString(), false));
 }
 
 static QScriptValue parseMagnetAlias(QScriptContext *ctx, QScriptEngine *engine) {
@@ -573,11 +573,9 @@ QScriptValue printErr(QScriptContext *ctx, QScriptEngine *engine){
 QScriptValue ScriptVarMapToScriptValue(QScriptEngine* eng, const VarMap& map)
 {
     QScriptValue a = eng->newObject();
-    auto it = map.begin();
 
-    for(; it != map.end(); ++it) {
+    for(auto it = map.begin(); it != map.end(); ++it) {
         QString prop = it.key();
-
         a.setProperty(prop, qScriptValueFromValue(eng, it.value()));
     }
 

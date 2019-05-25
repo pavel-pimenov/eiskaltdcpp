@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,18 +12,20 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
-#include "Encoder.h"
-#include "Util.h"
-#include <functional>
 #include <algorithm>
+#include <cstdint>
+#include <cstring>
+
+#include "Encoder.h"
 
 namespace dcpp {
+
+using std::find_if;
 
 class CID {
 public:
@@ -47,7 +49,7 @@ public:
     }
     const uint8_t* data() const { return cid; }
 
-    bool isZero() const { return std::find_if(cid, cid+SIZE, bind2nd(std::not_equal_to<uint8_t>(), 0)) == (cid+SIZE); }
+    explicit operator bool() const { return find_if(cid, cid + SIZE, [](uint8_t c) { return c != 0; }) != cid + SIZE; }
 
     static CID generate();
 
@@ -60,11 +62,8 @@ private:
 namespace std {
 template<>
 struct hash<dcpp::CID> {
-    size_t operator()(const dcpp::CID& rhs) const {
-        size_t hvHash;
-        memcpy(&hvHash, rhs.data(), sizeof(size_t));
-        return hvHash;
+    size_t operator()(const dcpp::CID& cid) const {
+        return cid.toHash();
     }
 };
-
-} // namespace dcpp
+}

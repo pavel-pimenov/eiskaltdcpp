@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
@@ -27,11 +26,11 @@ const char* UPnP::protocols[PROTOCOL_LAST] = {
     "UDP"
 };
 
-bool UPnP::open(const unsigned short port, const Protocol protocol, const string& description) {
+bool UPnP::open(const string& port, const Protocol protocol, const string& description) {
     if(!add(port, protocol, description))
         return false;
 
-    rules.push_back(make_pair(port, protocol));
+    rules.emplace_back(port, protocol);
     return true;
 }
 
@@ -46,6 +45,6 @@ bool UPnP::close() {
 }
 
 bool UPnP::hasRules() const {
-        return !rules.empty();
+    return !rules.empty();
 }
 } // namespace dcpp

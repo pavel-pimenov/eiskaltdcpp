@@ -12,8 +12,7 @@
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+* along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 #pragma once
@@ -21,6 +20,7 @@
 #include "forward.h"
 #include "Transfer.h"
 #include "Flags.h"
+#include "GetSet.h"
 
 namespace dcpp {
 
@@ -36,7 +36,6 @@ public:
 
     virtual void getParams(const UserConnection& aSource, StringMap& params);
 
-    GETSET(int64_t, fileSize, FileSize);
     GETSET(InputStream*, stream, Stream);
 };
 

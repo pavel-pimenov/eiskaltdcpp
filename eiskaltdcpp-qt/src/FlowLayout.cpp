@@ -19,7 +19,7 @@
 ** Foundation and appearing in the file LICENSE.LGPL included in the
 ** packaging of this file.  Please review the following information to
 ** ensure the GNU Lesser General Public License version 2.1 requirements
-** will be met: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+** will be met: https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
 **
 ** In addition, as a special exception, Nokia gives you certain additional
 ** rights.  These rights are described in the Nokia Qt LGPL Exception
@@ -31,7 +31,7 @@
 ** Foundation and appearing in the file LICENSE.GPL included in the
 ** packaging of this file.  Please review the following information to
 ** ensure the GNU General Public License version 3.0 requirements will be
-** met: http://www.gnu.org/copyleft/gpl.html.
+** met: https://www.gnu.org/copyleft/gpl.html.
 **
 ** If you have questions regarding the use of this file, please contact
 ** Nokia at qt-info@nokia.com.
@@ -91,11 +91,11 @@ QLayoutItem *FlowLayout::takeAt(int index){
     if (index >= 0 && index < itemList.size())
         return itemList.takeAt(index);
     else
-        return 0;
+        return nullptr;
 }
 
 Qt::Orientations FlowLayout::expandingDirections() const {
-    return 0;
+    return nullptr;
 }
 
 bool FlowLayout::hasHeightForWidth() const {
@@ -157,8 +157,8 @@ void FlowLayout::place(QWidget *on, QWidget *what){
     if (!(on && what))
         return;
 
-    QLayoutItem *i_on = NULL;
-    QLayoutItem *i_what = NULL;
+    QLayoutItem *i_on = nullptr;
+    QLayoutItem *i_what = nullptr;
 
     for (const auto &item : itemList) {
         if (item->widget() == on)
@@ -224,7 +224,7 @@ int FlowLayout::smartSpacing(QStyle::PixelMetric pm) const {
         return -1;
     } else if (parent->isWidgetType()) {
         QWidget *pw = static_cast<QWidget *>(parent);
-        return pw->style()->pixelMetric(pm, 0, pw);
+        return pw->style()->pixelMetric(pm, nullptr, pw);
     } else {
         return static_cast<QLayout *>(parent)->spacing();
     }

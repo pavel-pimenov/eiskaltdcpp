@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2011 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2019 Boris Pek <tehnick-8@yandex.ru>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +13,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -32,11 +32,12 @@ class UPnPc :
 {
     public:
         UPnPc() {}
+
     private:
         bool init();
 
-        bool add(const unsigned short port, const dcpp::UPnP::Protocol protocol, const std::string& description);
-        bool remove(const unsigned short port, const dcpp::UPnP::Protocol protocol);
+        bool add(const std::string &port, const dcpp::UPnP::Protocol protocol, const std::string& description);
+        bool remove(const std::string &port, const dcpp::UPnP::Protocol protocol);
         const std::string& getName() const {
             return name;
         }

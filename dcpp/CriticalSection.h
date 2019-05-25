@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,66 +13,25 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
-#include "debug.h"
-#include "noexcept.h"
+#if !defined(__APPLE__) && !defined(__MACH__)
 
-#ifndef DO_NOT_USE_MUTEX
-
-#if defined (_WIN32)
-#include <boost/thread/recursive_mutex.hpp>
-
-#ifdef FIX_FOR_OLD_BOOST
-template <typename Mutex>
-class lock_guard
-{
-private:
-    Mutex& m;
-
-public:
-    explicit lock_guard(Mutex& m_) : m(m_)
-    {
-        m.lock();
-    }
-    lock_guard(Mutex& m_, boost::adopt_lock_t) : m(m_)
-    {
-        m.lock();
-    }
-    ~lock_guard()
-    {
-        m.unlock();
-    }
-};
-#else // FIX_FOR_OLD_BOOST
-#include <boost/thread/lock_guard.hpp>
-#endif // FIX_FOR_OLD_BOOST
-
-#else
 #include <mutex>
-#endif
 
 namespace dcpp {
 
-#if defined (_WIN32)
-typedef boost::recursive_mutex CriticalSection;
-typedef boost::detail::spinlock FastCriticalSection;
-typedef boost::unique_lock<boost::recursive_mutex> Lock;
-typedef boost::lock_guard<boost::detail::spinlock> FastLock;
-#else
 typedef std::recursive_mutex CriticalSection;
 typedef std::mutex FastCriticalSection;
 typedef std::unique_lock<std::recursive_mutex> Lock;
 typedef std::lock_guard<std::mutex> FastLock;
-#endif
 
 } // namespace dcpp
 
-#else // DO_NOT_USE_MUTEX
+#else // !defined(__APPLE__) && !defined(__MACH__)
 
 #include <boost/signals2/mutex.hpp>
 
@@ -79,28 +39,6 @@ namespace dcpp {
 
 class CriticalSection
 {
-#ifdef _WIN32
-public:
-    void lock() noexcept {
-        EnterCriticalSection(&cs);
-        dcdrun(counter++);
-    }
-    void unlock() noexcept {
-        dcassert(--counter >= 0);
-        LeaveCriticalSection(&cs);
-    }
-    CriticalSection() noexcept {
-        dcdrun(counter = 0;);
-        InitializeCriticalSection(&cs);
-    }
-    ~CriticalSection() noexcept {
-        dcassert(counter==0);
-        DeleteCriticalSection(&cs);
-    }
-private:
-    dcdrun(long counter);
-    CRITICAL_SECTION cs;
-#else // _WIN32
 public:
     CriticalSection() noexcept {
         pthread_mutexattr_init(&ma);
@@ -115,11 +53,11 @@ public:
     void unlock() noexcept { pthread_mutex_unlock(&mtx); }
     pthread_mutex_t& getMutex() { return mtx; }
 private:
-    pthread_mutex_t mtx;
-    pthread_mutexattr_t ma;
-#endif // _WIN32
     CriticalSection(const CriticalSection&);
     CriticalSection& operator=(const CriticalSection&);
+
+    pthread_mutex_t mtx;
+    pthread_mutexattr_t ma;
 };
 
 // A fast, non-recursive and unfair implementation of the Critical Section.
@@ -150,8 +88,7 @@ private:
 
 typedef LockBase<CriticalSection> Lock;
 typedef LockBase<FastCriticalSection> FastLock;
-
 }
 
-#endif // DO_NOT_USE_MUTEX
+#endif // !defined(__APPLE__) && !defined(__MACH__)
 

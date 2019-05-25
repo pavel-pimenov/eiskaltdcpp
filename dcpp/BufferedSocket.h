@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
+ * Copyright (C) 2019 Boris Pek <tehnick-8@yandex.ru>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,22 +14,29 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
+
+#include <deque>
+#include <memory>
 
 #include "typedefs.h"
 #include "BufferedSocketListener.h"
 #include "Semaphore.h"
 #include "Thread.h"
 #include "Speaker.h"
-#include "Util.h"
 #include "Socket.h"
+#include "Util.h"
 #include "Atomic.h"
 
 namespace dcpp {
+
+using std::deque;
+using std::function;
+using std::pair;
+using std::unique_ptr;
 
 class BufferedSocket : public Speaker<BufferedSocketListener>, private Thread {
 public:
@@ -65,8 +74,8 @@ public:
     }
 
     void accept(const Socket& srv, bool secure, bool allowUntrusted);
-    void connect(const string& aAddress, uint16_t aPort, bool secure, bool allowUntrusted, bool proxy);
-    void connect(const string& aAddress, uint16_t aPort, uint16_t localPort, NatRoles natRole, bool secure, bool allowUntrusted, bool proxy);
+    void connect(const string& aAddress, const string& aPort, bool secure, bool allowUntrusted, bool proxy, Socket::Protocol proto, const string& expKP = Util::emptyString);
+    void connect(const string& aAddress, const string& aPort, const string& localPort, NatRoles natRole, bool secure, bool allowUntrusted, bool proxy, Socket::Protocol proto, const string& expKP = Util::emptyString);
 
     /** Sets data mode for aBytes bytes. Must be called within onLine. */
     void setDataMode(int64_t aBytes = -1) { mode = MODE_DATA; dataBytes = aBytes; }
@@ -83,7 +92,7 @@ public:
 
     bool isSecure() const { return sock->isSecure(); }
     bool isTrusted() const { return sock->isTrusted(); }
-    std::string getCipherName() const { return sock->getCipherName(); }
+    string getCipherName() const { return sock->getCipherName(); }
     vector<uint8_t> getKeyprint() const { return sock->getKeyprint(); }
 
     void write(const string& aData) { write(aData.data(), aData.length()); }
@@ -97,19 +106,19 @@ public:
     void disconnect(bool graceless = false) noexcept { Lock l(cs); if(graceless) disconnecting = true; addTask(DISCONNECT, 0); }
 
     string getLocalIp() const { return sock->getLocalIp(); }
-    uint16_t getLocalPort() const { return sock->getLocalPort(); }
+    string getLocalPort() const { return sock->getLocalPort(); }
 
     GETSET(char, separator, Separator)
-private:
-    enum Tasks {
-        CONNECT,
-        DISCONNECT,
-        SEND_DATA,
-        SEND_FILE,
-        SHUTDOWN,
-        ACCEPTED,
-        UPDATED
-    };
+    private:
+        enum Tasks {
+                 CONNECT,
+                 DISCONNECT,
+                 SEND_DATA,
+                 SEND_FILE,
+                 SHUTDOWN,
+                 ACCEPTED,
+                 UPDATED
+};
 
     enum State {
         STARTING, // Waiting for CONNECT/ACCEPTED/SHUTDOWN
@@ -121,10 +130,21 @@ private:
         virtual ~TaskData() { }
     };
     struct ConnectInfo : public TaskData {
-        ConnectInfo(string addr_, uint16_t port_, uint16_t localPort_, NatRoles natRole_, bool proxy_) : addr(addr_), port(port_), localPort(localPort_), natRole(natRole_), proxy(proxy_) { }
+        ConnectInfo(const string& addr_,
+                    const string& port_,
+                    const string& localPort_,
+                    const NatRoles natRole_,
+                    const bool proxy_) :
+            addr(addr_),
+            port(port_),
+            localPort(localPort_),
+            natRole(natRole_),
+            proxy(proxy_)
+        { }
+
         string addr;
-        uint16_t port;
-        uint16_t localPort;
+        string port;
+        string localPort;
         NatRoles natRole;
         bool proxy;
     };
@@ -143,7 +163,7 @@ private:
     deque<pair<Tasks, unique_ptr<TaskData> > > tasks;
 
     Modes mode;
-    std::unique_ptr<UnZFilter> filterIn;
+    unique_ptr<UnZFilter> filterIn;
     int64_t dataBytes;
     size_t rollback;
     string line;
@@ -151,13 +171,13 @@ private:
     ByteVector writeBuf;
     ByteVector sendBuf;
 
-    std::unique_ptr<Socket> sock;
+    unique_ptr<Socket> sock;
     State state;
     bool disconnecting;
 
     virtual int run();
 
-    void threadConnect(const string& aAddr, uint16_t aPort, uint16_t localPort, NatRoles natRole, bool proxy);
+    void threadConnect(const string& aAddr, const string& aPort, const string& localPort, NatRoles natRole, bool proxy);
     void threadAccept();
     void threadRead();
     void threadSendFile(InputStream* is);
@@ -169,7 +189,7 @@ private:
     bool checkEvents();
     void checkSocket();
 
-    void setSocket(std::unique_ptr<Socket> s);
+    void setSocket(unique_ptr<Socket> s);
     void shutdown();
     void addTask(Tasks task, TaskData* data);
 };

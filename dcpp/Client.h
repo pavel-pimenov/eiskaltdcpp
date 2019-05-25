@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,29 +13,31 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
 #include "compiler.h"
-#include "forward.h"
-#include "User.h"
-#include "Speaker.h"
-#include "BufferedSocketListener.h"
-#include "TimerManager.h"
-#include "ClientListener.h"
+
 #include "Atomic.h"
+#include "BufferedSocketListener.h"
+#include "ClientListener.h"
+#include "forward.h"
+#include "OnlineUser.h"
 #include "SearchQueue.h"
+#include "Speaker.h"
+#include "TimerManager.h"
 
 #ifdef LUA_SCRIPT
 #include "ScriptManager.h"
 #endif
 
+#include "NonCopyable.h"
+
 namespace dcpp {
 #ifdef LUA_SCRIPT
-    struct ClientScriptInstance : public ScriptInstance {
+struct ClientScriptInstance : public ScriptInstance {
     bool onHubFrameEnter(Client* aClient, const string& aLine);
     string formatChatMessage(const string& aLine);
 };
@@ -57,9 +60,10 @@ public:
 };
 /** Yes, this should probably be called a Hub */
 class Client : public ClientBase, public Speaker<ClientListener>, public BufferedSocketListener, protected TimerManagerListener
-#ifdef LUA_SCRIPT
-, public ClientScriptInstance
-#endif
+        #ifdef LUA_SCRIPT
+        , public ClientScriptInstance
+        #endif
+        , private NonCopyable
 {
 public:
     typedef Client* Ptr;
@@ -83,9 +87,10 @@ public:
     virtual size_t getUserCount() const = 0;
     virtual int64_t getAvailable() const = 0;
     static int getTotalCounts() { return counts.normal + counts.registered + counts.op; }
-    virtual void send(const AdcCommand& command) = 0;
+    static string escape(string const& str) { return str; }
 
-    virtual string escape(string const& str) const { return str; }
+    virtual void emulateCommand(const string& cmd) = 0;
+    virtual void send(const AdcCommand& command) = 0;
 
     bool isConnected() const { return state != STATE_DISCONNECTED; }
     bool isReady() const { return state != STATE_CONNECTING && state != STATE_DISCONNECTED; }
@@ -96,26 +101,24 @@ public:
 
     bool isOp() const { return getMyIdentity().isOp(); }
 
-    uint16_t getPort() const { return port; }
+    const string& getPort() const { return port; }
     const string& getAddress() const { return address; }
 
     const string& getIp() const { return ip; }
-    string getIpPort() const { return getIp() + ':' + Util::toString(port); }
+    string getIpPort() const { return getIp() + ':' + port; }
     string getLocalIp() const;
-
-    void updated(const OnlineUser& aUser) { fire(ClientListener::UserUpdated(), this, aUser); }
 
     static string getCounts() {
         char buf[128];
         return string(buf, snprintf(buf, sizeof(buf), "%ld/%ld/%ld",
-            static_cast<long>(counts.normal),
-            static_cast<long>(counts.registered),
-            static_cast<long>(counts.op)));
+                                    static_cast<long>(counts.normal),
+                                    static_cast<long>(counts.registered),
+                                    static_cast<long>(counts.op)));
     }
 
     StringMap& escapeParams(StringMap& sm) {
-        for(StringMapIter i = sm.begin(); i != sm.end(); ++i) {
-            i->second = escape(i->second);
+        for(auto& i : sm) {
+            i.second = escape(i.second);
         }
         return sm;
     }
@@ -160,17 +163,17 @@ public:
     void reloadSettings(bool updateNick);
 protected:
     friend class ClientManager;
-    Client(const string& hubURL, char separator, bool secure_);
+    Client(const string& hubURL, char separator, bool secure_, Socket::Protocol proto_);
     virtual ~Client();
     struct Counts {
-        private:
-            typedef Atomic<boost::int32_t> atomic_counter_t;
-        public:
-            typedef boost::int32_t value_type;
-            Counts(value_type n = 0, value_type r = 0, value_type o = 0) : normal(n), registered(r), op(o) { }
-            atomic_counter_t normal;
-            atomic_counter_t registered;
-            atomic_counter_t op;
+    private:
+        typedef Atomic<std::int32_t> atomic_counter_t;
+    public:
+        typedef std::int32_t value_type;
+        Counts(value_type n = 0, value_type r = 0, value_type o = 0) : normal(n), registered(r), op(o) { }
+        atomic_counter_t normal;
+        atomic_counter_t registered;
+        atomic_counter_t op;
     };
 
     enum States {
@@ -190,8 +193,11 @@ protected:
     void updateCounts(bool aRemove);
     void updateActivity() { lastActivity = GET_TICK(); }
 
-    virtual string checkNick(const string& nick) = 0;
+    void updated(OnlineUser& user);
+    void updated(OnlineUserList& users);
+
     virtual void search(int aSizeMode, int64_t aSize, int aFileType, const string& aString, const string& aToken, const StringList& aExtList) = 0;
+    virtual string checkNick(const string& nick) = 0;
 
     // TimerManagerListener
     virtual void on(Second, uint64_t aTick) noexcept;
@@ -218,9 +224,10 @@ private:
     string ip;
     string localIp;
     string keyprint;
-    uint16_t port;
+    string port;
     string externalIP;
     char separator;
+    Socket::Protocol proto;
     bool secure;
     CountType countType;
 };

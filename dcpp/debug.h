@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
@@ -30,10 +29,10 @@
 #include <crtdbg.h>
 
 #define dcassert(exp) \
-do { if (!(exp)) { \
+    do { if (!(exp)) { \
     dcdebug("Assertion hit in %s(%d): " #exp "\n", __FILE__, __LINE__); \
     if(1 == _CrtDbgReport(_CRT_ASSERT, __FILE__, __LINE__, NULL, #exp)) \
-_CrtDbgBreak(); } } while(false)
+    _CrtDbgBreak(); } } while(false)
 #else
 #define dcassert(exp) assert(exp)
 #endif

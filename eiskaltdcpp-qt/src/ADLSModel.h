@@ -23,7 +23,7 @@ class ADLSItem{
 
 public:
 
-    ADLSItem(const QList<QVariant> &data, ADLSItem *parent = NULL);
+    ADLSItem(const QList<QVariant> &data, ADLSItem *parent = nullptr);
     ~ADLSItem();
 
     void appendChild(ADLSItem *child);
@@ -37,7 +37,7 @@ public:
 
     QList<ADLSItem*> childItems;
 
-    void updateColumn(unsigned, QVariant);
+    void updateColumn(int, const QVariant &);
 
 private:
     QList<QVariant> itemData;
@@ -48,7 +48,7 @@ class ADLSModel : public QAbstractItemModel
 {
     Q_OBJECT
 public:
-    ADLSModel(QObject *parent = 0);
+    ADLSModel(QObject *parent = nullptr);
     virtual ~ADLSModel();
 
     /** */

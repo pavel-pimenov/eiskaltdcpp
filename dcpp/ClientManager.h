@@ -12,27 +12,29 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
-#include "TimerManager.h"
+#include "CID.h"
 #include "Client.h"
-#include "Singleton.h"
-#include "SettingsManager.h"
-#include "User.h"
-#include "Socket.h"
+#include "ClientListener.h"
 #include "ClientManagerListener.h"
+#include "HintedUser.h"
+#include "OnlineUser.h"
+#include "SettingsManager.h"
+#include "Singleton.h"
+#include "Socket.h"
+#include "TimerManager.h"
 
 namespace dcpp {
 
 class UserCommand;
 
 class ClientManager : public Speaker<ClientManagerListener>,
-    private ClientListener, public Singleton<ClientManager>,
-    private TimerManagerListener
+        private ClientListener, public Singleton<ClientManager>,
+        private TimerManagerListener
 {
 public:
     Client* getClient(const string& aHubURL);
@@ -44,7 +46,6 @@ public:
     StringList getHubs(const CID& cid, const string& hintUrl);
     StringList getHubNames(const CID& cid, const string& hintUrl);
     StringList getNicks(const CID& cid, const string& hintUrl);
-    string getField(const CID& cid, const string& hintUrl, const char* field) const;
 
     StringList getHubs(const CID& cid, const string& hintUrl, bool priv);
     StringList getHubNames(const CID& cid, const string& hintUrl, bool priv);
@@ -54,6 +55,7 @@ public:
     StringList getHubNames(const HintedUser& user) { return getHubNames(user.user->getCID(), user.hint); }
     StringList getHubs(const HintedUser& user) { return getHubs(user.user->getCID(), user.hint); }
 
+    string getField(const CID& cid, const string& hintUrl, const char* field) const;
     string getConnection(const CID& cid) const;
     uint8_t getSlots(const CID& cid) const;
 
@@ -109,7 +111,7 @@ public:
         return l_share;
     }
 
-    void setIPUser(const UserPtr& user, const string& IP, uint16_t udpPort = 0) {
+    void setIPUser(const UserPtr& user, const string& IP, const string& udpPort = Util::emptyString) {
         if(IP.empty())
             return;
 
@@ -117,8 +119,8 @@ public:
         OnlineMap::const_iterator i = onlineUsers.find(user->getCID());
         if ( i != onlineUsers.end() ) {
             i->second->getIdentity().setIp(IP);
-            if(udpPort > 0)
-                i->second->getIdentity().setUdpPort(Util::toString(udpPort));
+            if(Util::toInt(udpPort) > 0)
+                i->second->getIdentity().setUdpPort(udpPort);
         }
     }
 
@@ -140,12 +142,7 @@ public:
     bool isActive(const string& aHubUrl = Util::emptyString) const { return getMode(aHubUrl) != SettingsManager::INCOMING_FIREWALL_PASSIVE; }
     static bool ucExecuteLua(const string& cmd, StringMap& params) noexcept;
 
-#ifdef DO_NOT_USE_MUTEX
-    void lock() noexcept { cs.lock(); }
-    void unlock() noexcept { cs.unlock(); }
-#else // DO_NOT_USE_MUTEX
     Lock lock() { return Lock(cs); }
-#endif // DO_NOT_USE_MUTEX
 
     Client::List& getClients() { return clients; }
 
@@ -190,15 +187,10 @@ private:
 
     friend class Singleton<ClientManager>;
 
-    ClientManager() {
-        TimerManager::getInstance()->addListener(this);
-    }
+    ClientManager();
+    virtual ~ClientManager();
 
-    virtual ~ClientManager() {
-        TimerManager::getInstance()->removeListener(this);
-    }
-
-    void updateNick(const OnlineUser& user) noexcept;
+    void updateUser(const OnlineUser& user) noexcept;
 
     /// @return OnlineUser* found by CID and hint; discard any user that doesn't match the hint.
     OnlineUser* findOnlineUserHint(const CID& cid, const string& hintUrl) const {
@@ -221,8 +213,8 @@ private:
     virtual void on(HubUpdated, Client* c) noexcept;
     virtual void on(HubUserCommand, Client*, int, int, const string&, const string&) noexcept;
     virtual void on(NmdcSearch, Client* aClient, const string& aSeeker, int aSearchType, int64_t aSize,
-        int aFileType, const string& aString) noexcept;
-    virtual void on(AdcSearch, Client* c, const AdcCommand& adc, const CID& from) noexcept;
+                    int aFileType, const string& aString) noexcept;
+    virtual void on(AdcSearch, Client*, const AdcCommand& adc, const CID& from) noexcept;
     // TimerManagerListener
     virtual void on(TimerManagerListener::Minute, uint64_t aTick) noexcept;
 };

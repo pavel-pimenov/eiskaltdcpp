@@ -12,11 +12,12 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
+
+#include "typedefs.h"
 
 #include "Socket.h"
 #include "Singleton.h"
@@ -28,25 +29,31 @@
 
 namespace dcpp {
 
-class SSLSocketException : public SocketException {
+using std::unique_ptr;
+using std::string;
+
+class SSLSocketException : public SocketException
+{
 public:
 #ifdef _DEBUG
     SSLSocketException(const string& aError) noexcept : SocketException("SSLSocketException: " + aError) { }
 #else //_DEBUG
     SSLSocketException(const string& aError) noexcept : SocketException(aError) { }
 #endif // _DEBUG
+    SSLSocketException(int aError) noexcept : SocketException(aError) { }
 
     virtual ~SSLSocketException() throw() { }
 };
 
 class CryptoManager;
 
-class SSLSocket : public Socket {
+class SSLSocket : public Socket
+{
 public:
     virtual ~SSLSocket() { }
 
     virtual void accept(const Socket& listeningSocket);
-    virtual void connect(const string& aIp, uint16_t aPort);
+    virtual void connect(const string& aIp, const string &aPort);
     virtual int read(void* aBuffer, int aBufLen);
     virtual int write(const void* aBuffer, int aLen);
     virtual int wait(uint32_t millis, int waitFor);
@@ -55,22 +62,22 @@ public:
 
     virtual bool isSecure() const noexcept { return true; }
     virtual bool isTrusted() const noexcept;
-    virtual std::string getCipherName() const noexcept;
-    virtual vector<uint8_t> getKeyprint() const noexcept;
+    virtual string getCipherName() const noexcept;
+    virtual ByteVector getKeyprint() const noexcept;
 
     virtual bool waitConnected(uint32_t millis);
     virtual bool waitAccepted(uint32_t millis);
 
-
 private:
     friend class CryptoManager;
 
-    SSLSocket(SSL_CTX* context);
+    SSLSocket(SSL_CTX* context, Socket::Protocol proto);
     SSLSocket(const SSLSocket&);
     SSLSocket& operator=(const SSLSocket&);
 
     SSL_CTX* ctx;
     ssl::SSL ssl;
+    Socket::Protocol nextProto;
 
     int checkSSL(int ret);
     bool waitWant(int ret, uint32_t millis);

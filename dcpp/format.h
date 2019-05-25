@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
@@ -24,7 +23,7 @@
 #ifdef BUILDING_DCPP
 
 #define PACKAGE "libeiskaltdcpp"
-#define LOCALEDIR LOCALE_DIR //dcpp::Util::getPath(Util::PATH_LOCALE).c_str()
+#define LOCALEDIR dcpp::Util::getPath(Util::PATH_LOCALE).c_str()
 #define _(String) dgettext(PACKAGE, String)
 #define gettext_noop(String) String
 #define N_(String) gettext_noop (String)

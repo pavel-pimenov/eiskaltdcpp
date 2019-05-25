@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -38,7 +37,9 @@ EmoticonsDialog::EmoticonsDialog(GtkWidget *chat, GtkWidget *button, GtkWidget *
     Chat(chat),
     Button(button),
     Menu(menu),
-    dialog(NULL)
+    dialog(NULL),
+    icon_width(16),
+    icon_height(16)
 {
     g_object_ref_sink(Menu);
 }
@@ -79,9 +80,9 @@ void EmoticonsDialog::addPacksMenu(GtkWidget *item)
     string packName;
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(item), packs_menu);
 
-    for (StringIter it = files.begin(); it != files.end(); ++it)
+    for (auto &file : files)
     {
-        packName = Util::getFileName(*it);
+        packName = Util::getFileName(file);
         string::size_type pos = packName.rfind('.');
         packName = packName.substr(0, pos);
 
@@ -100,11 +101,11 @@ void EmoticonsDialog::addPacksMenu(GtkWidget *item)
         }
 
         if (currPackName == packName)
-            gtk_check_menu_item_set_active((GtkCheckMenuItem*)check_item, TRUE);
+            gtk_check_menu_item_set_active((GtkCheckMenuItem*)check_item, true);
         else
-            gtk_check_menu_item_set_active((GtkCheckMenuItem*)check_item, FALSE);
+            gtk_check_menu_item_set_active((GtkCheckMenuItem*)check_item, false);
 
-        g_signal_connect(check_item, "activate", G_CALLBACK(onCheckPacksMenu), NULL);
+        g_signal_connect(check_item, "activate", G_CALLBACK(onCheckPacksMenu), (gpointer)this);
         g_object_set_data_full(G_OBJECT(check_item), "current-pack-name", g_strdup(packName.c_str()), g_free);
     }
 }
@@ -133,9 +134,9 @@ void EmoticonsDialog::addIconSizeMenu(GtkWidget *item)
         }
 
         if (icon_size == sizeIcon[i])
-            gtk_check_menu_item_set_active((GtkCheckMenuItem*)check_item, TRUE);
+            gtk_check_menu_item_set_active((GtkCheckMenuItem*)check_item, true);
         else
-            gtk_check_menu_item_set_active((GtkCheckMenuItem*)check_item, FALSE);
+            gtk_check_menu_item_set_active((GtkCheckMenuItem*)check_item, false);
 
         g_signal_connect(check_item, "activate", G_CALLBACK(onCheckIconSizeMenu), (gpointer) this);
         g_object_set_data_full(G_OBJECT(check_item), "icon-size", g_strdup(sizeIcon[i].c_str()), g_free);
@@ -185,6 +186,7 @@ void EmoticonsDialog::setCurrIconSize(const string &size)
 
 void EmoticonsDialog::onCheckPacksMenu(GtkMenuItem *checkItem, gpointer data)
 {
+    (void)data;
     string currPackName = (gchar*) g_object_get_data(G_OBJECT(checkItem), "current-pack-name");
 
     if (currPackName != Emoticons::get()->getCurrPackName_gui())
@@ -211,9 +213,9 @@ void EmoticonsDialog::showEmotDialog_gui()
 void EmoticonsDialog::build()
 {
     guint left_attach = 0,
-        right_attach = 1,
-        top_attach = 0,
-        bottom_attach = 1;
+            right_attach = 1,
+            top_attach = 0,
+            bottom_attach = 1;
 
     const int sizetable = Emoticons::get()->getCountFile_gui();
     Emot::List &list = Emoticons::get()->getPack_gui();
@@ -246,10 +248,10 @@ void EmoticonsDialog::build()
     gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_ETCHED_OUT);
 #if GTK_CHECK_VERSION(3,4,0)
     GtkWidget *table = gtk_grid_new();
-    gtk_grid_set_row_homogeneous(GTK_GRID(table), TRUE);
-    gtk_grid_set_column_homogeneous(GTK_GRID(table), TRUE);
+    gtk_grid_set_row_homogeneous(GTK_GRID(table), true);
+    gtk_grid_set_column_homogeneous(GTK_GRID(table), true);
 #else
-    GtkWidget *table = gtk_table_new(rows, columns, TRUE);
+    GtkWidget *table = gtk_table_new(rows, columns, true);
 #endif
     gtk_container_add(GTK_CONTAINER(frame), table);
 
@@ -259,7 +261,7 @@ void EmoticonsDialog::build()
     int i = 1;
 
     setCurrIconSize(WGETS("emoticons-icon-size"));
-    bool useDefault = currIconSize != sizeIcon[DEFAULT]? FALSE : TRUE;
+    bool useDefault = currIconSize != sizeIcon[DEFAULT]? false : true;
 
     for (Emot::Iter it = list.begin(); it != list.end(); ++it)
     {
@@ -300,7 +302,8 @@ void EmoticonsDialog::build()
             {
                 left_attach = 0;
                 right_attach = left_attach + 1;
-                bottom_attach = ++top_attach + 1;
+                ++top_attach;
+                bottom_attach = top_attach + 1;
             }
 
             if (++i > sizetable)
@@ -317,7 +320,7 @@ void EmoticonsDialog::position()
 
     // ox, oy, w, h
     gint Wx, Wy, Dh, Dw,
-        Bx, By, Bw;
+            Bx, By, Bw;
 
 #if GTK_CHECK_VERSION(3, 0, 0)
     GtkAllocation allocation;///GTK3
@@ -364,11 +367,11 @@ void EmoticonsDialog::position()
 void EmoticonsDialog::graber()
 {
 #if GTK_CHECK_VERSION(3, 0, 0)
-    gdk_device_grab(gtk_get_current_event_device(),gtk_widget_get_window(dialog), GDK_OWNERSHIP_NONE,TRUE,(GdkEventMask) (GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK),NULL,GDK_CURRENT_TIME);
+    gdk_device_grab(gtk_get_current_event_device(),gtk_widget_get_window(dialog), GDK_OWNERSHIP_NONE,true,(GdkEventMask) (GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK),NULL,GDK_CURRENT_TIME);
 #else
     /* grabs the pointer (usually a mouse) */
-    gdk_pointer_grab(dialog->window, TRUE, (GdkEventMask) (GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK),
-        NULL, NULL, GDK_CURRENT_TIME);
+    gdk_pointer_grab(dialog->window, true, (GdkEventMask) (GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK),
+                     NULL, NULL, GDK_CURRENT_TIME);
 
     gtk_grab_add(dialog);
 #endif
@@ -392,20 +395,21 @@ void EmoticonsDialog::onChat(GtkWidget *widget /*button*/, gpointer data /*this*
     ed->dialog = NULL;
 }
 
-gboolean EmoticonsDialog::event(GtkWidget *widget /*dialog*/, GdkEvent *event, gpointer data /*this*/)
+gboolean EmoticonsDialog::event(GtkWidget *widget, GdkEvent *event, gpointer data)
 {
+    (void)widget;
     EmoticonsDialog *ed = (EmoticonsDialog *) data;
 
     if (event->type == GDK_BUTTON_PRESS || event->type == GDK_BUTTON_RELEASE)
     {
         switch (event->button.button)
         {
-            case 1: case 2: case 3:
+        case 1: case 2: case 3:
 
-                gtk_widget_destroy(ed->dialog);
-                ed->dialog = NULL;
+            gtk_widget_destroy(ed->dialog);
+            ed->dialog = NULL;
             break;
         }
     }
-    return FALSE;
+    return false;
 }

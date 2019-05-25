@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,16 +12,22 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
-#include "Util.h"
+#include <vector>
+#include <string>
+
 #include "Flags.h"
+#include "GetSet.h"
+#include "typedefs.h"
 
 namespace dcpp {
+
+using std::string;
+using std::vector;
 
 class UserCommand : public Flags {
 public:
@@ -57,7 +63,7 @@ public:
     }
 
     UserCommand(const UserCommand& rhs) : Flags(rhs), cid(rhs.cid), type(rhs.type),
-                ctx(rhs.ctx), name(rhs.name), command(rhs.command), to(rhs.to), hub(rhs.hub)
+        ctx(rhs.ctx), name(rhs.name), command(rhs.command), to(rhs.to), hub(rhs.hub)
     {
         setDisplayName();
     }

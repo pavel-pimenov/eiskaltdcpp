@@ -24,15 +24,15 @@ void UserListProxyModel::sort(int column, Qt::SortOrder order){
         sourceModel()->sort(column, order);
 }
 
-UserListModel::UserListModel(QObject * parent) : QAbstractItemModel(parent) {
-    sortColumn = COLUMN_SHARE;
-    sortOrder = Qt::DescendingOrder;
+UserListModel::UserListModel(QObject * parent)
+    : QAbstractItemModel(parent)
+    , rootItem(new UserListItem())
+    , sortColumn(COLUMN_SHARE)
+    , sortOrder(Qt::DescendingOrder)
+    , WU(WulforUtil::getInstance())
+{
     stripper.setPattern("\\[.*\\]");
     stripper.setMinimal(true);
-
-    rootItem = new UserListItem();
-
-    WU = WulforUtil::getInstance();
 }
 
 
@@ -54,6 +54,7 @@ bool UserListModel::hasChildren(const QModelIndex &parent) const{
 }
 
 bool UserListModel::canFetchMore(const QModelIndex &parent) const{
+    Q_UNUSED(parent)
     return false;
 }
 
@@ -320,7 +321,6 @@ void UserListModel::clear() {
     users.clear();
 
     qDeleteAll(rootItem->childItems);
-
     rootItem->childItems.clear();
 
     emit layoutChanged();
@@ -461,14 +461,14 @@ UserListItem *UserListModel::addUser(const UserPtr& _ptr, const Identity& _id, c
 UserListItem *UserListModel::itemForPtr(const UserPtr &ptr){
     auto iter = users.find(ptr);
 
-    UserListItem *item = (iter != users.end())? (iter.value()) : (NULL);
+    UserListItem *item = (iter != users.end()) ? iter.value() : nullptr;
 
     return item;
 }
 
 UserListItem *UserListModel::itemForNick(const QString &nick, const QString &){   
     if (nick.isEmpty())
-        return NULL;
+        return nullptr;
     
     auto it = std::find_if(rootItem->childItems.begin(), rootItem->childItems.end(),
                                                      [&nick] (const UserListItem *i) {
@@ -476,7 +476,7 @@ UserListItem *UserListModel::itemForNick(const QString &nick, const QString &){
                                                      }
                                                     );
 
-    return (it == rootItem->childItems.end()? NULL : *it);
+    return (it == rootItem->childItems.end() ? nullptr : *it);
 }
 
 QString UserListModel::CIDforNick(const QString &nick, const QString &){
@@ -486,6 +486,8 @@ QString UserListModel::CIDforNick(const QString &nick, const QString &){
 }
 
 QStringList UserListModel::matchNicksContaining(const QString & part, bool stripTags) const {
+    Q_UNUSED(stripTags)
+
     QStringList matches;
 
     if (part.isEmpty()) {
@@ -504,6 +506,8 @@ QStringList UserListModel::matchNicksContaining(const QString & part, bool strip
 }
 
 QStringList UserListModel::matchNicksStartingWith(const QString & part, bool stripTags) const {
+    Q_UNUSED(stripTags)
+
     QStringList matches;
 
     if (part.isEmpty()) {
@@ -522,6 +526,8 @@ QStringList UserListModel::matchNicksStartingWith(const QString & part, bool str
 }
 
 QStringList UserListModel::matchNicksAny(const QString &part, bool stripTags) const{
+    Q_UNUSED(stripTags)
+
     QStringList matches;
 
     if (part.isEmpty()) {
@@ -561,10 +567,17 @@ void UserListModel::repaintItem(const UserListItem *item){
     repaintData(createIndex(r, COLUMN_NICK, const_cast<UserListItem*>(item)), createIndex(r, COLUMN_EMAIL, const_cast<UserListItem*>(item)));
 }
 
-UserListItem::UserListItem() : ptr(NULL), parentItem(NULL) { }
+UserListItem::UserListItem()
+    : _isOp(false)
+    , _isFav(false)
+    , parentItem(nullptr)
+    , ptr(nullptr)
+{
+}
 
-UserListItem::UserListItem(UserListItem *parent, dcpp::UserPtr _ptr, const Identity& _id, const QString& _cid, bool _fav) :
-    parentItem(parent), ptr(_ptr)
+UserListItem::UserListItem(UserListItem *parent, dcpp::UserPtr _ptr, const Identity& _id, const QString& _cid, bool _fav)
+    : parentItem(parent)
+    , ptr(_ptr)
 {
     updateIdentity(_id, _cid, _fav);
 }
@@ -572,6 +585,7 @@ UserListItem::UserListItem(UserListItem *parent, dcpp::UserPtr _ptr, const Ident
 UserListItem::~UserListItem()
 {
     qDeleteAll(childItems);
+    childItems.clear();
 }
 
 void UserListItem::appendChild(UserListItem *item) {

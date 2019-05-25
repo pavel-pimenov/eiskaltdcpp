@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +13,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
@@ -27,6 +27,7 @@
 #include "DownloadManager.h"
 #include "QueueManager.h"
 #include "UploadManager.h"
+#include "ClientManager.h"
 
 namespace dcpp {
 
@@ -45,19 +46,9 @@ FinishedManager::~FinishedManager() {
     clearULs();
 }
 
-#ifdef DO_NOT_USE_MUTEX
-void FinishedManager::lockLists() {
-    cs.lock();
-}
-
-void FinishedManager::unlockLists() {
-    cs.unlock();
-}
-#else // DO_NOT_USE_MUTEX
 Lock FinishedManager::lockLists() {
     return Lock(cs);
 }
-#endif // DO_NOT_USE_MUTEX
 
 const FinishedManager::MapByFile& FinishedManager::getMapByFile(bool upload) const {
     return upload ? ULByFile : DLByFile;
@@ -71,7 +62,7 @@ void FinishedManager::remove(bool upload, const string& file) {
     {
         Lock l(cs);
         MapByFile& map = upload ? ULByFile : DLByFile;
-        MapByFile::iterator it = map.find(file);
+        auto it = map.find(file);
         if(it != map.end())
             map.erase(it);
         else
@@ -84,7 +75,7 @@ void FinishedManager::remove(bool upload, const HintedUser& user) {
     {
         Lock l(cs);
         MapByUser& map = upload ? ULByUser : DLByUser;
-        MapByUser::iterator it = map.find(user);
+        auto it = map.find(user);
         if(it != map.end())
             map.erase(it);
         else
@@ -121,7 +112,7 @@ void FinishedManager::onComplete(Transfer* t, bool upload, bool crc32Checked) {
         uint64_t milliSeconds = GET_TICK() - t->getStart();
         time_t time = GET_TIME();
 
-        int64_t size = 0;
+        int64_t size = 0, pos = 0;
         // get downloads' file size here to avoid deadlocks
         if(!upload) {
             if(t->getType() == Transfer::TYPE_FULL_LIST) {
@@ -135,36 +126,41 @@ void FinishedManager::onComplete(Transfer* t, bool upload, bool crc32Checked) {
                     }
                 }
                 size = t->getSize();
-            } else
-                size = QueueManager::getInstance()->getSize(file);
+            } else {
+                QueueManager::getInstance()->getSizeInfo(size, pos, file);
+                if (size == -1) {
+                    // not in the queue anymore?
+                    return;
+                }
+            }
         }
 
         Lock l(cs);
 
         {
             MapByFile& map = upload ? ULByFile : DLByFile;
-            MapByFile::iterator it = map.find(file);
+            auto it = map.find(file);
             if(it == map.end()) {
                 FinishedFileItemPtr p = new FinishedFileItem(
-                    t->getPos(),
-                    milliSeconds,
-                    time,
-                    upload ? File::getSize(file) : size,
-                    t->getActual(),
-                    crc32Checked,
-                    user
-                    );
+                            pos + t->getPos(),
+                            milliSeconds,
+                            time,
+                            upload ? File::getSize(file) : size,
+                            t->getActual(),
+                            crc32Checked,
+                            user
+                            );
                 map[file] = p;
                 fire(FinishedManagerListener::AddedFile(), upload, file, p);
             } else {
                 it->second->update(
-                    crc32Checked ? 0 : t->getPos(), // in case of a successful crc check at the end we want to update the status only
-                    milliSeconds,
-                    time,
-                    t->getActual(),
-                    crc32Checked,
-                    user
-                    );
+                            crc32Checked ? 0 : t->getPos(), // in case of a successful crc check at the end we want to update the status only
+                            milliSeconds,
+                            time,
+                            t->getActual(),
+                            crc32Checked,
+                            user
+                            );
                 // we still dispatch a FinishedFileItem pointer in case previous ones were ignored
                 fire(FinishedManagerListener::UpdatedFile(), upload, file, it->second);
             }
@@ -172,23 +168,23 @@ void FinishedManager::onComplete(Transfer* t, bool upload, bool crc32Checked) {
 
         {
             MapByUser& map = upload ? ULByUser : DLByUser;
-            MapByUser::iterator it = map.find(user);
+            auto it = map.find(user);
             if(it == map.end()) {
                 FinishedUserItemPtr p = new FinishedUserItem(
-                    t->getPos(),
-                    milliSeconds,
-                    time,
-                    file
-                    );
+                            t->getPos(),
+                            milliSeconds,
+                            time,
+                            file
+                            );
                 map[user] = p;
                 fire(FinishedManagerListener::AddedUser(), upload, user, p);
             } else {
                 it->second->update(
-                    t->getPos(),
-                    milliSeconds,
-                    time,
-                    file
-                    );
+                            t->getPos(),
+                            milliSeconds,
+                            time,
+                            file
+                            );
                 fire(FinishedManagerListener::UpdatedUser(), upload, user);
             }
         }

@@ -13,7 +13,7 @@
  *  GNU Lesser General Public License for more details.
  *
  *  You should have received a copy of the GNU Lesser General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 /**
@@ -138,7 +138,7 @@ namespace Json
       {
         rep = netstring::encode(rep);
       }
-#ifdef DEBUG
+#ifdef _DEBUG
       curl_easy_setopt(m_curlHandle, CURLOPT_VERBOSE);
 #endif
 

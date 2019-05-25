@@ -63,7 +63,7 @@ public:
     bool moveQueueItem(const string& source, const string& target);
     bool removeQueueItem(const string& target);
     void getItemSourcesbyTarget(const string& target, const string& separator, string& sources, unsigned int& online);
-    void getHashStatus(string& target, int64_t& bytesLeft, size_t& filesLeft, string& status);
+    void getHashStatus(string& target, uint64_t &bytesLeft, size_t& filesLeft, string& status);
     bool pauseHash();
     void matchAllList();
     void listHubsFullDesc(unordered_map<string,StringMap>& listhubs);
@@ -82,11 +82,11 @@ public:
     void getItemDescbyTarget(const string &target, StringMap &sm);
     void queueClear();
     bool settingsGetSet(string &out, const string &param, const string &value);
-    void ipfilterList(string &out, const string &separator);
-    void ipfilterOnOff(bool on);
-    void ipfilterPurgeRules(const string &rules);
-    void ipfilterAddRules(const string &rules);
-    void ipfilterUpDownRule(bool up, const string &rule);
+    void ipFilterList(string &out, const string &separator);
+    void ipFilterOnOff(bool on);
+    void ipFilterPurgeRules(const string &rules);
+    void ipFilterAddRules(const string &rules);
+    void ipFilterUpDownRule(bool up, const string &rule);
     bool configReload();
 
 private:
@@ -99,7 +99,7 @@ private:
     void startSocket(bool changed);
     void autoConnect();
     void showPortsError(const std::string& port);
-    bool disconnect_all();
+    bool disconnectAll();
     void parseSearchResult(SearchResultPtr result, StringMap &resultMap);
     string revertSeparator(const string &ps);
     typedef struct {
@@ -116,7 +116,6 @@ private:
     typedef unordered_map <string, CurHub> ClientMap;
     typedef ClientMap::const_iterator ClientIter;
     static ClientMap clientsMap;
-    bool json_run;
 
     typedef unordered_map <string, DirectoryListing*> FilelistMap;
     FilelistMap listsMap;

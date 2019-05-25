@@ -55,8 +55,8 @@ void SearchBlackListDialog::slotContextMenu(){
     QModelIndexList indexes = s_m->selectedRows(0);
 
     QMenu *menu = new QMenu(this);
-    QAction *add = new QAction(WICON(WulforUtil::eiEDITADD), tr("Add new"), NULL);
-    QAction *rem = new QAction(WICON(WulforUtil::eiEDITDELETE), tr("Remove"), NULL);
+    QAction *add = new QAction(WICON(WulforUtil::eiEDITADD), tr("Add new"), nullptr);
+    QAction *rem = new QAction(WICON(WulforUtil::eiEDITDELETE), tr("Remove"), nullptr);
 
     menu->addActions(QList<QAction*>() << add << rem);
 
@@ -85,7 +85,7 @@ SearchBlackListModel::SearchBlackListModel(QObject * parent) :
         QAbstractItemModel(parent),
         sortColumn(COLUMN_SBL_KEY)
 {
-    rootItem = new SearchBlackListItem(NULL);
+    rootItem = new SearchBlackListItem(nullptr);
 
     SearchBlacklist *SB = SearchBlacklist::getInstance();
 
@@ -141,7 +141,7 @@ int SearchBlackListModel::columnCount(const QModelIndex & ) const {
 
 Qt::ItemFlags SearchBlackListModel::flags(const QModelIndex &index) const {
     if (!index.isValid())
-        return 0;
+        return nullptr;
 
     return Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
@@ -161,7 +161,7 @@ QVariant SearchBlackListModel::data(const QModelIndex & index, int role) const {
             if (!index.column())
                 return item->title;
             else
-                return (item->argument == SearchBlacklist::NAME? tr("Filename") : tr("TTH"));
+                return (item->argument == SearchBlacklist::NAME? tr("Filename") : QString("TTH"));
 
             break;
         }
@@ -300,6 +300,7 @@ SearchBlackListItem::SearchBlackListItem(SearchBlackListItem *parent) : argument
 SearchBlackListItem::~SearchBlackListItem()
 {
     qDeleteAll(childItems);
+    childItems.clear();
 }
 
 void SearchBlackListItem::appendChild(SearchBlackListItem *item) {
@@ -338,11 +339,12 @@ SearchBlackListDelegate::~SearchBlackListDelegate(){
 }
 
 QWidget *SearchBlackListDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const{
+    Q_UNUSED(option)
     if (index.column() == 1){
         QComboBox *edit = new QComboBox(parent);
 
         edit->addItem(tr("Filename"));
-        edit->addItem(tr("TTH"));
+        edit->addItem(QString("TTH"));
 
         return edit;
     }
@@ -356,6 +358,7 @@ QWidget *SearchBlackListDelegate::createEditor(QWidget *parent, const QStyleOpti
 }
 
 void SearchBlackListDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const{
+    Q_UNUSED(index)
     editor->setGeometry(option.rect);
 }
 

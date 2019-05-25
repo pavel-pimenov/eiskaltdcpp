@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2019 Boris Pek <tehnick-8@yandex.ru>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,17 +13,15 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
-
 #include "Socket.h"
+
 #include "format.h"
 #include "SettingsManager.h"
 #include "TimerManager.h"
-#include "LogManager.h"
 
 #ifdef __MINGW32__
 #ifndef EADDRNOTAVAIL
@@ -44,7 +43,7 @@
 #ifndef _WIN32
 #include <sys/ioctl.h>
 #ifndef __HAIKU__
-  #include <ifaddrs.h>
+#include <ifaddrs.h>
 #endif
 #include <netdb.h>
 #include <net/if.h>
@@ -59,7 +58,7 @@
 namespace dcpp {
 
 string Socket::udpServer;
-uint16_t Socket::udpPort;
+string Socket::udpPort;
 
 #define checkconnected() if(!isConnected()) throw SocketException(ENOTCONN))
 
@@ -165,11 +164,11 @@ string Socket::getIfaceI4 (const string &iface){
 #endif
 }
 
-uint16_t Socket::bind(uint16_t aPort, const string& aIp /* = 0.0.0.0 */) {
+const string Socket::bind(const string& aPort, const string& aIp /* = 0.0.0.0 */) {
     sockaddr_in sock_addr;
 
     sock_addr.sin_family = AF_INET;
-    sock_addr.sin_port = htons(aPort);
+    sock_addr.sin_port = htons(static_cast<uint16_t>(Util::toInt(aPort)));
     sock_addr.sin_addr.s_addr = inet_addr(aIp.c_str());
 
     if(::bind(sock, (sockaddr *)&sock_addr, sizeof(sock_addr)) == SOCKET_ERROR) {
@@ -179,7 +178,7 @@ uint16_t Socket::bind(uint16_t aPort, const string& aIp /* = 0.0.0.0 */) {
     }
     socklen_t size = sizeof(sock_addr);
     getsockname(sock, (sockaddr*)&sock_addr, (socklen_t*)&size);
-    return ntohs(sock_addr.sin_port);
+    return Util::toString(ntohs(sock_addr.sin_port));
 }
 
 void Socket::listen() {
@@ -187,7 +186,7 @@ void Socket::listen() {
     connected = true;
 }
 
-void Socket::connect(const string& aAddr, uint16_t aPort) {
+void Socket::connect(const string& aAddr, const string& aPort, const string&) {
     sockaddr_in serv_addr;
 
     if(sock == INVALID_SOCKET) {
@@ -197,7 +196,7 @@ void Socket::connect(const string& aAddr, uint16_t aPort) {
     string addr = resolve(aAddr);
 
     memset(&serv_addr, 0, sizeof(serv_addr));
-    serv_addr.sin_port = htons(aPort);
+    serv_addr.sin_port = htons(static_cast<uint16_t>(Util::toInt(aPort)));
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = inet_addr(addr.c_str());
 
@@ -212,18 +211,18 @@ void Socket::connect(const string& aAddr, uint16_t aPort) {
 }
 
 namespace {
-    inline uint64_t timeLeft(uint64_t start, uint64_t timeout) {
-        if(timeout == 0) {
-            return 0;
-        }
-        uint64_t now = GET_TICK();
-        if(start + timeout < now)
-            throw SocketException(_("Connection timeout"));
-        return start + timeout - now;
+inline uint64_t timeLeft(uint64_t start, uint64_t timeout) {
+    if(timeout == 0) {
+        return 0;
     }
+    uint64_t now = GET_TICK();
+    if(start + timeout < now)
+        throw SocketException(_("Connection timeout"));
+    return start + timeout - now;
+}
 }
 
-void Socket::socksConnect(const string& aAddr, uint16_t aPort, uint32_t timeout) {
+void Socket::socksConnect(const string& aAddr, const string& aPort, uint32_t timeout) {
 
     if(SETTING(SOCKS_SERVER).empty() || SETTING(SOCKS_PORT) == 0) {
         throw SocketException(_("The socks server failed establish a connection"));
@@ -231,7 +230,7 @@ void Socket::socksConnect(const string& aAddr, uint16_t aPort, uint32_t timeout)
 
     uint64_t start = GET_TICK();
 
-    connect(SETTING(SOCKS_SERVER), static_cast<uint16_t>(SETTING(SOCKS_PORT)));
+    connect(SETTING(SOCKS_SERVER), Util::toString(SETTING(SOCKS_PORT)));
 
     if(wait(timeLeft(start, timeout), WAIT_CONNECT) != WAIT_CONNECT) {
         throw SocketException(_("The socks server failed establish a connection"));
@@ -257,7 +256,7 @@ void Socket::socksConnect(const string& aAddr, uint16_t aPort, uint32_t timeout)
         connStr.insert(connStr.end(), paddr, paddr+4);
     }
 
-    uint16_t port = htons(aPort);
+    uint16_t port = htons(static_cast<uint16_t>(Util::toInt(aPort)));
     uint8_t* pport = (uint8_t*)&port;
     connStr.push_back(pport[0]);
     connStr.push_back(pport[1]);
@@ -336,6 +335,54 @@ void Socket::socksAuth(uint32_t timeout) {
     }
 }
 
+#ifdef _WIN32
+int Socket::getLastError() {
+    return ::WSAGetLastError();
+}
+
+int Socket::checksocket(int ret) {
+    if(ret == SOCKET_ERROR) {
+        throw SocketException(getLastError());
+    }
+    return ret;
+}
+
+int Socket::check(int ret, bool blockOk) {
+    if(ret == SOCKET_ERROR) {
+        int error = getLastError();
+        if(blockOk && error == WSAEWOULDBLOCK) {
+            return -1;
+        } else {
+            throw SocketException(error);
+        }
+    }
+    return ret;
+}
+#else
+int Socket::getLastError() {
+    return errno;
+}
+
+int Socket::checksocket(int ret) {
+    if(ret < 0) {
+        throw SocketException(getLastError());
+    }
+    return ret;
+}
+
+int Socket::check(int ret, bool blockOk) {
+    if(ret == -1) {
+        int error = getLastError();
+        if(blockOk && (error == EWOULDBLOCK || error == ENOBUFS || error == EINPROGRESS || error == EAGAIN) ) {
+            return -1;
+        } else {
+            throw SocketException(error);
+        }
+    }
+    return ret;
+}
+#endif
+
 int Socket::getSocketOptInt(int option) {
     int val;
     socklen_t len = sizeof(val);
@@ -347,9 +394,9 @@ void Socket::setSocketOpt(int option, int val) {
     int len = sizeof(val);
 
     try {
-		check(::setsockopt(sock, SOL_SOCKET, option, (char*)&val, len));
-	}
-	catch ( ... ) {}
+        check(::setsockopt(sock, SOL_SOCKET, option, (char*)&val, len));
+    }
+    catch ( ... ) {}
 }
 
 int Socket::read(void* aBuffer, int aBufLen) {
@@ -446,11 +493,10 @@ int Socket::write(const void* aBuffer, int aLen) {
 * @param aLen Data length
 * @throw SocketExcpetion Send failed.
 */
-void Socket::writeTo(const string& aAddr, uint16_t aPort, const void* aBuffer, int aLen, bool proxy) {
+void Socket::writeTo(const string& aAddr, const string& aPort, const void* aBuffer, int aLen, bool proxy) {
     if(aLen <= 0)
         return;
 
-    uint8_t* buf = (uint8_t*)aBuffer;
     if(sock == INVALID_SOCKET) {
         create(TYPE_UDP);
     }
@@ -459,19 +505,20 @@ void Socket::writeTo(const string& aAddr, uint16_t aPort, const void* aBuffer, i
 
     sockaddr_in serv_addr;
 
-    if(aAddr.empty() || aPort == 0) {
+    if(aAddr.empty() || aPort.empty()) {
         throw SocketException(EADDRNOTAVAIL);
     }
 
     memset(&serv_addr, 0, sizeof(serv_addr));
+    auto buf = (const uint8_t*)aBuffer;
 
     int sent;
     if(SETTING(OUTGOING_CONNECTIONS) == SettingsManager::OUTGOING_SOCKS5 && proxy) {
-        if(udpServer.empty() || udpPort == 0) {
+        if(udpServer.empty() || udpPort.empty()) {
             throw SocketException(_("Failed to set up the socks server for UDP relay (check socks address and port)"));
         }
 
-        serv_addr.sin_port = htons(udpPort);
+        serv_addr.sin_port = htons(static_cast<uint16_t>(Util::toInt(udpPort)));
         serv_addr.sin_family = AF_INET;
         serv_addr.sin_addr.s_addr = inet_addr(udpServer.c_str());
 
@@ -500,7 +547,7 @@ void Socket::writeTo(const string& aAddr, uint16_t aPort, const void* aBuffer, i
             sent = ::sendto(sock, (const char*)&connStr[0], connStr.size(), 0, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
         } while (sent < 0 && getLastError() == EINTR);
     } else {
-        serv_addr.sin_port = htons(aPort);
+        serv_addr.sin_port = htons(static_cast<uint16_t>(Util::toInt(aPort)));
         serv_addr.sin_family = AF_INET;
         serv_addr.sin_addr.s_addr = inet_addr(resolve(aAddr).c_str());
         do {
@@ -602,6 +649,7 @@ bool Socket::waitConnected(uint32_t millis) {
 }
 
 bool Socket::waitAccepted(uint32_t millis) {
+    (void)millis;
     // Normal sockets are always connected after a call to accept
     return true;
 }
@@ -629,7 +677,7 @@ string Socket::resolve(const string& aDns) {
 #else
     // POSIX doesn't guarantee the gethostbyname to be thread safe. And it may (will) return a pointer to static data.
     string address = Util::emptyString;
-    addrinfo hints = { 0 };
+    addrinfo hints = { 0, 0, 0, 0, 0, 0, 0, 0 };
     addrinfo *result;
     // While we do not have IPv6 support, hints.ai_family = AF_UNSPEC causes connection problem
     // See: https://code.google.com/p/eiskaltdc/issues/detail?id=1417
@@ -648,6 +696,22 @@ string Socket::resolve(const string& aDns) {
 #endif
 }
 
+#ifdef _WIN32
+void Socket::setBlocking(bool block) noexcept {
+    u_long b = block ? 0 : 1;
+    ioctlsocket(sock, FIONBIO, &b);
+}
+#else
+void Socket::setBlocking(bool block) noexcept {
+    int flags = fcntl(sock, F_GETFL, 0);
+    if(block) {
+        fcntl(sock, F_SETFL, flags & (~O_NONBLOCK));
+    } else {
+        fcntl(sock, F_SETFL, flags | O_NONBLOCK);
+    }
+}
+#endif
+
 string Socket::getLocalIp() noexcept {
     if(sock == INVALID_SOCKET)
         return Util::emptyString;
@@ -660,27 +724,31 @@ string Socket::getLocalIp() noexcept {
     return Util::emptyString;
 }
 
-uint16_t Socket::getLocalPort() noexcept {
+string Socket::getLocalPort() noexcept {
     if(sock == INVALID_SOCKET)
-        return 0;
+        return Util::emptyString;
 
     sockaddr_in sock_addr;
     socklen_t len = sizeof(sock_addr);
     if(getsockname(sock, (sockaddr*)&sock_addr, &len) == 0) {
-        return ntohs(sock_addr.sin_port);
+        return Util::toString(ntohs(sock_addr.sin_port));
     }
-    return 0;
+    return Util::emptyString;
+}
+
+Socket::Protocol Socket::getNextProtocol() noexcept {
+    return proto;
 }
 
 void Socket::socksUpdated() {
     udpServer.clear();
-    udpPort = 0;
+    udpPort.clear();
 
     if(SETTING(OUTGOING_CONNECTIONS) == SettingsManager::OUTGOING_SOCKS5) {
         try {
             Socket s;
             s.setBlocking(false);
-            s.connect(SETTING(SOCKS_SERVER), static_cast<uint16_t>(SETTING(SOCKS_PORT)));
+            s.connect(SETTING(SOCKS_SERVER), Util::toString(SETTING(SOCKS_PORT)));
             s.socksAuth(SOCKS_TIMEOUT);
 
             char connStr[10];
@@ -703,7 +771,7 @@ void Socket::socksUpdated() {
                 return;
             }
 
-            udpPort = static_cast<uint16_t>(ntohs(*((uint16_t*)(&connStr[8]))));
+            udpPort = Util::toString(ntohs(*((uint16_t*)(&connStr[8]))));
 
             in_addr serv_addr;
 

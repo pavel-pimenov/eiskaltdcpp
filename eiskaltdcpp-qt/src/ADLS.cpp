@@ -24,7 +24,7 @@ using namespace dcpp;
 
 ADLS::ADLS(QWidget *parent):
         QWidget(parent),
-        model(NULL)
+        model(nullptr)
 {
     setupUi(this);
 
@@ -36,7 +36,7 @@ ADLS::ADLS(QWidget *parent):
 ADLS::~ADLS(){
     save();
 
-    ADLSearchManager::getInstance()->Save();
+    ADLSearchManager::getInstance()->save();
 
     delete model;
 }
@@ -58,7 +58,7 @@ QString ADLS::getArenaShortTitle(){
 }
 
 QMenu *ADLS::getMenu(){
-    return NULL;
+    return nullptr;
 }
 
 void ADLS::load(){
@@ -77,8 +77,7 @@ void ADLS::init(){
 
     ADLSearchManager::SearchCollection& collection = ADLSearchManager::getInstance()->collection;
 
-    for (auto i = collection.begin(); i != collection.end(); ++i) {
-        ADLSearch &search = *i;
+    for (const ADLSearch &search : collection) {
         addItem(search);
     }
 
@@ -205,12 +204,13 @@ void ADLS::slotClicked(const QModelIndex &index){
             collection[i] = entry;
         model->repaint();
 
-        ADLSearchManager::getInstance()->Save();
+        ADLSearchManager::getInstance()->save();
 }
 
 void ADLS::initEditor(ADLSEditor &editor){
-
+    Q_UNUSED(editor)
 }
+
 void ADLS::slotAdd_newButtonClicked(){
     ADLSEditor editor;
     ADLSearchManager::SearchCollection &collection = ADLSearchManager::getInstance()->collection;
@@ -224,7 +224,7 @@ void ADLS::slotAdd_newButtonClicked(){
         getParams(editor, map);
         updateEntry(search, map);
         collection.push_back(search);
-        ADLSearchManager::getInstance()->Save();
+        ADLSearchManager::getInstance()->save();
         addItem(search);
     }
 }
@@ -264,15 +264,17 @@ void ADLS::slotRemoveButtonClicked(){
 
     if (!item)
         return;
+
     StrMap mapcheck;
     mapcheck["SSTRING"] = item->data(COLUMN_SSTRING).toString();
     mapcheck["DIRECTORY"] = item->data(COLUMN_DIRECTORY).toString();
     VectorSize i = findEntry(mapcheck);
     ADLSearchManager::SearchCollection &collection = ADLSearchManager::getInstance()->collection;
-        if (i < collection.size()) {
-            collection.erase(collection.begin() + i);
-            model->removeItem(item);
-        }
+
+    if (i < collection.size()) {
+        collection.erase(collection.begin() + i);
+        model->removeItem(item);
+    }
 }
 
 void ADLS::slotUpButtonClicked(){
@@ -295,7 +297,7 @@ ADLSItem *ADLS::getItem(){
     QItemSelectionModel *s_model = treeView->selectionModel();
     QModelIndexList list = s_model->selectedRows(0);
 
-    ADLSItem *item = NULL;
+    ADLSItem *item = nullptr;
     if (!list.isEmpty())
         item = static_cast<ADLSItem*>(list.first().internalPointer());
 
@@ -361,7 +363,7 @@ void ADLS::getParams(/*const*/ ADLSearch &entry, StrMap &map){
     map["TYPESIZE"]    = entry.typeFileSize;
 
 }
-void ADLS::addItem(ADLSearch &search){
+void ADLS::addItem(const ADLSearch &search){
         QList<QVariant> data;
 
         data << search.isActive
@@ -394,17 +396,20 @@ QString ADLS::SizeTypeToString(ADLSearch::SizeType t){
 }
 
 void ADLS::slotSettingsChanged(const QString &key, const QString &value){
+    Q_UNUSED(value)
     if (key == WS_TRANSLATION_FILE)
         retranslateUi(this);
 }
 
 /*ADLS::VectorSize*/int ADLS::findEntry(StrMap &map){
-    ADLSearchManager::SearchCollection& collection = ADLSearchManager::getInstance()->collection;int j=0;
-    for (auto i = collection.begin(); i != collection.end(); ++i,++j) {
-        ADLSearch &search = *i;
+    ADLSearchManager::SearchCollection& collection = ADLSearchManager::getInstance()->collection;
+    int j = 0;
+    for (const ADLSearch &search : collection) {
         if (_q(search.searchString) == map["SSTRING"] &&
-            _q(search.destDir) == map["DIRECTORY"])
+            _q(search.destDir) == map["DIRECTORY"]) {
             return j;
+        }
+        ++j;
     }
 
     return -1;

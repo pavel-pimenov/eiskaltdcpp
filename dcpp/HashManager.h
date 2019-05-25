@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,11 +13,13 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
+
+#include <functional>
+#include <map>
 
 #include "Singleton.h"
 #include "MerkleTree.h"
@@ -24,11 +27,11 @@
 #include "CriticalSection.h"
 #include "Semaphore.h"
 #include "TimerManager.h"
-#include "Util.h"
 #include "FastAlloc.h"
 #include "Text.h"
 #include "Streams.h"
 #include "HashManagerListener.h"
+#include "GetSet.h"
 
 #ifdef USE_XATTR
 #include "attr/attributes.h"
@@ -38,6 +41,9 @@
 
 namespace dcpp {
 
+using std::function;
+using std::map;
+
 STANDARD_EXCEPTION(HashException);
 class File;
 
@@ -45,7 +51,7 @@ class HashLoader;
 class FileException;
 
 class HashManager : public Singleton<HashManager>, public Speaker<HashManagerListener>,
-    private TimerManagerListener
+        private TimerManagerListener
 {
 public:
 
@@ -55,7 +61,7 @@ public:
     HashManager() {
         TimerManager::getInstance()->addListener(this);
     }
-    virtual ~HashManager() noexcept {
+    virtual ~HashManager() {
         TimerManager::getInstance()->removeListener(this);
         hasher.join();
     }
@@ -77,14 +83,14 @@ public:
     bool getTree(const TTHValue& root, TigerTree& tt);
 
     /** Return block size of the tree associated with root, or 0 if no such tree is in the store */
-    size_t getBlockSize(const TTHValue& root);
+    int64_t getBlockSize(const TTHValue& root);
 
     void addTree(const string& aFileName, uint32_t aTimeStamp, const TigerTree& tt) {
         hashDone(aFileName, aTimeStamp, tt, -1, -1);
     }
     void addTree(const TigerTree& tree) { Lock l(cs); store.addTree(tree); }
 
-    void getStats(string& curFile, int64_t& bytesLeft, size_t& filesLeft) {
+    void getStats(string& curFile, uint64_t& bytesLeft, size_t& filesLeft) const {
         hasher.getStats(curFile, bytesLeft, filesLeft);
     }
 
@@ -111,36 +117,33 @@ public:
     };
 
     /// @return whether hashing was already paused
-    bool pauseHashing();
-    void resumeHashing();
-    bool isHashingPaused() const;
+    bool pauseHashing() noexcept;
+    void resumeHashing() noexcept;
+    bool isHashingPaused() const noexcept;
 
 private:
     class Hasher : public Thread {
     public:
         Hasher() : stop(false), running(false), paused(0), rebuild(false), currentSize(0) { }
 
-        void hashFile(const string& fileName, int64_t size);
+        void hashFile(const string& fileName, int64_t size) noexcept;
 
         /// @return whether hashing was already paused
-        bool pause();
-        void resume();
-        bool isPaused() const;
+        bool pause() noexcept;
+        void resume() noexcept;
+        bool isPaused() const noexcept;
 
         void stopHashing(const string& baseDir);
         virtual int run();
         bool fastHash(const string& fname, uint8_t* buf, TigerTree& tth, int64_t size, CRC32Filter* xcrc32);
-        void getStats(string& curFile, int64_t& bytesLeft, size_t& filesLeft);
+        void getStats(string& curFile, uint64_t &bytesLeft, size_t& filesLeft) const;
         void shutdown() { stop = true; if(paused){ s.signal(); resume();} s.signal(); }
         void scheduleRebuild() { rebuild = true; if(paused) s.signal(); s.signal(); }
 
     private:
         // Case-sensitive (faster), it is rather unlikely that case changes, and if it does it's harmless.
         // map because it's sorted (to avoid random hash order that would create quite strange shares while hashing)
-        typedef map<string, int64_t> WorkMap;
-        typedef WorkMap::iterator WorkIter;
-
-        WorkMap w;
+        map<string, int64_t> w;
         mutable CriticalSection cs;
         Semaphore s;
 
@@ -167,11 +170,11 @@ private:
         void rebuild();
 
         bool checkTTH(const string& aFileName, int64_t aSize, uint32_t aTimeStamp);
+        const TTHValue* getTTH(const string& aFileName);
 
         void addTree(const TigerTree& tt) noexcept;
-        const TTHValue* getTTH(const string& aFileName);
         bool getTree(const TTHValue& root, TigerTree& tth);
-        size_t getBlockSize(const TTHValue& root) const;
+        int64_t getBlockSize(const TTHValue& root) const;
         bool isDirty() { return dirty; }
     private:
         /** Root -> tree mapping info, we assume there's only one tree for each root (a collision would mean we've broken tiger...) */
@@ -200,19 +203,10 @@ private:
             GETSET(bool, used, Used);
         };
 
-        typedef vector<FileInfo> FileInfoList;
-        typedef FileInfoList::iterator FileInfoIter;
-
-        typedef unordered_map<string, FileInfoList> DirMap;
-        typedef DirMap::iterator DirIter;
-
-        typedef unordered_map<TTHValue, TreeInfo> TreeMap;
-        typedef TreeMap::iterator TreeIter;
-
         friend class HashLoader;
 
-        DirMap fileIndex;
-        TreeMap treeIndex;
+        unordered_map<string, vector<FileInfo>> fileIndex;
+        unordered_map<TTHValue, TreeInfo> treeIndex;
 
         bool dirty;
 
@@ -221,8 +215,8 @@ private:
         bool loadTree(File& dataFile, const TreeInfo& ti, const TTHValue& root, TigerTree& tt);
         int64_t saveTree(File& dataFile, const TigerTree& tt);
 
-        string getIndexFile() { return Util::getPath(Util::PATH_USER_CONFIG) + "HashIndex.xml"; }
-        string getDataFile() { return Util::getPath(Util::PATH_USER_CONFIG) + "HashData.dat"; }
+        static string getIndexFile();
+        static string getDataFile();
     };
 
     friend class HashLoader;
@@ -235,11 +229,11 @@ private:
     public:
         struct TTHStreamHeader
         {
-            uint32_t magic;
-            uint32_t checksum;
-            uint64_t fileSize;
-            uint64_t timeStamp;
-            uint64_t blockSize;
+            uint32_t magic      = 0;
+            uint32_t checksum   = 0;
+            uint64_t fileSize   = 0;
+            uint64_t timeStamp  = 0;
+            uint64_t blockSize  = 0;
             TTHValue root;
         };
 

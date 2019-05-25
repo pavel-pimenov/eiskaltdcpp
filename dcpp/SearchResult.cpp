@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
@@ -28,9 +27,9 @@
 namespace dcpp {
 
 SearchResult::SearchResult(const UserPtr& aUser, Types aType, int aSlots, int aFreeSlots,
-    int64_t aSize, const string& aFile, const string& aHubName,
-    const string& aHubURL, const string& ip, TTHValue aTTH, const string& aToken) :
-file(aFile), hubName(aHubName), hubURL(aHubURL), user(aUser),
+                           int64_t aSize, const string& aFile, const string& aHubName,
+                           const string& aHubURL, const string& ip, TTHValue aTTH, const string& aToken) :
+    file(aFile), hubName(aHubName), hubURL(aHubURL), user(aUser),
     size(aSize), type(aType), aslots(aSlots), freeSlots(aFreeSlots), IP(ip),
     tth(aTTH), token(aToken) { }
 

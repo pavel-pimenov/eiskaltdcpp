@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,15 +12,16 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
+#include "NonCopyable.h"
+
 namespace dcpp {
 
-class UPnP : boost::noncopyable
+class UPnP : public NonCopyable
 {
 public:
     UPnP() { }
@@ -34,7 +35,7 @@ public:
         PROTOCOL_LAST
     };
 
-    bool open(const unsigned short port, const Protocol protocol, const string& description);
+    bool open(const string& port, const Protocol protocol, const string& description);
     bool close();
     bool hasRules() const;
 
@@ -45,10 +46,10 @@ protected:
     static const char* protocols[PROTOCOL_LAST];
 
 private:
-    virtual bool add(const unsigned short port, const Protocol protocol, const string& description) = 0;
-    virtual bool remove(const unsigned short port, const Protocol protocol) = 0;
+    virtual bool add(const string& port, const Protocol protocol, const string& description) = 0;
+    virtual bool remove(const string& port, const Protocol protocol) = 0;
 
-    typedef std::pair<unsigned short, Protocol> rule;
+    typedef std::pair<const string, Protocol> rule;
     std::vector<rule> rules;
 };
 

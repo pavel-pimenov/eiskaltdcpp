@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -26,7 +25,6 @@ using namespace std;
 
 DialogEntry::DialogEntry(const EntryType type, const string &ui, GtkWindow* parent):
     Entry(type, ui),
-    parent(parent),
     responseID(GTK_RESPONSE_NONE)
 {
     GtkWindow* window = GTK_WINDOW(getContainer());
@@ -61,7 +59,7 @@ gint DialogEntry::run()
     return responseID;
 }
 
-gint DialogEntry::getResponseID()
+gint DialogEntry::getResponseID() const
 {
     return responseID;
 }

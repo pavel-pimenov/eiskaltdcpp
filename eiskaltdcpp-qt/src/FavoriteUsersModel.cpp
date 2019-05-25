@@ -26,7 +26,7 @@ FavoriteUsersModel::FavoriteUsersModel(QObject *parent)
     QList<QVariant> rootData;
     rootData << tr("Nick") << tr("Hub") << tr("Last seen") << tr("Description");
 
-    rootItem = new FavoriteUserItem(rootData, NULL);
+    rootItem = new FavoriteUserItem(rootData, nullptr);
 }
 
 FavoriteUsersModel::~FavoriteUsersModel()
@@ -58,8 +58,8 @@ QVariant FavoriteUsersModel::data(const QModelIndex &index, int role) const
             if (!index.column()){
                 FavoriteManager::FavoriteMap ul = FavoriteManager::getInstance()->getFavoriteUsers();
 
-                for (auto i = ul.begin(); i != ul.end(); ++i) {
-                    const dcpp::FavoriteUser &u = i->second;
+                for (const auto &i : ul) {
+                    const dcpp::FavoriteUser &u = i.second;
 
                     if (_q(u.getUser()->getCID().toBase32()) == item->cid){
                         if (u.isSet(FavoriteUser::FLAG_GRANTSLOT))
@@ -88,7 +88,7 @@ QVariant FavoriteUsersModel::data(const QModelIndex &index, int role) const
 Qt::ItemFlags FavoriteUsersModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
-        return 0;
+        return nullptr;
 
     Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 
@@ -179,7 +179,7 @@ struct Compare {
                      return AttrCmp<COLUMN_USER_DESC>;
             }
 
-            return 0;
+            return nullptr;
         }
         template <int i>
         bool static AttrCmp(const FavoriteUserItem * l, const FavoriteUserItem * r) {
@@ -295,8 +295,8 @@ FavoriteUserItem::FavoriteUserItem(const QList<QVariant> &data, FavoriteUserItem
 
 FavoriteUserItem::~FavoriteUserItem()
 {
-    if (!childItems.isEmpty())
-        qDeleteAll(childItems);
+    qDeleteAll(childItems);
+    childItems.clear();
 }
 
 void FavoriteUserItem::appendChild(FavoriteUserItem *item) {
@@ -330,7 +330,7 @@ int FavoriteUserItem::row() const {
     return 0;
 }
 
-void FavoriteUserItem::updateColumn(unsigned column, QVariant var){
+void FavoriteUserItem::updateColumn(const int column, const QVariant &var){
     if (column > (itemData.size()-1))
         return;
 

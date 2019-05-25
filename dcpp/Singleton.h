@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,30 +13,32 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
+
+#include "NonCopyable.h"
 
 #include "debug.h"
 
 namespace dcpp {
 
-class ISingleton{
+class ISingleton {
 public:
-    ISingleton(){}
+    ISingleton() {}
 
     virtual void release() = 0;
 };
 
 template<typename T>
-class Singleton: public ISingleton {
+class Singleton : private NonCopyable {
 public:
     Singleton() { }
     virtual ~Singleton() { }
 
     static T* getInstance() {
+        dcassert(instance);
         return instance;
     }
 
@@ -47,20 +50,17 @@ public:
     }
 
     static void deleteInstance() {
-        delete instance;
-
+        if(instance)
+            delete instance;
         instance = NULL;
     }
-    virtual void release(){
+
+    virtual void release() {
         deleteInstance();
     }
 
 protected:
     static T* instance;
-private:
-    Singleton(const Singleton&);
-    Singleton& operator=(const Singleton&);
-
 };
 
 template<class T> T* Singleton<T>::instance = NULL;

@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -31,16 +30,15 @@
 using namespace std;
 using namespace dcpp;
 
-SearchSpy::SearchSpy():
-    BookEntry(Entry::SEARCH_SPY, _("Search Spy"), "searchspy.ui")
+SearchSpy::SearchSpy()
+    : BookEntry(Entry::SEARCH_SPY, _("Search Spy"), "searchspy.ui")
+    , FrameSize((SearchType)WGETI("search-spy-frame"))
+    , Waiting((guint)WGETI("search-spy-waiting"))
+    , Top((guint)WGETI("search-spy-top"))
 {
 #if !GTK_CHECK_VERSION(3,0,0)
-    gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(getWidget("statusbar")),FALSE);
+    gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(getWidget("statusbar")),false);
 #endif
-
-    FrameSize = (SearchType)WGETI("search-spy-frame");
-    Waiting = (guint)WGETI("search-spy-waiting");
-    Top = (guint)WGETI("search-spy-top");
 
     // Configure the dialog
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(getWidget("ignoreTTHSearchCheckButton")), WGETB("spyframe-ignore-tth-searches"));
@@ -53,7 +51,7 @@ SearchSpy::SearchSpy():
     g_object_ref_sink(getWidget("menu"));
 
     // Initialize search list treeview
-    searchView.setView(GTK_TREE_VIEW(getWidget("searchSpyView")), TRUE, "searchspy");
+    searchView.setView(GTK_TREE_VIEW(getWidget("searchSpyView")), true, "searchspy");
     searchView.insertColumn(_("Search String"), G_TYPE_STRING, TreeView::ICON_STRING_TEXT_COLOR, 305, "icon", "color");
     searchView.insertColumn(_("Count"), G_TYPE_STRING, TreeView::STRING, 70);
     searchView.insertColumn(_("Time"), G_TYPE_STRING, TreeView::STRING, 90);
@@ -74,8 +72,8 @@ SearchSpy::SearchSpy():
     gtk_tree_selection_set_mode(searchSelection, GTK_SELECTION_MULTIPLE);
     searchView.setSortColumn_gui(_("Search String"), "count");
     gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(searchStore), searchView.col("count"), GTK_SORT_DESCENDING);
-    gtk_tree_view_column_set_sort_indicator(gtk_tree_view_get_column(searchView.get(), searchView.col(_("Search String"))), TRUE);
-    gtk_tree_view_set_fixed_height_mode(searchView.get(), TRUE);
+    gtk_tree_view_column_set_sort_indicator(gtk_tree_view_get_column(searchView.get(), searchView.col(_("Search String"))), true);
+    gtk_tree_view_set_fixed_height_mode(searchView.get(), true);
 
     topView.setView(GTK_TREE_VIEW(getWidget("topView")));
     topView.insertColumn(_("Search String"), G_TYPE_STRING, TreeView::STRING, -1);
@@ -144,9 +142,9 @@ void SearchSpy::preferences_gui()
     string color, order;
     GtkTreeIter iter;
 
-    for (auto it = searchIters.begin(); it != searchIters.end(); ++it)
+    for (auto& it : searchIters)
     {
-        iter = it->second;
+        iter = it.second;
         order = searchView.getString(&iter, "order");
         guint count = searchView.getValue<guint>(&iter, "count");
 
@@ -154,18 +152,18 @@ void SearchSpy::preferences_gui()
         if (count > Top)
         {
             gtk_list_store_set(searchStore, &iter,
-                searchView.col(_("Count")), Util::toString(Top).c_str(),
-                searchView.col("count"), Top,
-                -1);
+                               searchView.col(_("Count")), Util::toString(Top).c_str(),
+                               searchView.col("count"), Top,
+                               -1);
         }
 
         switch (order[0])
         {
-            case 'a': color = aSearchColor; break;
-            case 'c': color = cSearchColor; break;
-            case 'r': color = rSearchColor; break;
-            case 't': color = tSearchColor; break;
-            case 'q': color = qSearchColor; break;
+        case 'a': color = aSearchColor; break;
+        case 'c': color = cSearchColor; break;
+        case 'r': color = rSearchColor; break;
+        case 't': color = tSearchColor; break;
+        case 'q': color = qSearchColor; break;
         }
         gtk_list_store_set(searchStore, &iter, searchView.col("color"), color.c_str(), -1);
     }
@@ -185,12 +183,12 @@ void SearchSpy::resetFrame()
         SearchType i = 0;
         gtk_tree_selection_select_all(searchSelection);
 
-        for (auto it = searchIters.begin(); it != searchIters.end(); ++it)
+        for (auto& it : searchIters)
         {
             if (++i > FrameSize)
                 break;
 
-            iter = it->second;
+            iter = it.second;
             gtk_tree_selection_unselect_iter(searchSelection, &iter);
         }
         onRemoveItemClicked_gui(NULL, (gpointer)this);
@@ -206,10 +204,10 @@ bool SearchSpy::findIter_gui(const string &search, GtkTreeIter *iter)
         if (iter)
             *iter = it->second;
 
-        return TRUE;
+        return true;
     }
 
-    return FALSE;
+    return false;
 }
 
 void SearchSpy::addTop_gui(const string &search, const string &type)
@@ -231,9 +229,9 @@ void SearchSpy::addTop_gui(const string &search, const string &type)
 
     gtk_list_store_append(topStore, &iter);
     gtk_list_store_set(topStore, &iter,
-        topView.col(_("Search String")), search.c_str(),
-        topView.col("type"), type.c_str(),
-        -1);
+                       topView.col(_("Search String")), search.c_str(),
+                       topView.col("type"), type.c_str(),
+                       -1);
 
     if (WGETB("bold-search-spy"))
         setUrgent_gui();
@@ -268,12 +266,12 @@ void SearchSpy::updateFrameSearch_gui(const string search, const string type)
         }
         count++;
         gtk_list_store_set(searchStore, &iter,
-            searchView.col(_("Count")), Util::toString(count).c_str(),
-            searchView.col(_("Time")), time.c_str(),
-            searchView.col("count"), count,
-            searchView.col("tick"), tick,
-            searchView.col("order"), order.c_str(),
-            -1);
+                           searchView.col(_("Count")), Util::toString(count).c_str(),
+                           searchView.col(_("Time")), time.c_str(),
+                           searchView.col("count"), count,
+                           searchView.col("tick"), tick,
+                           searchView.col("order"), order.c_str(),
+                           -1);
         updateFrameStatus_gui(NULL, tick);
     }
     else
@@ -292,30 +290,30 @@ void SearchSpy::updateFrameSearch_gui(const string search, const string type)
                 tick = GET_TICK();
 
                 gtk_list_store_set(searchStore, &iter,
-                    searchView.col(_("Search String")), search.c_str(),
-                    searchView.col(_("Count")), "1",
-                    searchView.col(_("Time")), time.c_str(),
-                    searchView.col(_("Status")), _("waiting..."),
-                    searchView.col("type"), type.c_str(),
-                    searchView.col("count"), 1,
-                    searchView.col("tick"), tick,
-                    searchView.col("icon"), GTK_STOCK_FIND,
-                    searchView.col("order"), "r",
-                    searchView.col("color"), rSearchColor.c_str(),
-                    -1);
+                                   searchView.col(_("Search String")), search.c_str(),
+                                   searchView.col(_("Count")), "1",
+                                   searchView.col(_("Time")), time.c_str(),
+                                   searchView.col(_("Status")), _("waiting..."),
+                                   searchView.col("type"), type.c_str(),
+                                   searchView.col("count"), 1,
+                                   searchView.col("tick"), tick,
+                                   searchView.col("icon"), GTK_STOCK_FIND,
+                                   searchView.col("order"), "r",
+                                   searchView.col("color"), rSearchColor.c_str(),
+                                   -1);
             }
             return;
         }
 
         gtk_list_store_insert_with_values(searchStore, &iter, searchIters.size(),
-            searchView.col(_("Search String")), search.c_str(),
-            searchView.col(_("Count")), "1",
-            searchView.col(_("Time")), time.c_str(),
-            searchView.col("type"), type.c_str(),
-            searchView.col("count"), 1,
-            searchView.col("tick"), tick,
-            searchView.col("order"), "a",
-            -1);
+                                          searchView.col(_("Search String")), search.c_str(),
+                                          searchView.col(_("Count")), "1",
+                                          searchView.col(_("Time")), time.c_str(),
+                                          searchView.col("type"), type.c_str(),
+                                          searchView.col("count"), 1,
+                                          searchView.col("tick"), tick,
+                                          searchView.col("order"), "a",
+                                          -1);
 
         searchIters.insert(SearchIters::value_type(search, iter));
         updateFrameStatus_gui(NULL, tick);
@@ -328,14 +326,14 @@ bool SearchSpy::updateFrameStatus_gui(GtkTreeIter *iter, uint64_t tick)
         tick = GET_TICK();
 
     uint64_t second = (uint64_t)Waiting * 1000;
-    bool n = FALSE;
+    bool n = false;
     string status, icon;
     GtkTreeIter itree;
     string color;
 
-    for (auto it = searchIters.begin(); it != searchIters.end(); ++it)
+    for (auto& it : searchIters)
     {
-        itree = it->second;
+        itree = it.second;
         uint64_t gettick = searchView.getValue<uint64_t>(&itree, "tick");
         string order = searchView.getString(&itree, "order");
 
@@ -346,7 +344,7 @@ bool SearchSpy::updateFrameStatus_gui(GtkTreeIter *iter, uint64_t tick)
             if (iter)
             {
                 *iter = itree;
-                n = TRUE;
+                n = true;
             }
             status = "?";
             icon = GTK_STOCK_DIALOG_QUESTION;
@@ -369,18 +367,18 @@ bool SearchSpy::updateFrameStatus_gui(GtkTreeIter *iter, uint64_t tick)
 
             switch (order[0])
             {
-                case 'a': color = aSearchColor; break;
-                case 'c': color = cSearchColor; break;
-                case 'r': color = rSearchColor; break;
-                case 't': color = tSearchColor; break;
-                default:  color = qSearchColor; // fix don't know color
+            case 'a': color = aSearchColor; break;
+            case 'c': color = cSearchColor; break;
+            case 'r': color = rSearchColor; break;
+            case 't': color = tSearchColor; break;
+            default:  color = qSearchColor; // fix don't know color
             }
         }
         gtk_list_store_set(searchStore, &itree,
-            searchView.col(_("Status")), status.c_str(),
-            searchView.col("icon"), icon.c_str(),
-            searchView.col("color"), color.c_str(),
-            -1);
+                           searchView.col(_("Status")), status.c_str(),
+                           searchView.col("icon"), icon.c_str(),
+                           searchView.col("color"), color.c_str(),
+                           -1);
     }
 
     return n;
@@ -402,7 +400,7 @@ void SearchSpy::setStatus_gui(const string text)
     }
 }
 
-void SearchSpy::onOKButtonClicked_gui(GtkWidget *widget, gpointer data)
+void SearchSpy::onOKButtonClicked_gui(GtkWidget*, gpointer data)
 {
     SearchSpy *s =  (SearchSpy *) data;
 
@@ -413,7 +411,7 @@ void SearchSpy::onOKButtonClicked_gui(GtkWidget *widget, gpointer data)
     s->resetCount();
 
     s->setStatus_gui(_("top/waiting/frame: ") + Util::toString(s->Top) + "/" + Util::toString(s->Waiting) + "/" +
-        Util::toString(s->FrameSize));
+                     Util::toString(s->FrameSize));
 
     WSET("search-spy-frame", int(s->FrameSize));
     WSET("search-spy-waiting", int(s->Waiting));
@@ -423,22 +421,22 @@ void SearchSpy::onOKButtonClicked_gui(GtkWidget *widget, gpointer data)
 void SearchSpy::resetCount()
 {
     GtkTreeIter iter;
-    for (auto it = searchIters.begin(); it != searchIters.end(); ++it)
+    for (auto& it : searchIters)
     {
-        iter = it->second;
+        iter = it.second;
         guint count = searchView.getValue<guint>(&iter, "count");
 
         if (count > Top)
         {
             gtk_list_store_set(searchStore, &iter,
-                searchView.col(_("Count")), Util::toString(Top).c_str(),
-                searchView.col("count"), Top,
-                -1);
+                               searchView.col(_("Count")), Util::toString(Top).c_str(),
+                               searchView.col("count"), Top,
+                               -1);
         }
     }
 }
 
-void SearchSpy::onShowTopClicked_gui(GtkWidget *widget, gpointer data)
+void SearchSpy::onShowTopClicked_gui(GtkWidget*, gpointer data)
 {
     SearchSpy *s = (SearchSpy *)data;
 
@@ -451,13 +449,13 @@ void SearchSpy::onShowTopClicked_gui(GtkWidget *widget, gpointer data)
     gtk_widget_hide(dialog);
 }
 
-void SearchSpy::onClearTopClicked_gui(GtkWidget *widget, gpointer data)
+void SearchSpy::onClearTopClicked_gui(GtkWidget*, gpointer data)
 {
     SearchSpy *s = (SearchSpy *)data;
     gtk_list_store_clear(s->topStore);
 }
 
-void SearchSpy::onSearchTopClicked_gui(GtkWidget *widget, gpointer data)
+void SearchSpy::onSearchTopClicked_gui(GtkWidget*, gpointer data)
 {
     SearchSpy *s = (SearchSpy *)data;
 
@@ -481,7 +479,7 @@ void SearchSpy::onSearchTopClicked_gui(GtkWidget *widget, gpointer data)
     }
 }
 
-void SearchSpy::onRemoveTopClicked_gui(GtkWidget *widget, gpointer data)
+void SearchSpy::onRemoveTopClicked_gui(GtkWidget*, gpointer data)
 {
     SearchSpy *s = (SearchSpy *)data;
 
@@ -494,7 +492,7 @@ void SearchSpy::onRemoveTopClicked_gui(GtkWidget *widget, gpointer data)
     }
 }
 
-void SearchSpy::onClearFrameClicked_gui(GtkWidget *widget, gpointer data)
+void SearchSpy::onClearFrameClicked_gui(GtkWidget*, gpointer data)
 {
     SearchSpy *s = (SearchSpy *)data;
 
@@ -503,20 +501,20 @@ void SearchSpy::onClearFrameClicked_gui(GtkWidget *widget, gpointer data)
     s->setStatus_gui(_("Clear frame search"));
 }
 
-void SearchSpy::onUpdateFrameClicked_gui(GtkWidget *widget, gpointer data)
+void SearchSpy::onUpdateFrameClicked_gui(GtkWidget*, gpointer data)
 {
     SearchSpy *s = (SearchSpy *)data;
 
     s->updateFrameStatus_gui();
 }
 
-void SearchSpy::onIgnoreTTHSearchToggled_gui(GtkWidget *widget, gpointer data)
+void SearchSpy::onIgnoreTTHSearchToggled_gui(GtkWidget *widget, gpointer)
 {
     gboolean toggle = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
     WSET("spyframe-ignore-tth-searches",toggle);
 }
 
-void SearchSpy::onRemoveItemClicked_gui(GtkMenuItem *item, gpointer data)
+void SearchSpy::onRemoveItemClicked_gui(GtkMenuItem*, gpointer data)
 {
     SearchSpy *s = (SearchSpy *)data;
 
@@ -549,7 +547,7 @@ void SearchSpy::onRemoveItemClicked_gui(GtkMenuItem *item, gpointer data)
     }
 }
 
-void SearchSpy::onSearchItemClicked_gui(GtkMenuItem *item, gpointer data)
+void SearchSpy::onSearchItemClicked_gui(GtkMenuItem*, gpointer data)
 {
     SearchSpy *s = (SearchSpy *)data;
 
@@ -583,7 +581,7 @@ void SearchSpy::onSearchItemClicked_gui(GtkMenuItem *item, gpointer data)
     }
 }
 
-gboolean SearchSpy::onButtonPressed_gui(GtkWidget *widget, GdkEventButton *event, gpointer data)
+gboolean SearchSpy::onButtonPressed_gui(GtkWidget*, GdkEventButton *event, gpointer data)
 {
     SearchSpy *s = (SearchSpy *)data;
     s->previous = event->type;
@@ -598,13 +596,13 @@ gboolean SearchSpy::onButtonPressed_gui(GtkWidget *widget, GdkEventButton *event
             gtk_tree_path_free(path);
 
             if (selected)
-                return TRUE;
+                return true;
         }
     }
-    return FALSE;
+    return false;
 }
 
-gboolean SearchSpy::onButtonReleased_gui(GtkWidget *widget, GdkEventButton *event, gpointer data)
+gboolean SearchSpy::onButtonReleased_gui(GtkWidget*, GdkEventButton *event, gpointer data)
 {
     SearchSpy *s = (SearchSpy *)data;
 
@@ -618,39 +616,47 @@ gboolean SearchSpy::onButtonReleased_gui(GtkWidget *widget, GdkEventButton *even
         else if (event->button == 3 && event->type == GDK_BUTTON_RELEASE)
         {
             // show menu
+#if GTK_CHECK_VERSION(3,22,0)
+            gtk_menu_popup_at_pointer(GTK_MENU(s->getWidget("menu")),NULL);
+#else
             gtk_menu_popup(GTK_MENU(s->getWidget("menu")), NULL, NULL, NULL, NULL, 0, gtk_get_current_event_time());
+#endif
         }
     }
 
-    return FALSE;
+    return false;
 }
 
-gboolean SearchSpy::onKeyReleased_gui(GtkWidget *widget, GdkEventKey *event, gpointer data)
+gboolean SearchSpy::onKeyReleased_gui(GtkWidget*, GdkEventKey *event, gpointer data)
 {
     SearchSpy *s = (SearchSpy *)data;
 
     if (gtk_tree_selection_count_selected_rows(s->searchSelection) > 0)
     {
-        if (event->keyval == GDK_Delete || event->keyval == GDK_BackSpace)
+        if (event->keyval == GDK_KEY_Delete || event->keyval == GDK_KEY_BackSpace)
         {
             s->onRemoveItemClicked_gui(NULL, data);
         }
-        else if (event->keyval == GDK_Menu || (event->keyval == GDK_F10 && event->state & GDK_SHIFT_MASK))
+        else if (event->keyval == GDK_KEY_Menu || (event->keyval == GDK_KEY_F10 && event->state & GDK_SHIFT_MASK))
         {
+#if GTK_CHECK_VERSION(3,22,0)
+            gtk_menu_popup_at_pointer(GTK_MENU(s->getWidget("menu")),NULL);
+#else
             gtk_menu_popup(GTK_MENU(s->getWidget("menu")), NULL, NULL, NULL, NULL, 0, gtk_get_current_event_time());
+#endif
         }
     }
 
-    return FALSE;
+    return false;
 }
 
 void SearchSpy::on(ClientManagerListener::IncomingSearch, const string& s) noexcept
 {
-    if(!WGETB("spyframe-ignore-tth-searches") && s.compare(0, 4, "TTH:"))
+    if(WGETB("spyframe-ignore-tth-searches") && s.compare(0, 4, "TTH:") == 0)
         return;
 
     string search, type;
-    if(!s.compare(0, 4, "TTH:"))
+    if(s.compare(0, 4, "TTH:") == 0)
     {
         type = "t";
         search = s.substr(4);
@@ -668,7 +674,7 @@ void SearchSpy::on(ClientManagerListener::IncomingSearch, const string& s) noexc
     WulforManager::get()->dispatchGuiFunc(func);
 }
 
-void SearchSpy::on(TimerManagerListener::Minute, uint64_t tick) noexcept
+void SearchSpy::on(TimerManagerListener::Minute, uint64_t) noexcept
 {
     typedef Func0<SearchSpy> F0;
     F0 *func = new F0(this, &SearchSpy::updateFrameStatus_gui);

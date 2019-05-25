@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -29,15 +28,15 @@ using namespace dcpp;
 Hash::Hash(GtkWindow* parent):
     DialogEntry(Entry::HASH_DIALOG, "hash.ui", parent)
 {
-    string tmp;
+    string stmp;
     startTime = GET_TICK();
-    HashManager::getInstance()->getStats(tmp, startBytes, startFiles);
+    HashManager::getInstance()->getStats(stmp, startBytes, startFiles);
     HashManager::getInstance()->setPriority(Thread::NORMAL);
     updateStats_gui("", 0, 0, 0);
-//    bool paused = HashManager::getInstance()->isHashingPaused();
-//    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(getWidget("pauseHashingToggleButton")), paused);
-//    gtk_window_set_title(GTK_WINDOW(getContainer()),
-//    paused ? _("Paused...") : _("Indexing files..."));
+    //    bool paused = HashManager::getInstance()->isHashingPaused();
+    //    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(getWidget("pauseHashingToggleButton")), paused);
+    //    gtk_window_set_title(GTK_WINDOW(getContainer()),
+    //    paused ? _("Paused...") : _("Indexing files..."));
     handler_id = g_signal_connect(getWidget("pauseHashingToggleButton"), "toggled", G_CALLBACK(onPauseHashing_gui), (gpointer)this);
     TimerManager::getInstance()->addListener(this);
 }
@@ -48,7 +47,7 @@ Hash::~Hash()
     TimerManager::getInstance()->removeListener(this);
 }
 
-void Hash::updateStats_gui(string file, int64_t bytes, size_t files, uint64_t tick)
+void Hash::updateStats_gui(string file, uint64_t bytes, size_t files, uint64_t tick)
 {
     if (bytes > startBytes)
         startBytes = bytes;
@@ -111,25 +110,30 @@ void Hash::updateStats_gui(string file, int64_t bytes, size_t files, uint64_t ti
 
 void Hash::onPauseHashing_gui(GtkWidget *widget, gpointer data)
 {
-    Hash *h = (Hash *)data;
+    (void)widget;
+    (void)data;
+
+    //    Hash *h = (Hash *)data;
     bool paused = HashManager::getInstance()->isHashingPaused();
     if (paused) {
-//        gtk_window_set_title(GTK_WINDOW(h->getContainer()), _("Indexing files..."));
+        //        gtk_window_set_title(GTK_WINDOW(h->getContainer()), _("Indexing files..."));
         HashManager::getInstance()->resumeHashing();
     } else {
-//        gtk_window_set_title(GTK_WINDOW(h->getContainer()), _("Paused..."));
+        //        gtk_window_set_title(GTK_WINDOW(h->getContainer()), _("Paused..."));
         HashManager::getInstance()->pauseHashing();
     }
 }
 
 void Hash::on(TimerManagerListener::Second, uint64_t tics) noexcept
 {
+    (void)tics;
+
     string file;
-    int64_t bytes = 0;
+    uint64_t bytes = 0;
     size_t files = 0;
     bool paused = HashManager::getInstance()->isHashingPaused();
     gtk_window_set_title(GTK_WINDOW(getContainer()),
-    paused ? _("Paused...") : _("Indexing files..."));
+                         paused ? _("Paused...") : _("Indexing files..."));
 
     g_signal_handler_block(GTK_TOGGLE_BUTTON(getWidget("pauseHashingToggleButton")), handler_id);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(getWidget("pauseHashingToggleButton")), paused);
@@ -137,7 +141,7 @@ void Hash::on(TimerManagerListener::Second, uint64_t tics) noexcept
 
     HashManager::getInstance()->getStats(file, bytes, files);
 
-    typedef Func4<Hash, string, int64_t, size_t, uint64_t> F4;
+    typedef Func4<Hash, string, uint64_t, size_t, uint64_t> F4;
     F4 *func = new F4(this, &Hash::updateStats_gui, file, bytes, files, GET_TICK());
     WulforManager::get()->dispatchGuiFunc(func);
 }

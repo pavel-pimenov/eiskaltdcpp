@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
@@ -27,10 +26,10 @@ namespace dcpp
 {
 /**
  * Manager for throttling traffic flow.
- * Inspired by Token Bucket algorithm: http://en.wikipedia.org/wiki/Token_bucket
+ * Inspired by Token Bucket algorithm: https://en.wikipedia.org/wiki/Token_bucket
  */
 class ThrottleManager :
-    public Singleton<ThrottleManager>, private TimerManagerListener
+        public Singleton<ThrottleManager>, private TimerManagerListener
 {
 public:
 
@@ -45,6 +44,8 @@ public:
      */
     int write(Socket* sock, void* buffer, size_t& len);
 
+    void shutdown();
+
     static SettingsManager::IntSetting getCurSetting(SettingsManager::IntSetting setting);
 
     static int getUpLimit();
@@ -52,19 +53,18 @@ public:
 
     static void setSetting(SettingsManager::IntSetting setting, int value);
 
-    void shutdown();
 private:
     // stack up throttled read & write threads
     CriticalSection stateCS;
     CriticalSection waitCS[2];
     long activeWaiter;
 
-#ifndef _WIN32 //*nix
-
+#ifndef _WIN32
     // shutdown wait
     CriticalSection shutdownCS;
     long n_lock, halt;
 #endif
+
     // download limiter
     CriticalSection downCS;
     int64_t         downTokens;
@@ -75,15 +75,15 @@ private:
 
     friend class Singleton<ThrottleManager>;
 
-    ThrottleManager(void) : activeWaiter(-1), downTokens(0), upTokens(0)
+    ThrottleManager() : activeWaiter(-1), downTokens(0), upTokens(0)
     {
-#ifndef _WIN32 //*nix
+#ifndef _WIN32
         n_lock = halt = 0;
 #endif
         TimerManager::getInstance()->addListener(this);
     }
 
-    ~ThrottleManager(void);
+    virtual ~ThrottleManager();
 
     bool getCurThrottling();
     void waitToken();

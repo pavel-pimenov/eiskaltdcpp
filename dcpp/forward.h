@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
@@ -28,7 +27,12 @@ namespace dcpp {
 
 class AdcCommand;
 
+class ADLSearch;
+
 class BufferedSocket;
+
+class Bundle;
+typedef boost::intrusive_ptr<Bundle> BundlePtr;
 
 struct ChatMessage;
 
@@ -41,6 +45,8 @@ class ClientManager;
 class ConnectionQueueItem;
 
 class CRC32Filter;
+
+struct DcextInfo;
 
 class Download;
 typedef Download* DownloadPtr;
@@ -60,7 +66,12 @@ typedef boost::intrusive_ptr<FinishedUserItem> FinishedUserItemPtr;
 
 class FinishedManager;
 
+template<class Hasher>
+struct HashValue;
+
 struct HintedUser;
+
+class HttpConnection;
 
 class HubEntry;
 
@@ -73,7 +84,10 @@ class LogManager;
 class OnlineUser;
 typedef OnlineUser* OnlineUserPtr;
 
+class OutputStream;
+
 class QueueItem;
+typedef QueueItem* QueueItemPtr;
 
 class SearchResult;
 typedef boost::intrusive_ptr<SearchResult> SearchResultPtr;
@@ -81,9 +95,18 @@ typedef boost::intrusive_ptr<SearchResult> SearchResultPtr;
 class Socket;
 class SocketException;
 
+class StringOutputStream;
+class StringRefOutputStream;
+
 class StringSearch;
 
+class Tagger;
+
+class TigerHash;
+
 class Transfer;
+
+typedef HashValue<TigerHash> TTHValue;
 
 class UnZFilter;
 
@@ -98,5 +121,9 @@ class UserCommand;
 class UserConnection;
 typedef UserConnection* UserConnectionPtr;
 
+struct UserMatch;
+
 class WindowInfo;
+
 } // namespace dcpp
+

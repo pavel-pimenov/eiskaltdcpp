@@ -16,7 +16,6 @@
 #include "Notification.h"
 #include "SearchFrame.h"
 #include "DownloadQueue.h"
-#include "IPFilter.h"
 #include "ArenaWidgetFactory.h"
 
 #include "dcpp/Util.h"
@@ -31,6 +30,8 @@
 #include "dcpp/FavoriteManager.h"
 #include "dcpp/HashManager.h"
 
+#include "extra/ipfilter.h"
+
 #include <QItemSelectionModel>
 #include <QModelIndex>
 #include <QClipboard>
@@ -39,7 +40,7 @@
 #include <QDir>
 
 TransferView::Menu::Menu(bool showTransferredFilesOnly):
-        menu(NULL),
+        menu(nullptr),
         selectedColumn(0)
 {
     WulforUtil *WU = WulforUtil::getInstance();
@@ -145,7 +146,7 @@ TransferView::Menu::Action TransferView::Menu::exec(){
 
 TransferView::TransferView(QWidget *parent):
         QWidget(parent),
-        model(NULL)
+        model(nullptr)
 {
     setupUi(this);
 
@@ -386,7 +387,7 @@ void TransferView::getParams(TransferView::VarMap &params, const dcpp::Transfer 
     if (trf->getType() == Transfer::TYPE_PARTIAL_LIST || trf->getType() == Transfer::TYPE_FULL_LIST)
         params["FNAME"] = tr("File list");
     else if (trf->getType() == Transfer::TYPE_TREE)
-        params["FNAME"] = tr("TTH: ") + _q(Util::getFileName(trf->getPath()));
+        params["FNAME"] = QString("TTH: ") + _q(Util::getFileName(trf->getPath()));
     else
         params["FNAME"] = _q(Util::getFileName(trf->getPath()));
 
@@ -564,7 +565,7 @@ void TransferView::slotContextMenu(const QPoint &){
     }
     case Menu::SendPM:
     {
-        HubFrame *fr = NULL;
+        HubFrame *fr = nullptr;
 
         for (const auto &i : items){
             dcpp::CID cid(_tq(i->cid));
@@ -593,7 +594,7 @@ void TransferView::on(dcpp::DownloadManagerListener::Requesting, dcpp::Download*
     getParams(params, dl);
 
     if (IPFilter::getInstance()){
-        if (!IPFilter::getInstance()->OK(vstr(params["IP"]), eDIRECTION_IN)){
+        if (!IPFilter::getInstance()->OK(vstr(params["IP"]).toStdString(), eDIRECTION_IN)){
             closeConection(vstr(params["CID"]), true);
             return;
         }
@@ -630,20 +631,20 @@ void TransferView::on(dcpp::DownloadManagerListener::Tick, const dcpp::DownloadL
         if (dl->getUserConnection().isSecure())
         {
             if (dl->getUserConnection().isTrusted())
-               str += tr("[S]");
+               str += QString("[S]");
             else
-               str += tr("[U]");
+               str += QString("[U]");
         }
 
         if (dl->isSet(Download::FLAG_TTH_CHECK))
-            str += tr("[T]");
+            str += QString("[T]");
         if (dl->isSet(Download::FLAG_ZDOWNLOAD))
-            str += tr("[Z]");
+            str += QString("[Z]");
         
         params["FLAGS"] = str;
 
         str = QString(tr("Downloaded %1")).arg(WulforUtil::formatBytes(dl->getPos()))
-            + QString(tr(" (%1%)")).arg(vdbl(params["PERC"]), 0, 'f', 1);
+            + QString(QString(" (%1%)")).arg(vdbl(params["PERC"]), 0, 'f', 1);
 
         params["STAT"] = str;
 
@@ -784,7 +785,7 @@ void TransferView::on(dcpp::UploadManagerListener::Starting, dcpp::Upload* ul) n
     getParams(params, ul);
 
     if (IPFilter::getInstance()){
-        if (!IPFilter::getInstance()->OK(vstr(params["IP"]), eDIRECTION_OUT)){
+        if (!IPFilter::getInstance()->OK(vstr(params["IP"]).toStdString(), eDIRECTION_OUT)){
             closeConection(vstr(params["CID"]), false);
             return;
         }
@@ -808,12 +809,12 @@ void TransferView::on(dcpp::UploadManagerListener::Tick, const dcpp::UploadList&
         if (ul->getUserConnection().isSecure())
         {
             if (ul->getUserConnection().isTrusted())
-                stat += tr("[S]");
+                stat += QString("[S]");
             else
-                stat += tr("[U]");
+                stat += QString("[U]");
         }
         if (ul->isSet(Upload::FLAG_ZUPLOAD))
-            stat += tr("[Z]");
+            stat += QString("[Z]");
         
         params["FLAGS"] = stat;
 
@@ -842,6 +843,8 @@ void TransferView::on(dcpp::UploadManagerListener::Complete, dcpp::Upload* ul) n
 }
 
 void TransferView::on(dcpp::UploadManagerListener::Failed, dcpp::Upload* ul, const std::string& reason) noexcept{
+    Q_UNUSED(reason)
+
     VarMap params;
 
     getParams(params, ul);

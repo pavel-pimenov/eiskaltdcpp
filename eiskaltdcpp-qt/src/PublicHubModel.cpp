@@ -28,7 +28,7 @@ PublicHubModel::PublicHubModel(QObject *parent)
              << tr("Country") << tr("Shared") << tr("Min share") << tr("Min slots")
              << tr("Max hubs") << tr("Max users") << tr("Reliability") << tr("Rating");
 
-    rootItem = new PublicHubItem(rootData, NULL);
+    rootItem = new PublicHubItem(rootData, nullptr);
 }
 
 PublicHubModel::~PublicHubModel()
@@ -84,7 +84,7 @@ QVariant PublicHubModel::data(const QModelIndex &index, int role) const
 Qt::ItemFlags PublicHubModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
-        return 0;
+        return nullptr;
 
     Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 
@@ -123,6 +123,7 @@ QModelIndex PublicHubModel::index(int row, int column, const QModelIndex &parent
 
 QModelIndex PublicHubModel::parent(const QModelIndex &index) const
 {
+    Q_UNUSED(index)
     return QModelIndex();
 }
 
@@ -183,7 +184,7 @@ struct Compare {
                      return NumCmp<COLUMN_PHUB_USERS>;
             }
 
-            return 0;
+            return nullptr;
         }
         template <int i>
         bool static AttrCmp(const PublicHubItem * l, const PublicHubItem * r) {
@@ -257,14 +258,14 @@ void PublicHubModel::addResult(const QList<QVariant> &data, dcpp::HubEntry *entr
 
 
 PublicHubItem::PublicHubItem(const QList<QVariant> &data, PublicHubItem *parent) :
-    entry(NULL), itemData(data), parentItem(parent)
+    entry(nullptr), itemData(data), parentItem(parent)
 {
 }
 
 PublicHubItem::~PublicHubItem()
 {
-    if (!childItems.isEmpty())
-        qDeleteAll(childItems);
+    qDeleteAll(childItems);
+    childItems.clear();
 }
 
 void PublicHubItem::appendChild(PublicHubItem *item) {
@@ -298,7 +299,7 @@ int PublicHubItem::row() const {
     return 0;
 }
 
-void PublicHubItem::updateColumn(unsigned column, QVariant var){
+void PublicHubItem::updateColumn(const int column, const QVariant &var){
     if (column > (itemData.size()-1))
         return;
 

@@ -12,22 +12,24 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
-#ifdef _WIN32
-#include <wincrypt.h>
-#endif
+#include "typedefs.h"
 
 #include "SettingsManager.h"
 #include "Exception.h"
 #include "Singleton.h"
+
 #include "SSLSocket.h"
+#include "SSL.h"
 
 namespace dcpp {
+
+using std::pair;
+using std::string;
 
 STANDARD_EXCEPTION(CryptoException);
 
@@ -41,13 +43,13 @@ public:
 
     void decodeBZ2(const uint8_t* is, size_t sz, string& os);
 
-    SSLSocket* getClientSocket(bool allowUntrusted);
+    SSLSocket* getClientSocket(bool allowUntrusted, Socket::Protocol proto);
     SSLSocket* getServerSocket(bool allowUntrusted);
 
     void loadCertificates() noexcept;
     void generateCertificate();
     bool checkCertificate() noexcept;
-    const vector<uint8_t>& getKeyprint() const noexcept;
+    const ByteVector& getKeyprint() const noexcept;
 
     bool TLSOk() const noexcept;
 private:
@@ -66,7 +68,7 @@ private:
 
     bool certsLoaded;
 
-    vector<uint8_t> keyprint;
+    ByteVector keyprint;
     const string lock;
     const string pk;
 

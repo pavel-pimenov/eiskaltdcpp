@@ -12,51 +12,70 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
 
 #include "ConnectionManager.h"
 
-#include "DownloadManager.h"
-#include "UploadManager.h"
-#include "CryptoManager.h"
+#include "Client.h"
 #include "ClientManager.h"
-#include "QueueManager.h"
+#include "ConnectivityManager.h"
+#include "CryptoManager.h"
+#include "DownloadManager.h"
 #include "LogManager.h"
-
+#include "QueueManager.h"
+#include "UploadManager.h"
 #include "UserConnection.h"
 
 namespace dcpp {
 
-ConnectionManager::ConnectionManager() : floodCounter(0), server(0), secureServer(0), shuttingDown(false) {
+ConnectionManager::ConnectionManager() :
+    floodCounter(0),
+    server(0),
+    secureServer(0),
+    shuttingDown(false)
+{
     TimerManager::getInstance()->addListener(this);
 
-    features.push_back(UserConnection::FEATURE_MINISLOTS);
-    features.push_back(UserConnection::FEATURE_XML_BZLIST);
-    features.push_back(UserConnection::FEATURE_ADCGET);
-    features.push_back(UserConnection::FEATURE_TTHL);
-    features.push_back(UserConnection::FEATURE_TTHF);
+    features = {
+        UserConnection::FEATURE_MINISLOTS,
+        UserConnection::FEATURE_XML_BZLIST,
+        UserConnection::FEATURE_ADCGET,
+        UserConnection::FEATURE_TTHL,
+        UserConnection::FEATURE_TTHF
+    };
 
-    adcFeatures.push_back("AD" + UserConnection::FEATURE_ADC_BAS0);
-    adcFeatures.push_back("AD" + UserConnection::FEATURE_ADC_BASE);
-    adcFeatures.push_back("AD" + UserConnection::FEATURE_ADC_TIGR);
-    adcFeatures.push_back("AD" + UserConnection::FEATURE_ADC_BZIP);
+    adcFeatures = {
+        "AD" + UserConnection::FEATURE_ADC_BAS0,
+        "AD" + UserConnection::FEATURE_ADC_BASE,
+        "AD" + UserConnection::FEATURE_ADC_TIGR,
+        "AD" + UserConnection::FEATURE_ADC_BZIP
+    };
 }
 
 void ConnectionManager::listen() {
     disconnect();
 
-    server = new Server(false, static_cast<uint16_t>(SETTING(TCP_PORT)), SETTING(BIND_ADDRESS));
+    server = new Server(false, Util::toString(SETTING(TCP_PORT)), SETTING(BIND_ADDRESS));
 
     if(!CryptoManager::getInstance()->TLSOk()) {
         dcdebug("Skipping secure port: %d\n", SETTING(TLS_PORT));
         return;
     }
 
-    secureServer = new Server(true, static_cast<uint16_t>(SETTING(TLS_PORT)), SETTING(BIND_ADDRESS));
+    secureServer = new Server(true, Util::toString(SETTING(TLS_PORT)), SETTING(BIND_ADDRESS));
+}
+
+ConnectionQueueItem::ConnectionQueueItem(const HintedUser &aUser, bool aDownload) :
+    token(Util::toString(Util::rand())),
+    lastAttempt(0),
+    errors(0),
+    state(WAITING),
+    download(aDownload),
+    user(aUser)
+{
 }
 
 /**
@@ -69,7 +88,7 @@ void ConnectionManager::getDownloadConnection(const HintedUser& aUser) {
     dcassert((bool)aUser.user);
     {
         Lock l(cs);
-        ConnectionQueueItem::Iter i = find(downloads.begin(), downloads.end(), aUser.user);
+        auto i = find(downloads.begin(), downloads.end(), aUser.user);
         if(i == downloads.end()) {
             getCQI(aUser, true);
         } else {
@@ -78,13 +97,13 @@ void ConnectionManager::getDownloadConnection(const HintedUser& aUser) {
     }
 }
 
-ConnectionQueueItem* ConnectionManager::getCQI(const HintedUser& aUser, bool download) {
-    ConnectionQueueItem* cqi = new ConnectionQueueItem(aUser, download);
+ConnectionQueueItem* ConnectionManager::getCQI(const HintedUser& user, bool download) {
+    ConnectionQueueItem* cqi = new ConnectionQueueItem(user, download);
     if(download) {
-        dcassert(find(downloads.begin(), downloads.end(), aUser.user) == downloads.end());
+        dcassert(find(downloads.begin(), downloads.end(), user.user) == downloads.end());
         downloads.push_back(cqi);
     } else {
-        dcassert(find(uploads.begin(), uploads.end(), aUser.user) == uploads.end());
+        dcassert(find(uploads.begin(), uploads.end(), user.user) == uploads.end());
         uploads.push_back(cqi);
     }
 
@@ -133,8 +152,7 @@ void ConnectionManager::on(TimerManagerListener::Second, uint64_t aTick) noexcep
 
         bool attemptDone = false;
 
-        for(auto i = downloads.begin(); i != downloads.end(); ++i) {
-            ConnectionQueueItem* cqi = *i;
+        for(auto& cqi: downloads) {
 
             if(cqi->getState() != ConnectionQueueItem::ACTIVE) {
                 if(!cqi->getUser().user->isOnline()) {
@@ -150,12 +168,12 @@ void ConnectionManager::on(TimerManagerListener::Second, uint64_t aTick) noexcep
                 }
 
                 if(cqi->getErrors() == -1 && cqi->getLastAttempt() != 0) {
-                        // protocol error, don't reconnect except after a forced attempt
-                        continue;
+                    // protocol error, don't reconnect except after a forced attempt
+                    continue;
                 }
 
                 if(cqi->getLastAttempt() == 0 || (!attemptDone &&
-                    cqi->getLastAttempt() + 60 * 1000 * max(1, cqi->getErrors()) < aTick))
+                                                  cqi->getLastAttempt() + 60 * 1000 * max(1, cqi->getErrors()) < aTick))
                 {
                     cqi->setLastAttempt(aTick);
 
@@ -189,31 +207,39 @@ void ConnectionManager::on(TimerManagerListener::Second, uint64_t aTick) noexcep
             }
         }
 
-        for(auto m = removed.begin(); m != removed.end(); ++m) {
-            putCQI(*m);
+        for(auto& m : removed) {
+            putCQI(m);
         }
 
     }
 
-    for(auto ui = passiveUsers.begin(); ui != passiveUsers.end(); ++ui) {
-        QueueManager::getInstance()->removeSource(*ui, QueueItem::Source::FLAG_PASSIVE);
+    for(auto& ui : passiveUsers) {
+        QueueManager::getInstance()->removeSource(ui, QueueItem::Source::FLAG_PASSIVE);
     }
 }
 
 void ConnectionManager::on(TimerManagerListener::Minute, uint64_t aTick) noexcept {
     Lock l(cs);
 
-    for(auto j = userConnections.begin(); j != userConnections.end(); ++j) {
-        if(((*j)->getLastActivity() + 180*1000) < aTick) {
-            (*j)->disconnect(true);
+    for(auto& j : userConnections) {
+        if((j->getLastActivity() + 180*1000) < aTick) {
+            j->disconnect(true);
         }
     }
+}
+
+const string& ConnectionManager::getPort() const {
+    return server ? server->getPort() : Util::emptyString;
+}
+
+const string& ConnectionManager::getSecurePort() const {
+    return secureServer ? secureServer->getPort() : Util::emptyString;
 }
 
 static const uint32_t FLOOD_TRIGGER = 20000;
 static const uint32_t FLOOD_ADD = 2000;
 
-ConnectionManager::Server::Server(bool secure_, uint16_t aPort, const string& ip_ /* = "0.0.0.0" */) : port(0), secure(secure_), die(false) {
+ConnectionManager::Server::Server(const bool secure_, const string& aPort, const string& ip_ /* = "0.0.0.0" */) : secure(secure_), die(false) {
     sock.create();
     sock.setSocketOpt(SO_REUSEADDR, 1);
     ip = SETTING(BIND_IFACE)? sock.getIfaceI4(SETTING(BIND_IFACE_NAME)).c_str() : ip_;
@@ -228,8 +254,7 @@ static const uint32_t POLL_TIMEOUT = 250;
 int ConnectionManager::Server::run() noexcept {
     {
         char threadName[17];
-        snprintf(threadName, sizeof threadName, "Server_%u", port);
-        setThreadName(threadName);
+        snprintf(threadName, sizeof threadName, "Server_%s", port.c_str());
     }
     while(!die) {
         try {
@@ -263,7 +288,7 @@ int ConnectionManager::Server::run() noexcept {
                 }
 
                 // Spin for 60 seconds
-                for(int i = 0; i < 60 && !die; ++i) {
+                for(auto i = 0; i < 60 && !die; ++i) {
                     Thread::sleep(1000);
                 }
             }
@@ -307,26 +332,17 @@ void ConnectionManager::accept(const Socket& sock, bool secure) noexcept {
     }
 }
 
-void ConnectionManager::addCTM2HUB(const string &server, const string &port)
-{
-    Lock l(cs);
-    const string key = server + ':' + port;
-    ddosctm2hub.insert(key);
+void ConnectionManager::nmdcConnect(const string& aServer, const string& aPort, const string& aNick, const string& hubUrl, const string& encoding, bool secure) {
+    nmdcConnect(aServer, aPort, Util::emptyString, BufferedSocket::NAT_NONE, aNick, hubUrl, encoding, secure);
 }
 
-void ConnectionManager::nmdcConnect(const string& aServer, uint16_t aPort, const string& aNick, const string& hubUrl, const string& encoding, bool secure) {
-    nmdcConnect(aServer, aPort, 0, BufferedSocket::NAT_NONE, aNick, hubUrl, encoding, secure);
-}
-
-void ConnectionManager::nmdcConnect(const string& aServer, uint16_t aPort, uint16_t localPort, BufferedSocket::NatRoles natRole, const string& aNick, const string& hubUrl, const string& encoding, bool secure) {
+void ConnectionManager::nmdcConnect(const string& aServer, const string& aPort, const string& localPort, BufferedSocket::NatRoles natRole, const string& aNick, const string& hubUrl, const string& encoding, bool secure) {
     if(shuttingDown)
         return;
-    {
-        Lock l(cs);
-        if (!ddosctm2hub.empty() && ddosctm2hub.find(aServer + ":" + Util::toString(aPort)) != ddosctm2hub.end()) {
-            return;
-        }
-    }
+
+    if (checkHubCCBlock(aServer, aPort, hubUrl))
+        return;
+
     UserConnection* uc = getConnection(true, secure);
     uc->setToken(aNick);
     uc->setHubUrl(hubUrl);
@@ -341,11 +357,11 @@ void ConnectionManager::nmdcConnect(const string& aServer, uint16_t aPort, uint1
     }
 }
 
-void ConnectionManager::adcConnect(const OnlineUser& aUser, uint16_t aPort, const string& aToken, bool secure) {
-        adcConnect(aUser, aPort, 0, BufferedSocket::NAT_NONE, aToken, secure);
+void ConnectionManager::adcConnect(const OnlineUser& aUser, const string &aPort, const string& aToken, bool secure) {
+    adcConnect(aUser, aPort, Util::emptyString, BufferedSocket::NAT_NONE, aToken, secure);
 }
 
-void ConnectionManager::adcConnect(const OnlineUser& aUser, uint16_t aPort, uint16_t localPort, BufferedSocket::NatRoles natRole, const string& aToken, bool secure) {
+void ConnectionManager::adcConnect(const OnlineUser& aUser, const string &aPort, const string &localPort, BufferedSocket::NatRoles natRole, const string& aToken, bool secure) {
     if(shuttingDown)
         return;
 
@@ -372,8 +388,8 @@ void ConnectionManager::adcConnect(const OnlineUser& aUser, uint16_t aPort, uint
 void ConnectionManager::disconnect() noexcept {
     delete server;
     delete secureServer;
-
-    server = secureServer = 0;
+    server = nullptr;
+    secureServer = nullptr;
 }
 
 void ConnectionManager::on(AdcCommand::SUP, UserConnection* aSource, const AdcCommand& cmd) noexcept {
@@ -385,9 +401,9 @@ void ConnectionManager::on(AdcCommand::SUP, UserConnection* aSource, const AdcCo
 
     bool baseOk = false;
 
-    for(auto i = cmd.getParameters().begin(); i != cmd.getParameters().end(); ++i) {
-        if(i->compare(0, 2, "AD") == 0) {
-            string feat = i->substr(2);
+    for(auto& i: cmd.getParameters()) {
+        if(i.compare(0, 2, "AD") == 0) {
+            string feat = i.substr(2);
             if(feat == UserConnection::FEATURE_ADC_BASE || feat == UserConnection::FEATURE_ADC_BAS0) {
                 baseOk = true;
                 // ADC clients must support all these...
@@ -424,7 +440,7 @@ void ConnectionManager::on(AdcCommand::SUP, UserConnection* aSource, const AdcCo
     aSource->setState(UserConnection::STATE_INF);
 }
 
-void ConnectionManager::on(AdcCommand::STA, UserConnection*, const AdcCommand& cmd) noexcept {
+void ConnectionManager::on(AdcCommand::STA, UserConnection*, const AdcCommand&) noexcept {
 
 }
 
@@ -432,7 +448,7 @@ void ConnectionManager::on(UserConnectionListener::Connected, UserConnection* aS
     // incorrect check because aSource->getUser().get() == nullptr
     if(aSource->isSecure() && !aSource->isTrusted() && !BOOLSETTING(ALLOW_UNTRUSTED_CLIENTS)) {
         putConnection(aSource);
-//        QueueManager::getInstance()->removeSource(aSource->getUser(), QueueItem::Source::FLAG_UNTRUSTED);
+        //        QueueManager::getInstance()->removeSource(aSource->getUser(), QueueItem::Source::FLAG_UNTRUSTED);
         return;
     }
 
@@ -460,7 +476,6 @@ void ConnectionManager::on(UserConnectionListener::MyNick, UserConnection* aSour
 
     dcassert(!aNick.empty());
     dcdebug("ConnectionManager::onMyNick %p, %s\n", (void*)aSource, aNick.c_str());
-    dcassert(!aSource->getUser());
 
     if(aSource->isSet(UserConnection::FLAG_INCOMING)) {
         // Try to guess where this came from...
@@ -482,8 +497,7 @@ void ConnectionManager::on(UserConnectionListener::MyNick, UserConnection* aSour
     // First, we try looking in the pending downloads...hopefully it's one of them...
     {
         Lock l(cs);
-        for(auto i = downloads.begin(); i != downloads.end(); ++i) {
-            ConnectionQueueItem* cqi = *i;
+        for(auto& cqi: downloads) {
             cqi->setErrors(0);
             if((cqi->getState() == ConnectionQueueItem::CONNECTING || cqi->getState() == ConnectionQueueItem::WAITING) &&
                     cqi->getUser().user->getCID() == cid)
@@ -523,6 +537,8 @@ void ConnectionManager::on(UserConnectionListener::MyNick, UserConnection* aSour
 }
 
 void ConnectionManager::on(UserConnectionListener::CLock, UserConnection* aSource, const string& aLock, const string& aPk) noexcept {
+    (void)aPk;
+
     if(aSource->getState() != UserConnection::STATE_LOCK) {
         dcdebug("CM::onLock %p received lock twice, ignoring\n", (void*)aSource);
         return;
@@ -577,14 +593,13 @@ void ConnectionManager::on(UserConnectionListener::Direction, UserConnection* aS
 }
 
 void ConnectionManager::addDownloadConnection(UserConnection* uc) {
-    dcassert(uc->isSet(UserConnection::FLAG_DOWNLOAD));
     bool addConn = false;
     {
         Lock l(cs);
 
         auto i = find(downloads.begin(), downloads.end(), uc->getUser());
         if(i != downloads.end()) {
-            ConnectionQueueItem* cqi = *i;
+            auto& cqi = *i;
             if(cqi->getState() == ConnectionQueueItem::WAITING || cqi->getState() == ConnectionQueueItem::CONNECTING) {
                 cqi->setState(ConnectionQueueItem::ACTIVE);
                 uc->setFlag(UserConnection::FLAG_ASSOCIATED);
@@ -638,8 +653,6 @@ void ConnectionManager::on(UserConnectionListener::Key, UserConnection* aSource,
         return;
     }
 
-    dcassert(aSource->getUser());
-
     if(aSource->isSet(UserConnection::FLAG_DOWNLOAD)) {
         addDownloadConnection(aSource);
     } else {
@@ -654,24 +667,35 @@ void ConnectionManager::on(AdcCommand::INF, UserConnection* aSource, const AdcCo
         return;
     }
 
+    // Leaks CSUPs, other client's CINF, and ADC connection's presence. Allows removing
+    // user from queue by waiting long enough for aSource->getUser() to function.
+    if(SETTING(REQUIRE_TLS) && !aSource->isSet(UserConnection::FLAG_NMDC) && !aSource->isSecure()) {
+        putConnection(aSource);
+        QueueManager::getInstance()->removeSource(aSource->getUser(), QueueItem::Source::FLAG_UNENCRYPTED);
+        return;
+    }
+
     string cid;
     if(!cmd.getParam("ID", 0, cid)) {
-        aSource->send(AdcCommand(AdcCommand::SEV_FATAL, AdcCommand::ERROR_INF_MISSING, "ID missing").addParam("FL", "ID"));
+        aSource->send(AdcCommand(AdcCommand::SEV_FATAL, AdcCommand::ERROR_INF_FIELD, "INF ID missing").addParam("FM", "ID"));
         dcdebug("CM::onINF missing ID\n");
         aSource->disconnect();
         return;
     }
 
-    aSource->setUser(ClientManager::getInstance()->findUser(CID(cid)));
-
     if(!aSource->getUser()) {
-        dcdebug("CM::onINF: User not found");
-        aSource->send(AdcCommand(AdcCommand::SEV_FATAL, AdcCommand::ERROR_GENERIC, "User not found"));
-        putConnection(aSource);
-        return;
+        aSource->setUser(ClientManager::getInstance()->findUser(CID(cid)));
+
+        if(!aSource->getUser()) {
+            aSource->send(AdcCommand(AdcCommand::SEV_FATAL, AdcCommand::ERROR_INF_FIELD, "INF ID: user not found").addParam("FB", "ID"));
+            putConnection(aSource);
+            return;
+        }
     }
 
+    // without a valid KeyPrint this degrades into normal turst check
     if(!checkKeyprint(aSource)) {
+        QueueManager::getInstance()->removeSource(aSource->getUser(), QueueItem::Source::FLAG_UNTRUSTED);
         putConnection(aSource);
         return;
     }
@@ -679,7 +703,7 @@ void ConnectionManager::on(AdcCommand::INF, UserConnection* aSource, const AdcCo
     string token;
     if(aSource->isSet(UserConnection::FLAG_INCOMING)) {
         if(!cmd.getParam("TO", 0, token)) {
-            aSource->send(AdcCommand(AdcCommand::SEV_FATAL, AdcCommand::ERROR_GENERIC, "TO missing"));
+            aSource->send(AdcCommand(AdcCommand::SEV_FATAL, AdcCommand::ERROR_INF_FIELD, "INF TO missing").addParam("FM", "TO"));
             putConnection(aSource);
             return;
         }
@@ -717,16 +741,12 @@ void ConnectionManager::force(const UserPtr& aUser) {
     Lock l(cs);
 
     auto i = find(downloads.begin(), downloads.end(), aUser);
-    if(i == downloads.end()) {
-        return;
+    if(i != downloads.end()) {
+        (*i)->setLastAttempt(0);
     }
-
-    (*i)->setLastAttempt(0);
 }
 
 bool ConnectionManager::checkKeyprint(UserConnection *aSource) {
-    dcassert(aSource->getUser());
-
     auto kp = aSource->getKeyprint();
     if(kp.empty()) {
         return true;
@@ -762,19 +782,42 @@ void ConnectionManager::failed(UserConnection* aSource, const string& aError, bo
         if(aSource->isSet(UserConnection::FLAG_DOWNLOAD)) {
             auto i = find(downloads.begin(), downloads.end(), aSource->getUser());
             dcassert(i != downloads.end());
-            ConnectionQueueItem* cqi = *i;
+
+            auto& cqi = *i;
             cqi->setState(ConnectionQueueItem::WAITING);
             cqi->setLastAttempt(GET_TICK());
             cqi->setErrors(protocolError ? -1 : (cqi->getErrors() + 1));
             fire(ConnectionManagerListener::Failed(), cqi, aError);
-        } else if(aSource->isSet(UserConnection::FLAG_UPLOAD)) {
-            auto i = find(uploads.begin(), uploads.end(), aSource->getUser());
-            dcassert(i != uploads.end());
-            ConnectionQueueItem* cqi = *i;
-            putCQI(cqi);
+        } else {
+            if(aSource->isSet(UserConnection::FLAG_UPLOAD)) {
+                auto i = find(uploads.begin(), uploads.end(), aSource->getUser());
+                dcassert(i != uploads.end());
+                ConnectionQueueItem* cqi = *i;
+                putCQI(cqi);
+            }
         }
     }
     putConnection(aSource);
+}
+
+bool ConnectionManager::checkHubCCBlock(const string& aServer, const string& aPort, const string& aHubUrl)
+{
+    const auto server_lower = Text::toLower(aServer);
+    dcassert(server_lower == aServer);
+
+    bool cc_blocked = false;
+
+    {
+        Lock l(cs);
+        cc_blocked = !hubsBlockingCC.empty() && hubsBlockingCC.find(server_lower) != hubsBlockingCC.end();
+    }
+
+    if(cc_blocked)
+    {
+        LogManager::getInstance()->message(str(F_("Blocked a C-C connection to a hub ('%1%:%2%'; request from '%3%')") % aServer % aPort % aHubUrl));
+        return true;
+    }
+    return false;
 }
 
 void ConnectionManager::on(UserConnectionListener::Failed, UserConnection* aSource, const string& aError) noexcept {
@@ -782,23 +825,31 @@ void ConnectionManager::on(UserConnectionListener::Failed, UserConnection* aSour
 }
 
 void ConnectionManager::on(UserConnectionListener::ProtocolError, UserConnection* aSource, const string& aError) noexcept {
+    if(aError.compare(0, 7, "CTM2HUB", 7) == 0) {
+        {
+            Lock l(cs);
+            hubsBlockingCC.insert(Text::toLower(aSource->getRemoteIp()));
+        }
+
+        string aServerPort = aSource->getRemoteIp() + ":" + aSource->getPort();
+        LogManager::getInstance()->message(str(F_("Blocking '%1%', potential DDoS detected (originating hub '%2%')") % aServerPort % aSource->getHubUrl() ));
+    }
+
     failed(aSource, aError, true);
 }
 
-void ConnectionManager::disconnect(const UserPtr& aUser) {
+void ConnectionManager::disconnect(const UserPtr& user) {
     Lock l(cs);
-    for(auto i = userConnections.begin(); i != userConnections.end(); ++i) {
-        UserConnection* uc = *i;
-        if(uc->getUser() == aUser)
+    for(auto uc: userConnections) {
+        if(uc->getUser() == user)
             uc->disconnect(true);
     }
 }
 
-void ConnectionManager::disconnect(const UserPtr& aUser, int isDownload) {
+void ConnectionManager::disconnect(const UserPtr& user, int isDownload) {
     Lock l(cs);
-    for(auto i = userConnections.begin(); i != userConnections.end(); ++i) {
-        UserConnection* uc = *i;
-        if(uc->getUser() == aUser && uc->isSet(isDownload ? UserConnection::FLAG_DOWNLOAD : UserConnection::FLAG_UPLOAD)) {
+    for(auto uc: userConnections) {
+        if(uc->getUser() == user && uc->isSet(isDownload ? UserConnection::FLAG_DOWNLOAD : UserConnection::FLAG_UPLOAD)) {
             uc->disconnect(true);
             break;
         }
@@ -811,8 +862,8 @@ void ConnectionManager::shutdown() {
     disconnect();
     {
         Lock l(cs);
-        for(auto j = userConnections.begin(); j != userConnections.end(); ++j) {
-            (*j)->disconnect(true);
+        for(auto j: userConnections) {
+            j->disconnect(true);
         }
     }
     // Wait until all connections have died out...
@@ -829,18 +880,18 @@ void ConnectionManager::shutdown() {
 
 // UserConnectionListener
 void ConnectionManager::on(UserConnectionListener::Supports, UserConnection* conn, const StringList& feat) noexcept {
-    for(auto i = feat.begin(); i != feat.end(); ++i) {
-        if(*i == UserConnection::FEATURE_MINISLOTS) {
+    for(auto& i: feat) {
+        if(i == UserConnection::FEATURE_MINISLOTS) {
             conn->setFlag(UserConnection::FLAG_SUPPORTS_MINISLOTS);
-        } else if(*i == UserConnection::FEATURE_XML_BZLIST) {
+        } else if(i == UserConnection::FEATURE_XML_BZLIST) {
             conn->setFlag(UserConnection::FLAG_SUPPORTS_XML_BZLIST);
-        } else if(*i == UserConnection::FEATURE_ADCGET) {
+        } else if(i == UserConnection::FEATURE_ADCGET) {
             conn->setFlag(UserConnection::FLAG_SUPPORTS_ADCGET);
-        } else if(*i == UserConnection::FEATURE_ZLIB_GET) {
+        } else if(i == UserConnection::FEATURE_ZLIB_GET) {
             conn->setFlag(UserConnection::FLAG_SUPPORTS_ZLIB_GET);
-        } else if(*i == UserConnection::FEATURE_TTHL) {
+        } else if(i == UserConnection::FEATURE_TTHL) {
             conn->setFlag(UserConnection::FLAG_SUPPORTS_TTHL);
-        } else if(*i == UserConnection::FEATURE_TTHF) {
+        } else if(i == UserConnection::FEATURE_TTHF) {
             conn->setFlag(UserConnection::FLAG_SUPPORTS_TTHF);
         }
     }

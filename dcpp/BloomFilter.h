@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
@@ -30,8 +29,8 @@ public:
 
     void add(const string& s) {xadd(s, N); }
     bool match(const StringList& s) const {
-        for(auto i = s.begin(); i != s.end(); ++i) {
-            if(!match(*i))
+        for(auto& i: s) {
+            if(!match(i))
                 return false;
         }
         return true;
@@ -58,8 +57,8 @@ public:
         for (unsigned int i = 0; i < table.size(); ++i) if (table[i] == true) ++tot;
 
         std::cout << "table status: " << tot << " of " << table.size()
-            << " filled, for an occupancy percentage of " << (100.*tot)/table.size()
-            << "%" << std::endl;
+                  << " filled, for an occupancy percentage of " << (100.*tot)/table.size()
+                  << "%" << std::endl;
     }
 #endif
 private:

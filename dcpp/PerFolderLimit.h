@@ -1,6 +1,6 @@
 /*
 * Copyright (C) 2010 ggrundik (http://code.google.com/u/ggrundik/)
-* for EiskaltDC++ Project (http://code.google.com/p/eiskaltdc/)
+* for EiskaltDC++ Project (https://github.com/eiskaltdcpp/eiskaltdcpp/)
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -13,8 +13,7 @@
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+* along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 #pragma once
@@ -29,22 +28,22 @@ class Identity;
 
 struct TFolderSetting
 {
-  typedef TFolderSetting* Ptr;
-  typedef std::list<Ptr> List;
-  typedef List::iterator Iter;
+    typedef TFolderSetting* Ptr;
+    typedef std::list<Ptr> List;
+    typedef List::iterator Iter;
 
-  string m_folder;
-  int m_minshare;
+    string m_folder;
+    int m_minshare;
 };
 
 class CPerfolderLimit
 {
-  TFolderSetting::List m_limits;
+    TFolderSetting::List m_limits;
 public:
-  CPerfolderLimit(string const *config_name=NULL);
-  ~CPerfolderLimit();
-  bool IsUserAllowed(string const& request, const UserPtr user, string *message=NULL);
-  void RenewList(string const *config_name=NULL);
+    CPerfolderLimit(string const *config_name=NULL);
+    ~CPerfolderLimit();
+    bool IsUserAllowed(string const& request, const UserPtr user, string *message=NULL);
+    void RenewList(string const *config_name=NULL);
 };
 
 }

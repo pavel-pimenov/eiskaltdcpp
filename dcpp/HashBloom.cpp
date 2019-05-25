@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+* Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -12,8 +12,7 @@
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+* along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include "stdinc.h"
@@ -21,6 +20,8 @@
 #include "HashBloom.h"
 
 #include <cmath>
+
+#include "MerkleTree.h"
 
 namespace dcpp {
 
@@ -37,7 +38,7 @@ size_t HashBloom::get_k(size_t n, size_t h) {
 uint64_t HashBloom::get_m(size_t n, size_t k) {
     uint64_t m = (static_cast<uint64_t>(ceil(static_cast<double>(n) * k / log(2.))));
     // 64-bit boundary as per spec
-    return ((m + 63 )/ 64) * 64;
+    return ((m + 63ULL )/ 64ULL) * 64ULL;
 }
 
 void HashBloom::add(const TTHValue& tth) {
@@ -82,7 +83,7 @@ size_t HashBloom::pos(const TTHValue& tth, size_t n) const {
         size_t pos = bit % 8;
 
         if(tth.data[byte] & (1 << pos)) {
-            x |= (1 << i);
+            x |= (1LL << i);
         }
     }
     return x % bloom.size();

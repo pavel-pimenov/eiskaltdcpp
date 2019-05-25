@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
@@ -38,7 +37,7 @@ namespace dht
 
         void process();
 
-        void addBootstrapNode(const string& ip, uint16_t udpPort, const CID& targetCID, const UDPKey& udpKey);
+        void addBootstrapNode(const string& ip, const std::string &udpPort, const CID& targetCID, const UDPKey& udpKey);
 
     private:
 
@@ -47,7 +46,7 @@ namespace dht
         struct BootstrapNode
         {
             string      ip;
-            uint16_t    udpPort;
+            string      udpPort;
             CID         cid;
             UDPKey      udpKey;
         };
@@ -63,7 +62,7 @@ namespace dht
 
         // HttpConnectionListener
         void on(HttpConnectionListener::Data, HttpConnection* conn, const uint8_t* buf, size_t len) throw();
-        void on(HttpConnectionListener::Complete, HttpConnection* conn, string const& aLine, bool /*fromCoral*/) throw();
+        void on(HttpConnectionListener::Complete, HttpConnection* conn, string const& aLine) throw();
         void on(HttpConnectionListener::Failed, HttpConnection* conn, const string& aLine) throw();
 
     };

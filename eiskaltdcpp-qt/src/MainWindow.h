@@ -22,7 +22,6 @@
 #include <QHash>
 #include <QSessionManager>
 
-
 #include "dcpp/stdinc.h"
 #include "dcpp/ConnectionManager.h"
 #include "dcpp/DownloadManager.h"
@@ -53,9 +52,6 @@ class MultiLineToolBar;
 class ScriptConsole;
 #endif
 
-extern const char * const EISKALTDCPP_VERSION;
-extern const char * const EISKALTDCPP_WND_TITLE;
-
 class QProgressBar;
 
 class About:
@@ -65,7 +61,7 @@ class About:
 Q_OBJECT
 
 public:
-    About(QWidget *parent = NULL): QDialog(parent){ setupUi(this); }
+    About(QWidget *parent = nullptr): QDialog(parent){ setupUi(this); }
 
     void printHelp() const {
         QString msg =   tr("Using:\n"
@@ -82,7 +78,7 @@ public:
     }
 
     void printVersion() const {
-        printf("%s\n", EISKALTDCPP_VERSION);
+        printf("%s\n", eiskaltdcppVersionString.c_str());
     }
 };
 
@@ -256,7 +252,7 @@ friend class dcpp::Singleton<MainWindow>;
         void notifyMessage(int, const QString&, const QString&);
 
     private:
-        MainWindow (QWidget *parent=NULL);
+        MainWindow (QWidget *parent=nullptr);
         virtual ~MainWindow();
 
         /** LogManagerListener */

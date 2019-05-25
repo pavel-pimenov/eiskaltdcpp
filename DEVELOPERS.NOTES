@@ -1,0 +1,33 @@
+*******************************************************************************
+Extra keys for cmake
+*******************************************************************************
+-DENABLE_STACKTRACE=ON/OFF (default: OFF)
+    Show stacktrace when program receive SIGSEGV
+-DCHECK_GTK_DEPRECATED=ON/OFF (default: OFF)
+    Check GTK+ backend for deprecated function
+-DUSE_GOLD=ON/OFF (default: OFF)
+    Use ld.gold instead ld.bfd
+-DOPENSSL_MSVC=ON/OFF (default: OFF)
+    Use MSVC build openssl (only for MS Windows)
+-DUPDATE_PO=ON/OFF (default: OFF)
+    Update *.po files
+-DCREATE_MO=ON/OFF (default: ON)
+    Create *.mo files
+.
+-DDEBUG=ON/OFF (default: OFF)
+    Enable verbose debug output
+-DDEBUG_DAEMON=ON/OFF (default: OFF)
+    Enable debug output from eiskaltdcpp-daemon
+-DDEBUG_QT_UI=ON/OFF (default: OFF)
+    Enable debug output from eiskaltdcpp-qt
+-DDEBUG_IPFILTER=ON/OFF (default: OFF)
+    Enable debug output from filter of IP addresses
+-DDEBUG_MONGOOSE=ON/OFF (default: OFF)
+    Enable debug output of mongoose library
+.
+-DBUILD_STATIC=ON/OFF (default: OFF)
+    Static build (only for MS Windows and GNU/Linux)
+-DINSTALL_DEPENDENCIES=ON/OFF (default: OFF)
+    Install all necessary libraries and plugins (only for MS Windows)
+-DINSTALL_QT_TRANSLATIONS=ON/OFF (default: OFF)
+    Install Qt internal translations into the directory with Qt UI translations

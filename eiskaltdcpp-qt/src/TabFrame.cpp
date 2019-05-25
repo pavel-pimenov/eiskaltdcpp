@@ -63,10 +63,8 @@ TabFrame::TabFrame(QWidget *parent) :
 TabFrame::~TabFrame(){
     DEBUG_BLOCK
 
-    auto it = tbtn_map.begin();
-
-    for  (; it != tbtn_map.end(); ++it){
-        TabButton *btn = const_cast<TabButton*>(it.key());
+    for (const auto &key : tbtn_map.keys()){
+        TabButton *btn = const_cast<TabButton*>(key);
 
         btn->deleteLater();
     }
@@ -190,9 +188,7 @@ void TabFrame::updated ( ArenaWidget* awgt ) {
 void TabFrame::redraw() {
     DEBUG_BLOCK
     
-    auto it = tbtn_map.begin();
-
-    for  (; it != tbtn_map.end(); ++it){
+    for (auto it = tbtn_map.begin(); it != tbtn_map.end(); ++it){
         TabButton *btn = const_cast<TabButton*>(it.key());
         ArenaWidget *awgt = const_cast<ArenaWidget*>(it.value());
 
@@ -239,7 +235,7 @@ void TabFrame::historyPop(){
         return;
     }
     else if (history.isEmpty()){
-        ArenaWidgetManager::getInstance()->activate(NULL);
+        ArenaWidgetManager::getInstance()->activate(nullptr);
         
         return;
     }
@@ -277,7 +273,7 @@ void TabFrame::closeRequsted() {
 void TabFrame::nextTab(){
     DEBUG_BLOCK
     
-    TabButton *next = NULL;
+    TabButton *next = nullptr;
 
     for (int i = 0; i < fr_layout->count(); i++){
         TabButton *t = qobject_cast<TabButton*>(fr_layout->itemAt(i)->widget());
@@ -302,7 +298,7 @@ void TabFrame::nextTab(){
 void TabFrame::prevTab(){
     DEBUG_BLOCK
     
-    TabButton *next = NULL;
+    TabButton *next = nullptr;
 
     for (int i = 0; i < fr_layout->count(); i++){
         TabButton *t = qobject_cast<TabButton*>(fr_layout->itemAt(i)->widget());

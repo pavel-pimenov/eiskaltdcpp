@@ -36,7 +36,7 @@ QWidget *CmdDebug::getWidget() {
 }
 
 QString CmdDebug::getArenaTitle() {
-    return tr("CmdDebug");
+    return tr("Debug Console");
 }
 
 QString CmdDebug::getArenaShortTitle() {
@@ -44,10 +44,11 @@ QString CmdDebug::getArenaShortTitle() {
 }
 
 QMenu *CmdDebug::getMenu() {
-    return NULL;
+    return nullptr;
 }
 
 void CmdDebug::on(DebugManagerListener::DebugDetection, const string &com) noexcept {
+    Q_UNUSED(com)
     // NOTE: we no use this in core
 }
 

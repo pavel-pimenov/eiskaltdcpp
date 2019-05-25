@@ -32,16 +32,11 @@
 #include "dcpp/CID.h"
 #include "dcpp/ShareManager.h"
 
-//#define _DEBUG_MODEL_
-
-
-#include <QtDebug>
-
-using namespace dcpp;
-
-#ifdef _DEBUG_MODEL_
+#ifdef _DEBUG_QT_UI
 #include <QtDebug>
 #endif
+
+using namespace dcpp;
 
 FinishedTransfersModel::FinishedTransfersModel(QObject *parent):
         QAbstractItemModel(parent), sortColumn(0), sortOrder(Qt::AscendingOrder)
@@ -157,7 +152,7 @@ QVariant FinishedTransfersModel::data(const QModelIndex &index, int role) const
 Qt::ItemFlags FinishedTransfersModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
-        return 0;
+        return nullptr;
 
     return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
@@ -193,6 +188,7 @@ QModelIndex FinishedTransfersModel::index(int row, int column, const QModelIndex
 
 QModelIndex FinishedTransfersModel::parent(const QModelIndex &index) const
 {
+    Q_UNUSED(index)
     return QModelIndex();
 }
 
@@ -249,7 +245,7 @@ struct FileCompare {
                     return NumCmp<COLUMN_FINISHED_ELAPS>;
             }
 
-            return NULL;
+            return nullptr;
         }
         template <int i>
         bool static AttrCmp(const FinishedTransfersItem * l, const FinishedTransfersItem * r) {
@@ -308,7 +304,7 @@ struct UserCompare {
                     return AttrCmp<COLUMN_FINISHED_ELAPS>;
             }
 
-            return NULL;
+            return nullptr;
         }
         template <int i>
         bool static AttrCmp(const FinishedTransfersItem * l, const FinishedTransfersItem * r) {
@@ -476,7 +472,7 @@ void FinishedTransfersModel::switchViewType(FinishedTransfersModel::ViewType t){
 
 FinishedTransfersItem *FinishedTransfersModel::findFile(const QString &fname){
     if (fname.isEmpty())
-        return NULL;
+        return nullptr;
 
     auto it = file_hash.find(fname);
 
@@ -507,7 +503,7 @@ FinishedTransfersItem *FinishedTransfersModel::findFile(const QString &fname){
 
 FinishedTransfersItem *FinishedTransfersModel::findUser(const QString &cid){
     if (cid.isEmpty())
-        return NULL;
+        return nullptr;
 
     auto it = user_hash.find(cid);
 
@@ -549,6 +545,7 @@ FinishedTransfersItem::FinishedTransfersItem(const QList<QVariant> &data, Finish
 FinishedTransfersItem::~FinishedTransfersItem()
 {
     qDeleteAll(childItems);
+    childItems.clear();
 }
 
 void FinishedTransfersItem::appendChild(FinishedTransfersItem *item) {
@@ -556,7 +553,7 @@ void FinishedTransfersItem::appendChild(FinishedTransfersItem *item) {
 }
 
 FinishedTransfersItem *FinishedTransfersItem::child(int row) {
-    return ((row >= 0 && row <= childItems.count()-1)? childItems.value(row) : NULL);
+    return ((row >= 0 && row <= childItems.count()-1)? childItems.value(row) : nullptr);
 }
 
 int FinishedTransfersItem::childCount() const {

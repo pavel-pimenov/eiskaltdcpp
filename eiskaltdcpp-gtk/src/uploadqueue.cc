@@ -13,9 +13,7 @@
 //      GNU General Public License for more details.
 //
 //      You should have received a copy of the GNU General Public License
-//      along with this program; if not, write to the Free Software
-//      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-//      MA 02110-1301, USA.
+//      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 //
 
@@ -33,10 +31,10 @@ using namespace std;
 using namespace dcpp;
 
 UploadQueue::UploadQueue():
-BookEntry(Entry::UPLOADQUEUE, _("Upload Queue"), "uploadqueue.ui")
+    BookEntry(Entry::UPLOADQUEUE, _("Upload Queue"), "uploadqueue.ui")
 {
 #if !GTK_CHECK_VERSION(3,0,0)
-    gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(getWidget("statusbar1")),FALSE);
+    gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(getWidget("statusbar1")),false);
 #endif
 
     users.setView(GTK_TREE_VIEW(getWidget("viewUsers")));
@@ -66,34 +64,36 @@ BookEntry(Entry::UPLOADQUEUE, _("Upload Queue"), "uploadqueue.ui")
 UploadQueue::~UploadQueue()
 {
     UploadManager::getInstance()->removeListener(this);
+    gtk_list_store_clear(store);
+    g_object_unref(store);
 }
 
 void UploadQueue::show()
 {
     UploadManager::getInstance()->addListener(this);
-    init();
+    intilaize_client();
 }
 
-void UploadQueue::init()
+void UploadQueue::intilaize_client()
 {
     // Load queue
     const dcpp::HintedUserList _users = UploadManager::getInstance()->getWaitingUsers();
     UploadManager *up = UploadManager::getInstance();
-    for (auto uit = _users.begin(); uit != _users.end(); ++uit)
+    for (auto& uit :_users)
     {
-        const dcpp::UploadManager::FileSet f = up->getWaitingUserFiles(((*uit).user));
+        const UploadManager::FileSet f = up->getWaitingUserFiles((uit.user));
         StringMap params;
-        for(auto fit = f.begin(); fit!= f.end();++fit)
+        for(auto& fit : f)
         {
             GtkTreeIter iter;
-            getParams(*fit,(*uit).user, params);
+            getParams(fit,uit.user, params);
             addFile(params, &iter);
         }
 
     }
 }
 
-void UploadQueue::getParams(const string file, UserPtr user, StringMap &params)
+void UploadQueue::getParams(const string& file, UserPtr user, StringMap &params)
 {
     params["file"]  = file;
     params["Nick"]  = WulforUtil::getNicks(user->getCID(), Util::emptyString);
@@ -106,30 +106,31 @@ void UploadQueue::addFile(StringMap &params,GtkTreeIter *iter)
 
     gtk_list_store_append(store,iter);
     gtk_list_store_set(store, iter,
-                users.col("User"), params["Nick"].c_str(),
-                users.col("File"),params["file"].c_str(),
-                users.col("Hub") , params["hub"].c_str(),
-                users.col("CID"), params["CID"].c_str(),
-                -1);
+                       users.col("User"), params["Nick"].c_str(),
+            users.col("File"),params["file"].c_str(),
+            users.col("Hub") , params["hub"].c_str(),
+            users.col("CID"), params["CID"].c_str(),
+            -1);
     mapUsers.insert(MapUsers::value_type(params["CID"], *iter));
 }
 
 void UploadQueue::AddFile_gui(StringMap params)
 {
     GtkTreeIter iter;
-    gchar *file;
+    g_autofree gchar *cpfile = NULL;
     auto it = mapUsers.find(params["CID"]);
     if(it != mapUsers.end())
     {
         iter = it->second;
-        gtk_tree_model_get(GTK_TREE_MODEL(store),&iter,1,&file,-1);
-        params["file"] += string(file);
+        gtk_tree_model_get(GTK_TREE_MODEL(store),&iter,
+                           1,&cpfile,-1);
+        params["file"] += string(cpfile);
 
     }
     addFile(params,&iter);
 }
 
-void UploadQueue::removeUser(string cid)
+void UploadQueue::removeUser(const string &cid)
 {
     GtkTreeIter iter;
     auto it = mapUsers.find(cid);
@@ -144,14 +145,15 @@ void UploadQueue::removeUser(string cid)
 
 void UploadQueue::onGrantSlotItemClicked_gui(GtkMenuItem *item, gpointer data)
 {
+    (void)item;
     UploadQueue *qp = (UploadQueue *)data;
 
     if (gtk_tree_selection_count_selected_rows(qp->selection) > 0)
     {
         GtkTreeIter iter;
-        GtkTreePath *path;
+        GtkTreePath *path = NULL;
         GList *list = gtk_tree_selection_get_selected_rows(qp->selection, NULL);
-        typedef Func1<UploadQueue, string> F2;
+        typedef Func1<UploadQueue, const string&> F2;
 
         for (GList *i = list; i; i = i->next)
         {
@@ -160,7 +162,7 @@ void UploadQueue::onGrantSlotItemClicked_gui(GtkMenuItem *item, gpointer data)
             if (gtk_tree_model_get_iter(GTK_TREE_MODEL(qp->store), &iter, path))
             {
                 F2 *func = new F2(qp, &UploadQueue::grantSlot_client,
-                    qp->users.getString(&iter, "CID"));
+                                  qp->users.getString(&iter, "CID"));
                 WulforManager::get()->dispatchClientFunc(func);
             }
             gtk_tree_path_free(path);
@@ -171,14 +173,15 @@ void UploadQueue::onGrantSlotItemClicked_gui(GtkMenuItem *item, gpointer data)
 
 void UploadQueue::onRemoveItem_gui(GtkMenuItem *item, gpointer data)
 {
+    (void)item;
     UploadQueue *qp = (UploadQueue *)data;
 
     if (gtk_tree_selection_count_selected_rows(qp->selection) > 0)
     {
         GtkTreeIter iter;
-        GtkTreePath *path;
+        GtkTreePath *path = NULL;
         GList *list = gtk_tree_selection_get_selected_rows(qp->selection, NULL);
-        typedef Func1<UploadQueue, string> F2;
+        typedef Func1<UploadQueue, const string&> F2;
 
         for (GList *i = list; i; i = i->next)
         {
@@ -187,7 +190,7 @@ void UploadQueue::onRemoveItem_gui(GtkMenuItem *item, gpointer data)
             if (gtk_tree_model_get_iter(GTK_TREE_MODEL(qp->store), &iter, path))
             {
                 F2 *func = new F2(qp, &UploadQueue::removeUploadFromQueue,
-                    qp->users.getString(&iter, "CID"));
+                                  qp->users.getString(&iter, "CID"));
                 WulforManager::get()->dispatchClientFunc(func);
             }
             gtk_tree_path_free(path);
@@ -198,12 +201,13 @@ void UploadQueue::onRemoveItem_gui(GtkMenuItem *item, gpointer data)
 
 void UploadQueue::onSendPMItemClicked_gui(GtkMenuItem *item, gpointer data)
 {
+    (void)item;
     UploadQueue *qp = (UploadQueue *)data;
 
     if (gtk_tree_selection_count_selected_rows(qp->selection) > 0)
     {
         GtkTreeIter iter;
-        GtkTreePath *path;
+        GtkTreePath *path = NULL;
         GList *list = gtk_tree_selection_get_selected_rows(qp->selection, NULL);
 
         for (GList *i = list; i; i = i->next)
@@ -213,7 +217,7 @@ void UploadQueue::onSendPMItemClicked_gui(GtkMenuItem *item, gpointer data)
             if (gtk_tree_model_get_iter(GTK_TREE_MODEL(qp->store), &iter, path))
             {
                 WulforManager::get()->getMainWindow()->addPrivateMessage_gui(Msg::UNKNOWN,
-                    qp->users.getString(&iter, "CID"));
+                                                                             qp->users.getString(&iter, "CID"));
             }
             gtk_tree_path_free(path);
         }
@@ -223,14 +227,15 @@ void UploadQueue::onSendPMItemClicked_gui(GtkMenuItem *item, gpointer data)
 
 void UploadQueue::onBrowseItemClicked_gui(GtkMenuItem *item, gpointer data)
 {
+    (void)item;
     UploadQueue *qp = (UploadQueue *)data;
 
     if (gtk_tree_selection_count_selected_rows(qp->selection) > 0)
     {
         GtkTreeIter iter;
-        GtkTreePath *path;
+        GtkTreePath *path = NULL;
         GList *list = gtk_tree_selection_get_selected_rows(qp->selection, NULL);
-        typedef Func1<UploadQueue, string> F1;
+        typedef Func1<UploadQueue, const string&> F1;
 
         for (GList *i = list; i; i = i->next)
         {
@@ -239,7 +244,7 @@ void UploadQueue::onBrowseItemClicked_gui(GtkMenuItem *item, gpointer data)
             if (gtk_tree_model_get_iter(GTK_TREE_MODEL(qp->store), &iter, path))
             {
                 F1 *func = new F1(qp, &UploadQueue::getFileList_client,
-                qp->users.getString(&iter, "CID"));
+                                  qp->users.getString(&iter, "CID"));
                 WulforManager::get()->dispatchClientFunc(func);
             }
             gtk_tree_path_free(path);
@@ -250,14 +255,15 @@ void UploadQueue::onBrowseItemClicked_gui(GtkMenuItem *item, gpointer data)
 
 void UploadQueue::onFavoriteUserAddItemClicked_gui(GtkMenuItem *item, gpointer data)
 {
+    (void)item;
     UploadQueue *qp = (UploadQueue *)data;
 
     if (gtk_tree_selection_count_selected_rows(qp->selection) > 0)
     {
         GtkTreeIter iter;
-        GtkTreePath *path;
+        GtkTreePath *path = NULL;
         GList *list = gtk_tree_selection_get_selected_rows(qp->selection, NULL);
-        typedef Func1<UploadQueue, string> F2;
+        typedef Func1<UploadQueue, const string&> F2;
 
         for (GList *i = list; i; i = i->next)
         {
@@ -266,7 +272,7 @@ void UploadQueue::onFavoriteUserAddItemClicked_gui(GtkMenuItem *item, gpointer d
             if (gtk_tree_model_get_iter(GTK_TREE_MODEL(qp->store), &iter, path))
             {
                 F2 *func = new F2(qp, &UploadQueue::addFavoriteUser_client,
-                    qp->users.getString(&iter, "CID"));
+                                  qp->users.getString(&iter, "CID"));
                 WulforManager::get()->dispatchClientFunc(func);
             }
             gtk_tree_path_free(path);
@@ -277,27 +283,33 @@ void UploadQueue::onFavoriteUserAddItemClicked_gui(GtkMenuItem *item, gpointer d
 
 gboolean UploadQueue::onKeyReleased_gui(GtkWidget *widget, GdkEventKey *event, gpointer data)
 {
+    (void)widget;
     UploadQueue *qp = (UploadQueue *)data;
 
     if (gtk_tree_selection_count_selected_rows(qp->selection) > 0)
     {
-        if (event->keyval == GDK_Menu || (event->keyval == GDK_F10 && event->state & GDK_SHIFT_MASK))
+        if (event->keyval == GDK_KEY_Menu || (event->keyval == GDK_KEY_F10 && event->state & GDK_SHIFT_MASK))
         {
+#if GTK_CHECK_VERSION(3,22,0)
+            gtk_menu_popup_at_pointer(GTK_MENU(qp->getWidget("menu")),NULL);
+#else
             gtk_menu_popup(GTK_MENU(qp->getWidget("menu")), NULL, NULL, NULL, NULL, 0, gtk_get_current_event_time());
+#endif
         }
     }
 
-    return FALSE;
+    return false;
 }
 
 gboolean UploadQueue::onButtonPressed_gui(GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
+    (void)widget;
     UploadQueue *qp = (UploadQueue *)data;
     qp->previous = event->type;
 
     if (event->button == 3)
     {
-        GtkTreePath *path;
+        GtkTreePath *path = NULL;
 
         if (gtk_tree_view_get_path_at_pos(qp->users.get(), (gint)event->x, (gint)event->y, &path, NULL, NULL, NULL))
         {
@@ -305,28 +317,33 @@ gboolean UploadQueue::onButtonPressed_gui(GtkWidget *widget, GdkEventButton *eve
             gtk_tree_path_free(path);
 
             if (selected)
-                return TRUE;
+                return true;
         }
     }
-    return FALSE;
+    return false;
 }
 
 gboolean UploadQueue::onButtonReleased_gui(GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
+    (void)widget;
     UploadQueue *qp = (UploadQueue *)data;
 
     if (gtk_tree_selection_count_selected_rows(qp->selection) > 0)
     {
         if (event->button == 3 && event->type == GDK_BUTTON_RELEASE)
         {
+#if GTK_CHECK_VERSION(3,22,0)
+            gtk_menu_popup_at_pointer(GTK_MENU(qp->getWidget("menu")),NULL);
+#else
             gtk_menu_popup(GTK_MENU(qp->getWidget("menu")), NULL, NULL, NULL, NULL, 0, gtk_get_current_event_time());
+#endif
         }
     }
 
-    return FALSE;
+    return false;
 }
 
-void UploadQueue::grantSlot_client(const string cid)
+void UploadQueue::grantSlot_client(const string &cid)
 {
     UserPtr user = ClientManager::getInstance()->findUser(CID(cid));
     if (user)
@@ -335,31 +352,32 @@ void UploadQueue::grantSlot_client(const string cid)
     }
 }
 
-void UploadQueue::removeUploadFromQueue(const string cid)
+void UploadQueue::removeUploadFromQueue(const string &cid)
 {
-    UserPtr uu = ClientManager::getInstance()->findUser(CID(cid));
-    if (uu)
+    UserPtr user = ClientManager::getInstance()->findUser(CID(cid));
+    if (user)
     {
-          UploadManager::getInstance()->clearUserFiles(uu);
+        UploadManager::getInstance()->clearUserFiles(user);
     }
 }
 
-void UploadQueue::getFileList_client(const std::string cid)
+void UploadQueue::getFileList_client(const string &cid)
 {
     try {
-        UserPtr uu = ClientManager::getInstance()->findUser(CID(cid));
-        if(uu)
+        UserPtr user = ClientManager::getInstance()->findUser(CID(cid));
+        if(user)
         {
-            HintedUser hintedUser(uu, Util::emptyString);
+            HintedUser hintedUser(user, Util::emptyString);
             QueueManager::getInstance()->addList(hintedUser, QueueItem::FLAG_CLIENT_VIEW);
         }
     }catch(...)
-    { //... for now ignore it
+    {
+        //... for now ignore it
     }
 
 }
 
-void UploadQueue::addFavoriteUser_client(const string cid)
+void UploadQueue::addFavoriteUser_client(const string &cid)
 {
     UserPtr user = ClientManager::getInstance()->findUser(CID(cid));
 
@@ -369,7 +387,7 @@ void UploadQueue::addFavoriteUser_client(const string cid)
     }
 }
 
-void UploadQueue::on(dcpp::UploadManagerListener::WaitingAddFile, const HintedUser& hUser, string file) noexcept
+void UploadQueue::on(dcpp::UploadManagerListener::WaitingAddFile, const HintedUser& hUser, const string &file) noexcept
 {
     StringMap params;
     getParams(file,hUser.user,params);
@@ -380,7 +398,7 @@ void UploadQueue::on(dcpp::UploadManagerListener::WaitingAddFile, const HintedUs
 
 void UploadQueue::on(dcpp::UploadManagerListener::WaitingRemoveUser, const HintedUser& user) noexcept
 {
-    typedef Func1<UploadQueue, string> F1;
+    typedef Func1<UploadQueue, const string&> F1;
     F1 *func = new F1(this, &UploadQueue::removeUser,user.user->getCID().toBase32());
     WulforManager::get()->dispatchGuiFunc(func);
 

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,54 +13,53 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
-#include "noexcept.h"
-#include "User.h"
+#include <set>
+
+#include "NonCopyable.h"
+
+#include "forward.h"
+
+#include "HintedUser.h"
 #include "FastAlloc.h"
 #include "MerkleTree.h"
-#include "Streams.h"
 #include "MediaInfo.h"
+#include "GetSet.h"
+#include "User.h"
+#include "Util.h"
 
 namespace dcpp {
 
+using std::set;
+
 class ListLoader;
 
-class DirectoryListing : boost::noncopyable
+class DirectoryListing : private NonCopyable
 {
 public:
     class Directory;
 
-    class File : public FastAlloc<File> {
+    class File : public FastAlloc<File>, private NonCopyable {
     public:
         typedef File* Ptr;
-        struct FileSort {
-            bool operator()(const Ptr& a, const Ptr& b) const {
-                return Util::stricmp(a->getName().c_str(), b->getName().c_str()) < 0;
-            }
-        };
-        typedef vector<Ptr> List;
-        typedef List::iterator Iter;
 
         File(Directory* aDir, const string& aName, int64_t aSize, const TTHValue& aTTH) noexcept :
-            name(aName), size(aSize), parent(aDir), tthRoot(aTTH), adls(false)
+            NonCopyable(),
+            name(aName), size(aSize), parent(aDir), tthRoot(aTTH), adls(false),
+            ts(0), hit(0)
         {
         }
 
-        File(const File& rhs, bool _adls = false) : name(rhs.name), size(rhs.size), parent(rhs.parent), tthRoot(rhs.tthRoot), adls(_adls)
+        File(const File& rhs, bool _adls = false) :
+            NonCopyable(),
+            name(rhs.name), size(rhs.size), parent(rhs.parent), tthRoot(rhs.tthRoot), adls(_adls),
+            ts(rhs.ts), hit(rhs.hit)
         {
         }
-
-        File& operator=(const File& rhs) {
-            name = rhs.name; size = rhs.size; parent = rhs.parent; tthRoot = rhs.tthRoot;
-            return *this;
-        }
-
-        ~File() { }
 
         GETSET(string, name, Name);
         GETSET(int64_t, size, Size);
@@ -71,29 +71,24 @@ public:
         MediaInfo mediaInfo;
     };
 
-    class Directory : public FastAlloc<Directory>, boost::noncopyable {
+    class Directory : public FastAlloc<Directory>, private NonCopyable {
     public:
         typedef Directory* Ptr;
-        struct DirSort {
-            bool operator()(const Ptr& a, const Ptr& b) const {
-                return Util::stricmp(a->getName().c_str(), b->getName().c_str()) < 0;
-            }
-        };
-        typedef vector<Ptr> List;
-        typedef List::iterator Iter;
 
         typedef unordered_set<TTHValue> TTHSet;
 
-        List directories;
-        File::List files;
+        template<typename T> struct Less {
+            bool operator()(typename T::Ptr a, typename T::Ptr b) const { return compare(a->getName(), b->getName()) < 0; }
+        };
 
-        Directory(Directory* aParent, const string& aName, bool _adls, bool aComplete)
-            : name(aName), parent(aParent), adls(_adls), complete(aComplete) { }
+        set<Ptr, Less<Directory>> directories;
+        set<File::Ptr, Less<File>> files;
 
-        virtual ~Directory() {
-            for_each(directories.begin(), directories.end(), DeleteFunction());
-            for_each(files.begin(), files.end(), DeleteFunction());
-        }
+        Directory(Directory* aParent, const string& aName, bool _adls, bool aComplete):
+            NonCopyable(),
+            name(aName), parent(aParent), adls(_adls), complete(aComplete) { }
+
+        virtual ~Directory();
 
         size_t getTotalFileCount(bool adls = false);
         int64_t getTotalSize(bool adls = false);
@@ -101,12 +96,12 @@ public:
         void filterList(TTHSet& l);
         void getHashList(TTHSet& l);
 
-        size_t getFileCount() { return files.size(); }
+        size_t getFileCount() const { return files.size(); }
 
-        int64_t getSize() {
+        int64_t getSize() const {
             int64_t x = 0;
-            for(auto i = files.begin(); i != files.end(); ++i) {
-                x+=(*i)->getSize();
+            for(auto& i: files) {
+                x+=i->getSize();
             }
             return x;
         }
@@ -128,7 +123,7 @@ public:
     DirectoryListing(const HintedUser& aUser);
     ~DirectoryListing();
 
-    void loadFile(const string& name);
+    void loadFile(const string& path);
 
     string updateXML(const std::string&);
     string loadXML(InputStream& xml, bool updating);
@@ -155,7 +150,7 @@ public:
 
     GETSET(HintedUser, user, User);
 
-    Directory* find(const string& aName, Directory* current);
+    Directory* find(const string& aName, Directory* current) const;
 
 private:
     friend class ListLoader;

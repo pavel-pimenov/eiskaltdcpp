@@ -33,7 +33,7 @@ CustomFontModel::CustomFontModel(QObject *parent)
     QList<QVariant> rootData;
     rootData << tr("Description") << tr("Font");
 
-    rootItem = new CustomFontItem(rootData, NULL);
+    rootItem = new CustomFontItem(rootData, nullptr);
 
     addNewFont(WS_APP_FONT,         tr("Application"));
     addNewFont(WS_CHAT_FONT,        tr("Public Chat: Chat"));
@@ -156,7 +156,7 @@ void CustomFontModel::addNewFont(const QString &wkey, const QString &desc){
     if (wkey.isEmpty() || desc.isEmpty())
         return;
 
-	QString font_desc = WSGET(wkey.toUtf8().constData());
+    QString font_desc = WSGET(wkey.toUtf8().constData());
     QFont f;
 
     if (font_desc.isEmpty())
@@ -209,6 +209,7 @@ CustomFontItem::CustomFontItem(const QList<QVariant> &data, CustomFontItem *pare
 CustomFontItem::~CustomFontItem()
 {
     qDeleteAll(childItems);
+    childItems.clear();
 }
 
 void CustomFontItem::appendChild(CustomFontItem *item) {

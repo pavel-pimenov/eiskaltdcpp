@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2009-2010 Big Muscle, http://strongdc.sf.net
+ * Copyright (C) 2019 Boris Pek <tehnick-8@yandex.ru>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +13,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdafx.h"
@@ -100,11 +100,11 @@ namespace dht
     /*
      * Creates new (or update existing) node which is NOT added to our routing table
      */
-    Node::Ptr KBucket::createNode(const UserPtr& u, const string& ip, uint16_t port, bool update, bool isUdpKeyValid)
+    Node::Ptr KBucket::createNode(const UserPtr& u, const string& ip, const string& port, bool update, bool isUdpKeyValid)
     {
         if(u->isSet(User::DHT)) // is this user already known in DHT?
         {
-            Node::Ptr node = NULL;
+            Node::Ptr node = nullptr;
 
             // no online node found, try get from routing table
             for(NodeList::iterator it = nodes.begin(); it != nodes.end(); ++it)
@@ -120,7 +120,7 @@ namespace dht
                 }
             }
 
-            if(node == NULL && u->isOnline())
+            if(node == nullptr && u->isOnline())
             {
                 // try to get node from ClientManager (user can be online but not in our routing table)
                 // this fixes the bug with DHT node online twice
@@ -128,14 +128,14 @@ namespace dht
                 node = node.get();
             }
 
-            if(node != NULL)
+            if(node != nullptr)
             {
                 // fine, node found, update it and return it
                 if(update)
                 {
-                    string oldIp    = node->getIdentity().getIp();
-                    string oldPort  = node->getIdentity().getUdpPort();
-                    if(ip != oldIp || static_cast<uint16_t>(Util::toInt(oldPort)) != port)
+                    const string oldIp    = node->getIdentity().getIp();
+                    const string oldPort  = node->getIdentity().getUdpPort();
+                    if(ip != oldIp || oldPort != port)
                     {
                         node->setIpVerified(false);
 
@@ -143,7 +143,7 @@ namespace dht
 
                         // erase old IP and remember new one
                         ipMap.erase(oldIp + ":" + oldPort);
-                        ipMap.insert(ip + ":" + Util::toString(port));
+                        ipMap.insert(ip + ":" + port);
                     }
 
                     if(!node->isIpVerified())
@@ -151,7 +151,7 @@ namespace dht
 
                     node->setAlive();
                     node->getIdentity().setIp(ip);
-                    node->getIdentity().setUdpPort(Util::toString(port));
+                    node->getIdentity().setUdpPort(port);
 
                     DHT::getInstance()->setDirty();
                 }
@@ -164,7 +164,7 @@ namespace dht
 
         Node::Ptr node(new Node(u));
         node->getIdentity().setIp(ip);
-        node->getIdentity().setUdpPort(Util::toString(port));
+        node->getIdentity().setUdpPort(port);
         node->setIpVerified(isUdpKeyValid);
         return node;
     }
@@ -283,7 +283,7 @@ namespace dht
             {
                 // ping the oldest (expired) node
                 node->setTimeout(currentTime);
-                DHT::getInstance()->info(node->getIdentity().getIp(), static_cast<uint16_t>(Util::toInt(node->getIdentity().getUdpPort())), DHT::PING, node->getUser()->getCID(), node->getUdpKey());
+                DHT::getInstance()->info(node->getIdentity().getIp(), node->getIdentity().getUdpPort(), DHT::PING, node->getUser()->getCID(), node->getUdpKey());
                 pinged++;
             }
 
@@ -301,7 +301,8 @@ namespace dht
             types[n->getType()]++;
         }
 
-        dcdebug("DHT Nodes: %d (%d verified), Types: %d/%d/%d/%d/%d, pinged %d of %d, removed %d\n", nodes.size(), verified, types[0], types[1], types[2], types[3], types[4], pinged, pingCount, removed);
+        dcdebug("DHT Nodes: %d (%d verified), Types: %d/%d/%d/%d/%d, pinged %d of %d, removed %d\n",
+                nodes.size(), verified, types[0], types[1], types[2], types[3], types[4], pinged, pingCount, removed);
 #endif
 
         return dirty;
@@ -320,7 +321,7 @@ namespace dht
             {
                 CID cid         = CID(xml.getChildAttrib("CID"));
                 string i4       = xml.getChildAttrib("I4");
-                uint16_t u4     = static_cast<uint16_t>(xml.getIntChildAttrib("U4"));
+                string u4       = Util::toString(xml.getIntChildAttrib("U4"));
 
                 if(Utils::isGoodIPPort(i4, u4))
                 {
@@ -363,7 +364,7 @@ namespace dht
             xml.addChildAttrib("type", node->getType());
             xml.addChildAttrib("verified", node->isIpVerified());
 
-            if(!node->getUDPKey().key.isZero() && !node->getUDPKey().ip.empty())
+            if(node->getUDPKey().key && !node->getUDPKey().ip.empty())
             {
                 xml.addChildAttrib("key", node->getUDPKey().key.toBase32());
                 xml.addChildAttrib("keyIP", node->getUDPKey().ip);

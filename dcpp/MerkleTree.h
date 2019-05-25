@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,11 +12,12 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
+
+#include <algorithm>
 
 #include "debug.h"
 #include "typedefs.h"
@@ -59,7 +60,7 @@ public:
     {
         size_t n = calcBlocks(aFileSize, aBlockSize);
         for(size_t i = 0; i < n; i++)
-            leaves.push_back(MerkleValue(aData + i * Hasher::BYTES));
+            leaves.emplace_back(aData + i * Hasher::BYTES);
 
         calcRoot();
     }
@@ -69,7 +70,8 @@ public:
         leaves.push_back(root);
     }
 
-    ~MerkleTree() { }
+    ~MerkleTree() {
+    }
 
     static int64_t calcBlockSize(int64_t aFileSize, int maxLevels) {
         int64_t tmp = baseBlockSize;
@@ -103,10 +105,10 @@ public:
             h.update(&zero, 1);
             h.update(buf + i, n);
             if((int64_t)baseBlockSize < blockSize) {
-                blocks.push_back(make_pair(MerkleValue(h.finalize()), baseBlockSize));
+                blocks.emplace_back(MerkleValue(h.finalize()), baseBlockSize);
                 reduceBlocks();
             } else {
-                leaves.push_back(MerkleValue(h.finalize()));
+                leaves.emplace_back(h.finalize());
             }
             i += n;
         } while(i < len);
@@ -175,7 +177,6 @@ private:
     int64_t blockSize;
 
     MerkleValue getHash(int64_t start, int64_t length) {
-        dcassert((start % blockSize) == 0);
         if(length <= blockSize) {
             dcassert((start / blockSize) < (int64_t)leaves.size());
             return leaves[(uint32_t)(start / blockSize)];
@@ -218,7 +219,6 @@ private:
 };
 
 typedef MerkleTree<TigerHash> TigerTree;
-typedef TigerTree::MerkleValue TTHValue;
 
 template<int64_t aBlockSize>
 struct TTFilter {

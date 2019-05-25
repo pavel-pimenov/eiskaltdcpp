@@ -15,8 +15,8 @@
 
 static QStringList toQStringList(const dcpp::StringList &list){
     QStringList ret;
-    for (auto it = list.begin(); it != list.end(); ++it){
-        ret.push_back(_q(*it));
+    for (const auto &item : list) {
+        ret.push_back(_q(item));
     }
 
     return ret;
@@ -26,12 +26,27 @@ ClientManagerScript::ClientManagerScript(QObject *parent) :
     QObject(parent)
 {
     CM = dcpp::ClientManager::getInstance();
-
     CM->addListener(this);
 }
 
-ClientManagerScript::~ClientManagerScript(){
+ClientManagerScript::ClientManagerScript(const ClientManagerScript &)
+{
+    CM = dcpp::ClientManager::getInstance();
+    CM->addListener(this);
+}
+
+
+ClientManagerScript::~ClientManagerScript()
+{
     CM->removeListener(this);
+}
+
+ClientManagerScript &ClientManagerScript::operator=(const ClientManagerScript &)
+{
+    CM = dcpp::ClientManager::getInstance();
+    CM->addListener(this);
+
+    return *this;
 }
 
 
@@ -86,8 +101,7 @@ QStringList ClientManagerScript::getConnectedHubs() const {
     CM->lock();
     dcpp::Client::List& clients = CM->getClients();
 
-    for(auto it = clients.begin(); it != clients.end(); ++it) {
-        Client* client = *it;
+    for(const Client *client : clients) {
 
         if(!client->isConnected())
             continue;
@@ -125,3 +139,4 @@ void ClientManagerScript::on(ClientUpdated, dcpp::Client *cl) throw(){
 void ClientManagerScript::on(ClientDisconnected, dcpp::Client *cl) throw(){
     emit disconnected(_q(cl->getHubUrl()));
 }
+

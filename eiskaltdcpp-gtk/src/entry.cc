@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -51,7 +50,7 @@ Entry::~Entry()
 
 }
 
-const Entry::EntryType Entry::getType()
+Entry::EntryType Entry::getType()
 {
     return type;
 }
@@ -70,9 +69,9 @@ void Entry::remove()
 /*
  * Generates a unique ID to allow for duplicate entries
  */
-string Entry::generateID()
+string Entry::generateID(const Entry *ptr)
 {
-    return dcpp::Util::toString((long)this);
+    return dcpp::Util::toString(reinterpret_cast<uint64_t>(ptr));
 }
 
 GtkWidget *Entry::getWidget(const string &name)

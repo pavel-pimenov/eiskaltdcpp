@@ -12,34 +12,33 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
-
 #include "FinishedItem.h"
 
+#include "HintedUser.h"
 #include "User.h"
 
 namespace dcpp {
 
 FinishedItemBase::FinishedItemBase(
-    int64_t transferred_,
-    int64_t milliSeconds_,
-    time_t time_
-    ) :
-transferred(transferred_),
-milliSeconds(milliSeconds_),
-time(time_)
+        int64_t transferred_,
+        int64_t milliSeconds_,
+        time_t time_
+        ) :
+    transferred(transferred_),
+    milliSeconds(milliSeconds_),
+    time(time_)
 {
 }
 
 void FinishedItemBase::update(
-    int64_t transferred_,
-    int64_t milliSeconds_,
-    time_t time_
-    )
+        int64_t transferred_,
+        int64_t milliSeconds_,
+        time_t time_
+        )
 {
     transferred += transferred_;
     milliSeconds += milliSeconds_;
@@ -51,30 +50,30 @@ int64_t FinishedItemBase::getAverageSpeed() const {
 }
 
 FinishedFileItem::FinishedFileItem(
-    int64_t transferred_,
-    int64_t milliSeconds_,
-    time_t time_,
-    int64_t fileSize_,
-    int64_t actual_,
-    bool crc32Checked_,
-    const HintedUser& user
-    ) :
-FinishedItemBase(transferred_, milliSeconds_, time_),
-fileSize(fileSize_),
-actual(actual_),
-crc32Checked(crc32Checked_)
+        int64_t transferred_,
+        int64_t milliSeconds_,
+        time_t time_,
+        int64_t fileSize_,
+        int64_t actual_,
+        bool crc32Checked_,
+        const HintedUser& user
+        ) :
+    FinishedItemBase(transferred_, milliSeconds_, time_),
+    fileSize(fileSize_),
+    actual(actual_),
+    crc32Checked(crc32Checked_)
 {
     users.push_back(user);
 }
 
 void FinishedFileItem::update(
-    int64_t transferred_,
-    int64_t milliSeconds_,
-    time_t time_,
-    int64_t actual_,
-    bool crc32Checked_,
-    const HintedUser& user
-    )
+        int64_t transferred_,
+        int64_t milliSeconds_,
+        time_t time_,
+        int64_t actual_,
+        bool crc32Checked_,
+        const HintedUser& user
+        )
 {
     FinishedItemBase::update(transferred_, milliSeconds_, time_);
 
@@ -83,11 +82,11 @@ void FinishedFileItem::update(
     if(crc32Checked_)
         crc32Checked = true;
 
-        HintedUserList::iterator i = find(users.begin(), users.end(), user);
-        if(i == users.end())
-            users.push_back(user);
-        else
-            *i = user; // update, the hint might have changed
+    auto i = find(users.begin(), users.end(), user);
+    if(i == users.end())
+        users.push_back(user);
+    else
+        *i = user; // update, the hint might have changed
 }
 
 double FinishedFileItem::getTransferredPercentage() const {
@@ -99,22 +98,22 @@ bool FinishedFileItem::isFull() const {
 }
 
 FinishedUserItem::FinishedUserItem(
-    int64_t transferred_,
-    int64_t milliSeconds_,
-    time_t time_,
-    const string& file
-    ) :
-FinishedItemBase(transferred_, milliSeconds_, time_)
+        int64_t transferred_,
+        int64_t milliSeconds_,
+        time_t time_,
+        const string& file
+        ) :
+    FinishedItemBase(transferred_, milliSeconds_, time_)
 {
     files.push_back(file);
 }
 
 void FinishedUserItem::update(
-    int64_t transferred_,
-    int64_t milliSeconds_,
-    time_t time_,
-    const string& file
-    )
+        int64_t transferred_,
+        int64_t milliSeconds_,
+        time_t time_,
+        const string& file
+        )
 {
     FinishedItemBase::update(transferred_, milliSeconds_, time_);
     if(find(files.begin(), files.end(), file) == files.end())

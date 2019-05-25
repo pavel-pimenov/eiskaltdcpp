@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+* Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -12,17 +12,16 @@
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+* along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 #pragma once
 
-#include "MerkleTree.h"
+#include "typedefs.h"
 
 namespace dcpp {
 /**
- * According to http://www.eecs.harvard.edu/~michaelm/NEWWORK/postscripts/BloomFilterSurvey.pdf
+ * According to https://www.eecs.harvard.edu/~michaelm/NEWWORK/postscripts/BloomFilterSurvey.pdf
  * the optimal number of hashes k is (m/n)*ln(2), m = number of bits in the filter and n = number
  * of items added. The largest k that we can get from a single TTH value depends on the number of
  * bits we need to address the bloom structure, which in turn depends on m, so the optimal size

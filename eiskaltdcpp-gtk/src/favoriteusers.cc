@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -33,7 +32,7 @@ FavoriteUsers::FavoriteUsers():
     BookEntry(Entry::FAVORITE_USERS, _("Favorite Users"), "favoriteusers.ui")
 {
 #if !GTK_CHECK_VERSION(3,0,0)
-    gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(getWidget("status")),FALSE);
+    gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(getWidget("status")),false);
 #endif
 
     // Configure the dialog
@@ -43,7 +42,7 @@ FavoriteUsers::FavoriteUsers():
     g_object_ref_sink(getWidget("menu"));
 
     // Initialize favorite users list treeview
-    favoriteUserView.setView(GTK_TREE_VIEW(getWidget("favoriteUserView")), TRUE, "favoriteusers");
+    favoriteUserView.setView(GTK_TREE_VIEW(getWidget("favoriteUserView")), true, "favoriteusers");
     favoriteUserView.insertColumn(_("Auto grant slot"), G_TYPE_BOOLEAN, TreeView::BOOL, 100);
     favoriteUserView.insertColumn(_("Nick"), G_TYPE_STRING, TreeView::ICON_STRING, 100, "Icon");
     favoriteUserView.insertColumn(_("Hub (last seen in, if offline)"), G_TYPE_STRING, TreeView::STRING, 200);
@@ -61,11 +60,11 @@ FavoriteUsers::FavoriteUsers():
     favoriteUserSelection = gtk_tree_view_get_selection(favoriteUserView.get());
     gtk_tree_selection_set_mode(favoriteUserSelection, GTK_SELECTION_MULTIPLE);
     gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(favoriteUserStore), favoriteUserView.col(_("Nick")), GTK_SORT_ASCENDING);
-    gtk_tree_view_column_set_sort_indicator(gtk_tree_view_get_column(favoriteUserView.get(), favoriteUserView.col(_("Nick"))), TRUE);
-    gtk_tree_view_set_fixed_height_mode(favoriteUserView.get(), TRUE);
+    gtk_tree_view_column_set_sort_indicator(gtk_tree_view_get_column(favoriteUserView.get(), favoriteUserView.col(_("Nick"))), true);
+    gtk_tree_view_set_fixed_height_mode(favoriteUserView.get(), true);
 
     GList *list = gtk_cell_layout_get_cells(GTK_CELL_LAYOUT(gtk_tree_view_get_column(favoriteUserView.get(),
-        favoriteUserView.col(_("Auto grant slot")))));
+                                                                                     favoriteUserView.col(_("Auto grant slot")))));
     GObject *renderer = (GObject *)g_list_nth_data(list, 0);
     g_signal_connect(renderer, "toggled", G_CALLBACK(onAutoGrantSlotToggled_gui), (gpointer)this);
     g_list_free(list);
@@ -95,9 +94,8 @@ void FavoriteUsers::show()
 {
     // Initialize favorite users list
     FavoriteManager::FavoriteMap map = FavoriteManager::getInstance()->getFavoriteUsers();
-    FavoriteManager::FavoriteMap::const_iterator it;
 
-    for (it = map.begin(); it != map.end(); ++it)
+    for (FavoriteManager::FavoriteMap::const_iterator it = map.begin(); it != map.end(); ++it)
     {
         GtkTreeIter iter;
         const FavoriteUser &user = it->second;
@@ -108,15 +106,15 @@ void FavoriteUsers::show()
 
         gtk_list_store_append(favoriteUserStore, &iter);
         gtk_list_store_set(favoriteUserStore, &iter,
-            favoriteUserView.col(_("Auto grant slot")), user.isSet(FavoriteUser::FLAG_GRANTSLOT) ? TRUE : FALSE,
-            favoriteUserView.col(_("Nick")), user.getNick().c_str(),
-            favoriteUserView.col(_("Hub (last seen in, if offline)")), hub.c_str(),
-            favoriteUserView.col(_("Time last seen")), seen.c_str(),
-            favoriteUserView.col(_("Description")), user.getDescription().c_str(),
-            favoriteUserView.col(_("CID")), cid.c_str(),
-            favoriteUserView.col("URL"), user.getUrl().c_str(),
-            favoriteUserView.col("Icon"), "eiskaltdcpp-normal",
-            -1);
+                           favoriteUserView.col(_("Auto grant slot")), user.isSet(FavoriteUser::FLAG_GRANTSLOT) ? true : false,
+                           favoriteUserView.col(_("Nick")), user.getNick().c_str(),
+                           favoriteUserView.col(_("Hub (last seen in, if offline)")), hub.c_str(),
+                           favoriteUserView.col(_("Time last seen")), seen.c_str(),
+                           favoriteUserView.col(_("Description")), user.getDescription().c_str(),
+                           favoriteUserView.col(_("CID")), cid.c_str(),
+                           favoriteUserView.col("URL"), user.getUrl().c_str(),
+                           favoriteUserView.col("Icon"), "eiskaltdcpp-normal",
+                           -1);
 
         userIters.insert(UserIters::value_type(cid, iter));
     }
@@ -125,25 +123,31 @@ void FavoriteUsers::show()
 
 gboolean FavoriteUsers::onKeyReleased_gui(GtkWidget *widget, GdkEventKey *event, gpointer data)
 {
+    (void)widget;
     FavoriteUsers *fu = (FavoriteUsers *)data;
 
     if (gtk_tree_selection_count_selected_rows(fu->favoriteUserSelection) > 0)
     {
-        if (event->keyval == GDK_Delete || event->keyval == GDK_BackSpace)
+        if (event->keyval == GDK_KEY_Delete || event->keyval == GDK_KEY_BackSpace)
         {
             fu->onRemoveItemClicked_gui(NULL, data);
         }
-        else if (event->keyval == GDK_Menu || (event->keyval == GDK_F10 && event->state & GDK_SHIFT_MASK))
+        else if (event->keyval == GDK_KEY_Menu || (event->keyval == GDK_KEY_F10 && event->state & GDK_SHIFT_MASK))
         {
+#if GTK_CHECK_VERSION(3,22,0)
+            gtk_menu_popup_at_pointer(GTK_MENU(fu->getWidget("menu")),NULL);
+#else
             gtk_menu_popup(GTK_MENU(fu->getWidget("menu")), NULL, NULL, NULL, NULL, 0, gtk_get_current_event_time());
+#endif
         }
     }
 
-    return FALSE;
+    return false;
 }
 
 gboolean FavoriteUsers::onButtonPressed_gui(GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
+    (void)widget;
     FavoriteUsers *fu = (FavoriteUsers *)data;
     fu->previous = event->type;
 
@@ -157,14 +161,15 @@ gboolean FavoriteUsers::onButtonPressed_gui(GtkWidget *widget, GdkEventButton *e
             gtk_tree_path_free(path);
 
             if (selected)
-                return TRUE;
+                return true;
         }
     }
-    return FALSE;
+    return false;
 }
 
 gboolean FavoriteUsers::onButtonReleased_gui(GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
+    (void)widget;
     FavoriteUsers *fu = (FavoriteUsers *)data;
 
     if (gtk_tree_selection_count_selected_rows(fu->favoriteUserSelection) > 0)
@@ -187,15 +192,20 @@ gboolean FavoriteUsers::onButtonReleased_gui(GtkWidget *widget, GdkEventButton *
         }
         else if (event->button == 3 && event->type == GDK_BUTTON_RELEASE)
         {
+#if GTK_CHECK_VERSION(3,22,0)
+            gtk_menu_popup_at_pointer(GTK_MENU(fu->getWidget("menu")),NULL);
+#else
             gtk_menu_popup(GTK_MENU(fu->getWidget("menu")), NULL, NULL, NULL, NULL, 0, gtk_get_current_event_time());
+#endif
         }
     }
 
-    return FALSE;
+    return false;
 }
 
 void FavoriteUsers::onBrowseItemClicked_gui(GtkMenuItem *item, gpointer data)
 {
+    (void)item;
     FavoriteUsers *fu = (FavoriteUsers *)data;
 
     if (gtk_tree_selection_count_selected_rows(fu->favoriteUserSelection) > 0)
@@ -212,9 +222,9 @@ void FavoriteUsers::onBrowseItemClicked_gui(GtkMenuItem *item, gpointer data)
             if (gtk_tree_model_get_iter(GTK_TREE_MODEL(fu->favoriteUserStore), &iter, path))
             {
                 F3 *func = new F3(fu, &FavoriteUsers::getFileList_client,
-                    fu->favoriteUserView.getString(&iter, _("CID")),
-                    fu->favoriteUserView.getString(&iter, "URL"),
-                    FALSE);
+                                  fu->favoriteUserView.getString(&iter, _("CID")),
+                                  fu->favoriteUserView.getString(&iter, "URL"),
+                                  false);
                 WulforManager::get()->dispatchClientFunc(func);
             }
             gtk_tree_path_free(path);
@@ -225,6 +235,7 @@ void FavoriteUsers::onBrowseItemClicked_gui(GtkMenuItem *item, gpointer data)
 
 void FavoriteUsers::onMatchQueueItemClicked_gui(GtkMenuItem *item, gpointer data)
 {
+    (void)item;
     FavoriteUsers *fu = (FavoriteUsers *)data;
 
     if (gtk_tree_selection_count_selected_rows(fu->favoriteUserSelection) > 0)
@@ -241,9 +252,9 @@ void FavoriteUsers::onMatchQueueItemClicked_gui(GtkMenuItem *item, gpointer data
             if (gtk_tree_model_get_iter(GTK_TREE_MODEL(fu->favoriteUserStore), &iter, path))
             {
                 F3 *func = new F3(fu, &FavoriteUsers::getFileList_client,
-                    fu->favoriteUserView.getString(&iter, _("CID")),
-                    fu->favoriteUserView.getString(&iter, "URL"),
-                    TRUE);
+                                  fu->favoriteUserView.getString(&iter, _("CID")),
+                                  fu->favoriteUserView.getString(&iter, "URL"),
+                                  true);
                 WulforManager::get()->dispatchClientFunc(func);
             }
             gtk_tree_path_free(path);
@@ -254,6 +265,7 @@ void FavoriteUsers::onMatchQueueItemClicked_gui(GtkMenuItem *item, gpointer data
 
 void FavoriteUsers::onSendPMItemClicked_gui(GtkMenuItem *item, gpointer data)
 {
+    (void)item;
     FavoriteUsers *fu = (FavoriteUsers *)data;
 
     if (gtk_tree_selection_count_selected_rows(fu->favoriteUserSelection) > 0)
@@ -269,8 +281,8 @@ void FavoriteUsers::onSendPMItemClicked_gui(GtkMenuItem *item, gpointer data)
             if (gtk_tree_model_get_iter(GTK_TREE_MODEL(fu->favoriteUserStore), &iter, path))
             {
                 WulforManager::get()->getMainWindow()->addPrivateMessage_gui(Msg::UNKNOWN,
-                    fu->favoriteUserView.getString(&iter, _("CID")),
-                    fu->favoriteUserView.getString(&iter, "URL"));
+                                                                             fu->favoriteUserView.getString(&iter, _("CID")),
+                                                                             fu->favoriteUserView.getString(&iter, "URL"));
             }
             gtk_tree_path_free(path);
         }
@@ -280,6 +292,7 @@ void FavoriteUsers::onSendPMItemClicked_gui(GtkMenuItem *item, gpointer data)
 
 void FavoriteUsers::onGrantSlotItemClicked_gui(GtkMenuItem *item, gpointer data)
 {
+    (void)item;
     FavoriteUsers *fu = (FavoriteUsers *)data;
 
     if (gtk_tree_selection_count_selected_rows(fu->favoriteUserSelection) > 0)
@@ -296,8 +309,8 @@ void FavoriteUsers::onGrantSlotItemClicked_gui(GtkMenuItem *item, gpointer data)
             if (gtk_tree_model_get_iter(GTK_TREE_MODEL(fu->favoriteUserStore), &iter, path))
             {
                 F2 *func = new F2(fu, &FavoriteUsers::grantSlot_client,
-                    fu->favoriteUserView.getString(&iter, _("CID")),
-                    fu->favoriteUserView.getString(&iter, "URL"));
+                                  fu->favoriteUserView.getString(&iter, _("CID")),
+                                  fu->favoriteUserView.getString(&iter, "URL"));
                 WulforManager::get()->dispatchClientFunc(func);
             }
             gtk_tree_path_free(path);
@@ -308,6 +321,7 @@ void FavoriteUsers::onGrantSlotItemClicked_gui(GtkMenuItem *item, gpointer data)
 
 void FavoriteUsers::onConnectItemClicked_gui(GtkMenuItem *item, gpointer data)
 {
+    (void)item;
     FavoriteUsers *fu = (FavoriteUsers *)data;
 
     if (gtk_tree_selection_count_selected_rows(fu->favoriteUserSelection) > 0)
@@ -332,6 +346,7 @@ void FavoriteUsers::onConnectItemClicked_gui(GtkMenuItem *item, gpointer data)
 
 void FavoriteUsers::onRemoveFromQueueItemClicked_gui(GtkMenuItem *item, gpointer data)
 {
+    (void)item;
     FavoriteUsers *fu = (FavoriteUsers *)data;
 
     if (gtk_tree_selection_count_selected_rows(fu->favoriteUserSelection) > 0)
@@ -358,6 +373,7 @@ void FavoriteUsers::onRemoveFromQueueItemClicked_gui(GtkMenuItem *item, gpointer
 
 void FavoriteUsers::onDescriptionItemClicked_gui(GtkMenuItem *item, gpointer data)
 {
+    (void)item;
     FavoriteUsers *fu = (FavoriteUsers *)data;
 
     if (gtk_tree_selection_count_selected_rows(fu->favoriteUserSelection) == 1)
@@ -409,6 +425,7 @@ void FavoriteUsers::onDescriptionItemClicked_gui(GtkMenuItem *item, gpointer dat
 
 void FavoriteUsers::onRemoveItemClicked_gui(GtkMenuItem *item, gpointer data)
 {
+    (void)item;
     FavoriteUsers *fu = (FavoriteUsers *)data;
 
     if (gtk_tree_selection_count_selected_rows(fu->favoriteUserSelection) > 0)
@@ -426,7 +443,7 @@ void FavoriteUsers::onRemoveItemClicked_gui(GtkMenuItem *item, gpointer data)
             if (gtk_tree_model_get_iter(GTK_TREE_MODEL(fu->favoriteUserStore), &iter, path))
             {
                 params.insert(ParamMap::value_type(fu->favoriteUserView.getString(&iter, _("CID")),
-                                            fu->favoriteUserView.getString(&iter, _("Nick"))));
+                                                   fu->favoriteUserView.getString(&iter, _("Nick"))));
             }
             gtk_tree_path_free(path);
         }
@@ -435,12 +452,12 @@ void FavoriteUsers::onRemoveItemClicked_gui(GtkMenuItem *item, gpointer data)
         if (WGETB("confirm-user-removal"))
         {
             GtkWidget* dialog = gtk_message_dialog_new(GTK_WINDOW(WulforManager::get()->getMainWindow()->getContainer()),
-                GTK_DIALOG_DESTROY_WITH_PARENT,
-                GTK_MESSAGE_QUESTION,
-                GTK_BUTTONS_NONE,
-                _("Are you sure you want to delete favorite user(s)?"));
+                                                       GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                       GTK_MESSAGE_QUESTION,
+                                                       GTK_BUTTONS_NONE,
+                                                       _("Are you sure you want to delete favorite user(s)?"));
             gtk_dialog_add_buttons(GTK_DIALOG(dialog), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_REMOVE,
-                GTK_RESPONSE_YES, NULL);
+                                   GTK_RESPONSE_YES, NULL);
             gtk_dialog_set_alternative_button_order(GTK_DIALOG(dialog), GTK_RESPONSE_YES, GTK_RESPONSE_CANCEL, -1);
             gint response = gtk_dialog_run(GTK_DIALOG(dialog));
 
@@ -464,6 +481,7 @@ void FavoriteUsers::onRemoveItemClicked_gui(GtkMenuItem *item, gpointer data)
 
 void FavoriteUsers::onAutoGrantSlotToggled_gui(GtkCellRendererToggle *cell, gchar *path, gpointer data)
 {
+    (void)cell;
     FavoriteUsers *fu = (FavoriteUsers *)data;
     GtkTreeIter iter;
 
@@ -564,10 +582,10 @@ bool FavoriteUsers::findUser_gui(const string &cid, GtkTreeIter *iter)
         if (iter)
             *iter = it->second;
 
-        return TRUE;
+        return true;
     }
 
-    return FALSE;
+    return false;
 }
 
 void FavoriteUsers::updateFavoriteUser_gui(ParamMap params)
@@ -583,14 +601,14 @@ void FavoriteUsers::updateFavoriteUser_gui(ParamMap params)
     {
         gtk_list_store_append(favoriteUserStore, &iter);
         gtk_list_store_set(favoriteUserStore, &iter,
-            favoriteUserView.col(_("Nick")), params["Nick"].c_str(),
-            favoriteUserView.col(_("Hub (last seen in, if offline)")), params["Hub"].c_str(),
-            favoriteUserView.col(_("Time last seen")), params["Time"].c_str(),
-            favoriteUserView.col(_("Description")), params["Description"].c_str(),
-            favoriteUserView.col(_("CID")), cid.c_str(),
-            favoriteUserView.col("URL"), params["URL"].c_str(),
-            favoriteUserView.col("Icon"), "eiskaltdcpp-normal",
-            -1);
+                           favoriteUserView.col(_("Nick")), params["Nick"].c_str(),
+                favoriteUserView.col(_("Hub (last seen in, if offline)")), params["Hub"].c_str(),
+                favoriteUserView.col(_("Time last seen")), params["Time"].c_str(),
+                favoriteUserView.col(_("Description")), params["Description"].c_str(),
+                favoriteUserView.col(_("CID")), cid.c_str(),
+                favoriteUserView.col("URL"), params["URL"].c_str(),
+                favoriteUserView.col("Icon"), "eiskaltdcpp-normal",
+                -1);
 
         userIters.insert(UserIters::value_type(cid, iter));
     }
@@ -634,7 +652,7 @@ void FavoriteUsers::on(FavoriteManagerListener::UserAdded, const FavoriteUser &u
 void FavoriteUsers::on(FavoriteManagerListener::UserRemoved, const FavoriteUser &user) noexcept
 {
     Func1<FavoriteUsers, string> *func = new Func1<FavoriteUsers, string>(this, &FavoriteUsers::removeFavoriteUser_gui,
-        user.getUser()->getCID().toBase32());
+                                                                          user.getUser()->getCID().toBase32());
     WulforManager::get()->dispatchGuiFunc(func);
 }
 

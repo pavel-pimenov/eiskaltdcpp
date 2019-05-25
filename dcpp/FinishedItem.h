@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,32 +12,34 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
-#include <boost/noncopyable.hpp>
+#include "NonCopyable.h"
+
 #include "forward.h"
+#include "typedefs.h"
+
 #include "Pointer.h"
-#include "Util.h"
+#include "GetSet.h"
 
 namespace dcpp {
 
-class FinishedItemBase : boost::noncopyable {
+class FinishedItemBase : private NonCopyable {
 public:
     explicit FinishedItemBase(
-        int64_t transferred_,
-        int64_t milliSeconds_,
-        time_t time_
-        );
+            int64_t transferred_,
+            int64_t milliSeconds_,
+            time_t time_
+            );
 
     void update(
-        int64_t transferred_,
-        int64_t milliSeconds_,
-        time_t time_
-        );
+            int64_t transferred_,
+            int64_t milliSeconds_,
+            time_t time_
+            );
 
     int64_t getAverageSpeed() const;
 
@@ -49,23 +51,23 @@ public:
 class FinishedFileItem : public FinishedItemBase, public intrusive_ptr_base<FinishedFileItem> {
 public:
     explicit FinishedFileItem(
-        int64_t transferred_,
-        int64_t milliSeconds_,
-        time_t time_,
-        int64_t fileSize_,
-        int64_t actual_,
-        bool crc32Checked_,
-        const HintedUser& user
-        );
+            int64_t transferred_,
+            int64_t milliSeconds_,
+            time_t time_,
+            int64_t fileSize_,
+            int64_t actual_,
+            bool crc32Checked_,
+            const HintedUser& user
+            );
 
     void update(
-        int64_t transferred_,
-        int64_t milliSeconds_,
-        time_t time_,
-        int64_t actual_,
-        bool crc32Checked_,
-        const HintedUser& user
-        );
+            int64_t transferred_,
+            int64_t milliSeconds_,
+            time_t time_,
+            int64_t actual_,
+            bool crc32Checked_,
+            const HintedUser& user
+            );
 
     double getTransferredPercentage() const;
     bool isFull() const;
@@ -79,18 +81,18 @@ public:
 class FinishedUserItem : public FinishedItemBase, public intrusive_ptr_base<FinishedUserItem> {
 public:
     explicit FinishedUserItem(
-        int64_t transferred_,
-        int64_t milliSeconds_,
-        time_t time_,
-        const string& file
-        );
+            int64_t transferred_,
+            int64_t milliSeconds_,
+            time_t time_,
+            const string& file
+            );
 
     void update(
-        int64_t transferred_,
-        int64_t milliSeconds_,
-        time_t time_,
-        const string& file
-        );
+            int64_t transferred_,
+            int64_t milliSeconds_,
+            time_t time_,
+            const string& file
+            );
 
     GETSET(StringList, files, Files);
 };

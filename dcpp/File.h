@@ -12,29 +12,35 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
-#include "Text.h"
 #include "Streams.h"
 
 #ifdef _WIN32
 #include "w.h"
+
+#ifndef PATH_MAX
+#define PATH_MAX MAX_PATH
+#endif
+
 #else
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <errno.h>
 #include <dirent.h>
 #include <fnmatch.h>
+#include <climits> // PATH_MAX
 #endif
 
 namespace dcpp {
 
 class File : public IOStream {
 public:
+    using OutputStream::write;
+
     enum {
         OPEN = 0x01,
         CREATE = 0x02,
@@ -106,53 +112,50 @@ protected:
 #else
     int h;
 #endif
-private:
-    File(const File&);
-    File& operator=(const File&);
 };
 
 class FileFindIter {
 public:
-        /** End iterator constructor */
-        FileFindIter();
-        /** Begin iterator constructor, path in utf-8 */
-        FileFindIter(const string& path);
+    /** End iterator constructor */
+    FileFindIter();
+    /** Begin iterator constructor, path in utf-8 */
+    FileFindIter(const string& path);
 
-        ~FileFindIter();
+    ~FileFindIter();
 
-        FileFindIter& operator++();
-        bool operator!=(const FileFindIter& rhs) const;
+    FileFindIter& operator++();
+    bool operator!=(const FileFindIter& rhs) const;
 
-        struct DirData
-#ifdef _WIN32
+    struct DirData
+        #ifdef _WIN32
             : public WIN32_FIND_DATAW
-#endif
-        {
-            DirData();
+        #endif
+    {
+        DirData();
 
-            string getFileName();
-            bool isDirectory();
-            bool isHidden();
-            bool isLink();
-            int64_t getSize();
-            uint32_t getLastWriteTime();
+        string getFileName();
+        bool isDirectory();
+        bool isHidden();
+        bool isLink();
+        int64_t getSize();
+        uint32_t getLastWriteTime();
 #ifndef _WIN32
-            dirent* ent;
-            string base;
+        dirent* ent;
+        string base;
 #endif
-        };
+    };
 
-        DirData& operator*() { return data; }
-        DirData* operator->() { return &data; }
+    DirData& operator*() { return data; }
+    DirData* operator->() { return &data; }
 
 private:
 #ifdef _WIN32
-        HANDLE handle;
+    HANDLE handle;
 #else
-        DIR* dir;
+    DIR* dir;
 #endif
 
-        DirData data;
+    DirData data;
 };
 
 } // namespace dcpp

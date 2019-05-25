@@ -12,11 +12,15 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
+
+#include <algorithm>
+#include <list>
+#include <set>
+#include <unordered_map>
 
 #include "forward.h"
 #include "UserConnectionListener.h"
@@ -24,13 +28,14 @@
 #include "UploadManagerListener.h"
 #include "Client.h"
 #include "ClientManagerListener.h"
-#include "MerkleTree.h"
 #include "User.h"
-#include "Util.h"
 #include "TimerManager.h"
 #include "Speaker.h"
 #include "PerFolderLimit.h"
 #include "SettingsManager.h"
+#include "HintedUser.h"
+#include "UserConnection.h"
+#include "GetSet.h"
 
 namespace dcpp {
 
@@ -105,8 +110,8 @@ private:
     UploadManager() noexcept;
     virtual ~UploadManager();
 
+    bool hasUpload(UserConnection& aSource);
     bool getAutoSlot();
-    bool hasUpload ( UserConnection& aSource );
     void removeConnection(UserConnection* aConn);
     void removeUpload(Upload* aUpload);
 

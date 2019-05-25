@@ -21,7 +21,7 @@ class FavoriteUserItem{
 
 public:
 
-    FavoriteUserItem(const QList<QVariant> &data, FavoriteUserItem *parent = NULL);
+    FavoriteUserItem(const QList<QVariant> &data, FavoriteUserItem *parent = nullptr);
     ~FavoriteUserItem();
 
     void appendChild(FavoriteUserItem *child);
@@ -35,7 +35,7 @@ public:
 
     QList<FavoriteUserItem*> childItems;
 
-    void updateColumn(unsigned, QVariant);
+    void updateColumn(const int, const QVariant &);
     QString cid;
 
 private:
@@ -49,7 +49,7 @@ Q_OBJECT
 public:
     typedef QMap<QString, QVariant> VarMap;
 
-    explicit FavoriteUsersModel(QObject *parent = 0);
+    explicit FavoriteUsersModel(QObject *parent = nullptr);
     virtual ~FavoriteUsersModel();
 
     /** */
@@ -77,7 +77,7 @@ public:
         if (itemHash.contains(cid))
             return itemHash.value(cid);
 
-        return NULL;
+        return nullptr;
     }
 
     QStringList getUsers() const;

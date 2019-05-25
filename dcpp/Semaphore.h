@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,33 +13,32 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
 #ifndef _WIN32
-    #ifdef APPLE
-        #include "CriticalSection.h"
-    #else
-        #include <errno.h>
-        #include <semaphore.h>
-    #endif
+#if defined(__APPLE__) && defined(__MACH__)
+#include "CriticalSection.h"
+#else
+#include <errno.h>
+#include <semaphore.h>
+#endif
 #include <sys/time.h>
 #endif
 
-#include "noexcept.h"
+#include "NonCopyable.h"
 
 namespace dcpp {
 
-class Semaphore
+class Semaphore : private NonCopyable
 {
 #if defined(_WIN32)
 public:
-    Semaphore() noexcept {
-        h = CreateSemaphore(NULL, 0, MAXLONG, NULL);
-    }
+    Semaphore() noexcept :
+        h(CreateSemaphore(NULL, 0, MAXLONG, NULL))
+    { }
 
     void signal() noexcept {
         ReleaseSemaphore(h, 1, NULL);
@@ -53,7 +53,7 @@ public:
 
 private:
     HANDLE h;
-#elif defined(APPLE)
+#elif defined(__APPLE__) && defined(__MACH__)
 public:
     Semaphore() noexcept : count(0) { pthread_cond_init(&cond, NULL); }
     ~Semaphore() { pthread_cond_destroy(&cond); }
@@ -141,8 +141,6 @@ public:
 private:
     sem_t semaphore;
 #endif
-    Semaphore(const Semaphore&);
-    Semaphore& operator=(const Semaphore&);
 
 };
 

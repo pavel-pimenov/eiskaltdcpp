@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -23,16 +22,39 @@
 
 class Msg
 {
-    public:
-        typedef enum
-        {
-            GENERAL,
-            PRIVATE,
-            MYOWN,
-            SYSTEM,
-            STATUS,
-            FAVORITE,
-            OPERATOR,
-            UNKNOWN
-        } TypeMsg;
+public:
+    typedef enum
+    {
+        GENERAL,
+        PRIVATE,
+        MYOWN,
+        SYSTEM,
+        STATUS,
+        FAVORITE,
+        OPERATOR,
+        UNKNOWN
+    } TypeMsg;
 };
+
+class Tag
+{
+public:
+    typedef enum
+    {
+        TAG_FIRST = 0,
+        TAG_GENERAL = TAG_FIRST,
+        TAG_PRIVATE,
+        TAG_MYOWN,
+        TAG_SYSTEM,
+        TAG_STATUS,
+        TAG_TIMESTAMP,
+        /*-*/
+        TAG_MYNICK,
+        TAG_NICK,
+        TAG_OPERATOR,
+        TAG_FAVORITE,
+        TAG_URL,
+        TAG_LAST
+    } TypeTag;
+};
+

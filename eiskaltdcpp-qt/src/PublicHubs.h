@@ -40,7 +40,7 @@ public:
     QString  getArenaTitle(){ return tr("Public Hubs"); }
     QString  getArenaShortTitle(){ return getArenaTitle(); }
     QWidget *getWidget(){ return this; }
-    QMenu   *getMenu(){ return NULL; }
+    QMenu   *getMenu(){ return nullptr; }
     const QPixmap &getPixmap(){ return WICON(WulforUtil::eiSERVER); }
     void requestFilter() { slotFilter(); }
     ArenaWidget::Role role() const { return ArenaWidget::PublicHubs; }
@@ -51,7 +51,7 @@ protected:
 
     virtual void on(DownloadStarting, const std::string& l) noexcept;
     virtual void on(DownloadFailed, const std::string& l) noexcept;
-    virtual void on(DownloadFinished, const std::string& l, bool fromCoral) noexcept;
+    virtual void on(DownloadFinished, const std::string& l) noexcept;
     virtual void on(LoadedFromCache, const std::string& l, const std::string& d) noexcept;
     virtual void on(Corrupted, const std::string& l) noexcept;
 
@@ -74,7 +74,7 @@ Q_SIGNALS:
     void coreCacheLoaded(const QString&);
 
 private:
-    PublicHubs(QWidget *parent = NULL);
+    PublicHubs(QWidget *parent = nullptr);
     ~PublicHubs();
 
     void updateList();

@@ -1,7 +1,11 @@
-project(${PROJECT_NAME_GLOBAL}-daemon)
+project(eiskaltdcpp-daemon)
+
 cmake_minimum_required(VERSION 2.6)
 # ######### General setup ##########
-include_directories(${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/.. ${Boost_INCLUDE_DIRS})
+include_directories(${PROJECT_SOURCE_DIR}
+                    ${PROJECT_SOURCE_DIR}/..
+                    ${Boost_INCLUDE_DIRS}
+                    ${GETTEXT_INCLUDE_DIR})
 
 aux_source_directory(${PROJECT_SOURCE_DIR} nasdc_SRCS)
 
@@ -37,10 +41,6 @@ if (XMLRPC_DAEMON)
     add_definitions (-DXMLRPC_DAEMON )
 endif (XMLRPC_DAEMON)
 
-if (WITH_DHT)
-  add_definitions ( -DWITH_DHT )
-endif (WITH_DHT)
-
 if (HAVE_DAEMON)
     add_definitions(-DHAVE_DAEMON)
 endif(HAVE_DAEMON)
@@ -71,21 +71,33 @@ list(APPEND LIBS
         ${ICONV_LIBRARIES}
         )
 
+if (BUILD_STATIC)
+    if (UNIX AND NOT APPLE AND NOT HAIKU)
+        list (APPEND LIBS -lssl -lcrypto -lm -ldl)
+    endif (UNIX AND NOT APPLE AND NOT HAIKU)
+endif (BUILD_STATIC)
+
 target_link_libraries (${PROJECT_NAME} dcpp ${LIBS})
 
-if (CMAKE_BUILD_TYPE STREQUAL Debug)
-    add_definitions(-D_DEBUG)
+if (DEBUG_DAEMON)
+    add_definitions(-D_DEBUG_DAEMON)
+    message (STATUS "Enabled debug output from eiskaltdcpp-daemon!")
 endif()
 
 install (TARGETS ${PROJECT_NAME}
     RUNTIME DESTINATION ${BINDIR}
     BUNDLE DESTINATION ${BUNDLEDIR})
 
-if (UNIX)
-  execute_process (
+if (UNIX AND NOT APPLE AND NOT HAIKU)
+    execute_process (
                 OUTPUT_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.1.gz
                 COMMAND "${GZIP_CMD}" -9
                 INPUT_FILE ${PROJECT_NAME}.1
                 WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/)
-  install (FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.1.gz DESTINATION ${MAN_DIR})
-endif (UNIX)
+    install (FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.1.gz DESTINATION ${MAN_DIR})
+endif ()
+
+if (WIN32 OR APPLE)
+    install (FILES manual.${PROJECT_NAME}.html DESTINATION "${CLIENT_DOCS_DIR}")
+endif ()
+

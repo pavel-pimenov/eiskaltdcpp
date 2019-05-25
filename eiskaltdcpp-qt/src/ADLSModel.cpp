@@ -19,7 +19,7 @@ ADLSModel::ADLSModel(QObject *parent)
     rootData << tr("Checked") << tr("Search String") << tr("Type source")
              << tr("Name directory") << tr("Min. Size") << tr("Max. Size") << tr("Type Size");
 
-    rootItem = new ADLSItem(rootData, NULL);
+    rootItem = new ADLSItem(rootData, nullptr);
 }
 
 ADLSModel::~ADLSModel()
@@ -70,7 +70,7 @@ QVariant ADLSModel::data(const QModelIndex &index, int role) const
 Qt::ItemFlags ADLSModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
-        return 0;
+        return nullptr;
 
     Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable;
 
@@ -142,15 +142,21 @@ int ADLSModel::rowCount(const QModelIndex &parent) const
 }
 
 bool ADLSModel::insertRow(int row, const QModelIndex &parent){
+    Q_UNUSED(row)
+    Q_UNUSED(parent)
     return true;
 }
 
 bool ADLSModel::removeRow(int row, const QModelIndex &parent){
+    Q_UNUSED(row)
+    Q_UNUSED(parent)
     return true;
 }
 
 bool ADLSModel::insertRows(int position, int rows, const QModelIndex &index){
-    ADLSItem *from = NULL;
+    Q_UNUSED(rows)
+
+    ADLSItem *from = nullptr;
 
     beginRemoveRows(QModelIndex(), position, position);
     {
@@ -168,6 +174,9 @@ bool ADLSModel::insertRows(int position, int rows, const QModelIndex &index){
 }
 
 bool ADLSModel::removeRows(int position, int rows, const QModelIndex &index){
+    Q_UNUSED(position)
+    Q_UNUSED(rows)
+    Q_UNUSED(index)
     return true;
 }
 
@@ -206,7 +215,7 @@ struct Compare {
                      break;//return AttrCmp<COLUMN_SSTRING>;
             }
 
-            return 0;
+            return nullptr;
         }
         template <int i>
         bool static AttrCmp(const ADLSItem * l, const ADLSItem * r) {
@@ -312,7 +321,7 @@ QModelIndex ADLSModel::moveDown(const QModelIndex &index){
     if (index.row() >= rootItem->childCount() - 1)
         return QModelIndex();
 
-    ADLSItem *item = NULL;
+    ADLSItem *item = nullptr;
 
     beginRemoveRows(QModelIndex(), index.row(), index.row());
     {
@@ -333,7 +342,7 @@ QModelIndex ADLSModel::moveUp(const QModelIndex &index){
     if (index.row() < 1)
         return QModelIndex();
 
-    ADLSItem *item = NULL;
+    ADLSItem *item = nullptr;
 
     beginRemoveRows(QModelIndex(), index.row(), index.row());
     {
@@ -369,8 +378,8 @@ ADLSItem::ADLSItem(const QList<QVariant> &data, ADLSItem *parent) :
 
 ADLSItem::~ADLSItem()
 {
-    if (!childItems.isEmpty())
-        qDeleteAll(childItems);
+    qDeleteAll(childItems);
+    childItems.clear();
 }
 
 void ADLSItem::appendChild(ADLSItem *item) {
@@ -404,7 +413,7 @@ int ADLSItem::row() const {
     return 0;
 }
 
-void ADLSItem::updateColumn(unsigned column, QVariant var){
+void ADLSItem::updateColumn(const int column, const QVariant &var){
     if (column > (itemData.size()-1))
         return;
 

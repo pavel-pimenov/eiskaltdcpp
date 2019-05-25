@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -28,40 +27,40 @@
 
 class UserCommandMenu : public Entry
 {
-    public:
-        UserCommandMenu(GtkWidget *userCommandMenu, int ctx);
-        virtual ~UserCommandMenu() {}
+public:
+    UserCommandMenu(GtkWidget *userCommandMenu, int ctx);
+    virtual ~UserCommandMenu() {}
 
-        GtkWidget *getContainer() { return userCommandMenu; }
-        void addHub(const std::string &hub);
-        void addHub(const dcpp::StringList &hubs2);
-        void addUser(const std::string &cid);
-        void addFile(const std::string &cid, const std::string &name, const std::string &path,
-            const int64_t &size = 0, const std::string &tth = "");
-        void cleanMenu_gui();
-        void buildMenu_gui();
+    GtkWidget *getContainer() { return userCommandMenu; }
+    void addHub(const std::string &hub);
+    void addHub(const dcpp::StringList &hubs2);
+    void addUser(const std::string &cid);
+    void addFile(const std::string &cid, const std::string &name, const std::string &path,
+                 const int64_t &size = 0, const std::string &tth = "");
+    void cleanMenu_gui();
+    void buildMenu_gui();
 
-    private:
-        // GUI functions
-        void createSubMenu_gui(GtkWidget *&menu, std::string &command);
+private:
+    // GUI functions
+    void createSubMenu_gui(GtkWidget *&menu, std::string &command);
 
-        // GUI callbacks
-        static void onUserCommandClick_gui(GtkMenuItem *item, gpointer data);
+    // GUI callbacks
+    static void onUserCommandClick_gui(GtkMenuItem *item, gpointer data);
 
-        // Client functions
-        void sendUserCommand_client(std::string cid, std::string commandName, std::string hub, dcpp::StringMap params);
+    // Client functions
+    void sendUserCommand_client(std::string cid, std::string commandName, std::string hub, dcpp::StringMap params);
 
-        GtkWidget *userCommandMenu;
-        int ctx;
-        dcpp::StringList hubs;
-        struct UCParam
-        {
-            std::string cid;
-            std::string name;
-            std::string path;
-            int64_t size;
-            std::string tth;
-            std::string type;
-        };
-        std::vector<UCParam> ucParams;
+    GtkWidget *userCommandMenu;
+    int ctx;
+    dcpp::StringList hubs;
+    struct UCParam
+    {
+        std::string cid;
+        std::string name;
+        std::string path;
+        std::string tth;
+        std::string type;
+        int64_t size = 0;
+    };
+    std::vector<UCParam> ucParams;
 };

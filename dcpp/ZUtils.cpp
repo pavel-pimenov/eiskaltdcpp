@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,23 +12,22 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
-
 #include "ZUtils.h"
 
-#include "format.h"
 #include "Exception.h"
 #include "File.h"
+#include "format.h"
+#include "ScopedFunctor.h"
 
 namespace dcpp {
 
 using std::max;
 
-const double ZFilter::MIN_COMPRESSION_LEVEL = 0.9;
+const double ZFilter::MIN_COMPRESSION_LEVEL = 0.95;
 
 ZFilter::ZFilter() : totalIn(0), totalOut(0), compressing(true) {
     memset(&zs, 0, sizeof(zs));
@@ -39,7 +38,6 @@ ZFilter::ZFilter() : totalIn(0), totalOut(0), compressing(true) {
 }
 
 ZFilter::~ZFilter() {
-    dcdebug("ZFilter end, %ld/%ld = %.04f\n", zs.total_out, zs.total_in, (float)zs.total_out / max((float)zs.total_in, (float)1));
     deflateEnd(&zs);
 }
 
@@ -51,18 +49,32 @@ bool ZFilter::operator()(const void* in, size_t& insize, void* out, size_t& outs
     zs.next_out = (Bytef*)out;
 
     // Check if there's any use compressing; if not, save some cpu...
-    if(compressing && insize > 0 && outsize > 16 && (totalIn > (64*1024)) && ((static_cast<double>(totalOut) / totalIn) > 0.95)) {
+    if(compressing && insize > 0 && outsize > 16 && (totalIn > (64 * 1024)) &&
+            (static_cast<double>(totalOut) / totalIn) > MIN_COMPRESSION_LEVEL)
+    {
         zs.avail_in = 0;
         zs.avail_out = outsize;
-        if(deflateParams(&zs, 0, Z_DEFAULT_STRATEGY) != Z_OK) {
+
+        // Starting with zlib 1.2.9, the deflateParams API has changed.
+        auto err = ::deflateParams(&zs, 0, Z_DEFAULT_STRATEGY);
+#if ZLIB_VERNUM >= 0x1290
+        if(err == Z_STREAM_ERROR) {
+#else
+        if(err != Z_OK) {
+#endif
             throw Exception(_("Error during compression"));
         }
+
         zs.avail_in = insize;
         compressing = false;
-        dcdebug("Dynamically disabled compression");
+        dcdebug("ZFilter: Dynamically disabled compression\n");
 
         // Check if we ate all space already...
+#if ZLIB_VERNUM >= 0x1290
+        if(err == Z_BUF_ERROR) {
+#else
         if(zs.avail_out == 0) {
+#endif
             outsize = outsize - zs.avail_out;
             insize = insize - zs.avail_in;
             totalOut += outsize;
@@ -105,13 +117,12 @@ UnZFilter::UnZFilter() {
 }
 
 UnZFilter::~UnZFilter() {
-    dcdebug("UnZFilter end, %ld/%ld = %.04f\n", zs.total_out, zs.total_in, (float)zs.total_out / max((float)zs.total_in, (float)1));
     inflateEnd(&zs);
 }
 
 bool UnZFilter::operator()(const void* in, size_t& insize, void* out, size_t& outsize) {
     if(outsize == 0)
-        return 0;
+        return false;
 
     zs.avail_in = insize;
     zs.next_in = (Bytef*)in;
@@ -132,13 +143,19 @@ bool UnZFilter::operator()(const void* in, size_t& insize, void* out, size_t& ou
 }
 
 void GZ::decompress(const string& source, const string& target) {
+#ifdef UNICODE
+    auto gz = gzopen_w(Text::toT(source).c_str(), "rb");
+#else
     auto gz = gzopen(source.c_str(), "rb");
+#endif
     if(!gz) {
         throw Exception(_("Error during decompression"));
     }
+    ScopedFunctor([&gz] { gzclose(gz); });
     File f(target, File::WRITE, File::CREATE | File::TRUNCATE);
 
     const size_t BUF_SIZE = 64 * 1024;
+    const int BUF_SIZE_INT = static_cast<int>(BUF_SIZE);
     ByteVector buf(BUF_SIZE);
 
     while(true) {
@@ -146,12 +163,10 @@ void GZ::decompress(const string& source, const string& target) {
         if(read > 0) {
             f.write(&buf[0], read);
         }
-        if(read < BUF_SIZE) {
+        if(read < BUF_SIZE_INT) {
             break;
         }
     }
-
-    gzclose(gz);
 }
 
 } // namespace dcpp

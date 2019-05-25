@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +13,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
@@ -24,6 +24,9 @@
 #include "Flags.h"
 #include "forward.h"
 #include "Segment.h"
+#include "Util.h"
+#include "GetSet.h"
+#include "HintedUser.h"
 
 namespace dcpp {
 
@@ -77,8 +80,8 @@ public:
      */
     class PartialSource : public FastAlloc<PartialSource>, public intrusive_ptr_base<PartialSource> {
     public:
-        PartialSource(const string& aMyNick, const string& aHubIpPort, const string& aIp, uint16_t udp) :
-          myNick(aMyNick), hubIpPort(aHubIpPort), ip(aIp), udpPort(udp), nextQueryTime(0), pendingQueryCount(0) { }
+        PartialSource(const string& aMyNick, const string& aHubIpPort, const string& aIp, const string& udp) :
+            myNick(aMyNick), hubIpPort(aHubIpPort), ip(aIp), udpPort(udp), nextQueryTime(0), pendingQueryCount(0) { }
 
         ~PartialSource() { }
 
@@ -88,7 +91,7 @@ public:
         GETSET(string, myNick, MyNick);                 // for NMDC support only
         GETSET(string, hubIpPort, HubIpPort);
         GETSET(string, ip, Ip);
-        GETSET(uint16_t, udpPort, UdpPort);
+        GETSET(string, udpPort, UdpPort);
         GETSET(uint64_t, nextQueryTime, NextQueryTime);
         GETSET(uint8_t, pendingQueryCount, PendingQueryCount);
     };
@@ -113,8 +116,8 @@ public:
             FLAG_UNTRUSTED = 0x400,
             FLAG_UNENCRYPTED = 0x450,
             FLAG_MASK = FLAG_FILE_NOT_AVAILABLE
-                | FLAG_PASSIVE | FLAG_REMOVED | FLAG_CRC_FAILED | FLAG_CRC_WARN
-                | FLAG_BAD_TREE | FLAG_NO_TREE | FLAG_SLOW_SOURCE | FLAG_TTH_INCONSISTENCY | FLAG_UNTRUSTED | FLAG_UNENCRYPTED
+            | FLAG_PASSIVE | FLAG_REMOVED | FLAG_CRC_FAILED | FLAG_CRC_WARN
+            | FLAG_BAD_TREE | FLAG_NO_TREE | FLAG_SLOW_SOURCE | FLAG_TTH_INCONSISTENCY | FLAG_UNTRUSTED | FLAG_UNENCRYPTED
         };
 
         Source(const HintedUser& aUser) : user(aUser), partialSource(NULL) { }
@@ -136,7 +139,7 @@ public:
     typedef SegmentSet::const_iterator SegmentConstIter;
 
     QueueItem(const string& aTarget, int64_t aSize, Priority aPriority, int aFlag,
-        time_t aAdded, const TTHValue& tth) :
+              time_t aAdded, const TTHValue& tth) :
         Flags(aFlag), target(aTarget), size(aSize),
         priority(aPriority), added(aAdded), tthRoot(tth), nextPublishingTime(0)
     { }
@@ -170,7 +173,7 @@ public:
     bool isSource(const UserPtr& aUser) const { return getSource(aUser) != sources.end(); }
     bool isBadSource(const UserPtr& aUser) const { return getBadSource(aUser) != badSources.end(); }
     bool isBadSourceExcept(const UserPtr& aUser, Flags::MaskType exceptions) const {
-        SourceConstIter i = getBadSource(aUser);
+        auto i = getBadSource(aUser);
         if(i != badSources.end())
             return i->isAnySet(exceptions^Source::FLAG_MASK);
         return false;
@@ -202,7 +205,7 @@ public:
     /**
      * Is specified parts needed by this download?
      */
-    bool isNeededPart(const PartsInfo& partsInfo, int64_t blockSize);
+    bool isNeededPart(const PartsInfo& partsInfo, int64_t blockSize) const;
     /**
      * Get shared parts info, max 255 parts range pairs
      */
@@ -223,14 +226,7 @@ public:
         return downloads.empty();
     }
 
-    string getListName() const {
-        dcassert(isSet(QueueItem::FLAG_USER_LIST));
-        if(isSet(QueueItem::FLAG_XML_BZLIST)) {
-            return getTarget() + ".xml.bz2";
-        } else {
-            return getTarget() + ".xml";
-        }
-    }
+    string getListName() const;
 
     const string& getTempTarget();
     void setTempTarget(const string& aTempTarget) { tempTarget = aTempTarget; }

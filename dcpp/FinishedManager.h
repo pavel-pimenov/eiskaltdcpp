@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +13,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
@@ -29,6 +29,7 @@
 #include "User.h"
 #include "MerkleTree.h"
 #include "ClientManager.h"
+#include "HintedUser.h"
 
 namespace dcpp {
 
@@ -38,10 +39,10 @@ public:
     typedef vector<FinishedItem> FinishedItemList;
 
     FinishedItem(string const& aTarget, const UserPtr& aUser, string const& aHub,
-            int64_t aSize, int64_t aSpeed, time_t aTime,
-            const string& aTTH = Util::emptyString) :
-            target(aTarget),  hub(aHub), tth(aTTH), size(aSize), avgSpeed(aSpeed),
-            time(aTime), user(aUser)
+                 int64_t aSize, int64_t aSpeed, time_t aTime,
+                 const string& aTTH = Util::emptyString) :
+        target(aTarget),  hub(aHub), tth(aTTH), size(aSize), avgSpeed(aSpeed),
+        time(aTime), user(aUser)
     {
     }
 
@@ -62,18 +63,13 @@ private:
 };
 /**/
 class FinishedManager : public Singleton<FinishedManager>,
-    public Speaker<FinishedManagerListener>, private DownloadManagerListener, private UploadManagerListener, private QueueManagerListener
+        public Speaker<FinishedManagerListener>, private DownloadManagerListener, private UploadManagerListener, private QueueManagerListener
 {
 public:
     typedef unordered_map<string, FinishedFileItemPtr> MapByFile;
     typedef unordered_map<HintedUser, FinishedUserItemPtr, User::Hash> MapByUser;
 
-#ifdef DO_NOT_USE_MUTEX
-    void lockLists();
-    void unlockLists();
-#else // DO_NOT_USE_MUTEX
     Lock lockLists();
-#endif // DO_NOT_USE_MUTEX
     const MapByFile& getMapByFile(bool upload) const;
     const MapByUser& getMapByUser(bool upload) const;
 

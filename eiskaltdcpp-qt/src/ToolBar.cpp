@@ -22,7 +22,7 @@
 
 ToolBar::ToolBar(QWidget *parent):
     QToolBar(parent),
-    tabbar(NULL)
+    tabbar(nullptr)
 {
     setContextMenuPolicy(Qt::CustomContextMenu);
 }
@@ -205,12 +205,10 @@ void ToolBar::toggled ( ArenaWidget *awgt) {
 }
 
 void ToolBar::slotTabMoved(int from, int to){
-    ArenaWidget *from_wgt = NULL;
-    ArenaWidget *to_wgt   = NULL;
+    ArenaWidget *from_wgt = nullptr;
+    ArenaWidget *to_wgt   = nullptr;
 
-    auto it = map.begin();
-
-    for (; it != map.end(); ++it){
+    for (auto it = map.begin(); it != map.end(); ++it){
         if (it.value() == from){
             from_wgt = it.key();
         }
@@ -281,24 +279,20 @@ void ToolBar::slotShorcuts(){
         tabbar->setCurrentIndex(index);
 }
 
-ArenaWidget *ToolBar::findWidgetForIndex(int index){
+ArenaWidget *ToolBar::findWidgetForIndex(const int index){
     if (index < 0)
-        return NULL;
+        return nullptr;
 
-    auto it = map.begin();
-
-    for (; it != map.end(); ++it){
-        if (it.value() == index)
-            return const_cast<ArenaWidget*>(it.key());
+    for (const auto &k : map.keys()) {
+        if (map[k] == index)
+            return const_cast<ArenaWidget*>(k);
     }
 
-    return NULL;
+    return nullptr;
 }
 
 void ToolBar::redraw(){
-    auto it = map.begin();
-
-    for (; it != map.end(); ++it){
+    for (auto it = map.begin(); it != map.end(); ++it){
         tabbar->setTabText(it.value(), it.key()->getArenaShortTitle().left(32));
         tabbar->setTabToolTip(it.value(), WulforUtil::getInstance()->compactToolTipText(it.key()->getArenaTitle(), 60, "\n"));
         tabbar->setTabIcon(it.value(), it.key()->getPixmap());
@@ -310,7 +304,7 @@ void ToolBar::redraw(){
 
     if (awgt)
         MainWindow::getInstance()->setWindowTitle(awgt->getArenaTitle() +
-                                   " :: " + QString("%1").arg(EISKALTDCPP_WND_TITLE));
+                                   " :: " + QString::fromStdString(eiskaltdcppAppNameString));
 }
 
 void ToolBar::nextTab(){
@@ -333,13 +327,11 @@ void ToolBar::prevTab(){
         tabbar->setCurrentIndex(tabbar->count()-1);
 }
 
-void ToolBar::rebuildIndexes(int removed){
+void ToolBar::rebuildIndexes(const int removed){
     if (removed < 0)
         return;
 
-    auto it = map.begin();
-
-    for (; it != map.end(); ++it){
+    for (auto it = map.begin(); it != map.end(); ++it){
         if (it.value() > removed)
             map[it.key()] = it.value()-1;
     }

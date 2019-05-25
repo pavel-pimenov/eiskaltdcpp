@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
@@ -27,8 +26,7 @@ template<class TreeType, bool managed>
 class MerkleCheckOutputStream : public OutputStream {
 public:
     MerkleCheckOutputStream(const TreeType& aTree, OutputStream* aStream, int64_t start) : s(aStream), real(aTree), cur(aTree.getBlockSize()), verified(0), bufPos(0) {
-        // Only start at block boundaries
-        dcassert(start % aTree.getBlockSize() == 0);
+        memset(&buf, 0, sizeof(buf));
         cur.setFileSize(start);
 
         size_t nBlocks = static_cast<size_t>(start / aTree.getBlockSize());
@@ -39,9 +37,9 @@ public:
         cur.getLeaves().insert(cur.getLeaves().begin(), aTree.getLeaves().begin(), aTree.getLeaves().begin() + nBlocks);
     }
 
-    virtual ~MerkleCheckOutputStream() noexcept { if(managed) delete s; }
+    virtual ~MerkleCheckOutputStream() { if(managed) delete s; }
 
-    virtual size_t flush() throw(FileException) {
+    virtual size_t flush() {
         if (bufPos != 0)
             cur.update(buf, bufPos);
         bufPos = 0;
@@ -56,7 +54,7 @@ public:
         return s->flush();
     }
 
-    void commitBytes(const void* b, size_t len) throw(FileException) {
+    void commitBytes(const void* b, size_t len) {
         uint8_t* xb = (uint8_t*)b;
         size_t pos = 0;
 
@@ -86,7 +84,7 @@ public:
         }
     }
 
-    virtual size_t write(const void* b, size_t len) throw(FileException) {
+    virtual size_t write(const void* b, size_t len) {
         commitBytes(b, len);
         checkTrees();
         return s->write(b, len);
@@ -104,10 +102,10 @@ private:
     uint8_t buf[TreeType::BASE_BLOCK_SIZE];
     size_t bufPos;
 
-    void checkTrees() throw(FileException) {
+    void checkTrees() {
         while(cur.getLeaves().size() > verified) {
             if(cur.getLeaves().size() > real.getLeaves().size() ||
-                !(cur.getLeaves()[verified] == real.getLeaves()[verified]))
+                    !(cur.getLeaves()[verified] == real.getLeaves()[verified]))
             {
                 throw FileException(_("TTH inconsistency"));
             }

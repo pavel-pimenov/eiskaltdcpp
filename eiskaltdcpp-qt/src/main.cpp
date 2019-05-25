@@ -7,14 +7,20 @@
 *                                                                         *
 ***************************************************************************/
 
-#ifdef STATIC
-#ifdef _WIN32
+#ifdef BUILD_STATIC
 #include <QtPlugin>
+#if defined(_WIN32)
 Q_IMPORT_PLUGIN (QWindowsAudioPlugin);
 Q_IMPORT_PLUGIN (QWindowsIntegrationPlugin);
 Q_IMPORT_PLUGIN (QSQLiteDriverPlugin);
-#endif
-#endif
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 10, 0))
+Q_IMPORT_PLUGIN (QWindowsVistaStylePlugin);
+#endif // QT_VERSION
+#elif defined(__linux) // defined(_WIN32)
+Q_IMPORT_PLUGIN (QXcbIntegrationPlugin);
+Q_IMPORT_PLUGIN (QSQLiteDriverPlugin);
+#endif // defined(_WIN32)
+#endif // BUILD_STATIC
 
 #include <stdlib.h>
 #include <iostream>
@@ -36,7 +42,7 @@ using namespace std;
 #include "HubManager.h"
 #include "Notification.h"
 #include "VersionGlobal.h"
-#include "IPFilter.h"
+#include "extra/ipfilter.h"
 #include "EmoticonFactory.h"
 #include "FinishedTransfers.h"
 #include "QueuedUsers.h"
@@ -45,7 +51,7 @@ using namespace std;
 #include "MainWindow.h"
 #include "GlobalTimer.h"
 
-#if defined (__HAIKU__)
+#if defined(__HAIKU__)
 #include "EiskaltApp_haiku.h"
 #elif defined(Q_OS_MAC)
 #include "EiskaltApp_mac.h"
@@ -71,7 +77,7 @@ using namespace std;
 #include <QtDBus>
 #endif
 
-void callBack(void* x, const std::string& a)
+void callBack(void *, const std::string &a)
 {
     std::cout << QObject::tr("Loading: ").toStdString() << a << std::endl;
 }
@@ -144,7 +150,7 @@ int main(int argc, char *argv[])
     migrateConfig();
 #endif
 
-    dcpp::startup(callBack, NULL);
+    dcpp::startup(callBack, nullptr);
     dcpp::TimerManager::getInstance()->start();
 
     HashManager::getInstance()->setPriority(Thread::IDLE);
@@ -153,16 +159,16 @@ int main(int argc, char *argv[])
 #endif
     app.setOrganizationName("EiskaltDC++ Team");
     app.setApplicationName("EiskaltDC++ Qt");
-    app.setApplicationVersion(EISKALTDCPP_VERSION);
+    app.setApplicationVersion(QString::fromStdString(eiskaltdcppVersionString));
     
     GlobalTimer::newInstance();
 
     WulforSettings::newInstance();
     WulforSettings::getInstance()->load();
-    WulforSettings::getInstance()->loadTranslation();
     WulforSettings::getInstance()->loadTheme();
 
     WulforUtil::newInstance();
+    WulforSettings::getInstance()->loadTranslation();
 #if defined(Q_OS_MAC)
     // Disable system tray functionality in Mac OS X:
     WBSET(WB_TRAY_ENABLED, false);
@@ -177,12 +183,17 @@ int main(int argc, char *argv[])
         std::cout << QObject::tr("Application icons has been loaded").toStdString() << std::endl;
 
     app.setWindowIcon(WICON(WulforUtil::eiICON_APPL));
-    
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 10, 1))
+    app.setAttribute(Qt::AA_DisableWindowContextHelpButton);
+#endif
+
     ArenaWidgetManager::newInstance();
 
     MainWindow::newInstance();
 #if defined(Q_OS_MAC)
     MainWindow::getInstance()->setUnload(false);
+    QObject::connect(&app, SIGNAL(clickedOnDock()),
+                     MainWindow::getInstance(), SLOT(show()));
 #else // defined(Q_OS_MAC)
     MainWindow::getInstance()->setUnload(!WBGET(WB_TRAY_ENABLED));
 #endif // defined(Q_OS_MAC)
@@ -222,7 +233,7 @@ int main(int argc, char *argv[])
 
     ret = app.exec();
 
-    std::cout << QObject::tr("Shutting down libdcpp...").toStdString() << std::endl;
+    std::cout << QObject::tr("Shutting down libeiskaltdcpp...").toStdString() << std::endl;
 
     WulforSettings::getInstance()->save();
 
@@ -315,13 +326,13 @@ void installHandlers(){
     memset(&sa, 0, sizeof(sa));
     sa.sa_handler = SIG_IGN;
 
-    if (sigaction(SIGPIPE, &sa, NULL) == -1)
+    if (sigaction(SIGPIPE, &sa, nullptr) == -1)
         printf("Cannot handle SIGPIPE\n");
     else {
         sigset_t set;
         sigemptyset (&set);
         sigaddset (&set, SIGPIPE);
-        pthread_sigmask(SIG_BLOCK, &set, NULL);
+        pthread_sigmask(SIG_BLOCK, &set, nullptr);
     }
 
     catchSignals<SIGSEGV, SIGABRT, SIGBUS, SIGTERM>();

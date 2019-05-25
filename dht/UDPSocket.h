@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
@@ -32,7 +31,7 @@ namespace dht
         FastAlloc<Packet>
     {
         /** Public constructor */
-        Packet(const string& ip_, uint16_t port_, const std::string& data_, const CID& _targetCID, const CID& _udpKey) :
+        Packet(const string& ip_, const string& port_, const std::string& data_, const CID& _targetCID, const CID& _udpKey) :
             ip(ip_), port(port_), data(data_), targetCID(_targetCID), udpKey(_udpKey)
         {
         }
@@ -41,7 +40,7 @@ namespace dht
         string ip;
 
         /** To which port this packet should be sent */
-        uint16_t port;
+        string port;
 
         /** Data to sent */
         std::string data;
@@ -65,13 +64,13 @@ namespace dht
         void disconnect() throw();
 
         /** Starts listening to UDP socket */
-        void listen() throw(SocketException);
+        void listen();
 
         /** Returns port used to listening to UDP socket */
-        uint16_t getPort() const { return port; }
+        const std::string& getPort() const { return port; }
 
         /** Sends command to ip and port */
-        void send(AdcCommand& cmd, const string& ip, uint16_t port, const CID& targetCID, const CID& udpKey);
+        void send(AdcCommand& cmd, const string& ip, const string &port, const CID& targetCID, const CID& udpKey);
 
     private:
 
@@ -81,7 +80,7 @@ namespace dht
         bool stop;
 
         /** Port for communicating in this network */
-        uint16_t port;
+        std::string port;
 
         /** Queue for sending packets through UDP socket */
         std::deque<Packet*> sendQueue;
@@ -104,8 +103,8 @@ namespace dht
         /** Thread for receiving UDP packets */
         int run();
 
-        void checkIncoming() throw(SocketException);
-        void checkOutgoing(uint64_t& timer) throw(SocketException);
+        void checkIncoming();
+        void checkOutgoing(uint64_t& timer);
 
         void compressPacket(const string& data, uint8_t* destBuf, unsigned long& destSize);
         void encryptPacket(const CID& targetCID, const CID& udpKey, uint8_t* destBuf, unsigned long& destSize);

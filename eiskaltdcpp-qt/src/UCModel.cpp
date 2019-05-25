@@ -19,7 +19,7 @@ using namespace dcpp;
 
 UCModel::UCModel(QObject *parent): QAbstractItemModel(parent)
 {
-    rootItem = new UCItem(NULL);
+    rootItem = new UCItem(nullptr);
 }
 
 UCModel::~UCModel()
@@ -29,6 +29,7 @@ UCModel::~UCModel()
 
 int UCModel::columnCount(const QModelIndex &parent) const
 {
+    Q_UNUSED(parent)
     return 3;
 }
 
@@ -68,7 +69,7 @@ QVariant UCModel::data(const QModelIndex &index, int role) const
 Qt::ItemFlags UCModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
-        return 0;
+        return nullptr;
 
     Qt::ItemFlags flags = Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 
@@ -113,6 +114,7 @@ QModelIndex UCModel::index(int row, int column, const QModelIndex &parent)
 
 QModelIndex UCModel::parent(const QModelIndex &index) const
 {
+    Q_UNUSED(index)
     return QModelIndex();
 }
 
@@ -137,9 +139,8 @@ void UCModel::sort(int column, Qt::SortOrder order) {
 }
 
 void UCModel::loadUC(){
-    UserCommand::List lst = FavoriteManager::getInstance()->getUserCommands();
-    for (auto i = lst.begin(); i != lst.end(); ++i) {
-        const UserCommand& uc = *i;
+    UserCommand::List list = FavoriteManager::getInstance()->getUserCommands();
+    for (const UserCommand& uc : list) {
         if(!uc.isSet(UserCommand::FLAG_NOSAVE))
             addUC(uc);
     }
@@ -276,7 +277,7 @@ void UCModel::initDlgFromItem(UCDialog &dlg, const UCItem &item){
     QString comm        = item.comm;
     QString hub         = item.hub;
     QString to          = item.to;
-    int new_type;
+    int new_type        = 0;
 
     if (type == UserCommand::TYPE_SEPARATOR){
         dlg.radioButton_SEP->toggle();
@@ -319,15 +320,18 @@ void UCModel::initDlgFromItem(UCDialog &dlg, const UCItem &item){
     dlg.updateLines();
 }
 
-UCItem::UCItem(UCItem *parent) :
-    ctx(0), type(0), id(0), parentItem(parent)
+UCItem::UCItem(UCItem *parent)
+    : ctx(0)
+    , type(0)
+    , id(0)
+    , parentItem(parent)
 {
 }
 
 UCItem::~UCItem()
 {
-    if (!childItems.isEmpty())
-        qDeleteAll(childItems);
+    qDeleteAll(childItems);
+    childItems.clear();
 }
 
 void UCItem::appendChild(UCItem *item) {

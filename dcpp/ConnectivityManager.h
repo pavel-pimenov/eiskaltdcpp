@@ -12,17 +12,24 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
-#include "Util.h"
-#include "Speaker.h"
+#include "CriticalSection.h"
+#include "SettingsManager.h"
 #include "Singleton.h"
+#include "Speaker.h"
+#include "Util.h"
+
+#include <string>
+#include <unordered_map>
 
 namespace dcpp {
+
+using std::string;
+using std::unordered_map;
 
 class ConnectivityManagerListener {
 public:
@@ -46,7 +53,7 @@ public:
 
 private:
     friend class Singleton<ConnectivityManager>;
-    friend class UPnPManager;
+    friend class MappingManager;
 
     ConnectivityManager();
     virtual ~ConnectivityManager() { }
@@ -61,10 +68,6 @@ private:
     bool autoDetected;
     bool running;
 
-    unsigned short lastTcp;
-    unsigned short lastUdp;
-    unsigned short lastTls;
-    int lastConn;
     string lastBind;
 };
 

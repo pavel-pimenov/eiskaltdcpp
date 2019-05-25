@@ -12,8 +12,7 @@
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+* along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 #pragma once
@@ -25,16 +24,13 @@ public:
     typedef int MaskType;
 
     Flags() : flags(0) { }
-    Flags(const Flags& rhs) : flags(rhs.flags) { }
     Flags(MaskType f) : flags(f) { }
     bool isSet(MaskType aFlag) const { return (flags & aFlag) == aFlag; }
     bool isAnySet(MaskType aFlag) const { return (flags & aFlag) != 0; }
     void setFlag(MaskType aFlag) { flags |= aFlag; }
     void unsetFlag(MaskType aFlag) { flags &= ~aFlag; }
     MaskType getFlags() const { return flags; }
-    Flags& operator=(const Flags& rhs) { flags = rhs.flags; return *this; }
-protected:
-    ~Flags() { }
+
 private:
     MaskType flags;
 };

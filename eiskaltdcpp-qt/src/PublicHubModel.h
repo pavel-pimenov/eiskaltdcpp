@@ -40,7 +40,7 @@ class PublicHubItem{
 
 public:
 
-    PublicHubItem(const QList<QVariant> &data, PublicHubItem *parent = NULL);
+    PublicHubItem(const QList<QVariant> &data, PublicHubItem *parent = nullptr);
     ~PublicHubItem();
 
     void appendChild(PublicHubItem *child);
@@ -54,7 +54,7 @@ public:
 
     QList<PublicHubItem*> childItems;
 
-    void updateColumn(unsigned, QVariant);
+    void updateColumn(const int, const QVariant &);
 
     dcpp::HubEntry *entry;
 
@@ -67,7 +67,7 @@ class PublicHubModel : public QAbstractItemModel
 {
     Q_OBJECT
 public:
-    PublicHubModel(QObject *parent = 0);
+    PublicHubModel(QObject *parent = nullptr);
     virtual ~PublicHubModel();
 
     /** */

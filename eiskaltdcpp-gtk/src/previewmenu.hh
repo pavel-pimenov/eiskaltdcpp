@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -23,15 +22,15 @@
 
 class PreviewMenu
 {
-    public:
-        PreviewMenu(GtkWidget *menu) : appsPreviewMenu(menu) {}
-        ~PreviewMenu() {}
+public:
+    PreviewMenu(GtkWidget *menu) : appsPreviewMenu(menu) {}
+    ~PreviewMenu() {}
 
-        void cleanMenu_gui();
-        bool buildMenu_gui(const std::string &target);
+    void cleanMenu_gui();
+    bool buildMenu_gui(const std::string &target);
 
-    private:
+private:
 
-        GtkWidget *appsPreviewMenu;
-        static void onPreviewAppClicked_gui(GtkMenuItem *menuItem, gpointer data);
+    GtkWidget *appsPreviewMenu;
+    static void onPreviewAppClicked_gui(GtkMenuItem *menuItem, gpointer data);
 };

@@ -11,9 +11,7 @@
 //      GNU General Public License for more details.
 //
 //      You should have received a copy of the GNU General Public License
-//      along with this program; if not, write to the Free Software
-//      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-//      MA 02110-1301, USA.
+//      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #pragma once
 
@@ -26,23 +24,28 @@ namespace dcpp {
 
 class DynDNS : public Singleton<DynDNS>, private HttpConnectionListener
 {
-    public:
+public:
     DynDNS();
     ~DynDNS();
 
-    private:
-    HttpConnection httpConnection;
-    string html;
-    bool request;
+    void load();
+    void stop();
+
+private:
     void Request();
+
     // HttpConnectionListener
     void on(HttpConnectionListener::Data, HttpConnection* conn, const uint8_t* buf, size_t len) noexcept;
-    void on(HttpConnectionListener::Complete, HttpConnection* conn, string const& aLine, bool /*fromCoral*/) noexcept;
+    void on(HttpConnectionListener::Complete, HttpConnection* conn, string const& aLine) noexcept;
     void on(HttpConnectionListener::Failed, HttpConnection* conn, const string& aLine) noexcept;
 
     // TimerManagerListener
     void on(TimerManagerListener::Minute, uint64_t aTick) noexcept;
 
+    HttpConnection httpConnection;
+    string html;
+    bool request;
+    int minutesCounter;
 };
 
 }

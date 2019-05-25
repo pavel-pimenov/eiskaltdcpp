@@ -1,4 +1,7 @@
+data/aspell*
 CMakeLists.txt.user*
 .gitignore
+.DS_Store
 build*/
+boost*
 tags

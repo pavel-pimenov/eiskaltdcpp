@@ -12,17 +12,18 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
 #include "forward.h"
-#include "FastAlloc.h"
-#include "MerkleTree.h"
 #include "AdcCommand.h"
+#include "FastAlloc.h"
+#include "HintedUser.h"
+#include "MerkleTree.h"
 #include "Pointer.h"
+#include "Util.h"
 
 namespace dcpp {
 
@@ -38,8 +39,8 @@ public:
     SearchResult(Types aType, int64_t aSize, const string& name, const TTHValue& aTTH);
 
     SearchResult(const UserPtr& aUser, Types aType, int aSlots, int aFreeSlots,
-    int64_t aSize, const string& aFile, const string& aHubName,
-    const string& aHubURL, const string& ip, TTHValue aTTH, const string& aToken);
+                 int64_t aSize, const string& aFile, const string& aHubName,
+                 const string& aHubURL, const string& ip, TTHValue aTTH, const string& aToken);
 
     string getBaseName() const;
     string toSR(const Client& client) const;

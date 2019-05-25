@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
@@ -92,30 +91,30 @@ void AdcCommand::parse(const string& aLine, bool nmdc /* = false */) {
             break;
         case ' ':
             // New parameter...
-            {
-                if((type == TYPE_BROADCAST || type == TYPE_DIRECT || type == TYPE_ECHO || type == TYPE_FEATURE) && !fromSet) {
-                    if(cur.length() != 4) {
-                        throw ParseException("Invalid SID length");
-                    }
-                    from = toSID(cur);
-                    fromSet = true;
-                } else if((type == TYPE_DIRECT || type == TYPE_ECHO) && !toSet) {
-                    if(cur.length() != 4) {
-                        throw ParseException("Invalid SID length");
-                    }
-                    to = toSID(cur);
-                    toSet = true;
-                } else if(type == TYPE_FEATURE && !featureSet) {
-                    if(cur.length() % 5 != 0) {
-                        throw ParseException("Invalid feature length");
-                    }
-                    // Skip...
-                    featureSet = true;
-                } else {
-                    parameters.push_back(cur);
+        {
+            if((type == TYPE_BROADCAST || type == TYPE_DIRECT || type == TYPE_ECHO || type == TYPE_FEATURE) && !fromSet) {
+                if(cur.length() != 4) {
+                    throw ParseException("Invalid SID length");
                 }
-                cur.clear();
+                from = toSID(cur);
+                fromSet = true;
+            } else if((type == TYPE_DIRECT || type == TYPE_ECHO) && !toSet) {
+                if(cur.length() != 4) {
+                    throw ParseException("Invalid SID length");
+                }
+                to = toSID(cur);
+                toSet = true;
+            } else if(type == TYPE_FEATURE && !featureSet) {
+                if(cur.length() % 5 != 0) {
+                    throw ParseException("Invalid feature length");
+                }
+                // Skip...
+                featureSet = true;
+            } else {
+                parameters.push_back(cur);
             }
+            cur.clear();
+        }
             break;
         default:
             cur += buf[i];
@@ -175,9 +174,9 @@ string AdcCommand::escape(const string& str, bool old) {
             tmp.insert(i, "\\");
         } else {
             switch(tmp[i]) {
-                case ' ': tmp.replace(i, 1, "\\s"); break;
-                case '\n': tmp.replace(i, 1, "\\n"); break;
-                case '\\': tmp.replace(i, 1, "\\\\"); break;
+            case ' ': tmp.replace(i, 1, "\\s"); break;
+            case '\n': tmp.replace(i, 1, "\\n"); break;
+            case '\\': tmp.replace(i, 1, "\\\\"); break;
             }
         }
         i+=2;
@@ -225,9 +224,9 @@ string AdcCommand::getHeaderString(const CID& cid) const {
 
 string AdcCommand::getParamString(bool nmdc) const {
     string tmp;
-    for(auto i = getParameters().begin(); i != getParameters().end(); ++i) {
+    for(auto& i: getParameters()) {
         tmp += ' ';
-        tmp += escape(*i, nmdc);
+        tmp += escape(i, nmdc);
     }
     if(nmdc) {
         tmp += '|';
@@ -254,8 +253,8 @@ bool AdcCommand::getParam(const char* name, size_t start, string& ret) const {
 bool AdcCommand::hasFlag(const char* name, size_t start) const {
     for(auto i = start; i < getParameters().size(); ++i) {
         if(toCode(name) == toCode(getParameters()[i].c_str()) &&
-            getParameters()[i].size() == 3 &&
-            getParameters()[i][2] == '1')
+                getParameters()[i].size() == 3 &&
+                getParameters()[i][2] == '1')
         {
             return true;
         }

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2009-2010 Big Muscle, http://strongdc.sf.net
+ * Copyright (C) 2019 Boris Pek <tehnick-8@yandex.ru>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +13,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdafx.h"
@@ -50,7 +50,7 @@ namespace dht
         if(!node->isOnline())
         {
             // do handshake at first
-            DHT::getInstance()->info(node->getIdentity().getIp(), static_cast<uint16_t>(Util::toInt(node->getIdentity().getUdpPort())),
+            DHT::getInstance()->info(node->getIdentity().getIp(), node->getIdentity().getUdpPort(),
                 DHT::PING | DHT::MAKE_ONLINE, node->getUser()->getCID(), node->getUdpKey());
             return;
         }
@@ -63,13 +63,13 @@ namespace dht
 
         if(active)
         {
-            uint16_t port = secure ? dcpp::ConnectionManager::getInstance()->getSecurePort() : dcpp::ConnectionManager::getInstance()->getPort();
-            cmd.addParam(Util::toString(port));
+            string port = secure ? dcpp::ConnectionManager::getInstance()->getSecurePort() : dcpp::ConnectionManager::getInstance()->getPort();
+            cmd.addParam(port);
         }
 
         cmd.addParam(token);
 
-        DHT::getInstance()->send(cmd, node->getIdentity().getIp(), static_cast<uint16_t>(Util::toInt(node->getIdentity().getUdpPort())),
+        DHT::getInstance()->send(cmd, node->getIdentity().getIp(), node->getIdentity().getUdpPort(),
             node->getUser()->getCID(), node->getUdpKey());
     }
 
@@ -82,7 +82,7 @@ namespace dht
         if(!node->isOnline())
         {
             // do handshake at first
-            DHT::getInstance()->info(node->getIdentity().getIp(), static_cast<uint16_t>(Util::toInt(node->getIdentity().getUdpPort())),
+            DHT::getInstance()->info(node->getIdentity().getIp(), node->getIdentity().getUdpPort(),
                 DHT::PING | DHT::MAKE_ONLINE, node->getUser()->getCID(), node->getUdpKey());
             return;
         }
@@ -106,7 +106,7 @@ namespace dht
             cmd.addParam("PR", protocol);
             cmd.addParam("TO", token);
 
-            DHT::getInstance()->send(cmd, node->getIdentity().getIp(), static_cast<uint16_t>(Util::toInt(node->getIdentity().getUdpPort())),
+            DHT::getInstance()->send(cmd, node->getIdentity().getIp(), node->getIdentity().getUdpPort(),
                 node->getUser()->getCID(), node->getUdpKey());
             return;
         }
@@ -114,12 +114,12 @@ namespace dht
         if(!node->getIdentity().isTcpActive())
         {
             AdcCommand err(AdcCommand::SEV_FATAL, AdcCommand::ERROR_PROTOCOL_GENERIC, "IP unknown", AdcCommand::TYPE_UDP);
-            DHT::getInstance()->send(err, node->getIdentity().getIp(), static_cast<uint16_t>(Util::toInt(node->getIdentity().getUdpPort())),
+            DHT::getInstance()->send(err, node->getIdentity().getIp(), node->getIdentity().getUdpPort(),
                 node->getUser()->getCID(), node->getUdpKey());
             return;
         }
 
-        dcpp::ConnectionManager::getInstance()->adcConnect(*node, static_cast<uint16_t>(Util::toInt(port)), token, secure);
+        dcpp::ConnectionManager::getInstance()->adcConnect(*node, port, token, secure);
     }
 
     /*
@@ -153,7 +153,7 @@ namespace dht
             sta.addParam("PR", protocol);
             sta.addParam("TO", token);
 
-            DHT::getInstance()->send(sta, node->getIdentity().getIp(), static_cast<uint16_t>(Util::toInt(node->getIdentity().getUdpPort())),
+            DHT::getInstance()->send(sta, node->getIdentity().getIp(), node->getIdentity().getUdpPort(),
                 node->getUser()->getCID(), node->getUdpKey());
             return;
         }

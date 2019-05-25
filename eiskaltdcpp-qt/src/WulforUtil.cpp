@@ -121,10 +121,8 @@ WulforUtil::WulforUtil()
     QtEnc2DCEnc["WINDOWS-1256"] = "CP1256 (Arabic)";
     QtEnc2DCEnc["WINDOWS-1257"] = "CP1257 (Baltic)";
 
-    bin_path = qApp->applicationDirPath();
-
-    if (!bin_path.endsWith(PATH_SEPARATOR))
-        bin_path += PATH_SEPARATOR_STR;
+    bin_path = qApp->applicationDirPath() + "/";
+    app_icons_path = findAppIconsPath() + "/";
 
     initFileTypes();
 }
@@ -136,89 +134,144 @@ WulforUtil::~WulforUtil(){
 }
 
 bool WulforUtil::loadUserIcons(){
-    //Try to find icons directory
-    QString user_theme = WSGET(WS_APP_USERTHEME);
-
-    QString settings_path = QDir::currentPath() + "/icons/user/" + user_theme;
-    settings_path = QDir::toNativeSeparators(settings_path);
-    if (QDir(settings_path).exists())
-        return loadUserIconsFromFile(settings_path + PATH_SEPARATOR_STR + QString("usericons.png"));
-
-#if defined(Q_OS_MAC)
-    settings_path = bin_path + "../../qt/icons/user/" + user_theme;
-    settings_path = QDir::toNativeSeparators(settings_path);
-    if (QDir(settings_path).exists())
-        return loadUserIconsFromFile(settings_path + PATH_SEPARATOR_STR + QString("usericons.png"));
-#endif // defined(Q_OS_MAC)
-
-    settings_path = bin_path + "icons/user/" + user_theme;
-    settings_path = QDir::toNativeSeparators(settings_path);
-    if (QDir(settings_path).exists())
-        return loadUserIconsFromFile(settings_path + PATH_SEPARATOR_STR + QString("usericons.png"));
-
-    settings_path = QDir::homePath() + "/.eiskaltdc++/icons/user/" + user_theme;
-    settings_path = QDir::toNativeSeparators(settings_path);
-    if (QDir(settings_path).exists())
-        return loadUserIconsFromFile(settings_path + PATH_SEPARATOR_STR + QString("usericons.png"));
-
-    settings_path = QDir::homePath()+QString(".dc/icons/user/" + user_theme);
-    settings_path = QDir::toNativeSeparators(settings_path);
-    if (QDir(settings_path).exists())
-        return loadUserIconsFromFile(settings_path + PATH_SEPARATOR_STR + QString("usericons.png"));
-
-    settings_path = CLIENT_ICONS_DIR "/user/" + user_theme;
-    settings_path = QDir::toNativeSeparators(settings_path);
-    if (QDir(settings_path).exists())
-        return loadUserIconsFromFile(settings_path + PATH_SEPARATOR_STR + QString("usericons.png"));
-
-    settings_path = bin_path + CLIENT_ICONS_DIR "/user/" + user_theme;
-    settings_path = QDir::toNativeSeparators(settings_path);
-    if (QDir(settings_path).exists())
-        return loadUserIconsFromFile(settings_path + PATH_SEPARATOR_STR + QString("usericons.png"));
-
-    return false;
+    return loadUserIconsFromFile(findUserIconsPath() + QString("/usericons.png"));
 }
 
-QString WulforUtil::findAppIconsPath(){
-    //Try to find icons directory
-    QString icon_theme = WSGET(WS_APP_ICONTHEME);
+QString WulforUtil::findAppIconsPath() const
+{
+    // Try to find application icons directory
+    const QString icon_theme = WSGET(WS_APP_ICONTHEME);
 
-    QString settings_path = QDir::currentPath() + "/icons/appl/" + icon_theme;
-    settings_path = QDir::toNativeSeparators(settings_path);
-
-    if (QDir(settings_path).exists())
-        return settings_path;
-
+    QStringList settings_path_list = {
+        QDir::currentPath() + "/icons/appl/" + icon_theme,
 #if defined(Q_OS_MAC)
-    settings_path = bin_path + "../../qt/icons/appl/" + icon_theme;
-    settings_path = QDir::toNativeSeparators(settings_path);
-    if (QDir(settings_path).exists())
-        return settings_path;
+        bin_path + "/../Resources/icons/appl/" + icon_theme,
+        "/Applications/EiskaltDC++.app/Contents/Resources/icons/appl/" + icon_theme,
 #endif // defined(Q_OS_MAC)
+        QDir::homePath() + "/.eiskaltdc++/icons/appl/" + icon_theme,
+        bin_path + "/appl/" + icon_theme,
+        CLIENT_ICONS_DIR "/appl/" + icon_theme,
+        bin_path + CLIENT_ICONS_DIR "/appl/" + icon_theme,
+        bin_path + "/../" CLIENT_ICONS_DIR "/appl/" + icon_theme,
+        bin_path + "/../../" CLIENT_ICONS_DIR "/appl/" + icon_theme
+    };
 
-    settings_path = QDir::homePath() + "/.eiskaltdc++/icons/appl/" + icon_theme;
-    settings_path = QDir::toNativeSeparators(settings_path);
-    if (QDir(settings_path).exists())
-        return settings_path;
+    for (QString settings_path : settings_path_list) {
+        settings_path = QDir::toNativeSeparators(settings_path);
+        if (QDir(settings_path).exists())
+            return settings_path;
+    }
 
-    settings_path = bin_path + "/appl/" + icon_theme;
-    settings_path = QDir::toNativeSeparators(settings_path);
-    if (QDir(settings_path).exists())
-        return settings_path;
+    return QString();
+}
 
-    settings_path = CLIENT_ICONS_DIR "/appl/" + icon_theme;
-    settings_path = QDir::toNativeSeparators(settings_path);
+QString WulforUtil::findUserIconsPath() const
+{
+    // Try to find icons directory
+    const QString user_theme = WSGET(WS_APP_USERTHEME);
 
-    if (QDir(settings_path).exists())
-        return settings_path;
+    QStringList settings_path_list = {
+        QDir::currentPath() + "/icons/user/" + user_theme,
+#if defined(Q_OS_MAC)
+        bin_path + "/../Resources/icons/user/" + user_theme,
+        "/Applications/EiskaltDC++.app/Contents/Resources/icons/user/" + user_theme,
+#endif // defined(Q_OS_MAC)
+        QDir::homePath() + "/.eiskaltdc++/icons/user/" + user_theme,
+        bin_path + "icons/user/" + user_theme,
+        bin_path + "/user/" + user_theme,
+        CLIENT_ICONS_DIR "/user/" + user_theme,
+        bin_path + CLIENT_ICONS_DIR "/user/" + user_theme,
+        bin_path + "/../" CLIENT_ICONS_DIR "/user/" + user_theme,
+        bin_path + "/../../" CLIENT_ICONS_DIR "/user/" + user_theme
+    };
 
-    settings_path = bin_path + CLIENT_ICONS_DIR "/appl/" + icon_theme;
-    settings_path = QDir::toNativeSeparators(settings_path);
+    for (QString settings_path : settings_path_list) {
+        settings_path = QDir::toNativeSeparators(settings_path);
+        if (QDir(settings_path).exists())
+            return settings_path;
+    }
 
-    if (QDir(settings_path).exists())
-        return settings_path;
+    return QString();
+}
 
-    return "";
+QString WulforUtil::getAppIconsPath() const
+{
+    return app_icons_path;
+}
+
+QString WulforUtil::getEmoticonsPath() const
+{
+#if defined (Q_OS_WIN) || defined (__HAIKU__)
+    static const QString emoticonsPath = bin_path + "/" CLIENT_DATA_DIR "/emoticons/";
+#elif defined (Q_OS_MAC)
+    static const QString emoticonsPath = bin_path + "/../Resources/emoticons/";
+#else // Other OS
+    static QString emoticonsPath = CLIENT_DATA_DIR "/emoticons/";
+    if (!QDir(emoticonsPath).exists()) // Fix for Snap, AppImage, etc.
+        emoticonsPath = bin_path + "/../../" + emoticonsPath;
+#endif
+    return QDir(emoticonsPath).absolutePath() + "/";
+}
+
+QString WulforUtil::getClientIconsPath() const
+{
+#if defined (Q_OS_WIN) || defined (__HAIKU__)
+    static const QString iconsPath = bin_path + "/" CLIENT_ICONS_DIR "/";
+#elif defined (Q_OS_MAC)
+    static const QString iconsPath = bin_path + "/../Resources/" CLIENT_ICONS_DIR "/";
+#else // Other OS
+    static QString iconsPath = CLIENT_ICONS_DIR "/";
+    if (!QDir(iconsPath).exists()) // Fix for Snap, AppImage, etc.
+        iconsPath = QString(bin_path + "/../../" + iconsPath);
+#endif
+    return QDir(iconsPath).absolutePath();
+}
+
+QString WulforUtil::getTranslationsPath() const
+{
+#if defined (Q_OS_WIN) || defined (__HAIKU__)
+    static const QString translationsPath = bin_path + "/" CLIENT_TRANSLATIONS_DIR "/";
+#elif defined (Q_OS_MAC)
+    static const QString translationsPath = bin_path + "/../Resources/translations/";
+#else // Other OS
+    static QString translationsPath = CLIENT_TRANSLATIONS_DIR "/";
+    if (!QDir(translationsPath).exists()) // Fix for Snap, AppImage, etc.
+        translationsPath = QString(bin_path + "/../../" + translationsPath);
+#endif
+    return QDir(QDir::toNativeSeparators(translationsPath)).absolutePath();
+}
+
+QString WulforUtil::getAspellDataPath() const
+{
+#if defined (Q_OS_WIN) || defined (__HAIKU__)
+    static const QString aspellDataPath = bin_path + "/" CLIENT_DATA_DIR "/aspell/";
+#elif defined (Q_OS_MAC)
+    static const QString aspellDataPath = bin_path + "/../Resources/aspell/";
+#elif defined(LOCAL_ASPELL_DATA) // Other OS
+    static const QString aspellDataPath = CLIENT_DATA_DIR "/aspell/";
+    if (!QDir(QDir::toNativeSeparators(aspellDataPath)).exists())
+        return QString(bin_path + "/../../" + aspellDataPath);
+#else
+    static const QString aspellDataPath = QString();
+#endif
+    return QDir(aspellDataPath).absolutePath();
+}
+
+QString WulforUtil::getClientResourcesPath() const
+{
+    const QString icon_theme = WSGET(WS_APP_ICONTHEME);
+
+#if defined(Q_OS_WIN) || defined(__HAIKU__)
+    const QString client_res_path = bin_path + CLIENT_RES_DIR "/" + icon_theme + ".rcc";
+#elif defined(Q_OS_MAC)
+    const QString client_res_path = bin_path + QString("/../Resources/" CLIENT_RES_DIR "/") + icon_theme + ".rcc";
+#else // Other systems
+    QString client_res_path = QString(CLIENT_RES_DIR) + PATH_SEPARATOR_STR + icon_theme + ".rcc";
+    if (!QDir(client_res_path).exists()) // Fix for Snap, AppImage, etc.
+        client_res_path = bin_path + "/../../" + client_res_path;
+#endif
+
+    return QDir(client_res_path).absolutePath();;
 }
 
 bool WulforUtil::loadUserIconsFromFile(QString file){
@@ -236,7 +289,7 @@ void WulforUtil::clearUserIconCache(){
         for (int y = 0; y < USERLIST_XPM_ROWS; ++y) {
             if (userIconCache[x][y]) {
                 delete userIconCache[x][y];
-                userIconCache[x][y] = 0;
+                userIconCache[x][y] = nullptr;
             }
         }
     }
@@ -269,7 +322,7 @@ QPixmap *WulforUtil::getUserIcon(const UserPtr &id, bool isAway, bool isOp, cons
             x = 7;
     }
 
-    if (userIconCache[x][y] == 0) {
+    if (userIconCache[x][y] == nullptr) {
         userIconCache[x][y] = new QPixmap(
                 QPixmap::fromImage(
                                     userIcons->copy(
@@ -306,18 +359,12 @@ QPixmap WulforUtil::FROMTHEME_SIDE(const QString &name, bool resource, const int
 bool WulforUtil::loadIcons(){
     m_bError = false;
 
-    QString icon_theme = WSGET(WS_APP_ICONTHEME);
-#if !defined(Q_OS_WIN)
-    QString fname = QString(CLIENT_RES_DIR) + PATH_SEPARATOR_STR + icon_theme+".rcc";
-#else
-    QString fname = bin_path + CLIENT_RES_DIR + PATH_SEPARATOR_STR + icon_theme + ".rcc";
-#endif
-    bool resourceFound = false;
+    app_icons_path = findAppIconsPath() + "/";
 
+    const QString fname = getClientResourcesPath();
+    bool resourceFound = false;
     if (QFile(fname).exists() && !WBGET("app/use-icon-theme", false))
         resourceFound = QResource::registerResource(fname);
-
-    app_icons_path = findAppIconsPath();
 
     m_PixmapMap.clear();
 
@@ -405,7 +452,7 @@ QPixmap WulforUtil::loadPixmap(const QString &file){
     QString f;
     QPixmap p;
 
-    f = app_icons_path + "/" + file;
+    f = app_icons_path + file;
     f = QDir::toNativeSeparators(f);
 
     if (p.load(f))
@@ -694,9 +741,7 @@ QString WulforUtil::qtEnc2DcEnc(QString name){
 }
 
 QString WulforUtil::dcEnc2QtEnc(QString name){
-    auto it = QtEnc2DCEnc.begin();
-
-    for (; it != QtEnc2DCEnc.end(); ++it){
+    for (auto it = QtEnc2DCEnc.begin(); it != QtEnc2DCEnc.end(); ++it){
         if (it.value() == name || !it.value().indexOf(name))
             return it.key();
     }
@@ -705,14 +750,7 @@ QString WulforUtil::dcEnc2QtEnc(QString name){
 }
 
 QStringList WulforUtil::encodings(){
-    QStringList encs;
-
-    auto it = QtEnc2DCEnc.begin();
-
-    for (; it != QtEnc2DCEnc.end(); ++it)
-        encs << it.key();
-
-    return encs;
+    return QtEnc2DCEnc.keys();
 }
 
 QTextCodec *WulforUtil::codecForEncoding(QString name){
@@ -732,7 +770,7 @@ bool WulforUtil::openUrl(const QString &url){
     else if (url.startsWith("adc://") || url.startsWith("adcs://")){
         MainWindow::getInstance()->newHubFrame(url, "UTF-8");
     }
-    else if (url.startsWith("dchub://")){
+    else if (url.startsWith("dchub://") || url.startsWith("nmdcs://")){
         MainWindow::getInstance()->newHubFrame(url, WSGET(WS_DEFAULT_LOCALE));
     }
     else if (url.startsWith("magnet:") && url.contains("urn:tree:tiger")){
@@ -775,6 +813,7 @@ bool WulforUtil::openUrl(const QString &url){
             QString hub = u.hasQueryItem("xs")? u.queryItemValue("xs") : "";
 
             if (!(hub.startsWith("dchub://", Qt::CaseInsensitive) ||
+                  hub.startsWith("nmdcs://", Qt::CaseInsensitive) ||
                   hub.startsWith("adc://", Qt::CaseInsensitive) ||
                   hub.startsWith("adcs://", Qt::CaseInsensitive)) && !hub.isEmpty())
                 hub.prepend("dchub://");
@@ -903,6 +942,10 @@ bool WulforUtil::getUserCommandParams(const UserCommand& uc, StringMap& params) 
 QStringList WulforUtil::getLocalIfaces(){
     QStringList ifaces;
 
+#ifdef __HAIKU__
+#undef HAVE_IFADDRS_H
+#endif // __HAIKU__
+
 #ifdef HAVE_IFADDRS_H
     struct ifaddrs *ifap;
 
@@ -934,7 +977,7 @@ QStringList WulforUtil::getLocalIPs(){
 
             // If the interface is up, is not a loopback and it has an address
             if ((i->ifa_flags & IFF_UP) && !(i->ifa_flags & IFF_LOOPBACK) && sa){
-                void* src = NULL;
+                void* src = nullptr;
                 socklen_t len;
 
                 // IPv4 address
@@ -1055,7 +1098,7 @@ void WulforUtil::headerMenu(QTreeView *tree){
     if (!tree || !tree->model() || !tree->header())
         return;
 
-    QMenu * mcols = new QMenu(NULL);
+    QMenu * mcols = new QMenu(nullptr);
     QAbstractItemModel *model = tree->model();
     QAction * column;
 
@@ -1111,7 +1154,7 @@ QMenu *WulforUtil::buildUserCmdMenu(const StringList& hub_list, int ctx, QWidget
     UserCommand::List userCommands = FavoriteManager::getInstance()->getUserCommands(ctx, hub_list);
 
     if (userCommands.empty())
-        return NULL;
+        return nullptr;
 
     QMenu *ucMenu = new QMenu(tr("User commands"), parent);
 

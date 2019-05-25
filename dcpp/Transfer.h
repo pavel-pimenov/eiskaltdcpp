@@ -12,22 +12,25 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
+#include <deque>
+
 #include "forward.h"
 #include "MerkleTree.h"
-#include "TimerManager.h"
-#include "Util.h"
 #include "CriticalSection.h"
+#include "NonCopyable.h"
 #include "Segment.h"
+#include "GetSet.h"
 
 namespace dcpp {
 
-class Transfer : private boost::noncopyable {
+using std::deque;
+
+class Transfer : private NonCopyable {
 public:
     enum Type {
         TYPE_FILE,
@@ -78,7 +81,7 @@ public:
 
     UserPtr getUser();
     const UserPtr getUser() const;
-    const HintedUser getHintedUser() const;
+    HintedUser getHintedUser() const;
 
     const string& getPath() const { return path; }
     const TTHValue& getTTH() const { return tth; }

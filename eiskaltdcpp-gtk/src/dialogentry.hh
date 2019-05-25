@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -25,15 +24,14 @@
 
 class DialogEntry : public Entry
 {
-    public:
-        DialogEntry(const EntryType type = EntryType::NONE, const std::string &ui = "", GtkWindow* parent = NULL);
-        virtual ~DialogEntry();
+public:
+    DialogEntry(const EntryType type = EntryType::NONE, const std::string &ui = "", GtkWindow* parent = NULL);
+    virtual ~DialogEntry();
 
-        GtkWidget *getContainer();
-        gint run();
-        gint getResponseID();
+    GtkWidget *getContainer();
+    gint run();
+    gint getResponseID() const;
 
-    private:
-        GtkWindow* parent;
-        gint responseID;
+private:
+    gint responseID;
 };

@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -68,12 +67,10 @@ WulforManager *WulforManager::get()
 }
 
 WulforManager::WulforManager()
+    : guiCondValue(0)
+    , clientCondValue(0)
+    , abort(false)
 {
-    abort = FALSE;
-
-    // Initialize sempahore variables
-    guiCondValue = 0;
-    clientCondValue = 0;
 #if !GLIB_CHECK_VERSION(2,32,0)
     guiCond = g_cond_new();
     clientCond = g_cond_new();
@@ -109,7 +106,7 @@ WulforManager::WulforManager()
 
 #if !GLIB_CHECK_VERSION(2,32,0)
     GError *error = NULL;
-    guiThread = g_thread_create(threadFunc_gui, (gpointer)this, TRUE, &error);
+    guiThread = g_thread_create(threadFunc_gui, (gpointer)this, true, &error);
     if (error)
     {
         cerr << "Unable to create gui thread: " << error->message << endl;
@@ -119,7 +116,7 @@ WulforManager::WulforManager()
 
     g_clear_error(&error);
 
-    clientThread = g_thread_create(threadFunc_client, (gpointer)this, TRUE, &error);
+    clientThread = g_thread_create(threadFunc_client, (gpointer)this, true, &error);
     if (error)
     {
         cerr << "Unable to create client thread: " << error->message << endl;
@@ -151,7 +148,7 @@ WulforManager::WulforManager()
 
 WulforManager::~WulforManager()
 {
-    abort = TRUE;
+    abort = true;
 
     g_mutex_lock(guiCondMutex);
     guiCondValue++;
@@ -381,7 +378,7 @@ string WulforManager::getURL()
     return argv1;
 }
 
-string WulforManager::getPath()
+string WulforManager::getPath() const
 {
     return path;
 }
@@ -474,11 +471,11 @@ bool WulforManager::isEntry_gui(Entry *entry)
     g_rw_lock_writer_lock(&entryMutex);
 #endif
 
-   auto it = find_if(entries.begin(), entries.end(),
-                     CompareSecond<string, Entry *>(entry));
+    auto it = find_if(entries.begin(), entries.end(),
+                      CompareSecond<string, Entry *>(entry));
 
-   if (it == entries.end())
-       entry = NULL;
+    if (it == entries.end())
+        entry = NULL;
 
 #if !GLIB_CHECK_VERSION(2,32,0)
     g_static_rw_lock_writer_unlock(&entryMutex);
@@ -486,7 +483,7 @@ bool WulforManager::isEntry_gui(Entry *entry)
     g_rw_lock_writer_unlock(&entryMutex);
 #endif
 
-   return (entry != NULL);
+    return (entry != NULL);
 }
 
 DialogEntry* WulforManager::getDialogEntry_gui(const string &id)

@@ -180,8 +180,7 @@ public:
     execute(xmlrpc_c::paramList const& paramList,
             xmlrpc_c::value *   const  retvalP) {
 
-        string version(EISKALTDCPP_VERSION);
-        *retvalP = xmlrpc_c::value_string(version);
+        *retvalP = xmlrpc_c::value_string(eiskaltdcppVersionString);
     }
 };
 

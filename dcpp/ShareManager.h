@@ -12,19 +12,29 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
+
+#include <functional>
+#include <list>
+#include <map>
+#include <memory>
+#include <set>
+#include <unordered_map>
+
+#include "NonCopyable.h"
 
 #include "TimerManager.h"
 #include "SearchManager.h"
 #include "SettingsManager.h"
 #include "HashManagerListener.h"
 #include "QueueManagerListener.h"
+
 #include "Exception.h"
 #include "CriticalSection.h"
+
 #include "StringSearch.h"
 #include "Singleton.h"
 #include "BloomFilter.h"
@@ -35,11 +45,17 @@
 
 #ifdef WITH_DHT
 namespace dht {
-    class IndexManager;
+class IndexManager;
 }
 #endif
 
 namespace dcpp {
+
+using std::function;
+using std::map;
+using std::set;
+using std::unique_ptr;
+using std::unordered_map;
 
 STANDARD_EXCEPTION(ShareException);
 
@@ -51,7 +67,7 @@ class MemoryInputStream;
 
 struct ShareLoader;
 class ShareManager : public Singleton<ShareManager>, private SettingsManagerListener, private Thread, private TimerManagerListener,
-    private HashManagerListener, private QueueManagerListener
+        private HashManagerListener, private QueueManagerListener
 {
 public:
     /**
@@ -101,7 +117,7 @@ public:
         hits += aHits;
     }
 
-    string getOwnListFile() {
+    const string getOwnListFile() {
         generateXmlList();
         return getBZXmlFile();
     }
@@ -111,47 +127,24 @@ public:
         return tthIndex.find(tth) != tthIndex.end();
     }
     void publish();
+
     GETSET(uint32_t, hits, Hits);
     GETSET(string, bzXmlFile, BZXmlFile);
+
 private:
     struct AdcSearch;
-    class Directory : public FastAlloc<Directory>, public intrusive_ptr_base<Directory>, boost::noncopyable {
+    class Directory : public FastAlloc<Directory>, public intrusive_ptr_base<Directory>, private NonCopyable {
     public:
         typedef boost::intrusive_ptr<Directory> Ptr;
         typedef unordered_map<string, Ptr, CaseStringHash, CaseStringEq> Map;
         typedef Map::iterator MapIter;
 
         struct File {
-            struct StringComp {
-                StringComp(const string& s) : a(s) { }
-                bool operator()(const File& b) const {
-                if (BOOLSETTING(CASESENSITIVE_FILELIST))
-                    return strcmp(a.c_str(), b.getName().c_str()) == 0;
-                else
-                    return Util::stricmp(a, b.getName()) == 0;
-                }
-
-                const string& a;
-            private:
-                StringComp& operator=(const StringComp&);
-            };
-            struct FileLess {
-                bool operator()(const File& a, const File& b) const {
-                    if (BOOLSETTING(CASESENSITIVE_FILELIST))
-                        return (strcmp(a.getName().c_str(), b.getName().c_str()) < 0);
-                    else
-                        return (Util::stricmp(a.getName(), b.getName()) < 0);
-                }
-            };
-            typedef set<File, FileLess> Set;
-
             File() : size(0), parent(0) { }
             File(const string& aName, int64_t aSize, const Directory::Ptr& aParent, const TTHValue& aRoot) :
-            name(aName), tth(aRoot), size(aSize), parent(aParent.get()) { }
+                name(aName), tth(aRoot), size(aSize), parent(aParent.get()) { }
             File(const File& rhs) :
-            name(rhs.getName()), tth(rhs.getTTH()), size(rhs.getSize()), parent(rhs.getParent()) { }
-
-            ~File() { }
+                name(rhs.getName()), tth(rhs.getTTH()), size(rhs.getSize()), parent(rhs.getParent()) { }
 
             File& operator=(const File& rhs) {
                 name = rhs.name; size = rhs.size; parent = rhs.parent; tth = rhs.tth;
@@ -165,6 +158,32 @@ private:
                     return getParent() == rhs.getParent() && (Util::stricmp(getName(), rhs.getName()) == 0);
             }
 
+            struct StringComp {
+                StringComp(const string& s) : a(s) { }
+                bool operator()(const File& b) const {
+                    if (BOOLSETTING(CASESENSITIVE_FILELIST))
+                        return strcmp(a.c_str(), b.getName().c_str()) == 0;
+                    else
+                        return Util::stricmp(a, b.getName()) == 0;
+                }
+
+                const string& a;
+
+            private:
+                StringComp& operator=(const StringComp&);
+            };
+
+            struct FileLess {
+                bool operator()(const File& a, const File& b) const {
+                    if (BOOLSETTING(CASESENSITIVE_FILELIST))
+                        return (strcmp(a.getName().c_str(), b.getName().c_str()) < 0);
+                    else
+                        return (Util::stricmp(a.getName(), b.getName()) < 0);
+                }
+            };
+
+            typedef set<File, FileLess> Set;
+
             string getADCPath() const { return parent->getADCPath() + name; }
             string getFullName() const { return parent->getFullName() + name; }
             string getRealPath() const { return parent->getRealPath(name); }
@@ -177,7 +196,7 @@ private:
 
         int64_t size;
         Map directories;
-        File::Set files;
+        set<File, File::FileLess> files;
 
         static Ptr create(const string& aName, const Ptr& aParent = Ptr()) { return Ptr(new Directory(aName, aParent)); }
 
@@ -198,7 +217,7 @@ private:
         void toXml(OutputStream& xmlFile, string& indent, string& tmp2, bool fullList) const;
         void filesToXml(OutputStream& xmlFile, string& indent, string& tmp2) const;
 
-        File::Set::const_iterator findFile(const string& aFile) const { return find_if(files.begin(), files.end(), Directory::File::StringComp(aFile)); }
+        auto findFile(const string& aFile) const -> decltype(files.cbegin()) { return find_if(files.begin(), files.end(), Directory::File::StringComp(aFile)); }
 
         void merge(const Ptr& source);
 
@@ -224,12 +243,12 @@ private:
     virtual ~ShareManager();
 
     struct AdcSearch {
-        AdcSearch(const StringList& params);
+        AdcSearch(const StringList& adcParams);
 
         bool isExcluded(const string& str);
         bool hasExt(const string& name);
         StringSearch::List* include;
-        StringSearch::List includeX;
+        StringSearch::List includeInit;
         StringSearch::List exclude;
         StringList ext;
         StringList noExt;
@@ -290,7 +309,7 @@ private:
     void rebuildIndices();
 
     void updateIndices(Directory& aDirectory);
-    void updateIndices(Directory& dir, const Directory::File::Set::iterator& i);
+    void updateIndices(Directory& dir, const decltype(std::declval<Directory>().files.begin())& i);
 
     Directory::Ptr merge(const Directory::Ptr& directory);
 
@@ -306,9 +325,9 @@ private:
     virtual int run();
 
     // QueueManagerListener
-    virtual void on(QueueManagerListener::FileMoved, const string& n) noexcept;
+    virtual void on(QueueManagerListener::FileMoved, const string& realPath) noexcept;
     // HashManagerListener
-    virtual void on(HashManagerListener::TTHDone, const string& fname, const TTHValue& root) noexcept;
+    virtual void on(HashManagerListener::TTHDone, const string& realPath, const TTHValue& root) noexcept;
 
     // SettingsManagerListener
     virtual void on(SettingsManagerListener::Save, SimpleXML& xml) noexcept {

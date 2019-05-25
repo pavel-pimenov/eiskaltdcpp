@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +13,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
@@ -22,23 +22,25 @@
 
 #include "ChatMessage.h"
 #include "ClientManager.h"
+#include "ConnectionManager.h"
+#include "ConnectivityManager.h"
+#include "CryptoManager.h"
+#include "format.h"
 #include "SearchManager.h"
 #include "ShareManager.h"
-#include "CryptoManager.h"
-#include "ConnectionManager.h"
-#include "ThrottleManager.h"
-#include "version.h"
-#include "UploadManager.h"
 #include "Socket.h"
-#include "UserCommand.h"
 #include "StringTokenizer.h"
+#include "ThrottleManager.h"
+#include "UploadManager.h"
+#include "UserCommand.h"
+#include "version.h"
 
 namespace dcpp {
 
 NmdcHub::NmdcHub(const string& aHubURL, bool secure) :
-Client(aHubURL, '|', secure),
-supportFlags(0),
-lastUpdate(0)
+    Client(aHubURL, '|', secure, Socket::PROTO_NMDC),
+    supportFlags(0),
+    lastUpdate(0)
 {
 }
 
@@ -62,8 +64,8 @@ void NmdcHub::connect(const OnlineUser& aUser, const string&) {
 int64_t NmdcHub::getAvailable() const {
     Lock l(cs);
     int64_t x = 0;
-    for(auto i = users.begin(); i != users.end(); ++i) {
-        x+=i->second->getIdentity().getBytesShared();
+    for(auto& i: users) {
+        x+=i.second->getIdentity().getBytesShared();
     }
     return x;
 }
@@ -73,7 +75,7 @@ OnlineUser& NmdcHub::getUser(const string& aNick) {
     {
         Lock l(cs);
 
-        NickIter i = users.find(aNick);
+        auto i = users.find(aNick);
         if(i != users.end())
             return *i->second;
     }
@@ -87,7 +89,7 @@ OnlineUser& NmdcHub::getUser(const string& aNick) {
 
     {
         Lock l(cs);
-        u = users.insert(make_pair(aNick, new OnlineUser(p, *this, 0))).first->second;
+        u = users.emplace(aNick, new OnlineUser(p, *this, 0)).first->second;
         u->getIdentity().setNick(aNick);
         if(u->getUser() == getMyIdentity().getUser()) {
             setMyIdentity(u->getIdentity());
@@ -99,13 +101,16 @@ OnlineUser& NmdcHub::getUser(const string& aNick) {
 }
 
 void NmdcHub::supports(const StringList& feat) {
-    const string x = Util::toString(" ",feat);
+    string x;
+    for(auto& i: feat) {
+        x += i + ' ';
+    }
     send("$Supports " + x + '|');
 }
 
 OnlineUser* NmdcHub::findUser(const string& aNick) {
     Lock l(cs);
-    NickIter i = users.find(aNick);
+    auto i = users.find(aNick);
     return i == users.end() ? NULL : i->second;
 }
 
@@ -113,7 +118,7 @@ void NmdcHub::putUser(const string& aNick) {
     OnlineUser* ou = NULL;
     {
         Lock l(cs);
-        NickIter i = users.find(aNick);
+        auto i = users.find(aNick);
         if(i == users.end())
             return;
         ou = i->second;
@@ -124,16 +129,16 @@ void NmdcHub::putUser(const string& aNick) {
 }
 
 void NmdcHub::clearUsers() {
-    NickMap u2;
+    decltype(users) u2;
 
     {
         Lock l(cs);
         u2.swap(users);
     }
 
-    for(auto i = u2.begin(); i != u2.end(); ++i) {
-        ClientManager::getInstance()->putOffline(i->second);
-        delete i->second;
+    for(auto& i: u2) {
+        ClientManager::getInstance()->putOffline(i.second);
+        delete i.second;
     }
 }
 
@@ -141,32 +146,33 @@ void NmdcHub::updateFromTag(Identity& id, const string& tag) {
     StringTokenizer<string> tok(tag, ',');
     string::size_type j;
     id.set("US", Util::emptyString);
-    for(auto i = tok.getTokens().begin(); i != tok.getTokens().end(); ++i) {
-        if(i->length() < 2)
+    for(auto& i: tok.getTokens()) {
+        if(i.size() < 2)
             continue;
 
-        if(i->compare(0, 2, "H:") == 0) {
-            StringTokenizer<string> t(i->substr(2), '/');
+        if(i.compare(0, 2, "H:") == 0) {
+            StringTokenizer<string> t(i.substr(2), '/');
             if(t.getTokens().size() != 3)
                 continue;
             id.set("HN", t.getTokens()[0]);
             id.set("HR", t.getTokens()[1]);
             id.set("HO", t.getTokens()[2]);
-        } else if(i->compare(0, 2, "S:") == 0) {
-            id.set("SL", i->substr(2));
-        } else if((j = i->find("V:")) != string::npos) {
-            i->erase(i->begin(), i->begin() + j + 2);
-            id.set("VE", *i);
-        } else if(i->compare(0, 2, "M:") == 0) {
-            if(i->size() == 3) {
-                if((*i)[2] == 'A')
+        } else if(i.compare(0, 2, "S:") == 0) {
+            id.set("SL", i.substr(2));
+        } else if(i.find("V:") != string::npos) {
+            string::size_type j = i.find("V:");
+            i.erase(i.begin() + j, i.begin() + j + 2);
+            id.set("VE", i);
+        } else if(i.compare(0, 2, "M:") == 0) {
+            if(i.size() == 3) {
+                if(i[2] == 'A')
                     id.getUser()->unsetFlag(User::PASSIVE);
                 else
                     id.getUser()->setFlag(User::PASSIVE);
             }
-        } else if((j = i->find("L:")) != string::npos) {
-            i->erase(i->begin() + j, i->begin() + j + 2);
-            id.set("US", Util::toString(Util::toInt(*i) * 1024));
+        } else if((j = i.find("L:")) != string::npos) {
+            i.erase(i.begin() + j, i.begin() + j + 2);
+            id.set("US", Util::toString(Util::toInt(i) * 1024));
         }
     }
     /// @todo Think about this
@@ -211,15 +217,14 @@ void NmdcHub::onLine(const string& aLine) noexcept {
             return;
         }
 
-        ChatMessage chatMessage = { unescape(message), findUser(nick) };
+        ChatMessage chatMessage = { unescape(message), findUser(nick), nullptr, nullptr, false, 0 };
 
         if(!chatMessage.from) {
             OnlineUser& o = getUser(nick);
             // Assume that messages from unknown users come from the hub
             o.getIdentity().setHub(true);
             o.getIdentity().setHidden(true);
-            fire(ClientListener::UserUpdated(), this, o);
-
+            updated(o);
             chatMessage.from = &o;
         }
 
@@ -254,17 +259,16 @@ void NmdcHub::onLine(const string& aLine) noexcept {
             //fire(ClientListener::SearchFlood(), this, str(F_("NLO Try generate DDOS on %1%, do nothing") % seeker));
             return;
         }
-        bool passive = (seeker.compare(0, 4, "Hub:") == 0);
         //printf("$Search->%s\n", seeker.c_str()); fflush(stdout);
         // Filter own searches
         if(isActive()) {
-            if(seeker == (getLocalIp() + ":" + Util::toString(SearchManager::getInstance()->getPort()))) {
+            if(seeker == (getLocalIp() + ":" + SearchManager::getInstance()->getPort())) {
                 return;
             }
         } else {
             // Hub:seeker
             if(seeker.size() > 4 &&
-               Util::stricmp(seeker.c_str() + 4, getMyNick().c_str()) == 0) {
+                    Util::stricmp(seeker.c_str() + 4, getMyNick().c_str()) == 0) {
                 return;
             }
         }
@@ -274,18 +278,18 @@ void NmdcHub::onLine(const string& aLine) noexcept {
         uint64_t tick = GET_TICK();
         clearFlooders(tick);
 
-        seekers.push_back(make_pair(seeker, tick));
+        seekers.emplace_back(seeker, tick);
 
         // First, check if it's a flooder
-        for(auto fi = flooders.begin(); fi != flooders.end(); ++fi) {
-            if(fi->first == seeker) {
+        for(auto& fi: flooders) {
+            if(fi.first == seeker) {
                 return;
             }
         }
 
         int count = 0;
-        for(auto fi = seekers.begin(); fi != seekers.end(); ++fi) {
-            if(fi->first == seeker)
+        for(auto& fi: seekers) {
+            if(fi.first == seeker)
                 count++;
 
             if(count > 7) {
@@ -294,7 +298,7 @@ void NmdcHub::onLine(const string& aLine) noexcept {
                 else
                     fire(ClientListener::SearchFlood(), this, str(F_("%1% (Nick unknown)") % seeker));
 
-                flooders.push_back(make_pair(seeker, tick));
+                flooders.emplace_back(seeker, tick);
                 return;
             }
         }
@@ -320,6 +324,7 @@ void NmdcHub::onLine(const string& aLine) noexcept {
         i = j + 1;
         string terms = unescape(param.substr(i));
 
+        // without terms, this is an invalid search.
         if(!terms.empty()) {
             if(seeker.compare(0, 4, "Hub:") == 0) {
                 OnlineUser* u = findUser(seeker.substr(4));
@@ -363,7 +368,7 @@ void NmdcHub::onLine(const string& aLine) noexcept {
 
         string tmpDesc = unescape(param.substr(i, j-i));
         // Look for a tag...
-        if(tmpDesc.size() > 0 && tmpDesc[tmpDesc.size()-1] == '>') {
+        if(!tmpDesc.empty() && tmpDesc[tmpDesc.size()-1] == '>') {
             x = tmpDesc.rfind('<');
             if(x != string::npos) {
                 // Hm, we have something...disassemble it...
@@ -422,7 +427,7 @@ void NmdcHub::onLine(const string& aLine) noexcept {
             setMyIdentity(u.getIdentity());
         }
 
-        fire(ClientListener::UserUpdated(), this, u);
+        updated(u);
     } else if(cmd == "$Quit") {
         if(!param.empty()) {
             const string& nick = param;
@@ -479,18 +484,18 @@ void NmdcHub::onLine(const string& aLine) noexcept {
                 port.erase(port.size() - 1);
 
                 // Trigger connection attempt sequence locally ...
-                ConnectionManager::getInstance()->nmdcConnect(server, static_cast<uint16_t>(Util::toInt(port)), sock->getLocalPort(),
-                BufferedSocket::NAT_CLIENT, getMyNick(), getHubUrl(), getEncoding(), secure);
+                ConnectionManager::getInstance()->nmdcConnect(server, port, sock->getLocalPort(),
+                                                              BufferedSocket::NAT_CLIENT, getMyNick(), getHubUrl(), getEncoding(), secure);
 
                 // ... and signal other client to do likewise.
-                send("$ConnectToMe " + senderNick + " " + getLocalIp() + ":" + Util::toString(sock->getLocalPort()) + (secure ? "RS" : "R") + "|");
+                send("$ConnectToMe " + senderNick + " " + getLocalIp() + ":" + sock->getLocalPort() + (secure ? "RS" : "R") + "|");
                 return;
             } else if(port[port.size() - 1] == 'R') {
                 port.erase(port.size() - 1);
 
                 // Trigger connection attempt sequence locally
-                ConnectionManager::getInstance()->nmdcConnect(server, static_cast<uint16_t>(Util::toInt(port)), sock->getLocalPort(),
-                BufferedSocket::NAT_SERVER, getMyNick(), getHubUrl(), getEncoding(), secure);
+                ConnectionManager::getInstance()->nmdcConnect(server, port, sock->getLocalPort(),
+                                                              BufferedSocket::NAT_SERVER, getMyNick(), getHubUrl(), getEncoding(), secure);
                 return;
             }
         }
@@ -498,7 +503,7 @@ void NmdcHub::onLine(const string& aLine) noexcept {
         if(port.empty())
             return;
         // For simplicity, we make the assumption that users on a hub have the same character encoding
-        ConnectionManager::getInstance()->nmdcConnect(server, static_cast<uint16_t>(Util::toInt(port)), getMyNick(), getHubUrl(), getEncoding(), secure);
+        ConnectionManager::getInstance()->nmdcConnect(server, port, getMyNick(), getHubUrl(), getEncoding(), secure);
     } else if(cmd == "$RevConnectToMe") {
         if(state != STATE_NORMAL) {
             return;
@@ -519,7 +524,9 @@ void NmdcHub::onLine(const string& aLine) noexcept {
             bool secure = CryptoManager::getInstance()->TLSOk() && u->getUser()->isSet(User::TLS);
             // NMDC v2.205 supports "$ConnectToMe sender_nick remote_nick ip:port", but many NMDC hubsofts block it
             // sender_nick at the end should work at least in most used hubsofts
-            send("$ConnectToMe " + fromUtf8(u->getIdentity().getNick()) + " " + getLocalIp() + ":" + Util::toString(sock->getLocalPort()) + (secure ? "NS " : "N ") + fromUtf8(getMyNick()) + "|");
+            send("$ConnectToMe " + fromUtf8(u->getIdentity().getNick()) + " " +
+                 getLocalIp() + ":" + sock->getLocalPort() +
+                 (secure ? "NS " : "N ") + fromUtf8(getMyNick()) + "|");
         } else {
             if(!u->getUser()->isSet(User::PASSIVE)) {
                 u->getUser()->setFlag(User::PASSIVE);
@@ -554,12 +561,12 @@ void NmdcHub::onLine(const string& aLine) noexcept {
     } else if(cmd == "$Supports") {
         StringTokenizer<string> st(param, ' ');
         StringList& sl = st.getTokens();
-        for(auto i = sl.begin(); i != sl.end(); ++i) {
-            if(*i == "UserCommand") {
+        for(auto& i: sl) {
+            if(i == "UserCommand") {
                 supportFlags |= SUPPORTS_USERCOMMAND;
-            } else if(*i == "NoGetINFO") {
+            } else if(i == "NoGetINFO") {
                 supportFlags |= SUPPORTS_NOGETINFO;
-            } else if(*i == "UserIP2") {
+            } else if(i == "UserIP2") {
                 supportFlags |= SUPPORTS_USERIP2;
             }
         }
@@ -616,20 +623,21 @@ void NmdcHub::onLine(const string& aLine) noexcept {
             }
 
             if(CryptoManager::getInstance()->isExtended(lock)) {
-                StringList feat;
-                feat.push_back("UserCommand");
-                feat.push_back("NoGetINFO");
-                feat.push_back("NoHello");
-                feat.push_back("UserIP2");
-                feat.push_back("TTHSearch");
-                feat.push_back("ZPipe0");
+                StringList feat = {
+                    "UserCommand",
+                    "NoGetINFO",
+                    "NoHello",
+                    "UserIP2",
+                    "TTHSearch",
+                    "ZPipe0"
+                };
 
-            if(CryptoManager::getInstance()->TLSOk())
-                feat.push_back("TLS");
+                if(CryptoManager::getInstance()->TLSOk())
+                    feat.push_back("TLS");
 
 #ifdef WITH_DHT
-            if(BOOLSETTING(USE_DHT))
-                feat.push_back("DHT0");
+                if(BOOLSETTING(USE_DHT))
+                    feat.push_back("DHT0");
 #endif
 
                 supports(feat);
@@ -659,14 +667,14 @@ void NmdcHub::onLine(const string& aLine) noexcept {
                 myInfo(true);
             }
 
-            fire(ClientListener::UserUpdated(), this, u);
+            updated(u);
         }
     } else if(cmd == "$ForceMove") {
         disconnect(false);
         fire(ClientListener::Redirect(), this, param);
     } else if(cmd == "$HubIsFull") {
         fire(ClientListener::HubFull(), this);
-    }else if(cmd == "$HubTopic") {
+    } else if(cmd == "$HubTopic") {
         //dcdebug("Nmdc topic:%s",aLine.c_str());
         string line;
         string str2= _("Hub topic:");
@@ -681,26 +689,26 @@ void NmdcHub::onLine(const string& aLine) noexcept {
             OnlineUserList v;
             StringTokenizer<string> t(param, "$$");
             StringList& l = t.getTokens();
-            for(auto it = l.begin(); it != l.end(); ++it) {
+            for(auto& it: l) {
                 string::size_type j = 0;
-                if((j = it->find(' ')) == string::npos)
+                if((j = it.find(' ')) == string::npos)
                     continue;
-                if((j+1) == it->length())
+                if((j+1) == it.length())
                     continue;
 
-                OnlineUser* u = findUser(it->substr(0, j));
+                OnlineUser* u = findUser(it.substr(0, j));
 
                 if(!u)
                     continue;
 
-                u->getIdentity().setIp(it->substr(j+1));
+                u->getIdentity().setIp(it.substr(j+1));
                 if(u->getUser() == getMyIdentity().getUser()) {
                     setMyIdentity(u->getIdentity());
                 }
                 v.push_back(u);
             }
 
-            fire(ClientListener::UsersUpdated(), this, v);
+            updated(v);
         }
     } else if(cmd == "$NickList") {
         if(!param.empty()) {
@@ -708,11 +716,11 @@ void NmdcHub::onLine(const string& aLine) noexcept {
             StringTokenizer<string> t(param, "$$");
             StringList& sl = t.getTokens();
 
-            for(auto it = sl.begin(); it != sl.end(); ++it) {
-                if(it->empty())
+            for(auto& it: sl) {
+                if(it.empty())
                     continue;
 
-                v.push_back(&getUser(*it));
+                v.push_back(&getUser(it));
             }
 
             if(!(supportFlags & SUPPORTS_NOGETINFO)) {
@@ -720,9 +728,9 @@ void NmdcHub::onLine(const string& aLine) noexcept {
                 // Let's assume 10 characters per nick...
                 tmp.reserve(v.size() * (11 + 10 + getMyNick().length()));
                 string n = ' ' + fromUtf8(getMyNick()) + '|';
-                for(auto i = v.begin(); i != v.end(); ++i) {
+                for(auto& i: v) {
                     tmp += "$GetINFO ";
-                    tmp += fromUtf8((*i)->getIdentity().getNick());
+                    tmp += fromUtf8(i->getIdentity().getNick());
                     tmp += n;
                 }
                 if(!tmp.empty()) {
@@ -730,17 +738,17 @@ void NmdcHub::onLine(const string& aLine) noexcept {
                 }
             }
 
-            fire(ClientListener::UsersUpdated(), this, v);
+            updated(v);
         }
     } else if(cmd == "$OpList") {
         if(!param.empty()) {
             OnlineUserList v;
             StringTokenizer<string> t(param, "$$");
             StringList& sl = t.getTokens();
-            for(auto it = sl.begin(); it != sl.end(); ++it) {
-                if(it->empty())
+            for(auto& it: sl) {
+                if(it.empty())
                     continue;
-                OnlineUser& ou = getUser(*it);
+                OnlineUser& ou = getUser(it);
                 ou.getIdentity().setOp(true);
                 if(ou.getUser() == getMyIdentity().getUser()) {
                     setMyIdentity(ou.getIdentity());
@@ -748,7 +756,7 @@ void NmdcHub::onLine(const string& aLine) noexcept {
                 v.push_back(&ou);
             }
 
-            fire(ClientListener::UsersUpdated(), this, v);
+            updated(v);
             updateCounts(false);
 
             // Special...to avoid op's complaining that their count is not correctly
@@ -778,25 +786,29 @@ void NmdcHub::onLine(const string& aLine) noexcept {
             return;
 
         string fromNick = param.substr(i+1, j-i-1);
-        if(fromNick.empty() || param.size() < j + 2)
+        if(fromNick.empty())
             return;
 
-        ChatMessage message = { unescape(param.substr(j + 2)), findUser(fromNick), &getUser(getMyNick()), findUser(rtNick) };
+        if(param.size() < j + 2) {
+            return;
+        }
+
+        ChatMessage message = { unescape(param.substr(j + 2)), findUser(fromNick), &getUser(getMyNick()), findUser(rtNick), false, 0 };
 
         if(!message.replyTo || !message.from) {
             if(!message.replyTo) {
                 // Assume it's from the hub
-                OnlineUser& replyTo = getUser(rtNick);
-                replyTo.getIdentity().setHub(true);
-                replyTo.getIdentity().setHidden(true);
-                fire(ClientListener::UserUpdated(), this, replyTo);
+                OnlineUser& ou = getUser(rtNick);
+                ou.getIdentity().setHub(true);
+                ou.getIdentity().setHidden(true);
+                updated(ou);
             }
             if(!message.from) {
                 // Assume it's from the hub
-                OnlineUser& from = getUser(fromNick);
-                from.getIdentity().setHub(true);
-                from.getIdentity().setHidden(true);
-                fire(ClientListener::UserUpdated(), this, from);
+                OnlineUser& ou = getUser(fromNick);
+                ou.getIdentity().setHub(true);
+                ou.getIdentity().setHidden(true);
+                updated(ou);
             }
 
             // Update pointers just in case they've been invalidated
@@ -840,8 +852,8 @@ void NmdcHub::connectToMe(const OnlineUser& aUser) {
     string nick = fromUtf8(aUser.getIdentity().getNick());
     ConnectionManager::getInstance()->nmdcExpect(nick, getMyNick(), getHubUrl());
     bool secure = CryptoManager::getInstance()->TLSOk() && aUser.getUser()->isSet(User::TLS);
-    uint16_t port = secure ? ConnectionManager::getInstance()->getSecurePort() : ConnectionManager::getInstance()->getPort();
-    send("$ConnectToMe " + nick + " " + getLocalIp() + ":" + Util::toString(port) + (secure ? "S" : "") + "|");
+    string port = secure ? ConnectionManager::getInstance()->getSecurePort() : ConnectionManager::getInstance()->getPort();
+    send("$ConnectToMe " + nick + " " + getLocalIp() + ":" + port + (secure ? "S" : "") + "|");
 }
 
 void NmdcHub::revConnectToMe(const OnlineUser& aUser) {
@@ -880,27 +892,27 @@ void NmdcHub::myInfo(bool alwaysSend) {
         StatusMode |= Identity::AWAY;
     }
     if(BOOLSETTING(ALLOW_NATT) && !isActive()) {
-            StatusMode |= Identity::NAT;
+        StatusMode |= Identity::NAT;
     }
     if (CryptoManager::getInstance()->TLSOk()) {
-            StatusMode |= Identity::TLS;
+        StatusMode |= Identity::TLS;
     }
 
     bool gslotf = BOOLSETTING(SHOW_FREE_SLOTS_DESC);
     string gslot = "["+Util::toString(UploadManager::getInstance()->getFreeSlots())+"]";
     string uMin = (SETTING(MIN_UPLOAD_SPEED) == 0) ? Util::emptyString : ",O:" + Util::toString(SETTING(MIN_UPLOAD_SPEED));
     string myInfoA =
-        "$MyINFO $ALL " + fromUtf8(getMyNick()) + " " +
-        fromUtf8(escape((gslotf ? gslot :"")+getCurrentDescription())) + " <"+ getClientId().c_str() + ",M:" + modeChar + ",H:" + getCounts();
+            "$MyINFO $ALL " + fromUtf8(getMyNick()) + " " +
+            fromUtf8(escape((gslotf ? gslot :"")+getCurrentDescription())) + " <"+ getClientId().c_str() + ",M:" + modeChar + ",H:" + getCounts();
     string myInfoB = ",S:" + Util::toString(SETTING(SLOTS));
     string myInfoC = uMin +
-        ">$ $" + uploadSpeed + StatusMode + "$" + fromUtf8(escape(SETTING(EMAIL))) + '$';
+            ">$ $" + uploadSpeed + StatusMode + "$" + fromUtf8(escape(SETTING(EMAIL))) + '$';
     string myInfoD = ShareManager::getInstance()->getShareSizeString() + "$|";
     // we always send A and C; however, B (slots) and D (share size) can frequently change so we delay them if needed
     if(alwaysSend ||
-        ((lastMyInfoA != myInfoA || lastMyInfoC != myInfoC) && lastUpdate + 2*60*1000 < GET_TICK())
-        ||
-        ((lastMyInfoB != myInfoB || lastMyInfoD != myInfoD) && lastUpdate + 15*60*1000 < GET_TICK())) {
+            ((lastMyInfoA != myInfoA || lastMyInfoC != myInfoC) && lastUpdate + 2*60*1000 < GET_TICK())
+            ||
+            ((lastMyInfoB != myInfoB || lastMyInfoD != myInfoD) && lastUpdate + 15*60*1000 < GET_TICK())) {
         dcdebug("MyInfo %s...\n", getMyNick().c_str());
         send(myInfoA + myInfoB + myInfoC + myInfoD);
         lastMyInfoA = myInfoA;
@@ -922,7 +934,7 @@ void NmdcHub::search(int aSizeType, int64_t aSize, int aFileType, const string& 
     }
     string tmp2;
     if(isActive() && !BOOLSETTING(SEARCH_PASSIVE)) {
-        tmp2 = getLocalIp() + ':' + Util::toString(SearchManager::getInstance()->getPort());
+        tmp2 = getLocalIp() + ':' + SearchManager::getInstance()->getPort();
     } else {
         tmp2 = "Hub:" + fromUtf8(getMyNick());
     }
@@ -987,9 +999,9 @@ void NmdcHub::privateMessage(const OnlineUser& aUser, const string& aMessage, bo
     privateMessage(aUser.getIdentity().getNick(), aMessage);
     // Emulate a returning message...
     Lock l(cs);
-    OnlineUser* ou = findUser(getMyNick());
+    auto ou = findUser(getMyNick());
     if(ou) {
-        ChatMessage message = { aMessage, ou, &aUser, ou };
+        ChatMessage message = { aMessage, ou, &aUser, ou, false, 0 };
         fire(ClientListener::Message(), this, message);
     }
 }
@@ -1020,6 +1032,7 @@ void NmdcHub::clearFlooders(uint64_t aTick) {
 
 void NmdcHub::on(Connected) noexcept {
     Client::on(Connected());
+
     if(state != STATE_PROTOCOL) {
         return;
     }

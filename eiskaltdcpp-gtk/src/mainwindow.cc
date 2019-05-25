@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -62,11 +61,14 @@ using namespace dcpp;
 
 MainWindow::MainWindow():
     Entry(Entry::MAIN_WINDOW, "mainwindow.ui"),
+    current_width(-1),
+    current_height(-1),
+    is_maximized(FALSE),
     transfers(NULL),
     lastUpdate(0),
     lastUp(0),
     lastDown(0),
-    minimized(FALSE),
+    minimized(false),
     timer(0),
     statusFrame(1)
 {
@@ -109,13 +111,13 @@ MainWindow::MainWindow():
     setToolbarMenu_gui("finishedUploadsMenuItemBar", "finishedUploads", "toolbar-button-finished-uploads");
     setToolbarMenu_gui("quitMenuItemBar", "quit", "toolbar-button-quit");
 
-    gint pos = 0;
+    gint fpos = 0;
     ToolbarStyle = 0;
     GtkBox *box = GTK_BOX(getWidget("hbox4"));
     GtkWidget *child = getWidget("toolbar1");
     gtk_orientable_set_orientation(GTK_ORIENTABLE(child), GTK_ORIENTATION_VERTICAL);
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("leftToolbarItem")), TRUE);
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("hideToolbarItem")), (WGETI("toolbar-style") == 4) ? TRUE : FALSE);
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("leftToolbarItem")), true);
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("hideToolbarItem")), (WGETI("toolbar-style") == 4) ? true : false);
 
     if (WGETB("toolbar-small")) {
         g_object_set(G_OBJECT(child), "icon-size", GTK_ICON_SIZE_SMALL_TOOLBAR, NULL);
@@ -127,11 +129,11 @@ MainWindow::MainWindow():
     {
         box = GTK_BOX(getWidget("vbox1"));
         gtk_orientable_set_orientation(GTK_ORIENTABLE(child), GTK_ORIENTATION_HORIZONTAL);
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("topToolbarItem")), TRUE);
-        pos = 1;
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("topToolbarItem")), true);
+        fpos = 1;
     }
-    gtk_box_pack_start(box, child, FALSE, FALSE, 2);
-    gtk_box_reorder_child(box, child, pos);
+    gtk_box_pack_start(box, child, false, false, 2);
+    gtk_box_reorder_child(box, child, fpos);
     g_object_unref(child);
 
     g_signal_connect(G_OBJECT(getWidget("sizeToolbarItem")), "toggled", G_CALLBACK(onSizeToolbarToggled_gui), (gpointer)this);
@@ -178,14 +180,15 @@ MainWindow::MainWindow():
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(getWidget("transferCheckButton")), WGETB("show-transfers"));
     gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("freeSpaceBarItem")), WGETB("show-free-space-bar"));
 #if GTK_CHECK_VERSION(3,0,0)
-    gtk_progress_bar_set_show_text(GTK_PROGRESS_BAR(getWidget("progressbarFreeSpaceBar")), TRUE);
+    gtk_progress_bar_set_show_text(GTK_PROGRESS_BAR(getWidget("progressbarFreeSpaceBar")), true);
 #endif
     // About dialog
     gchar *comments = g_strdup_printf(_("DC++ Client based on the source code of FreeDC++ and LinuxDC++\n"
                                         "\n"
                                         "EiskaltDC++ version: %s\n"
                                         "DC++ core version: %s"),
-                                        EISKALTDCPP_VERSION, DCVERSIONSTRING);
+                                      eiskaltdcppVersionString.c_str(),
+                                      DCPP_VERSION);
 
     gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(getWidget("aboutDialog")), comments);
     g_free(comments);
@@ -204,92 +207,92 @@ MainWindow::MainWindow():
     const gchar * const authors[] =
     {
         _("Developers"),
-        "  2010-2015 Boris Pek <tehnick-8@yandex.ru>",
+        "  2010-2019 Boris Pek <tehnick-8@yandex.ru>",
         "  2010-2015 Eugene Petrov <dhamp@ya.ru>",
         "  ",
         _("Contributors"),
         "  2001-2012 LinuxDC++ Team http://launchpad.net/linuxdcpp",
         "  2009-2011 troll http://code.google.com/p/freedcpp/", // <troll.freedcpp@gmail.com>
-        "  2010-2012 Mank http://sourceforge.net/projects/freedcppmv/", // <mank@jabbim.cz>
+        "  2010-2012 Mank https://sourceforge.net/projects/freedcppmv/", // <mank@jabbim.cz>
         NULL
     };
     gtk_about_dialog_set_authors(GTK_ABOUT_DIALOG(getWidget("aboutDialog")),
-        (const gchar **)authors);
+                                 (const gchar **)authors);
 
     string translator_credits =
-        _("Russian translation\n")+
-        string("  2010-2015 Boris Pek aka Tehnick <tehnick-8@yandex.ru>\n")+
-        string("  2012 Vyacheslav Tretyakov <tret2003@gmail.com>\n")+
-        string("\n")+
-        _("Belarusian translation\n")+
-        string("  2009-2013 Paval Shalamitski aka Klyok <i.kliok@gmail.com>\n")+
-        string("  2015 Zmicer Melayok <m_d@tut.by>\n")+
-        string("\n")+
-        _("Hungarian translation\n")+
-        string("  2010-2012 Akos Berki aka sumo <husumo@gmail.com>\n")+
-        string("  2011-2014 Márk Lutring <marcus@elitemail.hu>\n")+
-        string("\n")+
-        _("French translation\n")+
-        string("  2010-2015 Alexandre Wallimann aka Jellyffs <alexandre.wallimann@gmail.com>\n")+
-        string("\n")+
-        _("Polish translation\n")+
-        string("  2010-2012 Arahael <arahael@gmail.com>\n")+
-        string("\n")+
-        _("Ukrainian translation\n")+
-        string("  2010 Dmytro Demenko <dmytro.demenko@gmail.com>\n")+
-        string("  2013-2014 gray aka grayich <grayich@ukr.net>\n")+
-        string("\n")+
-        _("Serbian (Cyrillic) translation\n")+
-        string("  2014 Marko Trifunović <trifunovic@openmailbox.org>\n")+
-        string("  2015 Miroslav Petrovic <miroslav031@gmail.com>\n")+
-        string("\n")+
-        _("Serbian (Latin) translation\n")+
-        string("  2010-2015 Miroslav Petrovic <miroslav031@gmail.com>\n")+
-        string("  2014 Marko Trifunović <trifunovic@openmailbox.org>\n")+
-        string("\n")+
-        _("Spanish translation\n")+
-        string("  2010-2015 Gustavo Alvarez aka sL1pKn07 <sl1pkn07@gmail.com>\n")+
-        string("  2012-2015 Francisco Blas Izquierdo Riera aka klondike <klondike at klondike.es>\n")+
-        string("\n")+
-        _("Basque translation\n")+
-        string("  2014-2015 Egoitz Rodriguez <egoitzro2@hotmail.com>\n")+
-        string("\n")+
-        _("Bulgarian translation\n")+
-        string("  2010-2012 Rusi Dimitrov aka PsyTrip <dimitrov.rusi@gmail.com>\n")+
-        string("\n")+
-        _("Slovak translation\n")+
-        string("  2010-2012 Martin Durisin <martin.durisin@gmail.com>\n")+
-        string("\n")+
-        _("Czech translation\n")+
-        string("  2011-2012 Uhlik <uhlikx@seznam.cz>\n")+
-        string("\n")+
-        _("German translation\n")+
-        string("  2011 Chris Leick <c.leick@vollbio.de>\n")+
-        string("  2011-2012 Konstantinos Georgokitsos <kgeorgokitsos@yahoo.de>\n")+
-        string("  2011-2012 Tillmann Karras <tilkax@gmail.com>\n")+
-        string("  2012-2016 Benjamin Weber <be.w@mail.ru>\n")+
-        string("\n")+
-        _("Greek translation\n")+
-        string("  2011-2012 Konstantinos Georgokitsos <kgeorgokitsos@yahoo.de>\n")+
-        string("\n")+
-        _("Italian translation\n")+
-        string("  2012 Stefano Simoncelli <netcelli@gmail.com>\n")+
-        string("  2012 Lorenzo Keller <lorenzo.keller@gmail.com>\n")+
-        string("\n")+
-        _("Vietnamese translation\n")+
-        string("  2013 Anh Phan <ppanhh@gmail.com>\n")+
-        string("\n")+
-        _("Chinese (China) translation\n")+
-        string("  2013 Syaoming Lai <syaomingl@gmail.com>\n")+
-        string("\n")+
-        _("Swedish (Sweden) translation\n")+
-        string("  2014-2015 Sopor <sopor@hotmail.com>\n")+
-        string("\n")+
-        _("Turkish translation\n")+
-        string("  2015 mauron <https://www.transifex.com/user/profile/mauron/>\n")+
-        string("\n");
+            _("Russian translation\n")+
+            string("  2010-2019 Boris Pek aka Tehnick <tehnick-8@yandex.ru>\n")+
+            string("  2012 Vyacheslav Tretyakov <tret2003@gmail.com>\n")+
+            string("\n")+
+            _("Belarusian translation\n")+
+            string("  2009-2013 Paval Shalamitski aka Klyok <i.kliok@gmail.com>\n")+
+            string("  2015 Zmicer Melayok <m_d@tut.by>\n")+
+            string("\n")+
+            _("Hungarian translation\n")+
+            string("  2010-2012 Akos Berki aka sumo <husumo@gmail.com>\n")+
+            string("  2011-2014 Márk Lutring <marcus@elitemail.hu>\n")+
+            string("\n")+
+            _("French translation\n")+
+            string("  2010-2018 Alexandre Wallimann aka Jellyffs <alexandre.wallimann@gmail.com>\n")+
+            string("\n")+
+            _("Polish translation\n")+
+            string("  2010-2012 Arahael <arahael@gmail.com>\n")+
+            string("\n")+
+            _("Ukrainian translation\n")+
+            string("  2010 Dmytro Demenko <dmytro.demenko@gmail.com>\n")+
+            string("  2013-2014 gray aka grayich <grayich@ukr.net>\n")+
+            string("\n")+
+            _("Serbian (Cyrillic) translation\n")+
+            string("  2014 Marko Trifunović <trifunovic@openmailbox.org>\n")+
+            string("  2015 Miroslav Petrovic <miroslav031@gmail.com>\n")+
+            string("\n")+
+            _("Serbian (Latin) translation\n")+
+            string("  2010-2015 Miroslav Petrovic <miroslav031@gmail.com>\n")+
+            string("  2014 Marko Trifunović <trifunovic@openmailbox.org>\n")+
+            string("\n")+
+            _("Spanish translation\n")+
+            string("  2010-2015 Gustavo Alvarez aka sL1pKn07 <sl1pkn07@gmail.com>\n")+
+            string("  2012-2015 Francisco Blas Izquierdo Riera aka klondike <klondike at klondike.es>\n")+
+            string("\n")+
+            _("Basque translation\n")+
+            string("  2014-2015 Egoitz Rodriguez <egoitzro2@hotmail.com>\n")+
+            string("\n")+
+            _("Bulgarian translation\n")+
+            string("  2010-2012 Rusi Dimitrov aka PsyTrip <dimitrov.rusi@gmail.com>\n")+
+            string("\n")+
+            _("Slovak translation\n")+
+            string("  2010-2012 Martin Durisin <martin.durisin@gmail.com>\n")+
+            string("\n")+
+            _("Czech translation\n")+
+            string("  2011-2012 Uhlik <uhlikx@seznam.cz>\n")+
+            string("\n")+
+            _("German translation\n")+
+            string("  2011 Chris Leick <c.leick@vollbio.de>\n")+
+            string("  2011-2012 Konstantinos Georgokitsos <kgeorgokitsos@yahoo.de>\n")+
+            string("  2011-2012 Tillmann Karras <tilkax@gmail.com>\n")+
+            string("  2012-2016 Benjamin Weber <be.w@mail.ru>\n")+
+            string("\n")+
+            _("Greek translation\n")+
+            string("  2011-2012 Konstantinos Georgokitsos <kgeorgokitsos@yahoo.de>\n")+
+            string("\n")+
+            _("Italian translation\n")+
+            string("  2012 Stefano Simoncelli <netcelli@gmail.com>\n")+
+            string("  2012 Lorenzo Keller <lorenzo.keller@gmail.com>\n")+
+            string("\n")+
+            _("Vietnamese translation\n")+
+            string("  2013 Anh Phan <ppanhh@gmail.com>\n")+
+            string("\n")+
+            _("Chinese (China) translation\n")+
+            string("  2013 Syaoming Lai <syaomingl@gmail.com>\n")+
+            string("\n")+
+            _("Swedish (Sweden) translation\n")+
+            string("  2014-2015 Sopor <sopor@hotmail.com>\n")+
+            string("\n")+
+            _("Turkish translation\n")+
+            string("  2015 mauron <https://www.transifex.com/user/profile/mauron/>\n")+
+            string("\n");
     gtk_about_dialog_set_translator_credits(GTK_ABOUT_DIALOG(getWidget("aboutDialog")),
-        (const gchar *)translator_credits.c_str());
+                                            (const gchar *)translator_credits.c_str());
 
     // This has to be set in code in order to activate the link
     gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(getWidget("aboutDialog")), "http://eiskaltdc.googlecode.com/");
@@ -302,11 +305,12 @@ MainWindow::MainWindow():
     // In our case, this is just a placeholder, so we remove it.
     gtk_notebook_remove_page(GTK_NOTEBOOK(getWidget("book")), -1);
     g_object_set_data(G_OBJECT(getWidget("book")), "page-rotation-list", NULL);
-    gtk_widget_set_sensitive(getWidget("closeMenuItem"), FALSE);
+    gtk_widget_set_sensitive(getWidget("closeMenuItem"), false);
 
     // Connect the signals to their callback functions.
     g_signal_connect(window, "delete-event", G_CALLBACK(onCloseWindow_gui), (gpointer)this);
     g_signal_connect(window, "window-state-event", G_CALLBACK(onWindowState_gui), (gpointer)this);
+    g_signal_connect(window, "size-allocate", G_CALLBACK(onSizeWindowState_gui), (gpointer)this);
     g_signal_connect(window, "focus-in-event", G_CALLBACK(onFocusIn_gui), (gpointer)this);
     g_signal_connect(window, "key-press-event", G_CALLBACK(onKeyPressed_gui), (gpointer)this);
     g_signal_connect(getWidget("book"), "switch-page", G_CALLBACK(onPageSwitched_gui), (gpointer)this);
@@ -369,35 +373,41 @@ MainWindow::MainWindow():
 
     // Help menu
     g_object_set_data_full(G_OBJECT(getWidget("homeMenuItem")), "link",
-        g_strdup("http://code.google.com/p/eiskaltdc/"), g_free);
+                           g_strdup("https://github.com/eiskaltdcpp/eiskaltdcpp"), g_free);
     g_signal_connect(getWidget("homeMenuItem"), "activate", G_CALLBACK(onLinkClicked_gui), NULL);
 
     g_object_set_data_full(G_OBJECT(getWidget("sourceMenuItem")), "link",
-        g_strdup("http://github.com/eiskaltdcpp/eiskaltdcpp/"), g_free);
+                           g_strdup("https://github.com/eiskaltdcpp/eiskaltdcpp"), g_free);
     g_signal_connect(getWidget("sourceMenuItem"), "activate", G_CALLBACK(onLinkClicked_gui), NULL);
 
     g_object_set_data_full(G_OBJECT(getWidget("issueMenuItem")), "link",
-        g_strdup("http://code.google.com/p/eiskaltdc/issues/list"), g_free);
+                           g_strdup("https://github.com/eiskaltdcpp/eiskaltdcpp/issues"), g_free);
     g_signal_connect(getWidget("issueMenuItem"), "activate", G_CALLBACK(onLinkClicked_gui), NULL);
 
     g_object_set_data_full(G_OBJECT(getWidget("wikiItem")), "link",
-        g_strdup("http://code.google.com/p/eiskaltdc/w/list"), g_free);
+                           g_strdup("https://github.com/eiskaltdcpp/eiskaltdcpp/wiki"), g_free);
     g_signal_connect(getWidget("wikiItem"), "activate", G_CALLBACK(onLinkClicked_gui), NULL);
 
     g_object_set_data_full(G_OBJECT(getWidget("changeLogItem")), "link",
-        g_strdup("https://github.com/eiskaltdcpp/eiskaltdcpp/blob/master/ChangeLog.txt"), g_free);
+                           g_strdup("https://github.com/eiskaltdcpp/eiskaltdcpp/blob/master/ChangeLog.txt"), g_free);
     g_signal_connect(getWidget("changeLogItem"), "activate", G_CALLBACK(onLinkClicked_gui), NULL);
 
-    onQuit = FALSE;
+    onQuit = false;
 
     // Load window state and position from settings manager
-    gint posX = WGETI("main-window-pos-x");
-    gint posY = WGETI("main-window-pos-y");
-    gint sizeX = WGETI("main-window-size-x");
-    gint sizeY = WGETI("main-window-size-y");
+    gint iposX = WGETI("main-window-pos-x");
+    gint iposY = WGETI("main-window-pos-y");
+    gint isizeX = WGETI("main-window-size-x");
+    gint isizeY = WGETI("main-window-size-y");
 
-    gtk_window_move(window, posX, posY);
-    gtk_window_resize(window, sizeX, sizeY);
+    gtk_window_move(window, iposX, iposY);
+
+    gtk_window_set_default_size (GTK_WINDOW (window),
+                                 isizeX,
+                                 isizeY);
+
+    if (WGETB("main-window-maximized"))
+        gtk_window_maximize(window);
 
     setMainStatus_gui(_("Welcome to ") + string(g_get_application_name()));
 
@@ -422,7 +432,7 @@ MainWindow::MainWindow():
     if (WGETB("main-window-maximized"))
         gtk_window_maximize(window);
     if (WGETB("minimize-tray") && WGETB("always-tray"))
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("statusIconShowInterfaceItem")), FALSE);
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("statusIconShowInterfaceItem")), false);
     if (!WGETB("show-free-space-bar"))
         gtk_widget_hide(getWidget("progressbarFreeSpaceBar"));
     if (!WGETB("show-transfers"))
@@ -451,35 +461,26 @@ MainWindow::~MainWindow()
     WSET("show-free-space-bar", gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(getWidget("freeSpaceBarItem"))));
 
     // Save window state and position
-    gint posX, posY, sizeX, sizeY, transferPanePosition;
-    bool maximized = TRUE;
-    GdkWindowState gdkState;
+    gint posX, posY, transferPanePosition;
 
     gtk_window_get_position(window, &posX, &posY);
-    gtk_window_get_size(window, &sizeX, &sizeY);
-#if GTK_CHECK_VERSION(3, 0, 0)
-    gdkState = gdk_window_get_state(gtk_widget_get_window(GTK_WIDGET(window)));
-#else
-    gdkState = gdk_window_get_state(GTK_WIDGET(window)->window);
-#endif
-    transferPanePosition = sizeY - gtk_paned_get_position(GTK_PANED(getWidget("pane")));
+    transferPanePosition = current_height - gtk_paned_get_position(GTK_PANED(getWidget("pane")));
 
-    if (!(gdkState & GDK_WINDOW_STATE_MAXIMIZED))
-        maximized = FALSE;
+    if(!is_maximized || (minimized == false)) {
+        WSET("main-window-pos-x", posX);
+        WSET("main-window-pos-y", posY);
+        WSET("main-window-size-x", current_width);
+        WSET("main-window-size-y", current_height);
+    }
+    WSET("main-window-maximized", is_maximized);
 
-    WSET("main-window-pos-x", posX);
-    WSET("main-window-pos-y", posY);
-    WSET("main-window-size-x", sizeX);
-    WSET("main-window-size-y", sizeY);
-
-    WSET("main-window-maximized", maximized);
     if (transferPanePosition > 10)
         WSET("transfer-pane-position", transferPanePosition);
 
     if (timer > 0)
         g_source_remove(timer);
 
-    WSET("status-icon-blink-use", useStatusIconBlink);
+    WSET("status-icon-blink-use", bUseStatusIconBlink);
 
     gtk_widget_destroy(GTK_WIDGET(window));
     g_object_unref(statusIcon);
@@ -512,9 +513,9 @@ void MainWindow::show()
 
     autoOpen_gui();
 
-   if (WGETI("show-preferences-on-startup"))
+    if (WGETI("show-preferences-on-startup"))
     {
-       onPreferencesClicked_gui(NULL, (gpointer)this);
+        onPreferencesClicked_gui(NULL, (gpointer)this);
         WSET("show-preferences-on-startup", 0);
     }
 }
@@ -549,7 +550,7 @@ void MainWindow::showTransfersPane_gui()
     dcassert(transfers == NULL);
 
     transfers = new Transfers();
-    gtk_paned_pack2(GTK_PANED(getWidget("pane")), transfers->getContainer(), TRUE, TRUE);
+    gtk_paned_pack2(GTK_PANED(getWidget("pane")), transfers->getContainer(), true, true);
     addChild(transfers);
     transfers->show();
 }
@@ -586,19 +587,19 @@ void MainWindow::loadIcons_gui()
 void MainWindow::autoOpen_gui()
 {
     if (WGETB("open-public"))
-         showPublicHubs_gui();
+        showPublicHubs_gui();
     if (WGETB("open-queue"))
-         showDownloadQueue_gui();
+        showDownloadQueue_gui();
     if (WGETB("open-favorite-hubs"))
-         showFavoriteHubs_gui();
+        showFavoriteHubs_gui();
     if (WGETB("open-favorite-users"))
-         showFavoriteUsers_gui();
+        showFavoriteUsers_gui();
     if (WGETB("open-finished-downloads"))
-         showFinishedDownloads_gui();
+        showFinishedDownloads_gui();
     if (WGETB("open-finished-uploads"))
-         showFinishedUploads_gui();
+        showFinishedUploads_gui();
     if (WGETB("open-search-spy"))
-         showSearchSpy_gui();
+        showSearchSpy_gui();
 }
 
 void MainWindow::setToolbarMenu_gui(const string &item_key, const string &button_key, const string &key)
@@ -627,9 +628,9 @@ void MainWindow::addBookEntry_gui(BookEntry *entry)
     g_signal_connect(closeButton, "button-release-event", G_CALLBACK(onButtonReleasePage_gui), (gpointer)entry);
     g_signal_connect(closeButton, "clicked", G_CALLBACK(onCloseBookEntry_gui), (gpointer)entry);
 
-    gtk_widget_set_sensitive(getWidget("closeMenuItem"), TRUE);
+    gtk_widget_set_sensitive(getWidget("closeMenuItem"), true);
 
-    gtk_notebook_set_tab_reorderable(GTK_NOTEBOOK(getWidget("book")), page, TRUE);
+    gtk_notebook_set_tab_reorderable(GTK_NOTEBOOK(getWidget("book")), page, true);
 
     entry->show();
 }
@@ -660,7 +661,7 @@ void MainWindow::removeBookEntry_gui(BookEntry *entry)
     string::size_type pos = entryID.find(':');
     if (pos != string::npos) entryID.erase(0, pos + 1);
 
-    StringIter it = find(EntryList.begin(), EntryList.end(), entryID);
+    auto it = find(EntryList.begin(), EntryList.end(), entryID);
 
     if (it != EntryList.end())
         EntryList.erase(it);
@@ -693,7 +694,7 @@ void MainWindow::removeBookEntry_gui(BookEntry *entry)
 
         if (!gtk_notebook_get_n_pages(book))
         {
-            gtk_widget_set_sensitive(getWidget("closeMenuItem"), FALSE);
+            gtk_widget_set_sensitive(getWidget("closeMenuItem"), false);
             setTitle(""); // Reset window title to default
         }
     }
@@ -725,9 +726,9 @@ void MainWindow::addTabMenuItem_gui(GtkWidget* menuItem, GtkWidget* page)
     gtk_menu_shell_append(GTK_MENU_SHELL(getWidget("tabsMenu")), menuItem);
     gtk_widget_show_all(getWidget("tabsMenu"));
 
-    gtk_widget_set_sensitive(getWidget("previousTabMenuItem"), TRUE);
-    gtk_widget_set_sensitive(getWidget("nextTabMenuItem"), TRUE);
-    gtk_widget_set_sensitive(getWidget("tabMenuSeparator"), TRUE);
+    gtk_widget_set_sensitive(getWidget("previousTabMenuItem"), true);
+    gtk_widget_set_sensitive(getWidget("nextTabMenuItem"), true);
+    gtk_widget_set_sensitive(getWidget("tabMenuSeparator"), true);
 }
 
 void MainWindow::removeTabMenuItem_gui(GtkWidget *menuItem)
@@ -738,9 +739,9 @@ void MainWindow::removeTabMenuItem_gui(GtkWidget *menuItem)
 
     if (!gtk_notebook_get_n_pages(book))
     {
-        gtk_widget_set_sensitive(getWidget("previousTabMenuItem"), FALSE);
-        gtk_widget_set_sensitive(getWidget("nextTabMenuItem"), FALSE);
-        gtk_widget_set_sensitive(getWidget("tabMenuSeparator"), FALSE);
+        gtk_widget_set_sensitive(getWidget("previousTabMenuItem"), false);
+        gtk_widget_set_sensitive(getWidget("nextTabMenuItem"), false);
+        gtk_widget_set_sensitive(getWidget("tabMenuSeparator"), false);
     }
 }
 
@@ -749,7 +750,7 @@ void MainWindow::removeTabMenuItem_gui(GtkWidget *menuItem)
  */
 void MainWindow::createStatusIcon_gui()
 {
-    useStatusIconBlink = WGETB("status-icon-blink-use");
+    bUseStatusIconBlink = WGETB("status-icon-blink-use");
     statusIcon = gtk_status_icon_new_from_icon_name("eiskaltdcpp");
 
     g_signal_connect(getWidget("statusIconQuitItem"), "activate", G_CALLBACK(onQuitClicked_gui), (gpointer)this);
@@ -757,13 +758,13 @@ void MainWindow::createStatusIcon_gui()
     g_signal_connect(statusIcon, "activate", G_CALLBACK(onStatusIconActivated_gui), (gpointer)this);
     g_signal_connect(statusIcon, "popup-menu", G_CALLBACK(onStatusIconPopupMenu_gui), (gpointer)this);
 
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("statusIconBlinkUseItem")), useStatusIconBlink);
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("statusIconBlinkUseItem")), bUseStatusIconBlink);
     g_signal_connect(getWidget("statusIconBlinkUseItem"), "toggled", G_CALLBACK(onStatusIconBlinkUseToggled_gui), (gpointer)this);
 
     if (WGETB("always-tray"))
-        gtk_status_icon_set_visible(statusIcon, TRUE);
+        gtk_status_icon_set_visible(statusIcon, true);
     else
-        gtk_status_icon_set_visible(statusIcon, FALSE);
+        gtk_status_icon_set_visible(statusIcon, false);
 }
 
 void MainWindow::updateStatusIconTooltip_gui(string download, string upload)
@@ -788,7 +789,7 @@ void MainWindow::showNotification_gui(string head, string body, Notify::TypeNoti
 }
 
 void MainWindow::setStats_gui(string hubs, string downloadSpeed,
-    string downloaded, string uploadSpeed, string uploaded)
+                              string downloaded, string uploadSpeed, string uploaded)
 {
     gtk_label_set_text(GTK_LABEL(getWidget("labelHubs")), hubs.c_str());
     gtk_label_set_text(GTK_LABEL(getWidget("labelDownloadSpeed")), downloadSpeed.c_str());
@@ -885,52 +886,52 @@ void MainWindow::showHub_gui(string address, string encoding)
 
 void MainWindow::showSearchSpy_gui()
 {
-        BookEntry *entry = findBookEntry(Entry::SEARCH_SPY);
+    BookEntry *entry = findBookEntry(Entry::SEARCH_SPY);
 
-        if (!entry)
-        {
-                entry = new SearchSpy();
-                addBookEntry_gui(entry);
-        }
+    if (!entry)
+    {
+        entry = new SearchSpy();
+        addBookEntry_gui(entry);
+    }
 
-        raisePage_gui(entry->getContainer());
+    raisePage_gui(entry->getContainer());
 }
 
 void MainWindow::showSearchADL_gui()
 {
-        BookEntry *entry = findBookEntry(Entry::SEARCH_ADL);
+    BookEntry *entry = findBookEntry(Entry::SEARCH_ADL);
 
-        if (!entry)
-        {
-                entry = new SearchADL();
-                addBookEntry_gui(entry);
-        }
+    if (!entry)
+    {
+        entry = new SearchADL();
+        addBookEntry_gui(entry);
+    }
 
-        raisePage_gui(entry->getContainer());
+    raisePage_gui(entry->getContainer());
 }
 
 void MainWindow::showCmdDebug_gui()
 {
-   BookEntry *entry = findBookEntry(Entry::CMD);
+    BookEntry *entry = findBookEntry(Entry::CMD);
 
-   if (!entry)
-   {
-       entry = new cmddebug();
-       addBookEntry_gui(entry);
+    if (!entry)
+    {
+        entry = new cmddebug();
+        addBookEntry_gui(entry);
 
-   }
-   raisePage_gui(entry->getContainer());
+    }
+    raisePage_gui(entry->getContainer());
 
 }
 
 void MainWindow::addPrivateMessage_gui(Msg::TypeMsg typemsg, string cid, string hubUrl, string message, bool useSetting)
 {
     BookEntry *entry = findBookEntry(Entry::PRIVATE_MESSAGE, cid);
-    bool raise = TRUE;
+    bool braise = true;
 
     // If PM is initiated by another user, use setting except if tab is already open.
     if (useSetting)
-        raise = (!entry ? !WGETB("popunder-pm") : FALSE);
+        braise = (!entry ? !WGETB("popunder-pm") : false);
 
     if (!entry)
     {
@@ -944,19 +945,19 @@ void MainWindow::addPrivateMessage_gui(Msg::TypeMsg typemsg, string cid, string 
     {
         dynamic_cast<PrivateMessage*>(entry)->addMessage_gui(message, typemsg);
 
-        bool show = FALSE;
+        bool show = false;
 
         if (!isActive_gui())
         {
-            show = TRUE;
-            if (useStatusIconBlink && !timer)
+            show = true;
+            if (bUseStatusIconBlink && !timer)
             {
                 timer = g_timeout_add(1000, animationStatusIcon_gui, (gpointer)this);
             }
         }
         else if (currentPage_gui() != entry->getContainer() && !WGETI("notify-only-not-active"))
         {
-            show = TRUE;
+            show = true;
         }
 
         if (show)
@@ -986,7 +987,7 @@ void MainWindow::addPrivateMessage_gui(Msg::TypeMsg typemsg, string cid, string 
         }
     }
 
-    if (raise)
+    if (braise)
         raisePage_gui(entry->getContainer());
 }
 
@@ -1023,7 +1024,7 @@ void MainWindow::showPublicHubs_gui()
 
 void MainWindow::showShareBrowser_gui(UserPtr user, string filename, string dir, bool useSetting)
 {
-    bool raise = useSetting ? !WGETB("popunder-filelist") : TRUE;
+    bool raise = useSetting ? !WGETB("popunder-filelist") : true;
     BookEntry *entry = findBookEntry(Entry::SHARE_BROWSER, user->getCID().toBase32());
 
     if (!entry)
@@ -1210,20 +1211,20 @@ void MainWindow::setTabPosition_gui(int position)
 
     switch (position)
     {
-        case 0:
-            tabPosition = GTK_POS_TOP;
-            break;
-        case 1:
-            tabPosition = GTK_POS_LEFT;
-            break;
-        case 2:
-            tabPosition = GTK_POS_RIGHT;
-            break;
-        case 3:
-            tabPosition = GTK_POS_BOTTOM;
-            break;
-        default:
-            tabPosition = GTK_POS_TOP;
+    case 0:
+        tabPosition = GTK_POS_TOP;
+        break;
+    case 1:
+        tabPosition = GTK_POS_LEFT;
+        break;
+    case 2:
+        tabPosition = GTK_POS_RIGHT;
+        break;
+    case 3:
+        tabPosition = GTK_POS_BOTTOM;
+        break;
+    default:
+        tabPosition = GTK_POS_TOP;
     }
 
     gtk_notebook_set_tab_pos(GTK_NOTEBOOK(getWidget("book")), tabPosition);
@@ -1235,20 +1236,20 @@ void MainWindow::setToolbarStyle_gui(int style)
 
     switch (style)
     {
-        case 1:
-            toolbarStyle = GTK_TOOLBAR_TEXT;
-            break;
-        case 2:
-            toolbarStyle = GTK_TOOLBAR_BOTH;
-            break;
-        case 3:
-            toolbarStyle = GTK_TOOLBAR_BOTH_HORIZ;
-            break;
-        case 4:
-            gtk_widget_hide(getWidget("toolbar1"));
-            return;
-        default:
-            toolbarStyle = GTK_TOOLBAR_ICONS;
+    case 1:
+        toolbarStyle = GTK_TOOLBAR_TEXT;
+        break;
+    case 2:
+        toolbarStyle = GTK_TOOLBAR_BOTH;
+        break;
+    case 3:
+        toolbarStyle = GTK_TOOLBAR_BOTH_HORIZ;
+        break;
+    case 4:
+        gtk_widget_hide(getWidget("toolbar1"));
+        return;
+    default:
+        toolbarStyle = GTK_TOOLBAR_ICONS;
     }
 
     if (style != 4)
@@ -1336,7 +1337,7 @@ void MainWindow::showMagnetDialog_gui(const string &magnet, const string &name, 
     gtk_file_chooser_set_action(GTK_FILE_CHOOSER(chooser), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
     gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(chooser), Text::fromUtf8(WGETS("magnet-choose-dir")).c_str());
     // choose
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(getWidget("choiceCheckButton")), FALSE);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(getWidget("choiceCheckButton")), false);
     setChooseMagnetDialog_gui();
 
     gtk_widget_show_all(getWidget("MagnetDialog"));
@@ -1346,24 +1347,25 @@ void MainWindow::setChooseMagnetDialog_gui()
 {
     switch (WGETI("magnet-action"))
     {
-        case 0: // start a search for this file
-            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(getWidget("searchRadioButton")), TRUE);
-            gtk_widget_set_sensitive(getWidget("browseButton"), FALSE);
+    case 0: // start a search for this file
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(getWidget("searchRadioButton")), true);
+        gtk_widget_set_sensitive(getWidget("browseButton"), false);
         break;
 
-        case 1: // add this file to your download queue
-            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(getWidget("dowloadQueueRadioButton")), TRUE);
-            gtk_widget_set_sensitive(getWidget("browseButton"), TRUE);
+    case 1: // add this file to your download queue
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(getWidget("dowloadQueueRadioButton")), true);
+        gtk_widget_set_sensitive(getWidget("browseButton"), true);
         break;
 
-        default: // show magnet dialog
-            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(getWidget("showRadioButton")), TRUE);
-            gtk_widget_set_sensitive(getWidget("browseButton"), FALSE);
+    default: // show magnet dialog
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(getWidget("showRadioButton")), true);
+        gtk_widget_set_sensitive(getWidget("browseButton"), false);
     }
 }
 
 void MainWindow::onBrowseMagnetButton_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
 
     GtkWidget *dialog = mw->getWidget("flistDialog");
@@ -1378,18 +1380,21 @@ void MainWindow::onBrowseMagnetButton_gui(GtkWidget *widget, gpointer data)
 
 void MainWindow::onDowloadQueueToggled_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
-    gtk_widget_set_sensitive(mw->getWidget("browseButton"), TRUE);
+    gtk_widget_set_sensitive(mw->getWidget("browseButton"), true);
 }
 
 void MainWindow::onSearchMagnetToggled_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
-    gtk_widget_set_sensitive(mw->getWidget("browseButton"), FALSE);
+    gtk_widget_set_sensitive(mw->getWidget("browseButton"), false);
 }
 
 void MainWindow::onSetMagnetChoiceDialog_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
 
     // magnet choice frame
@@ -1505,7 +1510,7 @@ void MainWindow::addFileDownloadQueue_client(string name, int64_t size, string t
             // automatically search for alternative download locations
             if (BOOLSETTING(AUTO_SEARCH))
                 SearchManager::getInstance()->search(tth, 0, SearchManager::TYPE_TTH, SearchManager::SIZE_DONTCARE,
-                    Util::emptyString);
+                                                     Util::emptyString);
         }
     }
     catch (const Exception& e)
@@ -1523,39 +1528,54 @@ void MainWindow::showMessageDialog_gui(const string primaryText, const string se
         return;
 
     GtkWidget* dialog = gtk_message_dialog_new(window, GTK_DIALOG_DESTROY_WITH_PARENT,
-        GTK_MESSAGE_WARNING, GTK_BUTTONS_OK, "%s", primaryText.c_str());
+                                               GTK_MESSAGE_WARNING, GTK_BUTTONS_OK, "%s", primaryText.c_str());
 
     if (!secondaryText.empty())
         gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog), "%s", secondaryText.c_str());
 
-    gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
+    gtk_window_set_modal(GTK_WINDOW(dialog), true);
     g_signal_connect(dialog, "response", G_CALLBACK(gtk_widget_destroy), dialog);
     gtk_widget_show(dialog);
 }
 
-gboolean MainWindow::onWindowState_gui(GtkWidget *widget, GdkEventWindowState *event, gpointer data)
+void MainWindow::onSizeWindowState_gui(GtkWidget *widget, GtkAllocation*, gpointer data)
+{
+    MainWindow* mw = ( MainWindow*)data;
+    if(!mw->is_maximized)
+    {
+        gtk_window_get_size (GTK_WINDOW (widget),
+                             &mw->current_width,
+                             &mw->current_height);
+    }
+}
+
+gboolean MainWindow::onWindowState_gui(GtkWidget*, GdkEventWindowState *event, gpointer data)
 {
     MainWindow *mw = (MainWindow *)data;
 
-    if (!mw->minimized && event->new_window_state & (GDK_WINDOW_STATE_ICONIFIED | GDK_WINDOW_STATE_WITHDRAWN))
+    if (mw->minimized  || (event->new_window_state & (GDK_WINDOW_STATE_ICONIFIED | GDK_WINDOW_STATE_WITHDRAWN)))
     {
-        mw->minimized = TRUE;
+        mw->minimized = true;
         if (BOOLSETTING(SettingsManager::AUTO_AWAY) && !Util::getAway())
-            Util::setAway(TRUE);
+            Util::setAway(true);
     }
-    else if (mw->minimized && (event->new_window_state & GDK_WINDOW_STATE_MAXIMIZED ||
-                              !event->new_window_state))
+    else if (!mw->minimized || (event->new_window_state & GDK_WINDOW_STATE_MAXIMIZED ) != 0)
     {
-        mw->minimized = FALSE;
+        mw->minimized = false;
         if (BOOLSETTING(SettingsManager::AUTO_AWAY) && !Util::getManualAway())
-            Util::setAway(FALSE);
+            Util::setAway(false);
     }
 
-    return TRUE;
+    mw->is_maximized = (event->new_window_state & GDK_WINDOW_STATE_MAXIMIZED) != 0;
+
+    return true;
 }
 
 gboolean MainWindow::onFocusIn_gui(GtkWidget *widget, GdkEventFocus *event, gpointer data)
 {
+    (void)widget;
+    (void)event;
+
     MainWindow *mw = (MainWindow *)data;
     GtkWidget *child = mw->currentPage_gui();
 
@@ -1565,29 +1585,32 @@ gboolean MainWindow::onFocusIn_gui(GtkWidget *widget, GdkEventFocus *event, gpoi
         entry->setActive_gui();
     }
 
-    gtk_window_set_urgency_hint(mw->window, FALSE);
-    return FALSE;
+    gtk_window_set_urgency_hint(mw->window, false);
+    return false;
 }
 
 gboolean MainWindow::onCloseWindow_gui(GtkWidget *widget, GdkEvent *event, gpointer data)
 {
+    (void)widget;
+    (void)event;
+
     MainWindow *mw = (MainWindow *)data;
 
     if (mw->onQuit)
     {
-        mw->onQuit = FALSE;
+        mw->onQuit = false;
     }
     else if (WGETB("main-window-no-close") && WGETB("always-tray"))
     {
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(mw->getWidget("statusIconShowInterfaceItem")), FALSE);
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(mw->getWidget("statusIconShowInterfaceItem")), false);
 
-        return TRUE;
+        return true;
     }
 
     if (!WGETB("confirm-exit"))
     {
         WulforManager::get()->deleteMainWindow();
-        return FALSE;
+        return false;
     }
 
     gint response = gtk_dialog_run(GTK_DIALOG(mw->getWidget("exitDialog")));
@@ -1596,136 +1619,148 @@ gboolean MainWindow::onCloseWindow_gui(GtkWidget *widget, GdkEvent *event, gpoin
     if (response == GTK_RESPONSE_OK)
     {
         WulforManager::get()->deleteMainWindow();
-        return FALSE;
+        return false;
     }
 
-    return TRUE;
+    return true;
 }
 
 gboolean MainWindow::onDeleteEventMagnetDialog_gui(GtkWidget *dialog, GdkEvent *event, gpointer data)
 {
+    (void)event;
+    (void)data;
+
     gtk_widget_hide(dialog);
 
-    return TRUE;
+    return true;
 }
 
 void MainWindow::onTopToolbarToggled_gui(GtkWidget *widget, gpointer data)
 {
-   MainWindow *mw = (MainWindow *)data;
+    (void)widget;
+    MainWindow *mw = (MainWindow *)data;
 
-   GtkWidget *parent = mw->getWidget("hbox4");
-   GtkWidget *child = mw->getWidget("toolbar1");
+    GtkWidget *parent = mw->getWidget("hbox4");
+    GtkWidget *child = mw->getWidget("toolbar1");
 #if !GTK_CHECK_VERSION(3, 0, 0)
-   if (child->parent != GTK_WIDGET(parent))
-       return;
+    if (child->parent != GTK_WIDGET(parent))
+        return;
 #endif
-   g_object_ref(child);
-   gtk_container_remove(GTK_CONTAINER(parent), child);
-   parent = mw->getWidget("vbox1");
-   gtk_orientable_set_orientation(GTK_ORIENTABLE(child), GTK_ORIENTATION_HORIZONTAL);
-   gtk_box_pack_start(GTK_BOX(parent), child, FALSE, FALSE, 2);
-   gtk_box_reorder_child(GTK_BOX(parent), child, 1);
-   g_object_unref(child);
-   WSET("toolbar-position", 0);
+    g_object_ref(child);
+    gtk_container_remove(GTK_CONTAINER(parent), child);
+    parent = mw->getWidget("vbox1");
+    gtk_orientable_set_orientation(GTK_ORIENTABLE(child), GTK_ORIENTATION_HORIZONTAL);
+    gtk_box_pack_start(GTK_BOX(parent), child, false, false, 2);
+    gtk_box_reorder_child(GTK_BOX(parent), child, 1);
+    g_object_unref(child);
+    WSET("toolbar-position", 0);
 }
 
 void MainWindow::onLeftToolbarToggled_gui(GtkWidget *widget, gpointer data)
 {
-   MainWindow *mw = (MainWindow *)data;
+    (void)widget;
+    MainWindow *mw = (MainWindow *)data;
 
-   GtkWidget *parent = mw->getWidget("vbox1");
-   GtkWidget *child = mw->getWidget("toolbar1");
+    GtkWidget *parent = mw->getWidget("vbox1");
+    GtkWidget *child = mw->getWidget("toolbar1");
 #if !GTK_CHECK_VERSION(3, 0, 0)
-   if (child->parent != GTK_WIDGET(parent))
-       return;
+    if (child->parent != GTK_WIDGET(parent))
+        return;
 #endif
-   g_object_ref(child);
-   gtk_container_remove(GTK_CONTAINER(parent), child);
-   parent = mw->getWidget("hbox4");
-   gtk_orientable_set_orientation(GTK_ORIENTABLE(child), GTK_ORIENTATION_VERTICAL);
-   gtk_box_pack_start(GTK_BOX(parent), child, FALSE, FALSE, 2);
-   gtk_box_reorder_child(GTK_BOX(parent), child, 0);
-   g_object_unref(child);
-   WSET("toolbar-position", 1);
+    g_object_ref(child);
+    gtk_container_remove(GTK_CONTAINER(parent), child);
+    parent = mw->getWidget("hbox4");
+    gtk_orientable_set_orientation(GTK_ORIENTABLE(child), GTK_ORIENTATION_VERTICAL);
+    gtk_box_pack_start(GTK_BOX(parent), child, false, false, 2);
+    gtk_box_reorder_child(GTK_BOX(parent), child, 0);
+    g_object_unref(child);
+    WSET("toolbar-position", 1);
 }
 
 void MainWindow::onHideToolbarToggled_gui(GtkWidget *widget, gpointer data)
 {
-   MainWindow *mw = (MainWindow *)data;
+    (void)widget;
+    MainWindow *mw = (MainWindow *)data;
 
-   gboolean active = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(mw->getWidget("hideToolbarItem")));
-   if (active)
-   {
-       gtk_widget_hide(mw->getWidget("toolbar1"));
-       mw->ToolbarStyle = WGETI("toolbar-style");
-       WSET("toolbar-style", 4);
-   }
-   else
-   {
-       gtk_widget_show(mw->getWidget("toolbar1"));
-       WSET("toolbar-style", mw->ToolbarStyle);
-   }
+    gboolean bactive = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(mw->getWidget("hideToolbarItem")));
+    if (bactive)
+    {
+        gtk_widget_hide(mw->getWidget("toolbar1"));
+        mw->ToolbarStyle = WGETI("toolbar-style");
+        WSET("toolbar-style", 4);
+    }
+    else
+    {
+        gtk_widget_show(mw->getWidget("toolbar1"));
+        WSET("toolbar-style", mw->ToolbarStyle);
+    }
 }
 
 void MainWindow::onSizeToolbarToggled_gui(GtkWidget *widget, gpointer data)
 {
-   MainWindow *mw = (MainWindow *)data;
+    (void)widget;
+    MainWindow *mw = (MainWindow *)data;
 
-   gboolean active = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(mw->getWidget("sizeToolbarItem")));
-   GtkWidget *toolbar = mw->getWidget("toolbar1");
-   GtkIconSize size;
-   if (active)
-   {
-       WSET("toolbar-small", TRUE);
-       size = GTK_ICON_SIZE_SMALL_TOOLBAR;
-   }
-   else
-   {
-       WSET("toolbar-small", FALSE);
-       size = GTK_ICON_SIZE_LARGE_TOOLBAR;
-   }
-   g_object_set(G_OBJECT(toolbar), "icon-size", size, NULL);
+    gboolean bactive = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(mw->getWidget("sizeToolbarItem")));
+    GtkWidget *toolbar = mw->getWidget("toolbar1");
+    GtkIconSize size;
+    if (bactive)
+    {
+        WSET("toolbar-small", true);
+        size = GTK_ICON_SIZE_SMALL_TOOLBAR;
+    }
+    else
+    {
+        WSET("toolbar-small", false);
+        size = GTK_ICON_SIZE_LARGE_TOOLBAR;
+    }
+    g_object_set(G_OBJECT(toolbar), "icon-size", size, NULL);
 }
 
 gboolean MainWindow::onAddButtonClicked_gui(GtkWidget *widget, gpointer data)
 {
-   MainWindow *mw = (MainWindow *)data;
+    (void)widget;
 
-   gtk_menu_popup(GTK_MENU(mw->getWidget("toolbarMenu")), NULL, NULL, NULL, NULL, 0, gtk_get_current_event_time());
-   return FALSE;
+    MainWindow *mw = (MainWindow *)data;
+#if GTK_CHECK_VERSION(3,22,0)
+    gtk_menu_popup_at_widget(GTK_MENU(mw->getWidget("toolbarMenu")),widget,GDK_GRAVITY_SOUTH_WEST,GDK_GRAVITY_NORTH_WEST,NULL);
+#else
+    gtk_menu_popup(GTK_MENU(mw->getWidget("toolbarMenu")), NULL, NULL, NULL, NULL, 0, gtk_get_current_event_time());
+#endif
+    return false;
 }
 
 void MainWindow::onToolToggled_gui(GtkWidget *widget, gpointer data)
 {
-   string key = (gchar*) g_object_get_data(G_OBJECT(widget), "key");
-   GtkWidget *button = (GtkWidget*) data;
-   bool active = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
-   active ? gtk_widget_show(button) : gtk_widget_hide(button);
-   WSET(key, active);
+    string skey = (gchar*) g_object_get_data(G_OBJECT(widget), "key");
+    GtkWidget *button = (GtkWidget*) data;
+    bool bactive = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
+    bactive ? gtk_widget_show(button) : gtk_widget_hide(button);
+    WSET(skey, bactive);
 }
 
 void MainWindow::checkToolbarMenu_gui()
 {
-   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("addMenuItemBar")), WGETB("toolbar-button-add"));
-   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("separatorsMenuItemBar")), WGETB("toolbar-button-separators"));
-   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("reconnectMenuItemBar")), WGETB("toolbar-button-reconnect"));
-   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("connectMenuItemBar")), WGETB("toolbar-button-connect"));
-   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("favHubsMenuItemBar")), WGETB("toolbar-button-fav-hubs"));
-   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("favUsersMenuItemBar")), WGETB("toolbar-button-fav-users"));
-   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("publicHubsMenuItemBar")), WGETB("toolbar-button-public-hubs"));
-   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("settingsMenuItemBar")), WGETB("toolbar-button-settings"));
-   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("own_filelistMenuItemBar")), WGETB("toolbar-button-own-filelist"));
-   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("refreshMenuItemBar")), WGETB("toolbar-button-refresh"));
-   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("hashMenuItemBar")), WGETB("toolbar-button-hash"));
-   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("searchMenuItemBar")), WGETB("toolbar-button-search"));
-   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("searchSpyMenuItemBar")), WGETB("toolbar-button-search-spy"));
-   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("searchADLMenuItemBar")), WGETB("toolbar-button-search-adl"));
-   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("queueMenuItemBar")), WGETB("toolbar-button-queue"));
-   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("finishedDownloadsMenuItemBar")), WGETB("toolbar-button-finished-downloads"));
-   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("finishedUploadsMenuItemBar")), WGETB("toolbar-button-finished-uploads"));
-   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("quitMenuItemBar")), WGETB("toolbar-button-quit"));
-   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("addMenuItemBar")), WGETB("toolbar-button-add"));
-   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("hideToolbarItem")), ((ToolbarStyle = WGETI("toolbar-style")) == 4) ? TRUE : FALSE);
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("addMenuItemBar")), WGETB("toolbar-button-add"));
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("separatorsMenuItemBar")), WGETB("toolbar-button-separators"));
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("reconnectMenuItemBar")), WGETB("toolbar-button-reconnect"));
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("connectMenuItemBar")), WGETB("toolbar-button-connect"));
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("favHubsMenuItemBar")), WGETB("toolbar-button-fav-hubs"));
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("favUsersMenuItemBar")), WGETB("toolbar-button-fav-users"));
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("publicHubsMenuItemBar")), WGETB("toolbar-button-public-hubs"));
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("settingsMenuItemBar")), WGETB("toolbar-button-settings"));
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("own_filelistMenuItemBar")), WGETB("toolbar-button-own-filelist"));
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("refreshMenuItemBar")), WGETB("toolbar-button-refresh"));
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("hashMenuItemBar")), WGETB("toolbar-button-hash"));
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("searchMenuItemBar")), WGETB("toolbar-button-search"));
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("searchSpyMenuItemBar")), WGETB("toolbar-button-search-spy"));
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("searchADLMenuItemBar")), WGETB("toolbar-button-search-adl"));
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("queueMenuItemBar")), WGETB("toolbar-button-queue"));
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("finishedDownloadsMenuItemBar")), WGETB("toolbar-button-finished-downloads"));
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("finishedUploadsMenuItemBar")), WGETB("toolbar-button-finished-uploads"));
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("quitMenuItemBar")), WGETB("toolbar-button-quit"));
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("addMenuItemBar")), WGETB("toolbar-button-add"));
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(getWidget("hideToolbarItem")), ((ToolbarStyle = WGETI("toolbar-style")) == 4) ? true : false);
 }
 
 gboolean MainWindow::onKeyPressed_gui(GtkWidget *widget, GdkEventKey *event, gpointer data)
@@ -1734,39 +1769,39 @@ gboolean MainWindow::onKeyPressed_gui(GtkWidget *widget, GdkEventKey *event, gpo
 
     if (event->state & GDK_CONTROL_MASK)
     {
-        if (event->state & GDK_SHIFT_MASK && event->keyval == GDK_ISO_Left_Tab)
+        if (event->state & GDK_SHIFT_MASK && event->keyval == GDK_KEY_Tab)
         {
             mw->previousTab_gui();
-            return TRUE;
+            return true;
         }
-        else if (event->keyval == GDK_Tab)
+        else if (event->keyval == GDK_KEY_Tab)
         {
             mw->nextTab_gui();
-            return TRUE;
+            return true;
         }
         else if (event->keyval == GDK_F4)
         {
             onCloseClicked_gui(widget, data);
-            return TRUE;
+            return true;
         }
     }
     else if (event->state & GDK_MOD1_MASK) {
         switch (event->keyval) {
-            case GDK_1: mw->onSwitchOnPage_gui(1);break;
-            case GDK_2: mw->onSwitchOnPage_gui(2);break;
-            case GDK_3: mw->onSwitchOnPage_gui(3);break;
-            case GDK_4: mw->onSwitchOnPage_gui(4);break;
-            case GDK_5: mw->onSwitchOnPage_gui(5);break;
-            case GDK_6: mw->onSwitchOnPage_gui(6);break;
-            case GDK_7: mw->onSwitchOnPage_gui(7);break;
-            case GDK_8: mw->onSwitchOnPage_gui(8);break;
-            case GDK_9: mw->onSwitchOnPage_gui(9);break;
-            case GDK_0: mw->onSwitchOnPage_gui(10);break;
+        case GDK_1: mw->onSwitchOnPage_gui(1);break;
+        case GDK_2: mw->onSwitchOnPage_gui(2);break;
+        case GDK_3: mw->onSwitchOnPage_gui(3);break;
+        case GDK_4: mw->onSwitchOnPage_gui(4);break;
+        case GDK_5: mw->onSwitchOnPage_gui(5);break;
+        case GDK_6: mw->onSwitchOnPage_gui(6);break;
+        case GDK_7: mw->onSwitchOnPage_gui(7);break;
+        case GDK_8: mw->onSwitchOnPage_gui(8);break;
+        case GDK_9: mw->onSwitchOnPage_gui(9);break;
+        case GDK_0: mw->onSwitchOnPage_gui(10);break;
         }
     }
 
 
-    return FALSE;
+    return false;
 }
 void MainWindow::onSwitchOnPage_gui(int pageNum){
     GtkNotebook *book = GTK_NOTEBOOK(getWidget("book"));
@@ -1774,21 +1809,21 @@ void MainWindow::onSwitchOnPage_gui(int pageNum){
 }
 gboolean MainWindow::onButtonReleasePage_gui(GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
-    gint width, height;
+    (void)widget;
 
-    width  = gdk_window_get_width (event->window);
-    height = gdk_window_get_height(event->window);
+    const gint width  = gdk_window_get_width (event->window);
+    const gint height = gdk_window_get_height(event->window);
 
     // If middle mouse button was released when hovering over tab label
     if (event->button == 2 && event->x >= 0 && event->y >= 0
-        && event->x < width && event->y < height)
+            && event->x < width && event->y < height)
     {
         BookEntry *entry = (BookEntry *)data;
         WulforManager::get()->getMainWindow()->removeBookEntry_gui(entry);
-        return TRUE;
+        return true;
     }
 
-    return FALSE;
+    return false;
 }
 
 gboolean MainWindow::animationStatusIcon_gui(gpointer data)
@@ -1800,20 +1835,21 @@ gboolean MainWindow::animationStatusIcon_gui(gpointer data)
         gtk_status_icon_set_from_icon_name(mw->statusIcon, "eiskaltdcpp");
         mw->timer = 0;
 
-        return FALSE;
+        return false;
     }
 
     gtk_status_icon_set_from_icon_name(mw->statusIcon, (mw->statusFrame *= -1) > 0 ? "eiskaltdcpp" : "icon_msg");
 
-    return TRUE;
+    return true;
 }
 
 void MainWindow::onRaisePage_gui(GtkMenuItem *item, gpointer data)
 {
+    (void)item;
     WulforManager::get()->getMainWindow()->raisePage_gui((GtkWidget *)data);
 }
 
-void MainWindow::onPageSwitched_gui(GtkNotebook *notebook, GtkNotebook *page, guint num, gpointer data)
+void MainWindow::onPageSwitched_gui(GtkNotebook *notebook, GtkWidget*, guint num, gpointer data)
 {
     MainWindow* mw = (MainWindow*)data;
     GtkWidget *child = gtk_notebook_get_nth_page(notebook, num);
@@ -1827,7 +1863,7 @@ void MainWindow::onPageSwitched_gui(GtkNotebook *notebook, GtkNotebook *page, gu
         g_signal_handlers_block_by_func(item, (gpointer)onRaisePage_gui, child);
 
         entry->setActive_gui();
-        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(entry->getTabMenuItem()), TRUE);
+        gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(entry->getTabMenuItem()), true);
         mw->setTitle(entry->getLabelText()); // Update window title with selected tab label
 
         g_signal_handlers_unblock_by_func(item, (gpointer)onRaisePage_gui, (gpointer)child);
@@ -1845,19 +1881,20 @@ void MainWindow::onPageSwitched_gui(GtkNotebook *notebook, GtkNotebook *page, gu
 void MainWindow::onPaneRealized_gui(GtkWidget *pane, gpointer data)
 {
     MainWindow *mw = (MainWindow *)data;
-    gint position = WGETI("transfer-pane-position");
+    gint iposition = WGETI("transfer-pane-position");
 
-    if (position > 10)
+    if (iposition > 10)
     {
         // @todo: fix get window height when maximized
-        gint height;
-        gtk_window_get_size(mw->window, NULL, &height);
-        gtk_paned_set_position(GTK_PANED(pane), height - position);
+        gint iheight;
+        gtk_window_get_size(mw->window, NULL, &iheight);
+        gtk_paned_set_position(GTK_PANED(pane), iheight - iposition);
     }
 }
 
 void MainWindow::onConnectClicked_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
 
     gtk_editable_select_region(GTK_EDITABLE(mw->getWidget("connectEntry")), 0, -1);
@@ -1873,35 +1910,39 @@ void MainWindow::onConnectClicked_gui(GtkWidget *widget, gpointer data)
 
     if (response == GTK_RESPONSE_OK)
     {
-        string address = gtk_entry_get_text(GTK_ENTRY(mw->getWidget("connectEntry")));
-        mw->showHub_gui(address);
+        string saddress = gtk_entry_get_text(GTK_ENTRY(mw->getWidget("connectEntry")));
+        mw->showHub_gui(saddress);
     }
 }
 
 void MainWindow::onFavoriteHubsClicked_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
     mw->showFavoriteHubs_gui();
 }
 
 void MainWindow::onFavoriteUsersClicked_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
     mw->showFavoriteUsers_gui();
 }
 
 void MainWindow::onPublicHubsClicked_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
     mw->showPublicHubs_gui();
 }
 
 void MainWindow::onPreferencesClicked_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
     typedef Func1<MainWindow, bool> F1;
-    if (mw->useStatusIconBlink != WGETB("status-icon-blink-use"))
-        WSET("status-icon-blink-use", mw->useStatusIconBlink);
+    if (mw->bUseStatusIconBlink != WGETB("status-icon-blink-use"))
+        WSET("status-icon-blink-use", mw->bUseStatusIconBlink);
     bool emoticons = WGETB("emoticons-use");
 
     gint response = WulforManager::get()->openSettingsDialog_gui();
@@ -1912,9 +1953,9 @@ void MainWindow::onPreferencesClicked_gui(GtkWidget *widget, gpointer data)
         WulforManager::get()->dispatchClientFunc(func);
 
         if (WGETB("always-tray"))
-            gtk_status_icon_set_visible(mw->statusIcon, TRUE);
+            gtk_status_icon_set_visible(mw->statusIcon, true);
         else
-            gtk_status_icon_set_visible(mw->statusIcon, FALSE);
+            gtk_status_icon_set_visible(mw->statusIcon, false);
 
         mw->setTabPosition_gui(WGETI("tab-position"));
         mw->setToolbarStyle_gui(WGETI("toolbar-style"));
@@ -1958,73 +1999,86 @@ void MainWindow::onPreferencesClicked_gui(GtkWidget *widget, gpointer data)
 
 void MainWindow::onTransferToggled_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
     GtkWidget *transfer = mw->transfers->getContainer();
 
     WSET("show-transfers", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mw->getWidget("transferCheckButton"))));
 
-    if (gtk_widget_get_visible(transfer))
+    if (gtk_widget_get_visible(transfer)) {
         gtk_widget_hide(transfer);
-    else
+    }
+    else {
         gtk_widget_show_all(transfer);
+    }
 }
 
 void MainWindow::onHashClicked_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
+    (void)data;
     WulforManager::get()->openHashDialog_gui();
 }
 
 void MainWindow::onSearchClicked_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
     mw->addSearch_gui();
 }
 
 void MainWindow::onSearchSpyClicked_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
     mw->showSearchSpy_gui();
 }
 
 void MainWindow::onSearchADLClicked_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
     mw->showSearchADL_gui();
 }
 
 void MainWindow::onDownloadQueueClicked_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
     mw->showDownloadQueue_gui();
 }
 
 void MainWindow::onFinishedDownloadsClicked_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
     mw->showFinishedDownloads_gui();
 }
 
 void MainWindow::onFinishedUploadsClicked_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
     mw->showFinishedUploads_gui();
 }
 
 void MainWindow::onQuitClicked_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
 
     // fix emit signal (status-icon menu quit)
     if (gtk_widget_get_visible(mw->getWidget("exitDialog")))
         return;
 
-    mw->onQuit = TRUE;
-    gboolean retVal; // Not interested in the value, though.
-    g_signal_emit_by_name(mw->window, "delete-event", NULL, &retVal);
+    mw->onQuit = true;
+    gboolean bretVal; // Not interested in the value, though.
+    g_signal_emit_by_name(mw->window, "delete-event", NULL, &bretVal);
 }
 
 void MainWindow::onOpenFileListClicked_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
 
     GtkWidget *chooser = mw->getWidget("flistDialog");
@@ -2042,16 +2096,15 @@ void MainWindow::onOpenFileListClicked_gui(GtkWidget *widget, gpointer data)
 
     if (response == GTK_RESPONSE_OK)
     {
-        gchar *temp = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(chooser));
+        g_autofree gchar *cptemp = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(chooser));
 
-        if (temp)
+        if (cptemp)
         {
-            string path = Text::toUtf8(temp);
-            g_free(temp);
+            string spath = Text::toUtf8(cptemp);
 
-            UserPtr user = DirectoryListing::getUserFromFilename(path);
+            UserPtr user = DirectoryListing::getUserFromFilename(spath);
             if (user)
-                mw->showShareBrowser_gui(user, path, "", FALSE);
+                mw->showShareBrowser_gui(user, spath, "", false);
             else
                 mw->setMainStatus_gui(_("Unable to load file list: Invalid file list name"));
         }
@@ -2060,9 +2113,10 @@ void MainWindow::onOpenFileListClicked_gui(GtkWidget *widget, gpointer data)
 
 void MainWindow::onOpenOwnListClicked_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
     typedef Func1<MainWindow, bool> F1;
-    F1 *func = new F1(mw, &MainWindow::openOwnList_client, FALSE);
+    F1 *func = new F1(mw, &MainWindow::openOwnList_client, false);
     WulforManager::get()->dispatchClientFunc(func);
 
     mw->setMainStatus_gui(_("Loading file list"));
@@ -2070,6 +2124,7 @@ void MainWindow::onOpenOwnListClicked_gui(GtkWidget *widget, gpointer data)
 
 void MainWindow::onMatchAllList_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     typedef Func0<MainWindow> F0;
     F0 *func = new F0((MainWindow *)data, &MainWindow::matchAllList_client);
     WulforManager::get()->dispatchClientFunc(func);
@@ -2077,6 +2132,7 @@ void MainWindow::onMatchAllList_gui(GtkWidget *widget, gpointer data)
 
 void MainWindow::onRefreshFileListClicked_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     typedef Func0<MainWindow> F0;
     F0 *func = new F0((MainWindow *)data, &MainWindow::refreshFileList_client);
     WulforManager::get()->dispatchClientFunc(func);
@@ -2084,6 +2140,7 @@ void MainWindow::onRefreshFileListClicked_gui(GtkWidget *widget, gpointer data)
 
 void MainWindow::onReconnectClicked_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
     GtkWidget *entryWidget = mw->currentPage_gui();
 
@@ -2101,6 +2158,7 @@ void MainWindow::onReconnectClicked_gui(GtkWidget *widget, gpointer data)
 
 void MainWindow::onCloseClicked_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
     GtkWidget *entryWidget = mw->currentPage_gui();
 
@@ -2115,18 +2173,21 @@ void MainWindow::onCloseClicked_gui(GtkWidget *widget, gpointer data)
 
 void MainWindow::onPreviousTabClicked_gui(GtkWidget* widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
     mw->previousTab_gui();
 }
 
 void MainWindow::onNextTabClicked_gui(GtkWidget* widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
     mw->nextTab_gui();
 }
 
 void MainWindow::onAboutClicked_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
     gint response = gtk_dialog_run(GTK_DIALOG(mw->getWidget("aboutDialog")));
 
@@ -2139,6 +2200,7 @@ void MainWindow::onAboutClicked_gui(GtkWidget *widget, gpointer data)
 
 void MainWindow::onFreeSpaceBar(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
     GtkWidget *freespacebar = mw->getWidget("progressbarFreeSpaceBar");
     //GtkCheckMenuItem *item = GTK_CHECK_MENU_ITEM(mw->getWidget("freeSpaceBarItem"));
@@ -2161,19 +2223,21 @@ void MainWindow::onFreeSpaceBar(GtkWidget *widget, gpointer data)
 
 void MainWindow::onCloseBookEntry_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     BookEntry *entry = (BookEntry *)data;
     WulforManager::get()->getMainWindow()->removeBookEntry_gui(entry);
 }
 
 void MainWindow::onStatusIconActivated_gui(GtkStatusIcon *statusIcon, gpointer data)
 {
+    (void)statusIcon;
     MainWindow *mw = (MainWindow *)data;
     GtkCheckMenuItem *item = GTK_CHECK_MENU_ITEM(mw->getWidget("statusIconShowInterfaceItem"));
     GdkWindowState state;
 #if GTK_CHECK_VERSION(3, 0, 0)
-        state = gdk_window_get_state(gtk_widget_get_window(GTK_WIDGET(mw->window)));
+    state = gdk_window_get_state(gtk_widget_get_window(GTK_WIDGET(mw->window)));
 #else
-        state = gdk_window_get_state(GTK_WIDGET(mw->window)->window);
+    state = gdk_window_get_state(GTK_WIDGET(mw->window)->window);
 #endif
     if ((state & GDK_WINDOW_STATE_ICONIFIED))
         gtk_window_deiconify(mw->window);
@@ -2188,11 +2252,16 @@ void MainWindow::onStatusIconPopupMenu_gui(GtkStatusIcon *statusIcon, guint butt
 {
     MainWindow *mw = (MainWindow *)data;
     GtkMenu *menu = GTK_MENU(mw->getWidget("statusIconMenu"));
+#if GTK_CHECK_VERSION(3,22,0)
+    gtk_menu_popup_at_pointer(menu,NULL);
+#else
     gtk_menu_popup(menu, NULL, NULL, gtk_status_icon_position_menu, statusIcon, button, time);
+#endif
 }
 
 void MainWindow::onShowInterfaceToggled_gui(GtkCheckMenuItem *item, gpointer data)
 {
+    (void)item;
     MainWindow *mw = (MainWindow *)data;
     GtkWindow *win = mw->window;
     static int x, y;
@@ -2222,39 +2291,39 @@ void MainWindow::onShowInterfaceToggled_gui(GtkCheckMenuItem *item, gpointer dat
 
 void MainWindow::onStatusIconBlinkUseToggled_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw = (MainWindow *)data;
     mw->removeTimerSource_gui();
 
     if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(mw->getWidget("statusIconBlinkUseItem"))))
 
-        mw->useStatusIconBlink = TRUE;
+        mw->bUseStatusIconBlink = true;
     else
-        mw->useStatusIconBlink = FALSE;
+        mw->bUseStatusIconBlink = false;
 }
 
 void MainWindow::onLinkClicked_gui(GtkWidget *widget, gpointer data)
 {
-    string link = (gchar*) g_object_get_data(G_OBJECT(widget), "link");
-    WulforUtil::openURI(link);
+    (void)data;
+    string slink = (gchar*) g_object_get_data(G_OBJECT(widget), "link");
+    WulforUtil::openURI(slink);
 }
 
 void MainWindow::onDebugCMD(GtkWidget *widget, gpointer data)
 {
-   MainWindow *mw = (MainWindow *)data;
-   mw->showCmdDebug_gui();
+    (void)widget;
+    MainWindow *mw = (MainWindow *)data;
+    mw->showCmdDebug_gui();
 }
 
 void MainWindow::autoConnect_client()
 {
-    FavoriteHubEntry *hub;
     FavoriteHubEntryList &l = FavoriteManager::getInstance()->getFavoriteHubs();
     typedef Func2<MainWindow, string, string> F2;
     F2 *func;
 
-    for (auto it = l.begin(); it != l.end(); ++it)
+    for (auto &hub : l)
     {
-        hub = *it;
-
         if (hub->getConnect())
         {
             func = new F2(this, &MainWindow::showHub_gui, hub->getServer(), hub->getEncoding());
@@ -2262,21 +2331,21 @@ void MainWindow::autoConnect_client()
         }
     }
 
-    string link = WulforManager::get()->getURL();
+    string slink = WulforManager::get()->getURL();
 
-    if (link.empty()) return;
+    if (slink.empty()) return;
 
     typedef Func1<MainWindow, string> F1;
     F1 *func1;
 
-    if (WulforUtil::isHubURL(link) && WGETB("urlhandler"))
+    if (WulforUtil::isHubURL(slink) && WGETB("urlhandler"))
     {
-        func = new F2(this, &MainWindow::showHub_gui, link, "");
+        func = new F2(this, &MainWindow::showHub_gui, slink, "");
         WulforManager::get()->dispatchGuiFunc(func);
     }
-    else if (WulforUtil::isMagnet(link) && WGETB("magnet-register"))
+    else if (WulforUtil::isMagnet(slink) && WGETB("magnet-register"))
     {
-        func1 = new F1(this, &MainWindow::actionMagnet_gui, link);
+        func1 = new F1(this, &MainWindow::actionMagnet_gui, slink);
         WulforManager::get()->dispatchGuiFunc(func1);
     }
 }
@@ -2302,7 +2371,7 @@ void MainWindow::refreshFileList_client()
     try
     {
         ShareManager::getInstance()->setDirty();
-        ShareManager::getInstance()->refresh(TRUE, TRUE, FALSE);
+        ShareManager::getInstance()->refresh(true, true, false);
     }
     catch (const ShareException&)
     {
@@ -2333,6 +2402,7 @@ void MainWindow::on(LogManagerListener::Message, time_t t, const string &message
 
 void MainWindow::on(QueueManagerListener::Finished, QueueItem *item, const string& dir, int64_t avSpeed) noexcept
 {
+    (void)avSpeed;
     typedef Func3<MainWindow, string, string, Notify::TypeNotify> F3;
 
     if (item->isSet(QueueItem::FLAG_CLIENT_VIEW | QueueItem::FLAG_USER_LIST))
@@ -2341,11 +2411,11 @@ void MainWindow::on(QueueManagerListener::Finished, QueueItem *item, const strin
         string listName = item->getListName();
 
         F3 *f3 = new F3(this, &MainWindow::showNotification_gui, _("file list from "), WulforUtil::getNicks(user),
-            Notify::DOWNLOAD_FINISHED_USER_LIST);
+                        Notify::DOWNLOAD_FINISHED_USER_LIST);
         WulforManager::get()->dispatchGuiFunc(f3);
 
         typedef Func4<MainWindow, UserPtr, string, string, bool> F4;
-        F4 *func = new F4(this, &MainWindow::showShareBrowser_gui, user.user, listName, dir, TRUE);
+        F4 *func = new F4(this, &MainWindow::showShareBrowser_gui, user.user, listName, dir, true);
         WulforManager::get()->dispatchGuiFunc(func);
     }
     else if (!item->isSet(QueueItem::FLAG_XML_BZLIST))
@@ -2361,11 +2431,11 @@ void MainWindow::on(TimerManagerListener::Second, uint64_t ticks) noexcept
     if (!WGETB("always-tray") && minimized)
         return;
 
-    int64_t diff = (int64_t)(!lastUpdate ? ticks - 1000 : ticks - lastUpdate);
-    int64_t downDiff = Socket::getTotalDown() - lastDown;
-    int64_t upDiff = Socket::getTotalUp() - lastUp;
+    int64_t diff = (int64_t)((lastUpdate == 0) ? ticks - 1000 : ticks - lastUpdate);
     int64_t downBytes = 0;
     int64_t upBytes = 0;
+    int64_t downDiff = Socket::getTotalDown() - lastDown;
+    int64_t upDiff = Socket::getTotalUp() - lastUp;
 
     if (diff > 0)
     {
@@ -2379,9 +2449,9 @@ void MainWindow::on(TimerManagerListener::Second, uint64_t ticks) noexcept
     string uploadSpeed = Util::formatBytes(upBytes) + "/" + _("s");
     string uploaded = Util::formatBytes(Socket::getTotalUp());
 
-    SettingsManager *SM = SettingsManager::getInstance();
-    SM->set(SettingsManager::TOTAL_UPLOAD,   SETTING(TOTAL_UPLOAD)   + upDiff);
-    SM->set(SettingsManager::TOTAL_DOWNLOAD, SETTING(TOTAL_DOWNLOAD) + downDiff);
+    SettingsManager *sm = SettingsManager::getInstance();
+    sm->set(SettingsManager::TOTAL_UPLOAD,   SETTING(TOTAL_UPLOAD)   + upDiff);
+    sm->set(SettingsManager::TOTAL_DOWNLOAD, SETTING(TOTAL_DOWNLOAD) + downDiff);
 
     lastUpdate = ticks;
     lastUp = Socket::getTotalUp();
@@ -2422,17 +2492,19 @@ void MainWindow::on(TimerManagerListener::Second, uint64_t ticks) noexcept
 }
 void MainWindow::onTTHFileDialog_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     MainWindow *mw =(MainWindow *)data;
     GtkWidget *dialog = mw->getWidget("TTHFileDialog");
     gint response = gtk_dialog_run(GTK_DIALOG(dialog));
     if(response == GTK_RESPONSE_NONE)
-            return;
+        return;
     gtk_widget_hide(dialog);
 
 }
 
 void MainWindow::onTTHFileButton_gui(GtkWidget *widget , gpointer data)
 {
+    (void)widget;
     MainWindow *mw =(MainWindow *)data;
     GtkWidget *chooser=mw->getChooserDialog_gui();
     gtk_window_set_title(GTK_WINDOW(chooser), _("Select file to Get TTH"));
@@ -2449,14 +2521,14 @@ void MainWindow::onTTHFileButton_gui(GtkWidget *widget , gpointer data)
 
     if (response == GTK_RESPONSE_OK)
     {
-        gchar *temp = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(chooser));
+        g_autofree gchar *cptemp = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(chooser));
         string TTH;
-        File f(Text::fromT(string(temp)),File::READ, File::OPEN);
+        File f(Text::fromT(string(cptemp)),File::READ, File::OPEN);
         HashManager  *HM = HashManager::getInstance();
-        const TTHValue *tth= HM->getFileTTHif(string(temp));
+        const TTHValue *tth= HM->getFileTTHif(string(cptemp));
         if (tth) {
             TTH = tth->toBase32();
-            string magnetlink = "magnet:?xt=urn:tree:tiger:" + TTH +"&xl="+Util::toString(f.getSize())+"&dn="+Util::encodeURI(Text::fromT(Util::getFileName(string(temp))));
+            string magnetlink = "magnet:?xt=urn:tree:tiger:" + TTH +"&xl="+Util::toString(f.getSize())+"&dn="+Util::encodeURI(Text::fromT(Util::getFileName(string(cptemp))));
             f.close();
             gtk_entry_set_text(GTK_ENTRY(mw->getWidget("entrymagnet")),magnetlink.c_str());
             gtk_entry_set_text(GTK_ENTRY(mw->getWidget("entrytthfileresult")),TTH.c_str());
@@ -2465,88 +2537,91 @@ void MainWindow::onTTHFileButton_gui(GtkWidget *widget , gpointer data)
             try {
                 TigerTree tth(TigerTree::calcBlockSize(f.getSize(), 1));
                 if(f.getSize() > 0) {
-                        size_t n = 512*1024;
-                        while( (n = f.read(&buf[0], n)) > 0) {
-                            tth.update(&buf[0], n);
-                            n = 512*1024;
-                        }
+                    size_t n = 512*1024;
+                    while( (n = f.read(&buf[0], n)) > 0) {
+                        tth.update(&buf[0], n);
+                        n = 512*1024;
+                    }
                 } else {
                     tth.update("", 0);
                 }
                 tth.finalize();
 
                 TTH = tth.getRoot().toBase32();
-                string magnetlink = "magnet:?xt=urn:tree:tiger:"+ TTH +"&xl="+Util::toString(f.getSize())+"&dn="+Util::encodeURI(Text::fromT(Util::getFileName(string(temp))));
+                string magnetlink = "magnet:?xt=urn:tree:tiger:"+ TTH +"&xl="+Util::toString(f.getSize())+"&dn="+Util::encodeURI(Text::fromT(Util::getFileName(string(cptemp))));
                 f.close();
                 gtk_entry_set_text(GTK_ENTRY(mw->getWidget("entrymagnet")),magnetlink.c_str());
                 gtk_entry_set_text(GTK_ENTRY(mw->getWidget("entrytthfileresult")),TTH.c_str());
             } catch(...) { }
 
-            delete &buf;
+            delete[] buf;
         }
         delete tth;
 
     }
 }
 
-///close all
-void MainWindow::onCloseAllHub_gui(GtkWidget *widget, gpointer data)
+///Close all
+void MainWindow::onCloseAllHub_gui(GtkWidget*, gpointer data)
 {
     MainWindow *mw = (MainWindow *)data;
     typedef Func1<MainWindow,BookEntry*> F1;
-    for (StringIterC it = mw->EntryList.begin(); it != mw->EntryList.end(); ++it) {
-        BookEntry *entry = mw->findBookEntry(Entry::HUB, *it);
+    for (auto &it : mw->EntryList) {
+        BookEntry *entry = mw->findBookEntry(Entry::HUB, it);
         if (entry) {
             F1 *func = new F1(mw,&MainWindow::removeBookEntry_gui,entry);
             WulforManager::get()->dispatchGuiFunc(func);
         }
     }
 }
+
 ///PM
-void MainWindow::onCloseAllPM_gui(GtkWidget *widget, gpointer data)
+void MainWindow::onCloseAllPM_gui(GtkWidget*, gpointer data)
 {
     MainWindow *mw = (MainWindow *)data;
     typedef Func1<MainWindow,BookEntry*> F1;
-    for (StringIterC it = mw->EntryList.begin(); it != mw->EntryList.end(); ++it) {
-        BookEntry *entry = mw->findBookEntry(Entry::PRIVATE_MESSAGE, *it);
+    for (auto &it : mw->EntryList) {
+        BookEntry *entry = mw->findBookEntry(Entry::PRIVATE_MESSAGE, it);
         if (entry) {
             F1 *func = new F1(mw,&MainWindow::removeBookEntry_gui,entry);
             WulforManager::get()->dispatchGuiFunc(func);
         }
     }
 }
+
 ///Search
-void MainWindow::onCloseAllSearch_gui(GtkWidget *widget, gpointer data)
+void MainWindow::onCloseAllSearch_gui(GtkWidget*, gpointer data)
 {
     MainWindow *mw = (MainWindow *)data;
     typedef Func1<MainWindow,BookEntry*> F1;
-    for (StringIterC it = mw->EntryList.begin(); it != mw->EntryList.end(); ++it) {
-        BookEntry *entry = mw->findBookEntry(Entry::SEARCH, *it);
+    for (auto &it : mw->EntryList) {
+        BookEntry *entry = mw->findBookEntry(Entry::SEARCH, it);
         if (entry) {
             F1 *func = new F1(mw,&MainWindow::removeBookEntry_gui,entry);
             WulforManager::get()->dispatchGuiFunc(func);
         }
     }
 }
+
 ///Reconnect
-void MainWindow::onReconectAllHub_gui(GtkWidget *widget, gpointer data)
+void MainWindow::onReconectAllHub_gui(GtkWidget*, gpointer data)
 {
     MainWindow *mw = (MainWindow *)data;
-    typedef Func1<MainWindow,BookEntry*> F1;
-    for (StringIterC it = mw->EntryList.begin(); it != mw->EntryList.end(); ++it) {
-        BookEntry *entry = mw->findBookEntry(Entry::HUB, *it);
+    for (auto &it : mw->EntryList) {
+        BookEntry *entry = mw->findBookEntry(Entry::HUB, it);
         if (entry) {
             dynamic_cast<Hub*>(entry)->reconnect_client();
         }
     }
 }
+
 ///PM
-void MainWindow::onCloseAlloffPM_gui(GtkWidget *widget, gpointer data)
+void MainWindow::onCloseAlloffPM_gui(GtkWidget*, gpointer data)
 {
     MainWindow *mw = (MainWindow *)data;
     typedef Func1<MainWindow,BookEntry*> F1;
-    for (StringIterC it = mw->EntryList.begin(); it != mw->EntryList.end(); ++it) {
-        BookEntry *entry = mw->findBookEntry(Entry::PRIVATE_MESSAGE, *it);
+    for (auto &it : mw->EntryList) {
+        BookEntry *entry = mw->findBookEntry(Entry::PRIVATE_MESSAGE, it);
         if (entry && dynamic_cast<PrivateMessage*>(entry)->getIsOffline()) {
             F1 *func = new F1(mw,&MainWindow::removeBookEntry_gui,entry);
             WulforManager::get()->dispatchGuiFunc(func);
@@ -2554,7 +2629,7 @@ void MainWindow::onCloseAlloffPM_gui(GtkWidget *widget, gpointer data)
     }
 }
 
-void MainWindow::onUploadQueueClicked_gui(GtkWidget *widget , gpointer data)
+void MainWindow::onUploadQueueClicked_gui(GtkWidget* , gpointer data)
 {
     MainWindow *mw = (MainWindow *)data;
     mw->showUploadQueue_gui();

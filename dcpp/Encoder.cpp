@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
@@ -107,6 +106,10 @@ void Encoder::fromBase32(const char* src, uint8_t* dst, size_t len) {
             dst[offset] |= tmp << (8 - index);
         }
     }
+}
+
+bool Encoder::isBase32(const string& str) {
+    return str.find_first_not_of(base32Alphabet) == string::npos;
 }
 
 uint8_t decode16(char c) {

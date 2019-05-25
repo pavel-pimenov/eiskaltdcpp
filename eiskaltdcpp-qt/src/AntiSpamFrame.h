@@ -21,7 +21,7 @@ class AntiSpamFrame : public QDialog, private Ui::UIAntiSpam {
 
 public:
 
-    AntiSpamFrame(QWidget *parent = 0);
+    AntiSpamFrame(QWidget *parent = nullptr);
     virtual ~AntiSpamFrame();
 
 private:
@@ -33,12 +33,12 @@ private:
     void loadGrayList();
     void loadList(QTreeWidget *, QList<QString>&);
 
-    void addItemToTree(QTreeWidget *, QString);
-    void remItemFromTree(QTreeWidget *, QString);
+    void addItemToTree(QTreeWidget *, const QString &);
+    void remItemFromTree(QTreeWidget *, const QString &);
 
     void clearTreeWidget(QTreeWidget*);
 
-    bool addToList(AntiSpamObjectState state, QString);
+    bool addToList(AntiSpamObjectState state, const QString &);
 
 private Q_SLOTS:
     void slotAntiSpamSwitch();

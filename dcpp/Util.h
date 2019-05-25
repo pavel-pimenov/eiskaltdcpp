@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,22 +13,31 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
+#include <cstdlib>
+#include <ctime>
+
+#include <map>
+
 #ifdef _WIN32
+
 # define PATH_SEPARATOR '\\'
 # define PATH_SEPARATOR_STR "\\"
+
 #else
+
 # define PATH_SEPARATOR '/'
 # define PATH_SEPARATOR_STR "/"
+
 #endif
 
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <unistd.h>
 
 #ifdef _WIN32
 #include <winsock2.h>
@@ -35,43 +45,11 @@
 #include <sys/socket.h>
 #endif
 
-#include <unistd.h>
-#include <cstdlib>
-#include <vector>
-#include <functional>
-#include <algorithm>
-#include <map>
 #include "Text.h"
 
 extern "C" int  _nl_msg_cat_cntr;
 
 namespace dcpp {
-
-template<typename T, bool flag> struct ReferenceSelector {
-    typedef T ResultType;
-};
-template<typename T> struct ReferenceSelector<T,true> {
-    typedef const T& ResultType;
-};
-
-template<typename T> class IsOfClassType {
-public:
-    template<typename U> static char check(int U::*);
-    template<typename U> static float check(...);
-public:
-    enum { Result = sizeof(check<T>(0)) };
-};
-
-template<typename T> struct TypeTraits {
-    typedef IsOfClassType<T> ClassType;
-    typedef ReferenceSelector<T, ((ClassType::Result == 1) || (sizeof(T) > sizeof(char*)) ) > Selector;
-    typedef typename Selector::ResultType ParameterType;
-};
-
-#define GETSET(type, name, name2) \
-private: type name; \
-public: TypeTraits<type>::ParameterType get##name2() const { return name; } \
-    void set##name2(TypeTraits<type>::ParameterType a##name2) { name = a##name2; }
 
 #define LIT(x) x, (sizeof(x)-1)
 
@@ -82,7 +60,6 @@ public:
     CompareFirst(const T1& compareTo) : a(compareTo) { }
     bool operator()(const pair<T1, T2>& p) { return op()(p.first, a); }
 private:
-    CompareFirst& operator=(const CompareFirst&);
     const T1& a;
 };
 
@@ -93,7 +70,6 @@ public:
     CompareSecond(const T2& compareTo) : a(compareTo) { }
     bool operator()(const pair<T1, T2>& p) { return op()(p.second, a); }
 private:
-    CompareSecond& operator=(const CompareSecond&);
     const T2& a;
 };
 
@@ -110,7 +86,7 @@ class Util
 {
 public:
     static tstring emptyStringT;
-    static string emptyString;
+    static string  emptyString;
     static wstring emptyStringW;
 
     enum Paths {
@@ -139,15 +115,7 @@ public:
     static void initialize(PathsMap pathOverrides = PathsMap());
 
     /** Path of temporary storage */
-    static string getTempPath() {
-#ifdef _WIN32
-        TCHAR buf[MAX_PATH + 1];
-        DWORD x = GetTempPath(MAX_PATH, buf);
-        return Text::fromT(tstring(buf, x));
-#else
-        return "/tmp/";
-#endif
-    }
+    static string getTempPath();
 
     /** Path of configuration files */
     static const string& getPath(Paths path) { return paths[path]; }
@@ -220,11 +188,14 @@ public:
         replace(string_t(search), string_t(replacement), str);
     }
 
-    static void decodeUrl(const string& aUrl, string& protocol, string& host, uint16_t& port, string& path, string& query, string& fragment);
-    static std::map<string, string> decodeQuery(const string& query);
+    static void sanitizeUrl(string& url);
+    static string trimCopy(const string& aLine);
+    static void decodeUrl(const string& aUrl, string& protocol, string& host, string& port, string& path, string& query, string& fragment);
+    static map<string, string> decodeQuery(const string& query);
+
     static string validateFileName(string aFile, const string& badCharsExtra = "");
     static bool checkExtension(const string& tmp);
-    static string cleanPathChars(string aNick);
+    static string cleanPathChars(const string &str);
     static string addBrackets(const string& s);
 
     static string formatBytes(const string& aString) { return formatBytes(toInt64(aString)); }
@@ -232,6 +203,8 @@ public:
     static string getShortTimeString(time_t t = time(NULL) );
 
     static string getTimeString();
+    static string getTimeString(time_t t);
+    static string getTimeString(time_t t, const string& formatting);
     static string toAdcFile(const string& file);
     static string toNmdcFile(const string& file);
 
@@ -269,12 +242,10 @@ public:
     static int64_t toInt64(const string& aString) {
 #ifdef _WIN32
         return _atoi64(aString.c_str());
-#else
-    #ifndef __HAIKU__
-        return strtoq(aString.c_str(), (char **)NULL, 10);
-    #else
+#elif defined(__HAIKU__)
         return strtoll(aString.c_str(), (char **)NULL, 10);
-    #endif
+#else
+        return strtoq(aString.c_str(), (char **)NULL, 10);
 #endif
     }
 
@@ -326,12 +297,12 @@ public:
 
     static string toString(short val) {
         char buf[8];
-        snprintf(buf, sizeof(buf), "%d", (int)val);
+        snprintf(buf, sizeof(buf), "%d", static_cast<int>(val));
         return buf;
     }
     static string toString(unsigned short val) {
         char buf[8];
-        snprintf(buf, sizeof(buf), "%u", (unsigned int)val);
+        snprintf(buf, sizeof(buf), "%u", static_cast<unsigned int>(val));
         return buf;
     }
     static string toString(int val) {
@@ -371,9 +342,9 @@ public:
     }
 
     template<typename string_t>
-    static string_t toString(const string_t& sep, const std::vector<string_t>& lst) {
+    static string_t toString(const string_t& sep, const vector<string_t>& lst) {
         string_t ret;
-        for(typename std::vector<string_t>::const_iterator i = lst.begin(), iend = lst.end(); i != iend; ++i) {
+        for(auto i = lst.begin(), iend = lst.end(); i != iend; ++i) {
             ret += *i;
             if(i + 1 != iend)
                 ret += sep;
@@ -381,7 +352,7 @@ public:
         return ret;
     }
     template<typename string_t>
-    static inline string_t toString(const typename string_t::value_type* sep, const std::vector<string_t>& lst) {
+    static inline string_t toString(const typename string_t::value_type* sep, const vector<string_t>& lst) {
         return toString(string_t(sep), lst);
     }
     static string toString(const string& sep, const StringList& lst);
@@ -442,38 +413,17 @@ public:
     static int stricmp(const wstring& a, const wstring& b) { return stricmp(a.c_str(), b.c_str()); }
     static int strnicmp(const wstring& a, const wstring& b, size_t n) { return strnicmp(a.c_str(), b.c_str(), n); }
 
-    static int strcmp(const wchar_t* a, const wchar_t* b) {
-        while(*a && (*a) == (*b))
-            ++a, ++b;
-        return ((int)(*a)) - ((int)(*b));
-    }
-    static int strncmp(const wchar_t* a, const wchar_t* b, size_t n) {
-        while(n && *a && (*a) == (*b))
-            --n, ++a, ++b;
-
-        return n == 0 ? 0 : ((int)(*a)) - ((int)(*b));
-    }
-
+    static int strcmp(const wchar_t* a, const wchar_t* b);
+    static int strncmp(const wchar_t* a, const wchar_t* b, size_t n);
     static int strcmp(const wstring& a, const wstring& b) { return strcmp(a.c_str(), b.c_str()); }
     static int strncmp(const wstring& a, const wstring& b, size_t n) { return strncmp(a.c_str(), b.c_str(), n); }
 
     static string getIpCountry (string IP);
 
-    static void setLang(const string& lang) {
-        if(!lang.empty())
-#ifdef _WIN32
-            putenv((char *)string("LANGUAGE=" + lang).c_str());
-#else
-            setenv ("LANGUAGE", lang.c_str(), 1);
-#endif
-        /* Make change known.  */
-        {
-        ++_nl_msg_cat_cntr;
-        }
-    }
+    static void setLang(const string& lang);
 
     static bool getAway();
-    static void setAway(bool aAway);
+    static void setAway(bool b);
     static void switchAway();
 
     static bool getManualAway() { return manualAway; }
@@ -487,7 +437,12 @@ public:
     static uint32_t rand(uint32_t low, uint32_t high) { return rand(high-low) + low; }
     static double randd() { return ((double)rand()) / ((double)0xffffffff); }
 
-    static void parseIpPort(const string &aIpPort, string &ip, uint16_t &port);
+    static void parseIpPort(const string &aIpPort, string &ip, std::string &port);
+
+    static bool isAdcUrl(const string& aHubURL);
+    static bool isAdcsUrl(const string& aHubURL);
+    static bool isNmdcUrl(const string& aHubURL);
+
 private:
     /** In local mode, all config and temp files are kept in the same dir as the executable */
     static bool localMode;
@@ -514,35 +469,12 @@ struct CaseStringHash {
         return operator()(*s);
     }
 
-    size_t operator()(const string& s) const {
-        size_t x = 0;
-        const char* end = s.data() + s.size();
-        for(const char* str = s.data(); str < end; ) {
-            wchar_t c = 0;
-            int n = Text::utf8ToWc(str, c);
-            if(n < 0) {
-                x = x*32 - x + '_';
-                str += abs(n);
-            } else {
-                x = x*32 - x + (size_t)(c);
-                str += n;
-            }
-        }
-        return x;
-    }
+    size_t operator()(const string& s) const;
 
     size_t operator()(const wstring* s) const {
         return operator()(*s);
     }
-    size_t operator()(const wstring& s) const {
-        size_t x = 0;
-        const wchar_t* y = s.data();
-        wstring::size_type j = s.size();
-        for(wstring::size_type i = 0; i < j; ++i) {
-            x = x*31 + (size_t)(y[i]);
-        }
-        return x;
-    }
+    size_t operator()(const wstring& s) const;
 
     bool operator()(const string* a, const string* b) const {
         return ::strcmp((*a).c_str(), (*b).c_str()) < 0;

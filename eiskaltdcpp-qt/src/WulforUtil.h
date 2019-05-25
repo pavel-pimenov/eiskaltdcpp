@@ -138,7 +138,11 @@ public:
 
     QString getNicks(const CID &cid, const QString& = "");
 
-    const QString &getIconsPath() { return app_icons_path; }
+    QString getAppIconsPath() const;
+    QString getEmoticonsPath() const;
+    QString getClientIconsPath() const;
+    QString getTranslationsPath() const;
+    QString getAspellDataPath() const;
 
     const QPixmap &getPixmapForFile(const QString&);
 
@@ -171,13 +175,14 @@ public:
 
     QString compactToolTipText(QString, int, QString);
 
-    QMenu *buildUserCmdMenu(const std::string &hub_url, int ctx, QWidget* = 0);
-    QMenu *buildUserCmdMenu(const StringList& hub_list, int ctx, QWidget* = 0);
-    QMenu *buildUserCmdMenu(const QList<QString> &hub_list, int ctx, QWidget* = 0);
+    QMenu *buildUserCmdMenu(const std::string &hub_url, int ctx, QWidget* = nullptr);
+    QMenu *buildUserCmdMenu(const StringList& hub_list, int ctx, QWidget* = nullptr);
+    QMenu *buildUserCmdMenu(const QList<QString> &hub_list, int ctx, QWidget* = nullptr);
 
     static bool isTTH(const QString &text);
 
     QString getNickViaOnlineUser(const QString &cid, const QString &hintUrl);
+
 public Q_SLOTS:
     const QPixmap &getPixmap(Icons);
     QString getNicks(const QString&,const QString& = "");
@@ -200,10 +205,12 @@ private:
     QPixmap FROMTHEME(const QString &name, bool resource);
     QPixmap FROMTHEME_SIDE(const QString &name, bool resource, const int side);
 
-    QString findAppIconsPath();
+    QString findAppIconsPath() const;
+    QString findUserIconsPath() const;
+    QString getClientResourcesPath() const;
 
-    QString app_icons_path;
     QString bin_path;
+    QString app_icons_path;
 
     QPixmap *userIconCache[USERLIST_XPM_COLUMNS][USERLIST_XPM_ROWS];
     QImage  *userIcons;

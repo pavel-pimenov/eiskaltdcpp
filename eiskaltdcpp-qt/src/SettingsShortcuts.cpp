@@ -64,16 +64,14 @@ void SettingsShortcuts::slotIndexClicked(const QModelIndex &index){
 }
 
 ShortcutsModel::ShortcutsModel(QObject * parent) : QAbstractItemModel(parent) {
-    rootItem = new ShortcutItem(NULL);
+    rootItem = new ShortcutItem(nullptr);
 
     MainWindow *MW = MainWindow::getInstance();
     QMap<QString, QKeySequence> shs;
     shs = ShortcutManager::getInstance()->getShortcuts();
 
-    auto it = shs.begin();
-    const QAction *act = NULL;
-
-    for (; it != shs.end(); ++it){
+    const QAction *act = nullptr;
+    for (auto it = shs.begin(); it != shs.end(); ++it) {
         act = MW->findChild<QAction* >(it.key());
 
         if (!act)
@@ -97,12 +95,11 @@ ShortcutsModel::~ShortcutsModel() {
 }
 
 void ShortcutsModel::save(){
-    auto it = items.begin();
     MainWindow *MW = MainWindow::getInstance();
-    QAction *act = NULL;
+    QAction *act = nullptr;
 
-    for (; it != items.end(); ++it){
-        act = MW->findChild<QAction* >(it.value());
+    for (auto it = items.begin(); it != items.end(); ++it) {
+        act = MW->findChild<QAction*>(it.value());
 
         if (!act)
             continue;
@@ -123,7 +120,7 @@ int ShortcutsModel::columnCount(const QModelIndex & ) const {
 
 Qt::ItemFlags ShortcutsModel::flags(const QModelIndex &index) const {
     if (!index.isValid())
-        return 0;
+        return nullptr;
 
     return Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
@@ -138,31 +135,31 @@ QVariant ShortcutsModel::data(const QModelIndex & index, int role) const {
         return QVariant();
 
     switch (role){
-        case Qt::DisplayRole:
-        {
-            switch (index.column()) {
-                case 0: return item->title;
-                case 1: return item->shortcut;
-            }
+    case Qt::DisplayRole:
+    {
+        switch (index.column()) {
+        case 0: return item->title;
+        case 1: return item->shortcut;
+        }
 
-            break;
-        }
-        case Qt::DecorationRole:
-        {
-            break;
-        }
-        case Qt::ToolTipRole:
-        {
-            break;
-        }
-        case Qt::TextAlignmentRole:
-        {
-            break;
-        }
-        case Qt::FontRole:
-        {
-            break;
-        }
+        break;
+    }
+    case Qt::DecorationRole:
+    {
+        break;
+    }
+    case Qt::ToolTipRole:
+    {
+        break;
+    }
+    case Qt::TextAlignmentRole:
+    {
+        break;
+    }
+    case Qt::FontRole:
+    {
+        break;
+    }
     }
 
     return QVariant();
@@ -172,8 +169,8 @@ QVariant ShortcutsModel::data(const QModelIndex & index, int role) const {
 QVariant ShortcutsModel::headerData(int section, Qt::Orientation orientation, int role) const {
     if ((orientation == Qt::Horizontal) && (role == Qt::DisplayRole)) {
         switch (section) {
-            case 0: return tr("Action");
-            case 1: return tr("Hotkey");
+        case 0: return tr("Action");
+        case 1: return tr("Hotkey");
         }
     }
 
@@ -181,6 +178,8 @@ QVariant ShortcutsModel::headerData(int section, Qt::Orientation orientation, in
 }
 
 void ShortcutsModel::sort(int column, Qt::SortOrder order) {
+    Q_UNUSED(column)
+    Q_UNUSED(order)
     emit layoutChanged();
 }
 
@@ -202,6 +201,7 @@ ShortcutItem::ShortcutItem(ShortcutItem *parent) : parentItem(parent)
 ShortcutItem::~ShortcutItem()
 {
     qDeleteAll(childItems);
+    childItems.clear();
 }
 
 void ShortcutItem::appendChild(ShortcutItem *item) {

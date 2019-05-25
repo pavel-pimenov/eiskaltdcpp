@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
@@ -22,6 +21,7 @@
 
 #include "UserConnection.h"
 #include "ClientManager.h"
+#include "format.h"
 
 namespace dcpp {
 
@@ -58,7 +58,7 @@ void Transfer::tick() {
         }
     }
 
-    samples.push_back(std::make_pair(t, pos));
+    samples.emplace_back(t, pos);
 }
 
 double Transfer::getAverageSpeed() const {
@@ -101,7 +101,7 @@ const UserPtr Transfer::getUser() const {
     return getUserConnection().getUser();
 }
 
-const HintedUser Transfer::getHintedUser() const {
+HintedUser Transfer::getHintedUser() const {
     return getUserConnection().getHintedUser();
 }
 

@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -51,8 +50,8 @@ Emoticons* Emoticons::get()
 }
 
 Emoticons::Emoticons()
+    : currPackName(WGETS("emoticons-pack"))
 {
-    currPackName = WGETS("emoticons-pack");
     create();
 }
 
@@ -76,16 +75,16 @@ void Emoticons::create()
     /* load current pack */
     if (load(path + packName + ".xml"))
     {
-        useEmotions = TRUE;
+        useEmotions = true;
         return;
     }
 
     /* load next packs */
     StringList files = File::findFiles(path, "*.xml");
 
-    for(StringIter it = files.begin(); it != files.end(); ++it)
+    for(auto& it : files)
     {
-        file = Util::getFileName(*it);
+        file = Util::getFileName(it);
         string::size_type pos = file.rfind('.');
         file = file.substr(0, pos);
 
@@ -93,7 +92,7 @@ void Emoticons::create()
         {
             if (load(path + file + ".xml"))
             {
-                useEmotions = TRUE;
+                useEmotions = true;
                 currPackName = file;
                 return;
             }
@@ -121,13 +120,13 @@ void Emoticons::clean()
         filter.clear();
     }
 
-    useEmotions = FALSE;
+    useEmotions = false;
 }
 
 bool Emoticons::load(const string &file)
 {
     if (file.empty())
-        return FALSE;
+        return false;
 
     string path = string(_DATADIR) + G_DIR_SEPARATOR_S + "emoticons" + G_DIR_SEPARATOR_S;
     countfile = 0;
@@ -163,9 +162,9 @@ bool Emoticons::load(const string &file)
                     if (emotName.empty() || g_utf8_strlen(emotName.c_str(), -1) > Emot::SIZE_NAME || filter.count(emotName))
                         continue;
 
-//                  FIXME limit emotions
-//                  if (pack.size() > Emot::SIZE_LIST)
-//                      continue;
+                    //                  FIXME limit emotions
+                    //                  if (pack.size() > Emot::SIZE_LIST)
+                    //                      continue;
 
                     list = g_list_append(list, g_strdup(emotName.c_str()));
                     filter.insert(emotName);
@@ -177,15 +176,15 @@ bool Emoticons::load(const string &file)
                     pack.push_back(emot);
                     countfile++;
                 }
-                    xml.stepOut();
-            }
                 xml.stepOut();
+            }
+            xml.stepOut();
         }
     }
     catch (const Exception &e)
     {
         dcdebug("eiskaltdcpp-gtk: %s...\n", e.getError().c_str());
-        return FALSE;
+        return false;
     }
 
     return !pack.empty();

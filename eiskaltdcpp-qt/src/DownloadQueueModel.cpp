@@ -30,15 +30,13 @@
 #include <dcpp/stdinc.h>
 #include <dcpp/QueueManager.h>
 
-#define _DEBUG_ 1
-
-#if _DEBUG_
+#if _DEBUG_QT_UI
 #include <QtDebug>
 #endif
 
 #include <set>
 
-#if _DEBUG_
+#if _DEBUG_QT_UI
 static inline void printRoot(DownloadQueueItem *i, const QString &dlmtr){
     if (!i)
         return;
@@ -80,9 +78,9 @@ DownloadQueueModel::DownloadQueueModel(QObject *parent)
     QList<QVariant> rootData;
     rootData << tr("Name") << tr("Status") << tr("Size") << tr("Downloaded")
              << tr("Priority") << tr("User") << tr("Path") << tr("Exact size")
-             << tr("Errors") << tr("Added") << tr("TTH");
+             << tr("Errors") << tr("Added") << QString("TTH");
 
-    d->rootItem = new DownloadQueueItem(rootData, NULL);
+    d->rootItem = new DownloadQueueItem(rootData, nullptr);
 
     d->sortColumn = COLUMN_DOWNLOADQUEUE_NAME;
     d->sortOrder = Qt::DescendingOrder;
@@ -282,7 +280,7 @@ QVariant DownloadQueueModel::headerData(int section, Qt::Orientation orientation
     QList<QVariant> rootData;
     rootData << tr("Name") << tr("Status") << tr("Size") << tr("Downloaded")
              << tr("Priority") << tr("User") << tr("Path") << tr("Exact size")
-             << tr("Errors") << tr("Added") << tr("TTH");
+             << tr("Errors") << tr("Added") << QString("TTH");
 
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
         return rootData.at(section);
@@ -381,9 +379,9 @@ DownloadQueueItem *DownloadQueueModel::addItem(const QMap<QString, QVariant> &ma
     DownloadQueueItem *droot = createPath(map["PATH"].toString());
 
     if (!droot)
-        return NULL;
+        return nullptr;
 
-    DownloadQueueItem *child = NULL;
+    DownloadQueueItem *child = nullptr;
     QList<QVariant> childData;
 
     childData << map["FNAME"]
@@ -477,7 +475,7 @@ bool DownloadQueueModel::remItem(const QMap<QString, QVariant> &map){
     else {
 
         DownloadQueueItem *p = item;
-        DownloadQueueItem *_t = NULL;
+        DownloadQueueItem *_t = nullptr;
 
         while (true){
             if ((p == d->rootItem) || (p->childCount() > 1) || !p->parent())
@@ -514,7 +512,7 @@ void DownloadQueueModel::setRootElem(DownloadQueueItem *root, bool del_old, bool
     if (del_old && root != d->rootItem){//prevent deleting own root element
         delete d->rootItem;
 
-        d->rootItem = NULL;
+        d->rootItem = nullptr;
     }
 
     if (d->rootItem == root)
@@ -571,7 +569,7 @@ DownloadQueueItem *DownloadQueueModel::createPath(const QString & path){
     Q_D(static DownloadQueueModel);
 
     if (!d->rootItem)
-        return NULL;
+        return nullptr;
 
     QString _path = path;
     _path.replace("\\", "/");
@@ -643,7 +641,7 @@ void DownloadQueueModel::repaint(){
 }
 
 DownloadQueueItem *DownloadQueueModel::findTarget(const DownloadQueueItem *item, const QString &name){
-    DownloadQueueItem *target = NULL;
+    DownloadQueueItem *target = nullptr;
 
     for (const auto &i : item->childItems){
         if (i->data(COLUMN_DOWNLOADQUEUE_NAME).toString() == name){
@@ -656,28 +654,31 @@ DownloadQueueItem *DownloadQueueModel::findTarget(const DownloadQueueItem *item,
     return target;
 }
 
-DownloadQueueItem::DownloadQueueItem(const QList<QVariant> &data, DownloadQueueItem *parent) :
-    dir(false), itemData(data), parentItem(parent)
+DownloadQueueItem::DownloadQueueItem(const QList<QVariant> &data, DownloadQueueItem *parent)
+    : dir(false)
+    , itemData(data)
+    , parentItem(parent)
 {
 }
 
-DownloadQueueItem::DownloadQueueItem(const DownloadQueueItem &item){
-    itemData = item.itemData;
-    dir = item.dir;
-    parentItem = NULL;
-    childItems = QList<DownloadQueueItem*> ();
+DownloadQueueItem::DownloadQueueItem(const DownloadQueueItem &in)
+    : dir(in.dir)
+    , itemData(in.itemData)
+    , parentItem(nullptr)
+{
 }
-void DownloadQueueItem::operator=(const DownloadQueueItem &item){
-    parentItem = item.parentItem;
-    childItems = item.childItems;
-    itemData = item.itemData;
-    dir = item.dir;
+
+void DownloadQueueItem::operator=(const DownloadQueueItem &in){
+    parentItem = in.parentItem;
+    childItems = in.childItems;
+    itemData = in.itemData;
+    dir = in.dir;
 }
 
 DownloadQueueItem::~DownloadQueueItem()
 {
-    if (!childItems.isEmpty())
-        qDeleteAll(childItems);
+    qDeleteAll(childItems);
+    childItems.clear();
 }
 
 void DownloadQueueItem::appendChild(DownloadQueueItem *item) {
@@ -722,10 +723,10 @@ void DownloadQueueItem::updateColumn(int column, QVariant var){
 
 DownloadQueueItem *DownloadQueueItem::nextSibling(){
     if (!parent())
-        return NULL;
+        return nullptr;
 
     if (row() == (parent()->childCount()-1))
-        return NULL;
+        return nullptr;
 
     return parent()->child(row()+1);
 }
@@ -745,7 +746,20 @@ void DownloadQueueDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         return;
     }
 
-    QStyleOptionProgressBarV2 progressBarOption;
+    DownloadQueueItem *item = reinterpret_cast<DownloadQueueItem*>(index.internalPointer());
+
+    if (!item || item->dir) {
+        QStyledItemDelegate::paint(painter, option, index);
+        return;
+    }
+
+#if defined(USE_PROGRESS_BARS)
+    const qulonglong esize = item->data(COLUMN_DOWNLOADQUEUE_ESIZE).toLongLong();
+    double percent = ((double)item->data(COLUMN_DOWNLOADQUEUE_DOWN).toLongLong() * 100.0);
+    percent = (esize > 0) ? (percent/(double)esize) : 0.0;
+    const QString status = QString("%1%").arg(percent, 0, 'f', 1);
+
+    QStyleOptionProgressBar progressBarOption;
     progressBarOption.state = QStyle::State_Enabled;
     progressBarOption.direction = QApplication::layoutDirection();
     progressBarOption.rect = option.rect;
@@ -754,21 +768,6 @@ void DownloadQueueDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
     progressBarOption.maximum = 100;
     progressBarOption.textAlignment = Qt::AlignCenter;
     progressBarOption.textVisible = true;
-
-    DownloadQueueItem *item = reinterpret_cast<DownloadQueueItem*>(index.internalPointer());
-
-    if (!item || item->dir){
-        QStyledItemDelegate::paint(painter, option, index);
-        return;
-    }
-
-    qulonglong esize = item->data(COLUMN_DOWNLOADQUEUE_ESIZE).toLongLong();
-    double percent = ((double)item->data(COLUMN_DOWNLOADQUEUE_DOWN).toLongLong() * 100.0);
-
-    percent = esize > 0? (percent/(double)esize) : 0.0;
-
-    QString status = QString("%1%").arg(percent, 0, 'f', 1);
-
     progressBarOption.text = status;
     progressBarOption.progress = static_cast<int>(percent);
 
@@ -776,4 +775,16 @@ void DownloadQueueDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         painter->fillRect(option.rect, option.palette.highlight());
 
     QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBarOption, painter);
+#else
+    const qulonglong esize = item->data(COLUMN_DOWNLOADQUEUE_ESIZE).toLongLong();
+    double percent = ((double)item->data(COLUMN_DOWNLOADQUEUE_DOWN).toLongLong() * 100.0);
+    percent = (esize > 0) ? (percent/(double)esize) : 0.0;
+    const QString status = QString("%1%").arg(percent, 0, 'f', 1);
+
+    QStyleOptionViewItem plainTextOption = option;
+    plainTextOption.text = status;
+    plainTextOption.displayAlignment = Qt::AlignCenter;
+
+    QApplication::style()->drawControl(QStyle::CE_ItemViewItem, &plainTextOption, painter);
+#endif
 }

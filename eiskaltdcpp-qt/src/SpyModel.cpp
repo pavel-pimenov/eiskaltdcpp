@@ -76,7 +76,7 @@ QVariant SpyModel::data(const QModelIndex &index, int role) const
 Qt::ItemFlags SpyModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
-        return 0;
+        return nullptr;
 
     return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
@@ -149,7 +149,7 @@ struct Compare {
     void static insertSorted(int col, QList<SpyItem*>& items, SpyItem* item) {
         auto it = qLowerBound(items.begin(), items.end(), item, getAttrComp(col));
         items.insert(it, item);
-#ifdef _DEBUG_MODEL_
+#ifdef _DEBUG_QT_UI
         qDebug() << "Item inserted at " << items.indexOf(*it) << " position";
 #endif
     }
@@ -228,7 +228,7 @@ void SpyModel::addResult(const QString &file, bool isTTH)
         return;
 
     SpyItem *item;
-    SpyItem * parent = NULL;
+    SpyItem *parent = nullptr;
 
     if (hashes.contains(_file))
         parent = hashes[_file];

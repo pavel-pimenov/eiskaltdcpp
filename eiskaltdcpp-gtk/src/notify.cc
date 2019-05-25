@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -74,13 +73,13 @@ void Notify::init()
 #ifdef USE_LIBNOTIFY
     notify_init(g_get_application_name());
     notification = notify_notification_new("template", "template", NULL
-#if NOTIFY_CHECK_VERSION (0, 7, 0)
-    );
+                                       #if NOTIFY_CHECK_VERSION (0, 7, 0)
+                                           );
 #else
-    , NULL);
+                                           , NULL);
 #endif
 #endif // USE_LIBNOTIFY
-    action = FALSE;
+    bAction = false;
 }
 
 void Notify::finalize()
@@ -98,41 +97,41 @@ void Notify::setCurrIconSize(const int size)
 
     switch (size)
     {
-        case x16:
-            icon_width = icon_height = 16; // 16x16
-            break;
+    case x16:
+        icon_width = icon_height = 16; // 16x16
+        break;
 
-        case x22:
-            icon_width = icon_height = 22; // 22x22
-            break;
+    case x22:
+        icon_width = icon_height = 22; // 22x22
+        break;
 
-        case x24:
-            icon_width = icon_height = 24; // 24x24
-            break;
+    case x24:
+        icon_width = icon_height = 24; // 24x24
+        break;
 
-        case x32:
-            icon_width = icon_height = 32; // 32x32
-            break;
+    case x32:
+        icon_width = icon_height = 32; // 32x32
+        break;
 
-        case x36:
-            icon_width = icon_height = 36; // 36x36
-            break;
+    case x36:
+        icon_width = icon_height = 36; // 36x36
+        break;
 
-        case x48:
-            icon_width = icon_height = 48; // 48x48
-            break;
+    case x48:
+        icon_width = icon_height = 48; // 48x48
+        break;
 
-        case x64:
-            icon_width = icon_height = 64; // 64x64
-            break;
+    case x64:
+        icon_width = icon_height = 64; // 64x64
+        break;
 
-        case DEFAULT:
-            currIconSize = DEFAULT;
-            break;
+    case DEFAULT:
+        currIconSize = DEFAULT;
+        break;
 
-        default:
-            currIconSize = DEFAULT;
-            WSET("notify-icon-size", DEFAULT);
+    default:
+        currIconSize = DEFAULT;
+        WSET("notify-icon-size", DEFAULT);
     }
 }
 
@@ -142,77 +141,77 @@ void Notify::showNotify(const string &head, const string &body, TypeNotify notif
 
     switch (notify)
     {
-        case DOWNLOAD_FINISHED:
+    case DOWNLOAD_FINISHED:
 
-            if (action)
-            {
+        if (bAction)
+        {
 #ifdef USE_LIBNOTIFY
-                notify_notification_clear_actions(notification);
+            notify_notification_clear_actions(notification);
 #endif // USE_LIBNOTIFY
-                action = FALSE;
-            }
+            bAction = false;
+        }
 
-            if (wsm->getInt("notify-download-finished-use"))
-            {
+        if (wsm->getInt("notify-download-finished-use"))
+        {
 #ifdef USE_LIBNOTIFY
-                notify_notification_add_action(notification, "1", _("Open file"),
-                    (NotifyActionCallback) onAction, g_strdup(body.c_str()), g_free);
+            notify_notification_add_action(notification, "1", _("Open file"),
+                                           (NotifyActionCallback) onAction, g_strdup(body.c_str()), g_free);
 
-                notify_notification_add_action(notification, "2", _("Open folder"),
-                    (NotifyActionCallback) onAction, g_strdup(Util::getFilePath(body).c_str()), g_free);
+            notify_notification_add_action(notification, "2", _("Open folder"),
+                                           (NotifyActionCallback) onAction, g_strdup(Util::getFilePath(body).c_str()), g_free);
 #endif // USE_LIBNOTIFY
 
-                showNotify(wsm->getString("notify-download-finished-title"), head, Util::getFileName(body),
-                    wsm->getString("notify-download-finished-icon"), wsm->getInt("notify-icon-size"), NOTIFY_URGENCY_NORMAL);
+            showNotify(wsm->getString("notify-download-finished-title"), head, Util::getFileName(body),
+                       wsm->getString("notify-download-finished-icon"), wsm->getInt("notify-icon-size"), NOTIFY_URGENCY_NORMAL);
 
-                action = TRUE;
-            }
+            bAction = true;
+        }
 
-            break;
+        break;
 
-        case DOWNLOAD_FINISHED_USER_LIST:
+    case DOWNLOAD_FINISHED_USER_LIST:
 
-            if (wsm->getInt("notify-download-finished-ul-use"))
+        if (wsm->getInt("notify-download-finished-ul-use"))
             showNotify(wsm->getString("notify-download-finished-ul-title"), head, body,
-                wsm->getString("notify-download-finished-ul-icon"), wsm->getInt("notify-icon-size"), NOTIFY_URGENCY_LOW);
-            break;
+                       wsm->getString("notify-download-finished-ul-icon"), wsm->getInt("notify-icon-size"), NOTIFY_URGENCY_LOW);
+        break;
 
-        case PRIVATE_MESSAGE:
+    case PRIVATE_MESSAGE:
 
-            if (wsm->getInt("notify-private-message-use"))
+        if (wsm->getInt("notify-private-message-use"))
             showNotify(wsm->getString("notify-private-message-title"), head, body,
-                wsm->getString("notify-private-message-icon"), wsm->getInt("notify-icon-size"), NOTIFY_URGENCY_NORMAL);
-            break;
+                       wsm->getString("notify-private-message-icon"), wsm->getInt("notify-icon-size"), NOTIFY_URGENCY_NORMAL);
+        break;
 
-        case HUB_CONNECT:
+    case HUB_CONNECT:
 
-            if (wsm->getInt("notify-hub-connect-use"))
+        if (wsm->getInt("notify-hub-connect-use"))
             showNotify(wsm->getString("notify-hub-connect-title"), head, body,
-                wsm->getString("notify-hub-connect-icon"), wsm->getInt("notify-icon-size"), NOTIFY_URGENCY_NORMAL);
-            break;
+                       wsm->getString("notify-hub-connect-icon"), wsm->getInt("notify-icon-size"), NOTIFY_URGENCY_NORMAL);
+        break;
 
-        case HUB_DISCONNECT:
+    case HUB_DISCONNECT:
 
-            if (wsm->getInt("notify-hub-disconnect-use"))
+        if (wsm->getInt("notify-hub-disconnect-use"))
             showNotify(wsm->getString("notify-hub-disconnect-title"), head, body,
-                wsm->getString("notify-hub-disconnect-icon"), wsm->getInt("notify-icon-size"), NOTIFY_URGENCY_CRITICAL);
-            break;
+                       wsm->getString("notify-hub-disconnect-icon"), wsm->getInt("notify-icon-size"), NOTIFY_URGENCY_CRITICAL);
+        break;
 
-        case FAVORITE_USER_JOIN:
+    case FAVORITE_USER_JOIN:
 
-            if (wsm->getInt("notify-fuser-join"))
+        if (wsm->getInt("notify-fuser-join"))
             showNotify(wsm->getString("notify-fuser-join-title"), head, body,
-                wsm->getString("notify-fuser-join-icon"), wsm->getInt("notify-icon-size"), NOTIFY_URGENCY_NORMAL);
-            break;
+                       wsm->getString("notify-fuser-join-icon"), wsm->getInt("notify-icon-size"), NOTIFY_URGENCY_NORMAL);
+        break;
 
-        case FAVORITE_USER_QUIT:
+    case FAVORITE_USER_QUIT:
 
-            if (wsm->getInt("notify-fuser-quit"))
+        if (wsm->getInt("notify-fuser-quit"))
             showNotify(wsm->getString("notify-fuser-quit-title"), head, body,
-                wsm->getString("notify-fuser-quit-icon"), wsm->getInt("notify-icon-size"), NOTIFY_URGENCY_NORMAL);
-            break;
+                       wsm->getString("notify-fuser-quit-icon"), wsm->getInt("notify-icon-size"), NOTIFY_URGENCY_NORMAL);
+        break;
 
-        default: break;
+    default: break;
     }
 }
 
@@ -264,12 +263,12 @@ void Notify::showNotify(const string &title, const string &head, const string &b
         }
     }
 
-    if (action)
+    if (bAction)
     {
 #ifdef USE_LIBNOTIFY
         notify_notification_clear_actions(notification);
 #endif // USE_LIBNOTIFY
-        action = FALSE;
+        bAction = false;
     }
 
 #ifdef USE_LIBNOTIFY
@@ -277,9 +276,9 @@ void Notify::showNotify(const string &title, const string &head, const string &b
 #endif // USE_LIBNOTIFY
 }
 
-void Notify::onAction(NotifyNotification *notify, const char *action, gpointer data)
+void Notify::onAction(NotifyNotification *notify, const char*, gpointer data)
 {
-    string target = (gchar*)data;
+    const string target = (gchar*)data;
 
     if (!target.empty())
         WulforUtil::openURI(target);

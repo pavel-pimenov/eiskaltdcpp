@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
+ * Copyright (C) 2019 Boris Pek <tehnick-8@yandex.ru>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
@@ -33,23 +34,22 @@
 namespace dcpp {
 
 const char* SearchManager::types[TYPE_LAST] = {
-        N_("Any"),
-        N_("Audio"),
-        N_("Compressed"),
-        N_("Document"),
-        N_("Executable"),
-        N_("Picture"),
-        N_("Video"),
-        N_("Directory"),
-        N_("TTH"),
-        N_("CD Image")
+    N_("Any"),
+    N_("Audio"),
+    N_("Compressed"),
+    N_("Document"),
+    N_("Executable"),
+    N_("Picture"),
+    N_("Video"),
+    N_("Directory"),
+    N_("TTH"),
+    N_("CD Image")
 };
 const char* SearchManager::getTypeStr(int type) {
     return _(types[type]);
 }
 
 SearchManager::SearchManager() :
-    port(0),
     stop(false)
 {
     queue.start();
@@ -92,7 +92,7 @@ void SearchManager::listen() {
         socket->create(Socket::TYPE_UDP);
         socket->setBlocking(true);
         socket->setSocketOpt(SO_REUSEADDR, 1);
-        port = socket->bind(static_cast<uint16_t>(SETTING(UDP_PORT)), SETTING(BIND_IFACE)? socket->getIfaceI4(SETTING(BIND_IFACE_NAME)).c_str() : SETTING(BIND_ADDRESS));
+        port = socket->bind(Util::toString(SETTING(UDP_PORT)), SETTING(BIND_IFACE)? socket->getIfaceI4(SETTING(BIND_IFACE_NAME)).c_str() : SETTING(BIND_ADDRESS));
         start();
     } catch(...) {
         socket.reset();
@@ -105,7 +105,7 @@ void SearchManager::disconnect() noexcept {
         stop = true;
         queue.shutdown();
         socket->disconnect();
-        port = 0;
+        port.clear();
 
         join();
 
@@ -117,8 +117,7 @@ void SearchManager::disconnect() noexcept {
 
 #define BUFSIZE 8192
 int SearchManager::run() {
-    setThreadName("SearchManager");
-    boost::scoped_array<uint8_t> buf(new uint8_t[BUFSIZE]);
+    std::unique_ptr<uint8_t[]> buf(new uint8_t[BUFSIZE]);
     int len;
     sockaddr_in remoteAddr = { 0 };
 
@@ -159,7 +158,7 @@ int SearchManager::run() {
                 }
 
                 // Spin for 60 seconds
-                for(int i = 0; i < 60 && !stop; ++i) {
+                for(auto i = 0; i < 60 && !stop; ++i) {
                     Thread::sleep(1000);
                 }
             }
@@ -169,11 +168,10 @@ int SearchManager::run() {
 }
 
 int SearchManager::UdpQueue::run() {
-    setThreadName("UdpQueue");
     string x = Util::emptyString;
     string remoteIp = Util::emptyString;
     stop = false;
-;
+    ;
     while(true) {
         if (resultList.empty())
             s.wait();
@@ -190,129 +188,129 @@ int SearchManager::UdpQueue::run() {
             resultList.pop_front();
         }
 
-    if(x.compare(0, 4, "$SR ") == 0) {
-        string::size_type i, j;
-        // Directories: $SR <nick><0x20><directory><0x20><free slots>/<total slots><0x05><Hubname><0x20>(<Hubip:port>)
-        // Files:       $SR <nick><0x20><filename><0x05><filesize><0x20><free slots>/<total slots><0x05><Hubname><0x20>(<Hubip:port>)
-        i = 4;
-        if( (j = x.find(' ', i)) == string::npos) {
-            continue;
-        }
-        string nick = x.substr(i, j-i);
-        i = j + 1;
-
-        // A file has 2 0x05, a directory only one
-        size_t cnt = count(x.begin() + j, x.end(), 0x05);
-
-        SearchResult::Types type = SearchResult::TYPE_FILE;
-        string file;
-        int64_t size = 0;
-
-        if(cnt == 1) {
-            // We have a directory...find the first space beyond the first 0x05 from the back
-            // (dirs might contain spaces as well...clever protocol, eh?)
-            type = SearchResult::TYPE_DIRECTORY;
-            // Get past the hubname that might contain spaces
-            if((j = x.rfind(0x05)) == string::npos) {
-                continue;
-            }
-            // Find the end of the directory info
-            if((j = x.rfind(' ', j-1)) == string::npos) {
-                continue;
-            }
-            if(j < i + 1) {
-                continue;
-            }
-            file = x.substr(i, j-i) + '\\';
-        } else if(cnt == 2) {
-            if( (j = x.find((char)5, i)) == string::npos) {
-                continue;
-            }
-            file = x.substr(i, j-i);
-            i = j + 1;
+        if(x.compare(0, 4, "$SR ") == 0) {
+            string::size_type i, j;
+            // Directories: $SR <nick><0x20><directory><0x20><free slots>/<total slots><0x05><Hubname><0x20>(<Hubip:port>)
+            // Files:       $SR <nick><0x20><filename><0x05><filesize><0x20><free slots>/<total slots><0x05><Hubname><0x20>(<Hubip:port>)
+            i = 4;
             if( (j = x.find(' ', i)) == string::npos) {
                 continue;
             }
-            size = Util::toInt64(x.substr(i, j-i));
-        }
-        i = j + 1;
+            string nick = x.substr(i, j-i);
+            i = j + 1;
 
-        if( (j = x.find('/', i)) == string::npos) {
-            continue;
-        }
-        uint8_t freeSlots = (uint8_t)Util::toInt(x.substr(i, j-i));
-        i = j + 1;
-        if( (j = x.find((char)5, i)) == string::npos) {
-            continue;
-        }
-        uint8_t slots = (uint8_t)Util::toInt(x.substr(i, j-i));
-        i = j + 1;
-        if( (j = x.rfind(" (")) == string::npos) {
-            continue;
-        }
-        string hubName = x.substr(i, j-i);
-        i = j + 2;
-        if( (j = x.rfind(')')) == string::npos) {
-            continue;
-        }
+            // A file has 2 0x05, a directory only one
+            size_t cnt = count(x.begin() + j, x.end(), 0x05);
 
-        string hubIpPort = x.substr(i, j-i);
-        string url = ClientManager::getInstance()->findHub(hubIpPort);
+            SearchResult::Types type = SearchResult::TYPE_FILE;
+            string file;
+            int64_t size = 0;
 
-        string encoding = ClientManager::getInstance()->findHubEncoding(url);
-        nick = Text::toUtf8(nick, encoding);
-        file = Text::toUtf8(file, encoding);
-        hubName = Text::toUtf8(hubName, encoding);
+            if(cnt == 1) {
+                // We have a directory...find the first space beyond the first 0x05 from the back
+                // (dirs might contain spaces as well...clever protocol, eh?)
+                type = SearchResult::TYPE_DIRECTORY;
+                // Get past the hubname that might contain spaces
+                if((j = x.rfind(0x05)) == string::npos) {
+                    continue;
+                }
+                // Find the end of the directory info
+                if((j = x.rfind(' ', j-1)) == string::npos) {
+                    continue;
+                }
+                if(j < i + 1) {
+                    continue;
+                }
+                file = x.substr(i, j-i) + '\\';
+            } else if(cnt == 2) {
+                if( (j = x.find((char)5, i)) == string::npos) {
+                    continue;
+                }
+                file = x.substr(i, j-i);
+                i = j + 1;
+                if( (j = x.find(' ', i)) == string::npos) {
+                    continue;
+                }
+                size = Util::toInt64(x.substr(i, j-i));
+            }
+            i = j + 1;
 
-        UserPtr user = ClientManager::getInstance()->findUser(nick, url);
-        if(!user) {
-            // Could happen if hub has multiple URLs / IPs
-            user = ClientManager::getInstance()->findLegacyUser(nick);
-            if(!user)
+            if( (j = x.find('/', i)) == string::npos) {
                 continue;
-        }
+            }
+            uint8_t freeSlots = (uint8_t)Util::toInt(x.substr(i, j-i));
+            i = j + 1;
+            if( (j = x.find((char)5, i)) == string::npos) {
+                continue;
+            }
+            uint8_t slots = (uint8_t)Util::toInt(x.substr(i, j-i));
+            i = j + 1;
+            if( (j = x.rfind(" (")) == string::npos) {
+                continue;
+            }
+            string hubName = x.substr(i, j-i);
+            i = j + 2;
+            if( (j = x.rfind(')')) == string::npos) {
+                continue;
+            }
 
-        ClientManager::getInstance()->setIPUser(user, remoteIp);
+            string hubIpPort = x.substr(i, j-i);
+            string url = ClientManager::getInstance()->findHub(hubIpPort);
 
-        string tth;
-        if(hubName.compare(0, 4, "TTH:") == 0) {
-            tth = hubName.substr(4);
-            StringList names = ClientManager::getInstance()->getHubNames(user->getCID(), Util::emptyString);
-            hubName = names.empty() ? _("Offline") : Util::toString(names);
-        }
+            string encoding = ClientManager::getInstance()->findHubEncoding(url);
+            nick = Text::toUtf8(nick, encoding);
+            file = Text::toUtf8(file, encoding);
+            hubName = Text::toUtf8(hubName, encoding);
 
-        if(tth.empty() && type == SearchResult::TYPE_FILE) {
-            continue;
-        }
+            UserPtr user = ClientManager::getInstance()->findUser(nick, url);
+            if(!user) {
+                // Could happen if hub has multiple URLs / IPs
+                user = ClientManager::getInstance()->findLegacyUser(nick);
+                if(!user)
+                    continue;
+            }
 
-        SearchResultPtr sr(new SearchResult(user, type, slots, freeSlots, size,
-                        file, hubName, url, remoteIp, TTHValue(tth), Util::emptyString));
-        SearchManager::getInstance()->fire(SearchManagerListener::SR(), sr);
+            ClientManager::getInstance()->setIPUser(user, remoteIp);
 
-    } else if(x.compare(1, 4, "RES ") == 0 && x[x.length() - 1] == 0x0a) {
-        AdcCommand c(x.substr(0, x.length()-1));
-        if(c.getParameters().empty())
-            continue;
-        string cid = c.getParam(0);
-        if(cid.size() != 39)
-            continue;
+            string tth;
+            if(hubName.compare(0, 4, "TTH:") == 0) {
+                tth = hubName.substr(4);
+                StringList names = ClientManager::getInstance()->getHubNames(user->getCID(), Util::emptyString);
+                hubName = names.empty() ? _("Offline") : Util::toString(names);
+            }
 
-        UserPtr user = ClientManager::getInstance()->findUser(CID(cid));
-        if(!user)
-            continue;
+            if(tth.empty() && type == SearchResult::TYPE_FILE) {
+                continue;
+            }
 
-        // This should be handled by AdcCommand really...
-        c.getParameters().erase(c.getParameters().begin());
+            SearchResultPtr sr(new SearchResult(user, type, slots, freeSlots, size,
+                                                file, hubName, url, remoteIp, TTHValue(tth), Util::emptyString));
+            SearchManager::getInstance()->fire(SearchManagerListener::SR(), sr);
 
-        SearchManager::getInstance()->onRES(c, user, remoteIp);
-
-    } if(x.compare(1, 4, "PSR ") == 0 && x[x.length() - 1] == 0x0a) {
+        } else if(x.compare(1, 4, "RES ") == 0 && x[x.length() - 1] == 0x0a) {
             AdcCommand c(x.substr(0, x.length()-1));
             if(c.getParameters().empty())
-                    continue;
+                continue;
             string cid = c.getParam(0);
             if(cid.size() != 39)
-                    continue;
+                continue;
+
+            UserPtr user = ClientManager::getInstance()->findUser(CID(cid));
+            if(!user)
+                continue;
+
+            // This should be handled by AdcCommand really...
+            c.getParameters().erase(c.getParameters().begin());
+
+            SearchManager::getInstance()->onRES(c, user, remoteIp);
+
+        } if(x.compare(1, 4, "PSR ") == 0 && x[x.length() - 1] == 0x0a) {
+            AdcCommand c(x.substr(0, x.length()-1));
+            if(c.getParameters().empty())
+                continue;
+            string cid = c.getParam(0);
+            if(cid.size() != 39)
+                continue;
 
             UserPtr user = ClientManager::getInstance()->findUser(CID(cid));
             // when user == NULL then it is probably NMDC user, check it later
@@ -321,7 +319,7 @@ int SearchManager::UdpQueue::run() {
 
             SearchManager::getInstance()->onPSR(c, user, remoteIp);
 
-    } /*else if(x.compare(1, 4, "SCH ") == 0 && x[x.length() - 1] == 0x0a) {
+        } /*else if(x.compare(1, 4, "SCH ") == 0 && x[x.length() - 1] == 0x0a) {
         try {
             respond(AdcCommand(x.substr(0, x.length()-1)));
         } catch(ParseException& ) {
@@ -329,9 +327,9 @@ int SearchManager::UdpQueue::run() {
     }*/ // Needs further DoS investigation
 
 
-                Thread::sleep(10);
-        }
-        return 0;
+        Thread::sleep(10);
+    }
+    return 0;
 }
 
 void SearchManager::onData(const uint8_t* buf, size_t aLen, const string& remoteIp) {
@@ -371,18 +369,18 @@ void SearchManager::onRES(const AdcCommand& cmd, const UserPtr& from, const stri
 
         SearchResult::Types type = (file[file.length() - 1] == '\\' ? SearchResult::TYPE_DIRECTORY : SearchResult::TYPE_FILE);
         if(type == SearchResult::TYPE_FILE && tth.empty())
-                return;
+            return;
 
         uint8_t slots = ClientManager::getInstance()->getSlots(from->getCID());
         SearchResultPtr sr(new SearchResult(from, type, slots, (uint8_t)freeSlots, size,
-                file, hubName, hub, remoteIp, TTHValue(tth), token));
+                                            file, hubName, hub, remoteIp, TTHValue(tth), token));
         fire(SearchManagerListener::SR(), sr);
     }
 }
 
 void SearchManager::onPSR(const AdcCommand& cmd, UserPtr from, const string& remoteIp) {
 
-    uint16_t udpPort = 0;
+    string udpPort;
     uint32_t partialCount = 0;
     string tth;
     string hubIpPort;
@@ -392,7 +390,7 @@ void SearchManager::onPSR(const AdcCommand& cmd, UserPtr from, const string& rem
     for(StringIterC i = cmd.getParameters().begin(); i != cmd.getParameters().end(); ++i) {
         const string& str = *i;
         if(str.compare(0, 2, "U4") == 0) {
-            udpPort = static_cast<uint16_t>(Util::toInt(str.substr(2)));
+            udpPort = str.substr(2);
         } else if(str.compare(0, 2, "NI") == 0) {
             nick = str.substr(2);
         } else if(str.compare(0, 2, "HI") == 0) {
@@ -403,8 +401,8 @@ void SearchManager::onPSR(const AdcCommand& cmd, UserPtr from, const string& rem
             partialCount = Util::toUInt32(str.substr(2))*2;
         } else if(str.compare(0, 2, "PI") == 0) {
             StringTokenizer<string> tok(str.substr(2), ',');
-            for(StringIter i = tok.getTokens().begin(); i != tok.getTokens().end(); ++i) {
-                partialInfo.push_back((uint16_t)Util::toInt(*i));
+            for(auto& i : tok.getTokens()) {
+                partialInfo.push_back((uint16_t)Util::toInt(i));
             }
         }
     }
@@ -441,7 +439,7 @@ void SearchManager::onPSR(const AdcCommand& cmd, UserPtr from, const string& rem
 
     QueueManager::getInstance()->handlePartialResult(from, url, TTHValue(tth), ps, outPartialInfo);
 
-    if((udpPort > 0) && !outPartialInfo.empty()) {
+    if((Util::toInt(udpPort) > 0) && !outPartialInfo.empty()) {
         try {
             AdcCommand cmd = SearchManager::getInstance()->toPSR(false, ps.getMyNick(), hubIpPort, tth, outPartialInfo);
             ClientManager::getInstance()->send(cmd, from->getCID());
@@ -512,7 +510,7 @@ AdcCommand SearchManager::toPSR(bool wantResponse, const string& myNick, const s
         cmd.addParam("NI", Text::utf8ToAcp(myNick));
 
     cmd.addParam("HI", hubIpPort);
-    cmd.addParam("U4", Util::toString(wantResponse && ClientManager::getInstance()->isActive(hubIpPort) ? SearchManager::getInstance()->getPort() : 0));
+    cmd.addParam("U4", (wantResponse && ClientManager::getInstance()->isActive(hubIpPort)) ? SearchManager::getInstance()->getPort() : Util::emptyString);
     cmd.addParam("TR", tth);
     cmd.addParam("PC", Util::toString(partialInfo.size() / 2));
     cmd.addParam("PI", getPartsString(partialInfo));

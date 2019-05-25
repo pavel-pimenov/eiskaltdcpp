@@ -37,7 +37,7 @@ class SearchFramePrivate;
 
 class SearchStringListModel: public QStringListModel{
 public:
-    SearchStringListModel(QObject *parent = NULL): QStringListModel(parent){}
+    SearchStringListModel(QObject *parent = nullptr): QStringListModel(parent){}
     virtual ~SearchStringListModel(){}
 
     QVariant data(const QModelIndex &index, int role) const;
@@ -84,7 +84,7 @@ class SearchFrame : public QWidget,
             None
         };
 
-        Action exec(QStringList);
+        Action exec(const QStringList &);
         QMenu *buildUserCmdMenu(QList<QString> hubs);
         QString getDownloadToPath() { return downToPath; }
         int getCommandId() { return uc_cmd_id; }
@@ -115,7 +115,7 @@ public:
         Highlight
     };
 
-    SearchFrame(QWidget* = NULL);
+    SearchFrame(QWidget* = nullptr);
     virtual ~SearchFrame();
 
     QWidget *getWidget();

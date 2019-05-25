@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
@@ -48,6 +47,13 @@ public:\
         virtual ~name() throw() { } \
 }
 
+#define EXTEND_EXCEPTION(name, parent) class name : public parent { \
+    public:\
+    name() : parent(#name) { } \
+    name(const string& aError) : parent(#name ": " + aError) { } \
+    virtual ~name() throw() { } \
+}
+
 #else // _DEBUG
 
 #define STANDARD_EXCEPTION(name) class name : public Exception { \
@@ -56,6 +62,14 @@ public:\
         name(const string& aError) : Exception(aError) { } \
         virtual ~name() throw() { } \
 }
+
+#define EXTEND_EXCEPTION(name, parent) class name : public parent { \
+    public:\
+    name() : parent() { } \
+    name(const string& aError) : parent(aError) { } \
+    virtual ~name() throw() { } \
+}
+
 #endif
 
 } // namespace dcpp

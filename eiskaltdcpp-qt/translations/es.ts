@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es">
+<TS version="2.1" language="es">
 <context>
     <name>ADLS</name>
     <message>
@@ -9,53 +9,53 @@
         <translation>Búsqueda ADL</translation>
     </message>
     <message>
-        <location filename="../src/ADLS.cpp" line="139"/>
-        <location filename="../src/ADLS.cpp" line="156"/>
+        <location filename="../src/ADLS.cpp" line="138"/>
+        <location filename="../src/ADLS.cpp" line="155"/>
         <source>Add new</source>
         <translation>Añadir nuevo</translation>
     </message>
     <message>
-        <location filename="../src/ADLS.cpp" line="157"/>
+        <location filename="../src/ADLS.cpp" line="156"/>
         <source>Change</source>
         <translation>Cambiar</translation>
     </message>
     <message>
-        <location filename="../src/ADLS.cpp" line="158"/>
+        <location filename="../src/ADLS.cpp" line="157"/>
         <source>Delete</source>
         <translation>Borrar</translation>
     </message>
     <message>
-        <location filename="../src/ADLS.cpp" line="381"/>
+        <location filename="../src/ADLS.cpp" line="383"/>
         <source>Filename</source>
         <translation>Nombre de archivo</translation>
     </message>
     <message>
-        <location filename="../src/ADLS.cpp" line="382"/>
+        <location filename="../src/ADLS.cpp" line="384"/>
         <source>Directory</source>
         <translation>Directorio</translation>
     </message>
     <message>
-        <location filename="../src/ADLS.cpp" line="383"/>
+        <location filename="../src/ADLS.cpp" line="385"/>
         <source>Full Path</source>
         <translation>Ruta Completa</translation>
     </message>
     <message>
-        <location filename="../src/ADLS.cpp" line="389"/>
+        <location filename="../src/ADLS.cpp" line="391"/>
         <source>B</source>
         <translation>B</translation>
     </message>
     <message>
-        <location filename="../src/ADLS.cpp" line="390"/>
+        <location filename="../src/ADLS.cpp" line="392"/>
         <source>KiB</source>
         <translation>KiB</translation>
     </message>
     <message>
-        <location filename="../src/ADLS.cpp" line="391"/>
+        <location filename="../src/ADLS.cpp" line="393"/>
         <source>MiB</source>
         <translation>MiB</translation>
     </message>
     <message>
-        <location filename="../src/ADLS.cpp" line="392"/>
+        <location filename="../src/ADLS.cpp" line="394"/>
         <source>GiB</source>
         <translation>GiB</translation>
     </message>
@@ -101,7 +101,7 @@
 <context>
     <name>About</name>
     <message>
-        <location filename="../src/MainWindow.h" line="71"/>
+        <location filename="../src/MainWindow.h" line="67"/>
         <source>Using:
   eiskaltdcpp-qt &lt;magnet link&gt; &lt;dchub://link&gt; &lt;adc(s)://link&gt;
   eiskaltdcpp-qt &lt;Key&gt;
@@ -166,8 +166,8 @@ Opciones:
     <name>CmdDebug</name>
     <message>
         <location filename="../src/CmdDebug.cpp" line="39"/>
-        <source>CmdDebug</source>
-        <translation>CmdDebug</translation>
+        <source>Debug Console</source>
+        <translation>Consola de Depuración</translation>
     </message>
 </context>
 <context>
@@ -208,11 +208,6 @@ Opciones:
 <context>
     <name>DialogScriptConsole</name>
     <message>
-        <location filename="../ui/UIDialogScriptConsole.ui" line="17"/>
-        <source>Dialog</source>
-        <translation>Diálogo</translation>
-    </message>
-    <message>
         <location filename="../ui/UIDialogScriptConsole.ui" line="30"/>
         <source>Output</source>
         <translation>Salida</translation>
@@ -241,157 +236,157 @@ Opciones:
 <context>
     <name>DownloadQueue</name>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="60"/>
+        <location filename="../src/DownloadQueue.cpp" line="58"/>
         <source>Magnet</source>
         <translation>Magnet</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="62"/>
+        <location filename="../src/DownloadQueue.cpp" line="60"/>
         <source>Search for alternates</source>
         <translation>Búscar alternativos</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="63"/>
+        <location filename="../src/DownloadQueue.cpp" line="61"/>
         <source>Copy magnet</source>
         <translation>Copiar Magnet</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="64"/>
+        <location filename="../src/DownloadQueue.cpp" line="62"/>
         <source>Copy web-magnet</source>
         <translation>Copiar enlace Magnet para Web</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="65"/>
+        <location filename="../src/DownloadQueue.cpp" line="63"/>
         <source>Properties of magnet</source>
         <translation>Propiedades del Magnet</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="66"/>
+        <location filename="../src/DownloadQueue.cpp" line="64"/>
         <source>Rename/Move</source>
         <translation>Renombrar/Mover</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="71"/>
+        <location filename="../src/DownloadQueue.cpp" line="69"/>
         <source>Set priority</source>
         <translation>Establecer prioridad</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="73"/>
+        <location filename="../src/DownloadQueue.cpp" line="71"/>
         <source>Paused</source>
         <translation>Pausado</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="76"/>
+        <location filename="../src/DownloadQueue.cpp" line="74"/>
         <source>Lowest</source>
         <translation>Mínima</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="79"/>
+        <location filename="../src/DownloadQueue.cpp" line="77"/>
         <source>Low</source>
         <translation>Baja</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="82"/>
+        <location filename="../src/DownloadQueue.cpp" line="80"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="85"/>
+        <location filename="../src/DownloadQueue.cpp" line="83"/>
         <source>High</source>
         <translation>Alta</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="88"/>
+        <location filename="../src/DownloadQueue.cpp" line="86"/>
         <source>Highest</source>
         <translation>Máxima</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="94"/>
+        <location filename="../src/DownloadQueue.cpp" line="92"/>
         <source>Browse files</source>
         <translation>Explorar archivos</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="95"/>
+        <location filename="../src/DownloadQueue.cpp" line="93"/>
         <source>Send private message</source>
         <translation>Enviar mensaje privado</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="100"/>
+        <location filename="../src/DownloadQueue.cpp" line="98"/>
         <source>Remove source</source>
         <translation>Eliminar fuente</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="101"/>
+        <location filename="../src/DownloadQueue.cpp" line="99"/>
         <source>Remove user</source>
         <translation>Eliminar usuario</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="103"/>
+        <location filename="../src/DownloadQueue.cpp" line="101"/>
         <source>Remove</source>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="360"/>
+        <location filename="../src/DownloadQueue.cpp" line="356"/>
         <source>No users...</source>
         <translation>Sin usuarios...</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="367"/>
+        <location filename="../src/DownloadQueue.cpp" line="363"/>
         <source>%1 of %2 user(s) online</source>
         <translation>%1 de %2 usuario(s) conectados</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="369"/>
+        <location filename="../src/DownloadQueue.cpp" line="365"/>
         <source>Running...</source>
         <translation>Realizando...</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="395"/>
+        <location filename="../src/DownloadQueue.cpp" line="389"/>
         <source>File not available</source>
         <translation>Archivo no disponible</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="397"/>
+        <location filename="../src/DownloadQueue.cpp" line="391"/>
         <source>Passive user</source>
         <translation>Usuario pasivo</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="399"/>
+        <location filename="../src/DownloadQueue.cpp" line="393"/>
         <source>Checksum mismatch</source>
         <translation>La suma de verificación no coincide</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="401"/>
+        <location filename="../src/DownloadQueue.cpp" line="395"/>
         <source>Full tree does not match TTH root</source>
         <translation>El árbol completo no coincide con la raíz TTH</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="403"/>
+        <location filename="../src/DownloadQueue.cpp" line="397"/>
         <source>Source too slow</source>
         <translation>Fuente muy lenta</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="405"/>
+        <location filename="../src/DownloadQueue.cpp" line="399"/>
         <source>Remote client does not fully support TTH - cannot download</source>
         <translation>El cliente remoto no es del todo compatible con TTH - no se puede descargar</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="412"/>
+        <location filename="../src/DownloadQueue.cpp" line="406"/>
         <source>No errors</source>
         <translation>Sin errores</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="653"/>
+        <location filename="../src/DownloadQueue.cpp" line="644"/>
         <source>Choose filename</source>
         <translation>Elegir nombre de archivo</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="653"/>
+        <location filename="../src/DownloadQueue.cpp" line="644"/>
         <source>All files (*.*)</source>
         <translation>Todos los archivos (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="793"/>
+        <location filename="../src/DownloadQueue.cpp" line="784"/>
         <source>Total files: &lt;b&gt;%1&lt;/b&gt; Total size: &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Archivos totales : &lt;b&gt;%1&lt;/b&gt; Tamaño total: &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
@@ -404,109 +399,103 @@ Opciones:
 <context>
     <name>DownloadQueueModel</name>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="81"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="283"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="79"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="281"/>
         <source>Name</source>
         <translation>Nombre</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="81"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="283"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="79"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="281"/>
         <source>Status</source>
         <translation>Estado</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="81"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="283"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="79"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="281"/>
         <source>Size</source>
         <translation>Tamaño</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="81"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="283"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="79"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="281"/>
         <source>Downloaded</source>
         <translation>Descargado</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="82"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="284"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="80"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="282"/>
         <source>Priority</source>
         <translation>Prioridad</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="82"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="284"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="80"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="282"/>
         <source>User</source>
         <translation>Usuario</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="82"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="284"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="80"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="282"/>
         <source>Path</source>
         <translation>Ruta</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="82"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="284"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="80"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="282"/>
         <source>Exact size</source>
         <translation>Tamaño exacto</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="83"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="285"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="81"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="283"/>
         <source>Errors</source>
         <translation>Errores</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="83"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="285"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="81"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="283"/>
         <source>Added</source>
         <translation>Añadida</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="83"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="285"/>
-        <source>TTH</source>
-        <translation>TTH</translation>
-    </message>
-    <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="139"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="137"/>
         <source>Paused</source>
         <translation>Pausada</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="142"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="140"/>
         <source>Lowest</source>
         <translation>Más baja</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="145"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="143"/>
         <source>Low</source>
         <translation>Baja</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="148"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="146"/>
         <source>High</source>
         <translation>Alta</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="151"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="149"/>
         <source>Highest</source>
         <translation>Más alta</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="154"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="152"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="175"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="192"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="173"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="190"/>
         <source>No errors</source>
         <translation>Sin errores</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="194"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="192"/>
         <source>&lt;b&gt;Added: &lt;/b&gt; %1
 &lt;b&gt;Path: &lt;/b&gt; %2
 &lt;b&gt;Errors: &lt;/b&gt; %3
@@ -567,11 +556,6 @@ Opciones:
         <source>Remote encoding</source>
         <translation>Codificación remota</translation>
     </message>
-    <message>
-        <location filename="../src/FavoriteHubModel.cpp" line="58"/>
-        <source>******</source>
-        <translation>******</translation>
-    </message>
 </context>
 <context>
     <name>FavoriteHubs</name>
@@ -581,30 +565,30 @@ Opciones:
         <translation>Hubs favoritos</translation>
     </message>
     <message>
-        <location filename="../src/FavoriteHubs.cpp" line="170"/>
-        <location filename="../src/FavoriteHubs.cpp" line="200"/>
-        <location filename="../src/FavoriteHubs.cpp" line="312"/>
+        <location filename="../src/FavoriteHubs.cpp" line="179"/>
+        <location filename="../src/FavoriteHubs.cpp" line="209"/>
+        <location filename="../src/FavoriteHubs.cpp" line="321"/>
         <source>System default</source>
         <translation>Por defecto del sistema</translation>
     </message>
     <message>
-        <location filename="../src/FavoriteHubs.cpp" line="372"/>
-        <location filename="../src/FavoriteHubs.cpp" line="402"/>
+        <location filename="../src/FavoriteHubs.cpp" line="381"/>
+        <location filename="../src/FavoriteHubs.cpp" line="411"/>
         <source>Add new</source>
         <translation>Añadir nuevo</translation>
     </message>
     <message>
-        <location filename="../src/FavoriteHubs.cpp" line="403"/>
+        <location filename="../src/FavoriteHubs.cpp" line="412"/>
         <source>Change</source>
         <translation>Cambiar</translation>
     </message>
     <message>
-        <location filename="../src/FavoriteHubs.cpp" line="404"/>
+        <location filename="../src/FavoriteHubs.cpp" line="413"/>
         <source>Delete</source>
         <translation>Borrar</translation>
     </message>
     <message>
-        <location filename="../src/FavoriteHubs.cpp" line="405"/>
+        <location filename="../src/FavoriteHubs.cpp" line="414"/>
         <source>Connect</source>
         <translation>Conectar</translation>
     </message>
@@ -670,92 +654,87 @@ Opciones:
 <context>
     <name>FileBrowserModel</name>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="111"/>
+        <location filename="../src/FileBrowserModel.cpp" line="112"/>
         <source>%1 [%2 Gb]</source>
         <translation>%1 [%2 Gb]</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="175"/>
+        <location filename="../src/FileBrowserModel.cpp" line="176"/>
         <source>File marked as a duplicate of another file: %1</source>
         <translation>Archivo marcado como duplicado de otro archivo: %1</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="190"/>
+        <location filename="../src/FileBrowserModel.cpp" line="191"/>
         <source>&lt;b&gt;Media Info:&lt;/b&gt;&lt;br/&gt;</source>
         <translation>&lt;b&gt;Info. del medio:&lt;/b&gt;&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="192"/>
+        <location filename="../src/FileBrowserModel.cpp" line="193"/>
         <source>&amp;nbsp;&amp;nbsp;&lt;b&gt;Video:&lt;/b&gt; %1&lt;br/&gt;</source>
         <translation>&amp;nbsp;&amp;nbsp;&lt;b&gt;Vídeo:&lt;/b&gt; %1&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="194"/>
+        <location filename="../src/FileBrowserModel.cpp" line="195"/>
         <source>&amp;nbsp;&amp;nbsp;&lt;b&gt;Audio:&lt;/b&gt; %1&lt;br/&gt;</source>
         <translation>&amp;nbsp;&amp;nbsp;&lt;b&gt;Audio:&lt;/b&gt; %1&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="196"/>
+        <location filename="../src/FileBrowserModel.cpp" line="197"/>
         <source>&amp;nbsp;&amp;nbsp;&lt;b&gt;Bitrate:&lt;/b&gt; %1&lt;br/&gt;</source>
         <translation>&amp;nbsp;&amp;nbsp;&lt;b&gt;Tasa de bits:&lt;/b&gt; %1&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="198"/>
+        <location filename="../src/FileBrowserModel.cpp" line="199"/>
         <source>&amp;nbsp;&amp;nbsp;&lt;b&gt;Resolution:&lt;/b&gt; %1&lt;br/&gt;&lt;br/&gt;</source>
         <translation>&amp;nbsp;&amp;nbsp;&lt;b&gt;Resolución:&lt;/b&gt; %1&lt;br/&gt;&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="209"/>
+        <location filename="../src/FileBrowserModel.cpp" line="210"/>
         <source>File already exists: %1</source>
         <translation>El archivo ya existe: %1</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="311"/>
+        <location filename="../src/FileBrowserModel.cpp" line="312"/>
         <source>Name</source>
         <translation>Nombre</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="311"/>
+        <location filename="../src/FileBrowserModel.cpp" line="312"/>
         <source>Size</source>
         <translation>Tamaño</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="311"/>
+        <location filename="../src/FileBrowserModel.cpp" line="312"/>
         <source>Exact size</source>
         <translation>Tamaño exacto</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="311"/>
-        <source>TTH</source>
-        <translation>TTH</translation>
-    </message>
-    <message>
-        <location filename="../src/FileBrowserModel.cpp" line="312"/>
+        <location filename="../src/FileBrowserModel.cpp" line="313"/>
         <source>Bitrate</source>
         <translation>Tasa de bits</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="312"/>
+        <location filename="../src/FileBrowserModel.cpp" line="313"/>
         <source>Resolution</source>
         <translation>Resolución</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="312"/>
+        <location filename="../src/FileBrowserModel.cpp" line="313"/>
         <source>Video</source>
         <translation>Vídeo</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="312"/>
+        <location filename="../src/FileBrowserModel.cpp" line="313"/>
         <source>Audio</source>
         <translation>Audio</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="313"/>
+        <location filename="../src/FileBrowserModel.cpp" line="314"/>
         <source>Downloaded</source>
         <translation>Descargado</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="313"/>
+        <location filename="../src/FileBrowserModel.cpp" line="314"/>
         <source>Shared</source>
         <translation>Compartido</translation>
     </message>
@@ -789,12 +768,12 @@ Opciones:
 <context>
     <name>FinishedTransfers</name>
     <message>
-        <location filename="../src/FinishedTransfers.h" line="490"/>
+        <location filename="../src/FinishedTransfers.h" line="484"/>
         <source>Open file</source>
         <translation>Abrir archivo</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfers.h" line="491"/>
+        <location filename="../src/FinishedTransfers.h" line="485"/>
         <source>Open directory</source>
         <translation>Abrir directorio</translation>
     </message>
@@ -802,69 +781,69 @@ Opciones:
 <context>
     <name>FinishedTransfersModel</name>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="50"/>
-        <location filename="../src/FinishedTransfersModel.cpp" line="56"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="45"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="51"/>
         <source>User</source>
         <translation>Usuario</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="50"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="45"/>
         <source>Files</source>
         <translation>Archivos</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="50"/>
-        <location filename="../src/FinishedTransfersModel.cpp" line="56"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="45"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="51"/>
         <source>Time</source>
         <translation>Fecha y hora</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="50"/>
-        <location filename="../src/FinishedTransfersModel.cpp" line="57"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="45"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="52"/>
         <source>Transferred</source>
         <translation>Transferido</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="51"/>
-        <location filename="../src/FinishedTransfersModel.cpp" line="57"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="46"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="52"/>
         <source>Speed</source>
         <translation>Velocidad</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="51"/>
-        <location filename="../src/FinishedTransfersModel.cpp" line="58"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="46"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="53"/>
         <source>Elapsed time</source>
         <translation>Tiempo transcurrido</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="51"/>
-        <location filename="../src/FinishedTransfersModel.cpp" line="58"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="46"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="53"/>
         <source>Full</source>
         <translation>Lleno</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="56"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="51"/>
         <source>Filename</source>
         <translation>Nombre de archivo</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="56"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="51"/>
         <source>Path</source>
         <translation>Ruta</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="57"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="52"/>
         <source>Check sum</source>
         <translation>Suma de verificación</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="58"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="53"/>
         <source>Target</source>
         <translation>Destino</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="121"/>
-        <location filename="../src/FinishedTransfersModel.cpp" line="131"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="116"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="126"/>
         <source>%1/s</source>
         <translation>%1/s</translation>
     </message>
@@ -872,58 +851,64 @@ Opciones:
 <context>
     <name>HashProgress</name>
     <message>
-        <location filename="../src/HashProgress.cpp" line="95"/>
+        <location filename="../src/HashProgress.cpp" line="102"/>
         <source>Refreshing file list</source>
         <translation>Refrescando lista de archivos</translation>
     </message>
     <message>
-        <location filename="../src/HashProgress.cpp" line="125"/>
+        <location filename="../src/HashProgress.cpp" line="134"/>
         <source>-.-- files/h, %1 files left</source>
         <translation>-.-- archivos/h, %1 archivos restantes</translation>
     </message>
     <message>
-        <location filename="../src/HashProgress.cpp" line="126"/>
+        <location filename="../src/HashProgress.cpp" line="135"/>
         <source>-.-- B/s, %1 left</source>
         <translation>-.-- B/s, %1 restante</translation>
     </message>
     <message>
-        <location filename="../src/HashProgress.cpp" line="127"/>
-        <location filename="../src/HashProgress.cpp" line="138"/>
+        <location filename="../src/HashProgress.cpp" line="136"/>
+        <location filename="../src/HashProgress.cpp" line="154"/>
         <source>-:--:--</source>
         <translation>-:--:--</translation>
     </message>
     <message>
-        <location filename="../src/HashProgress.cpp" line="132"/>
+        <location filename="../src/HashProgress.cpp" line="139"/>
+        <location filename="../src/HashProgress.cpp" line="165"/>
+        <source>%1% %2 left</source>
+        <translation>%1% %2 restante</translation>
+    </message>
+    <message>
+        <location filename="../src/HashProgress.cpp" line="148"/>
         <source>%1 files/h, %2 files left</source>
         <translation>%1 archivos/h, %2 archivos restantes</translation>
     </message>
     <message>
-        <location filename="../src/HashProgress.cpp" line="133"/>
+        <location filename="../src/HashProgress.cpp" line="149"/>
         <source>%1/s, %2 left, %3 shared</source>
         <translation>%1/s, %2 restantes, %3 compartidos</translation>
     </message>
     <message>
-        <location filename="../src/HashProgress.cpp" line="146"/>
+        <location filename="../src/HashProgress.cpp" line="163"/>
         <source>%p% %1 left</source>
         <translation>%p% %1 restante</translation>
     </message>
     <message>
-        <location filename="../src/HashProgress.cpp" line="150"/>
+        <location filename="../src/HashProgress.cpp" line="173"/>
         <source>Done</source>
         <translation>Completado</translation>
     </message>
     <message>
-        <location filename="../src/HashProgress.cpp" line="218"/>
+        <location filename="../src/HashProgress.cpp" line="241"/>
         <source>Start</source>
         <translation>Comenzar</translation>
     </message>
     <message>
-        <location filename="../src/HashProgress.cpp" line="222"/>
+        <location filename="../src/HashProgress.cpp" line="245"/>
         <source>Pause</source>
         <translation>Pausar</translation>
     </message>
     <message>
-        <location filename="../src/HashProgress.cpp" line="226"/>
+        <location filename="../src/HashProgress.cpp" line="249"/>
         <source>Resume</source>
         <translation>Reanudar</translation>
     </message>
@@ -932,7 +917,7 @@ Opciones:
     <name>HubFrame</name>
     <message>
         <location filename="../src/HubFrame.cpp" line="177"/>
-        <location filename="../src/HubFrame.cpp" line="1269"/>
+        <location filename="../src/HubFrame.cpp" line="1278"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
@@ -968,7 +953,7 @@ Opciones:
     </message>
     <message>
         <location filename="../src/HubFrame.cpp" line="184"/>
-        <location filename="../src/HubFrame.cpp" line="1268"/>
+        <location filename="../src/HubFrame.cpp" line="1277"/>
         <source>Add to Favorites</source>
         <translation>Añadir a favoritos</translation>
     </message>
@@ -1058,578 +1043,555 @@ Opciones:
         <translation>Copiar datos</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="305"/>
-        <location filename="../src/HubFrame.cpp" line="385"/>
+        <location filename="../src/HubFrame.cpp" line="307"/>
+        <location filename="../src/HubFrame.cpp" line="387"/>
         <source>[User went offline]</source>
         <translation>[el usuario se desconectó]</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="322"/>
-        <location filename="../src/HubFrame.cpp" line="411"/>
+        <location filename="../src/HubFrame.cpp" line="324"/>
+        <location filename="../src/HubFrame.cpp" line="413"/>
         <source>AntiSpam</source>
         <translation>AntiSpam</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="326"/>
-        <location filename="../src/HubFrame.cpp" line="413"/>
+        <location filename="../src/HubFrame.cpp" line="328"/>
+        <location filename="../src/HubFrame.cpp" line="415"/>
         <source>Add to Black</source>
         <translation>Añadir a la lista negra</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="327"/>
-        <location filename="../src/HubFrame.cpp" line="414"/>
+        <location filename="../src/HubFrame.cpp" line="329"/>
+        <location filename="../src/HubFrame.cpp" line="416"/>
         <source>Add to White</source>
         <translation>Añadir a la lista blanca</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="538"/>
+        <location filename="../src/HubFrame.cpp" line="541"/>
         <source>Invalid keywords</source>
         <translation>Palabras clave inválidas</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="750"/>
+        <location filename="../src/HubFrame.cpp" line="749"/>
         <source>%1 (%2)</source>
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="789"/>
+        <location filename="../src/HubFrame.cpp" line="788"/>
         <source>not shared</source>
         <translation>no compartido</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1264"/>
+        <location filename="../src/HubFrame.cpp" line="1273"/>
         <source>Hub menu</source>
         <translation>Menú del hub</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1266"/>
+        <location filename="../src/HubFrame.cpp" line="1275"/>
         <source>Reconnect</source>
         <translation>Reconectar</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1267"/>
+        <location filename="../src/HubFrame.cpp" line="1276"/>
         <source>Show widget</source>
         <translation>Mostrar widget</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1270"/>
+        <location filename="../src/HubFrame.cpp" line="1279"/>
         <source>Hub IP</source>
         <translation>IP del hub</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1271"/>
+        <location filename="../src/HubFrame.cpp" line="1280"/>
         <source>Hub URL</source>
         <translation>URL del hub</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1272"/>
+        <location filename="../src/HubFrame.cpp" line="1281"/>
         <source>Hub Title</source>
         <translation>Título del hub</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1276"/>
+        <location filename="../src/HubFrame.cpp" line="1285"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1290"/>
+        <location filename="../src/HubFrame.cpp" line="1299"/>
         <source>Hub Menu</source>
         <translation>Menú del hub</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1368"/>
-        <location filename="../src/HubFrame.cpp" line="1393"/>
+        <location filename="../src/HubFrame.cpp" line="1377"/>
+        <location filename="../src/HubFrame.cpp" line="1402"/>
         <source>Not connected</source>
         <translation>No conectado</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1426"/>
+        <location filename="../src/HubFrame.cpp" line="1435"/>
         <source>Chat cleared.</source>
         <translation>Chat limpiado.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1438"/>
+        <location filename="../src/HubFrame.cpp" line="1447"/>
         <source>Chat disabled.</source>
         <translation>Chat desactivado.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1445"/>
+        <location filename="../src/HubFrame.cpp" line="1454"/>
         <source>Chat enabled.</source>
         <translation>Chat activado.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1481"/>
+        <location filename="../src/HubFrame.cpp" line="1490"/>
         <source>Hub role: Operator</source>
         <translation>Rol en el hub: Operador</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1483"/>
+        <location filename="../src/HubFrame.cpp" line="1492"/>
         <source>Hub role: User</source>
         <translation>Rol en el hub: Usuario</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1486"/>
+        <location filename="../src/HubFrame.cpp" line="1495"/>
         <source>
 Favorite user</source>
         <translation>
 Usuario favorito</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1561"/>
-        <location filename="../src/HubFrame.cpp" line="1563"/>
-        <location filename="../src/HubFrame.cpp" line="1784"/>
-        <location filename="../src/HubFrame.cpp" line="1786"/>
+        <location filename="../src/HubFrame.cpp" line="1570"/>
+        <location filename="../src/HubFrame.cpp" line="1572"/>
+        <location filename="../src/HubFrame.cpp" line="1793"/>
+        <location filename="../src/HubFrame.cpp" line="1795"/>
         <source>Away mode off</source>
         <translation>Modo ausente apagado</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1575"/>
-        <location filename="../src/HubFrame.cpp" line="1577"/>
+        <location filename="../src/HubFrame.cpp" line="1584"/>
+        <location filename="../src/HubFrame.cpp" line="1586"/>
         <source>Away mode on: </source>
         <translation>Modo ausente encendido: </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1595"/>
-        <location filename="../src/HubFrame.cpp" line="1597"/>
+        <location filename="../src/HubFrame.cpp" line="1604"/>
+        <location filename="../src/HubFrame.cpp" line="1606"/>
         <source>Aliases not found.</source>
         <translation>Alias no encontrado.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1617"/>
-        <location filename="../src/HubFrame.cpp" line="1619"/>
+        <location filename="../src/HubFrame.cpp" line="1626"/>
+        <location filename="../src/HubFrame.cpp" line="1628"/>
         <source>Alias removed.</source>
         <translation>Alias borrado.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1630"/>
-        <location filename="../src/HubFrame.cpp" line="1632"/>
         <location filename="../src/HubFrame.cpp" line="1639"/>
         <location filename="../src/HubFrame.cpp" line="1641"/>
+        <location filename="../src/HubFrame.cpp" line="1648"/>
+        <location filename="../src/HubFrame.cpp" line="1650"/>
         <source>Invalid alias syntax.</source>
         <translation>Sintaxis del alias inválido.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1649"/>
-        <location filename="../src/HubFrame.cpp" line="1651"/>
+        <location filename="../src/HubFrame.cpp" line="1658"/>
+        <location filename="../src/HubFrame.cpp" line="1660"/>
         <source>Alias %1 =&gt; %2 has been added</source>
         <translation>Se añadió el alias %1 =&gt; %2</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1673"/>
-        <location filename="../src/HubFrame.cpp" line="1675"/>
         <location filename="../src/HubFrame.cpp" line="1682"/>
         <location filename="../src/HubFrame.cpp" line="1684"/>
+        <location filename="../src/HubFrame.cpp" line="1691"/>
+        <location filename="../src/HubFrame.cpp" line="1693"/>
         <source>Invalid command syntax.</source>
         <translation>Sintaxis del comando inválida.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1694"/>
+        <location filename="../src/HubFrame.cpp" line="1703"/>
         <source>List of keywords:
 </source>
         <translation>Lista de palabras clave:
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1741"/>
+        <location filename="../src/HubFrame.cpp" line="1750"/>
         <source>ratio: %1 (uploads: %2, downloads: %3)</source>
         <translation>ratio: %1 (subidas: %2, descargas: %3)</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1775"/>
-        <location filename="../src/HubFrame.cpp" line="1777"/>
+        <location filename="../src/HubFrame.cpp" line="1784"/>
+        <location filename="../src/HubFrame.cpp" line="1786"/>
         <source>Aspell switched %1</source>
         <translation>Aspell ha sido %1</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1775"/>
-        <location filename="../src/HubFrame.cpp" line="1777"/>
+        <location filename="../src/HubFrame.cpp" line="1784"/>
+        <location filename="../src/HubFrame.cpp" line="1786"/>
         <source>on</source>
         <translation>activado</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1775"/>
-        <location filename="../src/HubFrame.cpp" line="1777"/>
+        <location filename="../src/HubFrame.cpp" line="1784"/>
+        <location filename="../src/HubFrame.cpp" line="1786"/>
         <source>off</source>
         <translation>desactivado</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1792"/>
-        <location filename="../src/HubFrame.cpp" line="1794"/>
+        <location filename="../src/HubFrame.cpp" line="1801"/>
+        <location filename="../src/HubFrame.cpp" line="1803"/>
         <source>Chat has been cleared</source>
         <translation>El chat ha sido limpiado</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1844"/>
+        <location filename="../src/HubFrame.cpp" line="1853"/>
         <source>/aspell on/off - enable/disable spell checking
 </source>
         <translation>/aspell on/off - activar/desactivar la comprobación ortográfica
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1846"/>
+        <location filename="../src/HubFrame.cpp" line="1855"/>
         <source>/alias &lt;ALIAS_NAME&gt;::&lt;COMMAND&gt; - make alias /ALIAS_NAME to /COMMAND
 </source>
         <translation>/alias &lt;NOMBRE&gt;::&lt;COMANDO&gt; - crea un alias de /NOMBRE a /COMANDO
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1847"/>
+        <location filename="../src/HubFrame.cpp" line="1856"/>
         <source>/alias purge &lt;ALIAS_NAME&gt; - remove alias
 </source>
         <translation>/alias purge &lt;NOMBRE&gt; - borra el alias /NOMBRE
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1848"/>
+        <location filename="../src/HubFrame.cpp" line="1857"/>
         <source>/alias list - list all aliases
 </source>
         <translation>/alias list - lista todos los aliases
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1849"/>
+        <location filename="../src/HubFrame.cpp" line="1858"/>
         <source>/away &lt;message&gt; - set away-mode on/off
 </source>
         <translation>/away &lt;MENSAJE&gt; - activa o desactiva el modo ausente con MENSAJE
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1850"/>
+        <location filename="../src/HubFrame.cpp" line="1859"/>
         <source>/back - set away-mode off
 </source>
         <translation>/back - desactiva el modo ausente
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1851"/>
+        <location filename="../src/HubFrame.cpp" line="1860"/>
         <source>/browse &lt;nick&gt; - browse user files
 </source>
         <translation>/browse &lt;NICK&gt; - explorar ficheros del usuario NICK
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1852"/>
+        <location filename="../src/HubFrame.cpp" line="1861"/>
         <source>/clear - clear chat window
 </source>
         <translation>/clear - limpia la ventana del chat
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1853"/>
+        <location filename="../src/HubFrame.cpp" line="1862"/>
         <source>/kword add &lt;keyword&gt; - add user-defined keyword which will be highlighted in the chat
 </source>
         <translation>/kword add &lt;PALABRA&gt; - hace que PALABRA sea resaltada en el chat
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1854"/>
+        <location filename="../src/HubFrame.cpp" line="1863"/>
         <source>/kword purge &lt;keyword&gt; - remove user-defined keyword
 </source>
         <translation>/kword purge &lt;PALABRA&gt; - hace que PALABRA deje de ser reslatada en el chat
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1855"/>
+        <location filename="../src/HubFrame.cpp" line="1864"/>
         <source>/kword list - full list of keywords which will be highlighted in the chat
 </source>
         <translation>/kword list - lista las palabras que deben ser reslatadas en el chat
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1856"/>
+        <location filename="../src/HubFrame.cpp" line="1865"/>
         <source>/magnet - default action with magnet (0-ask, 1-search, 2-download)
 </source>
         <translation>/magnet &lt;ACCIÓN&gt; - acción predeterminada con los Magnet (ACCIÓN puede ser: 0-pregunta, 1-busca, 2-descarga)
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1857"/>
+        <location filename="../src/HubFrame.cpp" line="1866"/>
         <source>/close - close this hub
 </source>
         <translation>/close - cierra este hub
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1858"/>
+        <location filename="../src/HubFrame.cpp" line="1867"/>
         <source>/fav - add this hub to favorites
 </source>
         <translation>/fav - añade este hub a favoritos
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1859"/>
+        <location filename="../src/HubFrame.cpp" line="1868"/>
         <source>/grant &lt;nick&gt; - grant extra slot to user
 </source>
         <translation>/grant &lt;NICK&gt; - concede slot extra al usuario NICK
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1860"/>
+        <location filename="../src/HubFrame.cpp" line="1869"/>
         <source>/help, /?, /h - show this help
 </source>
         <translation>/help, /?, /h - muestra esta ayuda
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1861"/>
+        <location filename="../src/HubFrame.cpp" line="1870"/>
         <source>/info &lt;nick&gt; - show info about user
 </source>
         <translation>/info &lt;NICK&gt; - muestra información acerca del usuario NICK
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1862"/>
+        <location filename="../src/HubFrame.cpp" line="1871"/>
         <source>/ratio [show] - show ratio [send in chat]
 </source>
         <translation>/ratio [show] - Mostrar ratio [mandar al chat]
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1863"/>
+        <location filename="../src/HubFrame.cpp" line="1872"/>
         <source>/rebuild - rebuild hash
 </source>
         <translation>/rebuild - reconstruir hash
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1864"/>
+        <location filename="../src/HubFrame.cpp" line="1873"/>
         <source>/refresh - update own file list
 </source>
         <translation>/refresh - actualizar la lista de archivos propia
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1865"/>
+        <location filename="../src/HubFrame.cpp" line="1874"/>
         <source>/me - say a third person
 </source>
         <translation>/me &lt;MENSAJE&gt; - dice MENSAJE en tercera persona
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1866"/>
+        <location filename="../src/HubFrame.cpp" line="1875"/>
         <source>/pm &lt;nick&gt; - begin private chat with user
 </source>
         <translation>/pm &lt;NICK&gt; - comienza un chat privado con el usuario NICK
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1867"/>
+        <location filename="../src/HubFrame.cpp" line="1876"/>
         <source>/ws param value - set gui option param in value (without value return current value of option)
 </source>
         <translation>/ws PARÁMETRO VALOR - cambiar la opción de la GUI PARÁMETRO a VALOR (sin VALOR devuelve el valor actual)
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1868"/>
+        <location filename="../src/HubFrame.cpp" line="1877"/>
         <source>/dcpps param value - set core option param in value (without value return current value of option)
 </source>
         <translation>/dcpps PARÁMETRO VALOR - cambiar la opción del núcleo PARÁMETRO a VALOR (sin VALOR devuelve el valor actual)
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1870"/>
+        <location filename="../src/HubFrame.cpp" line="1879"/>
         <source>/luafile &lt;file&gt; - load Lua file
 </source>
         <translation>/luafile &lt;ARCHIVO&gt; - Carga el ARCHIVO lua</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1871"/>
+        <location filename="../src/HubFrame.cpp" line="1880"/>
         <source>/lua &lt;chunk&gt; - execute Lua chunk
 </source>
         <translation>/lua &lt;TROZO&gt; - ejecuta el TROZO de código lua
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2121"/>
+        <location filename="../src/HubFrame.cpp" line="2130"/>
         <source> joins the chat</source>
         <translation> se unió al canal</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2126"/>
-        <location filename="../src/HubFrame.cpp" line="2183"/>
+        <location filename="../src/HubFrame.cpp" line="2135"/>
+        <location filename="../src/HubFrame.cpp" line="2193"/>
         <source>Favorites</source>
         <translation>Favoritos</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2126"/>
+        <location filename="../src/HubFrame.cpp" line="2135"/>
         <source>%1 is now online</source>
         <translation>%1 se ha conectado</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2139"/>
+        <location filename="../src/HubFrame.cpp" line="2148"/>
         <source>User online.</source>
         <translation>Usuario conectado.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2178"/>
+        <location filename="../src/HubFrame.cpp" line="2188"/>
         <source> left the chat</source>
         <translation> salió del canal</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2183"/>
+        <location filename="../src/HubFrame.cpp" line="2193"/>
         <source>%1 is now offline</source>
         <translation>%1 se ha desconectado</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2222"/>
-        <location filename="../src/HubFrame.cpp" line="2236"/>
+        <location filename="../src/HubFrame.cpp" line="2232"/>
+        <location filename="../src/HubFrame.cpp" line="2246"/>
         <source>User not found</source>
         <translation>Usuario no encontrado</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2243"/>
+        <location filename="../src/HubFrame.cpp" line="2253"/>
         <source>Slot granted to </source>
         <translation>Slot concedido a </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2302"/>
+        <location filename="../src/HubFrame.cpp" line="2312"/>
         <source> has been added to favorites.</source>
         <translation> ha sido añadido a favoritos.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2302"/>
+        <location filename="../src/HubFrame.cpp" line="2312"/>
         <source> has been removed from favorites.</source>
         <translation> ha sido eliminado de favoritos.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2334"/>
+        <location filename="../src/HubFrame.cpp" line="2344"/>
         <source>Favorite hub added.</source>
         <translation>Añadido hub a favoritos.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2337"/>
+        <location filename="../src/HubFrame.cpp" line="2347"/>
         <source>Favorite hub already exists.</source>
         <translation>El hub ya existe en los favoritos.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2572"/>
+        <location filename="../src/HubFrame.cpp" line="2582"/>
         <source>User offline.</source>
         <translation>Usuario desconectado.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2611"/>
+        <location filename="../src/HubFrame.cpp" line="2621"/>
         <source>Stored password sent...</source>
         <translation>Contraseña almacenada enviada...</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2614"/>
+        <location filename="../src/HubFrame.cpp" line="2624"/>
         <source>Password</source>
         <translation>Contraseña</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2628"/>
-        <location filename="../src/HubFrame.cpp" line="3776"/>
+        <location filename="../src/HubFrame.cpp" line="2638"/>
+        <location filename="../src/HubFrame.cpp" line="3783"/>
         <source>Redirect request received to a hub that&apos;s already connected</source>
         <translation>La petición de re-dirección recibió un hub al que ya está conectado</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2700"/>
+        <location filename="../src/HubFrame.cpp" line="2710"/>
         <source>Users count: %3/%1 | Total share: %2</source>
         <translation>Total de usuarios: %3/%1 | Total compartido: %2</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2706"/>
+        <location filename="../src/HubFrame.cpp" line="2716"/>
         <source>Users count: %1 | Total share: %2</source>
         <translation>Cantidad de usuarios: %1 | Total compartido: %2</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="3564"/>
+        <location filename="../src/HubFrame.cpp" line="3569"/>
         <source>Add to dictionary</source>
         <translation>Añadir al diccionario</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="3570"/>
+        <location filename="../src/HubFrame.cpp" line="3575"/>
         <source>Suggestions</source>
         <translation>Sugerencias</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="3735"/>
+        <location filename="../src/HubFrame.cpp" line="3741"/>
         <source>Connecting to %1</source>
         <translation>Conectando con %1</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="3743"/>
+        <location filename="../src/HubFrame.cpp" line="3749"/>
         <source>Connected to %1</source>
         <translation>Conectado a %1</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="3786"/>
+        <location filename="../src/HubFrame.cpp" line="3793"/>
         <source>Fail: %1...</source>
         <translation>Fallo: %1...</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="3980"/>
+        <location filename="../src/HubFrame.cpp" line="3987"/>
         <source>Sorry, but nick &quot;%1&quot; is already taken by another user.</source>
         <translation>Lo siento, pero el nick &quot;%1&quot; está siendo usado por otro usuario.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="3986"/>
+        <location filename="../src/HubFrame.cpp" line="3993"/>
         <source>Search flood detected: %1</source>
         <translation>Inundación de búsquedas detectada: %1</translation>
     </message>
 </context>
 <context>
-    <name>IPFilter</name>
-    <message>
-        <location filename="../src/IPFilter.cpp" line="453"/>
-        <source>Nothing to export.</source>
-        <translation>Nada para exportar.</translation>
-    </message>
-    <message>
-        <location filename="../src/IPFilter.cpp" line="465"/>
-        <source>Unable to export settings.</source>
-        <translation>Incapaz de exportar ajustes.</translation>
-    </message>
-    <message>
-        <location filename="../src/IPFilter.cpp" line="481"/>
-        <source>Nothing to import.</source>
-        <translation>Nada para importar.</translation>
-    </message>
-    <message>
-        <location filename="../src/IPFilter.cpp" line="505"/>
-        <source>Invalid signature.</source>
-        <translation>Firma inválida.</translation>
-    </message>
-</context>
-<context>
     <name>IPFilterFrame</name>
     <message>
-        <location filename="../src/IPFilterFrame.cpp" line="189"/>
+        <location filename="../src/IPFilterFrame.cpp" line="183"/>
         <source>Change rule direction</source>
         <translation>Cambiar la dirección de la regla</translation>
     </message>
     <message>
-        <location filename="../src/IPFilterFrame.cpp" line="197"/>
+        <location filename="../src/IPFilterFrame.cpp" line="191"/>
         <source>Change IP/Mask</source>
         <translation>Cambiar la IP/Máscara</translation>
     </message>
     <message>
-        <location filename="../src/IPFilterFrame.cpp" line="198"/>
+        <location filename="../src/IPFilterFrame.cpp" line="192"/>
         <source>Delete rule</source>
         <translation>Borrar regla</translation>
     </message>
     <message>
-        <location filename="../src/IPFilterFrame.cpp" line="230"/>
+        <location filename="../src/IPFilterFrame.cpp" line="224"/>
         <source>Enter new rule</source>
         <translation>Introducir nueva regla</translation>
     </message>
     <message>
-        <location filename="../src/IPFilterFrame.cpp" line="230"/>
+        <location filename="../src/IPFilterFrame.cpp" line="224"/>
         <source>Rule:</source>
         <translation>Regla:</translation>
     </message>
     <message>
-        <location filename="../src/IPFilterFrame.cpp" line="320"/>
+        <location filename="../src/IPFilterFrame.cpp" line="317"/>
         <source>Import list</source>
         <translation>Importar lista</translation>
     </message>
     <message>
-        <location filename="../src/IPFilterFrame.cpp" line="373"/>
+        <location filename="../src/IPFilterFrame.cpp" line="371"/>
         <source>Export list</source>
         <translation>Exportar lista</translation>
     </message>
     <message>
-        <location filename="../src/IPFilterFrame.cpp" line="374"/>
+        <location filename="../src/IPFilterFrame.cpp" line="372"/>
         <source>All Files (*)</source>
         <translation>Todos los archivos  (*)</translation>
     </message>
@@ -1637,12 +1599,12 @@ Usuario favorito</translation>
 <context>
     <name>IPFilterModel</name>
     <message>
-        <location filename="../src/IPFilterModel.cpp" line="25"/>
+        <location filename="../src/IPFilterModel.cpp" line="23"/>
         <source>IP/Mask</source>
         <translation>IP/Máscara</translation>
     </message>
     <message>
-        <location filename="../src/IPFilterModel.cpp" line="25"/>
+        <location filename="../src/IPFilterModel.cpp" line="23"/>
         <source>Direction</source>
         <translation>Dirección</translation>
     </message>
@@ -1660,22 +1622,22 @@ Usuario favorito</translation>
         <translation>Descargar archivo a través de búsquedas automáticas de alternativas</translation>
     </message>
     <message>
-        <location filename="../src/Magnet.cpp" line="182"/>
+        <location filename="../src/Magnet.cpp" line="184"/>
         <source>Browse</source>
         <translation>Explorar</translation>
     </message>
     <message>
-        <location filename="../src/Magnet.cpp" line="202"/>
+        <location filename="../src/Magnet.cpp" line="204"/>
         <source>Select directory</source>
         <translation>Seleccionar directorio</translation>
     </message>
     <message>
-        <location filename="../src/Magnet.cpp" line="219"/>
+        <location filename="../src/Magnet.cpp" line="221"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../src/Magnet.cpp" line="219"/>
+        <location filename="../src/Magnet.cpp" line="221"/>
         <source>Some error ocurred when starting download:
  %1</source>
         <translation>Ha ocurrido algún error mientras se iniciaba la descarga:
@@ -1685,912 +1647,828 @@ Usuario favorito</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/MainWindow.cpp" line="265"/>
+        <location filename="../src/MainWindow.cpp" line="272"/>
         <source>Ready</source>
         <translation>Preparado</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="351"/>
         <source>Exit confirm</source>
-        <translation>Confirmar salida</translation>
+        <translation type="vanished">Confirmar salida</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="352"/>
+        <location filename="../src/MainWindow.cpp" line="358"/>
         <source>Exit program?</source>
         <translation>¿Salir del programa?</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="456"/>
+        <location filename="../src/MainWindow.cpp" line="360"/>
+        <source>Kill all humans?</source>
+        <translation>¿Matar a todos los humanos?</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="362"/>
+        <source>Action confirm</source>
+        <translation>Conformar acción</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="471"/>
         <source>Enter user nick</source>
         <translation>Introduzca nick del usuario</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="456"/>
+        <location filename="../src/MainWindow.cpp" line="471"/>
         <source>Nick</source>
         <translation>Nick</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="456"/>
+        <location filename="../src/MainWindow.cpp" line="471"/>
         <source>User</source>
         <translation>Usuario</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="461"/>
+        <location filename="../src/MainWindow.cpp" line="476"/>
         <source>Would you like to change other settings?</source>
         <translation>¿Desea cambiar algúna otra configuracion?</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="692"/>
-        <source>Ctrl+I</source>
-        <translation>Ctrl+I</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="698"/>
-        <source>Ctrl+L</source>
-        <translation>Ctrl+L</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="729"/>
-        <source>Ctrl+E</source>
-        <translation>Ctrl+E</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="735"/>
-        <source>Ctrl+Alt+H</source>
-        <translation>Ctrl+alt+H</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="741"/>
-        <source>Ctrl+Q</source>
-        <translation>Ctrl+Q</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="748"/>
-        <source>Ctrl+R</source>
-        <translation>Crtl+R</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="754"/>
-        <source>Ctrl+N</source>
-        <translation>Ctrl+N</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="760"/>
-        <source>Ctrl+H</source>
-        <translation>Ctrl+H</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="766"/>
-        <source>Ctrl+P</source>
-        <translation>Ctrl+P</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="772"/>
-        <source>Ctrl+U</source>
-        <translation>Ctrl+U</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="788"/>
-        <source>Ctrl+O</source>
-        <translation>Ctrl+O</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="804"/>
-        <source>Ctrl+T</source>
-        <translation>Ctrl+T</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="812"/>
-        <source>Ctrl+D</source>
-        <translation>Ctrl+D</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="818"/>
-        <source>Ctrl+Shift+U</source>
-        <translation>Ctrl+Shift+U</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="824"/>
-        <source>Ctrl+[</source>
-        <translation>Ctrl+[</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="830"/>
-        <source>Ctrl+]</source>
-        <translation>Ctrl+]</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="876"/>
-        <source>Ctrl+Alt+J</source>
-        <translation>Ctrl+Alt+J</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="902"/>
-        <source>Ctrl+S</source>
-        <translation>Ctrl+S</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="927"/>
-        <source>Ctrl+K</source>
-        <translation>Ctrl+K</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="940"/>
-        <source>Ctrl+F</source>
-        <translation>Ctrl+F</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="1074"/>
+        <location filename="../src/MainWindow.cpp" line="1089"/>
         <source>Next widget</source>
         <translation>Siguiente Widget</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1075"/>
+        <location filename="../src/MainWindow.cpp" line="1090"/>
         <source>Previous widget</source>
         <translation>Widget anterior</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1076"/>
+        <location filename="../src/MainWindow.cpp" line="1091"/>
         <source>Next message</source>
         <translation>Siguiente mensaje</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1077"/>
+        <location filename="../src/MainWindow.cpp" line="1092"/>
         <source>Previous message</source>
         <translation>Mensaje anterior</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1078"/>
+        <location filename="../src/MainWindow.cpp" line="1093"/>
         <source>Close current widget</source>
         <translation>Cerrar este widget</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1079"/>
+        <location filename="../src/MainWindow.cpp" line="1094"/>
         <source>Toggle main menu</source>
         <translation>Activar/desactivar menú principal</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1088"/>
-        <source>Ctrl+PgDown</source>
-        <translation>Ctrl+PgDown</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="1089"/>
-        <source>Ctrl+PgUp</source>
-        <translation>Ctrl+PgUp</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="1090"/>
-        <source>Ctrl+Down</source>
-        <translation>Ctrl+Abajo</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="1091"/>
-        <source>Ctrl+Up</source>
-        <translation>Ctrl+Arriba</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="1092"/>
-        <source>Ctrl+W</source>
-        <translation>Ctrl+W</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="1093"/>
-        <source>Ctrl+M</source>
-        <translation>Ctrl+M</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="1221"/>
+        <location filename="../src/MainWindow.cpp" line="1236"/>
         <source>Counts</source>
         <translation>Cuenta</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1227"/>
+        <location filename="../src/MainWindow.cpp" line="1242"/>
         <source>Download/Upload speed</source>
         <translation>Velocidad de Descarga/Subida</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1233"/>
+        <location filename="../src/MainWindow.cpp" line="1248"/>
         <source>Downloaded/Uploaded</source>
         <translation>Descargado/Subido</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1251"/>
+        <location filename="../src/MainWindow.cpp" line="1267"/>
+        <location filename="../src/MainWindow.cpp" line="1274"/>
         <source>Space free</source>
         <translation>Espacio libre</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1265"/>
+        <location filename="../src/MainWindow.cpp" line="1288"/>
         <source>Hashing progress</source>
         <translation>Progreso del indexado</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1292"/>
+        <location filename="../src/MainWindow.cpp" line="1315"/>
         <source>&amp;File</source>
         <translation>&amp;Archivo</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1294"/>
-        <location filename="../src/MainWindow.cpp" line="2174"/>
+        <location filename="../src/MainWindow.cpp" line="1317"/>
+        <location filename="../src/MainWindow.cpp" line="2205"/>
         <source>Open magnet link</source>
         <translation>Abrir enlace Magnet</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1296"/>
-        <location filename="../src/MainWindow.cpp" line="2103"/>
+        <location filename="../src/MainWindow.cpp" line="1319"/>
+        <location filename="../src/MainWindow.cpp" line="2134"/>
         <source>Open log file</source>
         <translation>Abrir archivo de registro</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1298"/>
+        <location filename="../src/MainWindow.cpp" line="1321"/>
         <source>Open download directory</source>
         <translation>Abrir directorio de descargas</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1300"/>
+        <location filename="../src/MainWindow.cpp" line="1323"/>
         <source>Open filelist...</source>
         <translation>Abrir lista de archivos...</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1302"/>
+        <location filename="../src/MainWindow.cpp" line="1325"/>
         <source>Calculate file TTH</source>
         <translation>Calcular el TTH del archivo</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1304"/>
+        <location filename="../src/MainWindow.cpp" line="1327"/>
         <source>Open own filelist</source>
         <translation>Abrir tu propia lista de archivos</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1306"/>
+        <location filename="../src/MainWindow.cpp" line="1329"/>
         <source>Match all listings</source>
         <translation>Emparejar todos los listados</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1308"/>
-        <location filename="../src/MainWindow.cpp" line="1723"/>
+        <location filename="../src/MainWindow.cpp" line="1331"/>
+        <location filename="../src/MainWindow.cpp" line="1755"/>
         <source>Refresh share</source>
         <translation>Refrescar compartido</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1310"/>
-        <location filename="../src/MainWindow.cpp" line="2388"/>
+        <location filename="../src/MainWindow.cpp" line="1333"/>
+        <location filename="../src/MainWindow.cpp" line="2421"/>
         <source>Hide window</source>
         <translation>Ocultar ventana</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1313"/>
-        <location filename="../src/MainWindow.cpp" line="2386"/>
+        <location filename="../src/MainWindow.cpp" line="1336"/>
+        <location filename="../src/MainWindow.cpp" line="2419"/>
         <source>Show/hide find frame</source>
         <translation>Mostrar/Ocultar cuadro de búsqueda</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1315"/>
+        <location filename="../src/MainWindow.cpp" line="1338"/>
         <source>Quit</source>
         <translation>Salir</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1317"/>
+        <location filename="../src/MainWindow.cpp" line="1340"/>
         <source>&amp;Hubs</source>
         <translation>&amp;Hubs</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1319"/>
+        <location filename="../src/MainWindow.cpp" line="1342"/>
         <source>Reconnect to hub</source>
         <translation>Reconectarse al hub</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1321"/>
+        <location filename="../src/MainWindow.cpp" line="1344"/>
         <source>Favourite hubs</source>
         <translation>Hubs favoritos</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1323"/>
+        <location filename="../src/MainWindow.cpp" line="1346"/>
         <source>Public hubs</source>
         <translation>Hubs públicos</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1325"/>
+        <location filename="../src/MainWindow.cpp" line="1348"/>
         <source>Favourite users</source>
         <translation>Usuarios favoritos</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1327"/>
+        <location filename="../src/MainWindow.cpp" line="1350"/>
         <source>Quick connect</source>
         <translation>Conectar rápidamente</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1329"/>
+        <location filename="../src/MainWindow.cpp" line="1352"/>
         <source>&amp;Tools</source>
         <translation>&amp;Herramientas</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1331"/>
+        <location filename="../src/MainWindow.cpp" line="1354"/>
         <source>Transfers</source>
         <translation>Transferencias</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1333"/>
+        <location filename="../src/MainWindow.cpp" line="1356"/>
         <source>Download queue</source>
         <translation>Cola de descarga</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1335"/>
+        <location filename="../src/MainWindow.cpp" line="1358"/>
         <source>Queued Users</source>
         <translation>Usuarios en cola</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1337"/>
+        <location filename="../src/MainWindow.cpp" line="1360"/>
         <source>Hub Manager</source>
         <translation>Gestor de hubs</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1339"/>
+        <location filename="../src/MainWindow.cpp" line="1362"/>
         <source>Finished downloads</source>
         <translation>Descargas finalizadas</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1341"/>
+        <location filename="../src/MainWindow.cpp" line="1364"/>
         <source>Finished uploads</source>
         <translation>Subidas finalizadas</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1343"/>
+        <location filename="../src/MainWindow.cpp" line="1366"/>
         <source>Search Spy</source>
         <translation>Búsqueda espía</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1345"/>
+        <location filename="../src/MainWindow.cpp" line="1368"/>
         <source>AntiSpam module</source>
         <translation>Módulo Antispam</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1347"/>
+        <location filename="../src/MainWindow.cpp" line="1370"/>
         <source>IPFilter module</source>
         <translation>Módulo de filtrado IP</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1349"/>
-        <location filename="../src/MainWindow.cpp" line="2520"/>
+        <location filename="../src/MainWindow.cpp" line="1372"/>
+        <location filename="../src/MainWindow.cpp" line="2553"/>
         <source>Hide free space bar</source>
         <translation>Ocultar barra de espacio libre</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1352"/>
-        <location filename="../src/MainWindow.cpp" line="2515"/>
+        <location filename="../src/MainWindow.cpp" line="1375"/>
+        <location filename="../src/MainWindow.cpp" line="2548"/>
         <source>Show free space bar</source>
         <translation>Mostrar barra de espacio libre</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1354"/>
-        <location filename="../src/MainWindow.cpp" line="2536"/>
+        <location filename="../src/MainWindow.cpp" line="1377"/>
+        <location filename="../src/MainWindow.cpp" line="2569"/>
         <source>Hide last status message</source>
         <translation>Ocultar el último mensaje de estado</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1357"/>
-        <location filename="../src/MainWindow.cpp" line="2534"/>
+        <location filename="../src/MainWindow.cpp" line="1380"/>
+        <location filename="../src/MainWindow.cpp" line="2567"/>
         <source>Show last status message</source>
         <translation>Mostrar el último mensaje de estado</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1359"/>
-        <location filename="../src/MainWindow.cpp" line="2553"/>
+        <location filename="../src/MainWindow.cpp" line="1382"/>
+        <location filename="../src/MainWindow.cpp" line="2586"/>
         <source>Hide users statistics</source>
         <translation>Ocultar estadísticas de usuarios</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1362"/>
-        <location filename="../src/MainWindow.cpp" line="2551"/>
+        <location filename="../src/MainWindow.cpp" line="1385"/>
+        <location filename="../src/MainWindow.cpp" line="2584"/>
         <source>Show users statistics</source>
         <translation>Mostrar estadísticas de usuarios</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1364"/>
+        <location filename="../src/MainWindow.cpp" line="1387"/>
         <source>Away message</source>
         <translation>Mensaje de ausencia</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1366"/>
+        <location filename="../src/MainWindow.cpp" line="1389"/>
         <source>On</source>
         <translation>Encendido</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1368"/>
+        <location filename="../src/MainWindow.cpp" line="1391"/>
         <source>Off</source>
         <translation>Apagado</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1370"/>
+        <location filename="../src/MainWindow.cpp" line="1393"/>
         <source>Away when not visible</source>
         <translation>Marcar como ausente cuando no es visible</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1372"/>
+        <location filename="../src/MainWindow.cpp" line="1395"/>
         <source>Copy window title</source>
         <translation>Copiar el título de la ventana</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1374"/>
+        <location filename="../src/MainWindow.cpp" line="1397"/>
         <source>Preferences</source>
         <translation>Preferencias</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1376"/>
+        <location filename="../src/MainWindow.cpp" line="1399"/>
         <source>Search</source>
         <translation>Búsqueda</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1378"/>
+        <location filename="../src/MainWindow.cpp" line="1401"/>
         <source>ADLSearch</source>
         <translation>Búsqueda ADL</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1380"/>
-        <source>CmdDebug</source>
+        <location filename="../src/MainWindow.cpp" line="1403"/>
+        <source>Debug Console</source>
         <translation>CmdDebug</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1382"/>
+        <location filename="../src/MainWindow.cpp" line="1405"/>
         <source>Speed limit On/Off</source>
         <translation>Límite de velocidad encendido/apagado</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1385"/>
+        <location filename="../src/MainWindow.cpp" line="1408"/>
         <source>Scripts Manager</source>
         <translation>Gestor de Scripts</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1387"/>
+        <location filename="../src/MainWindow.cpp" line="1410"/>
         <source>Script Console</source>
         <translation>Consola de Scripts</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1390"/>
+        <location filename="../src/MainWindow.cpp" line="1413"/>
         <source>Clear chat</source>
         <translation>Limpiar chat</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1392"/>
+        <location filename="../src/MainWindow.cpp" line="1415"/>
         <source>Find/Filter</source>
         <translation>Encontrar/Filtrar</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1394"/>
+        <location filename="../src/MainWindow.cpp" line="1417"/>
         <source>Disable/enable chat</source>
         <translation>Activar/Desactivar chat</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1396"/>
+        <location filename="../src/MainWindow.cpp" line="1419"/>
         <source>&amp;Widgets</source>
         <translation>&amp;Widgets</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1398"/>
+        <location filename="../src/MainWindow.cpp" line="1421"/>
         <source>&amp;Panels</source>
         <translation>&amp;Paneles</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1401"/>
+        <location filename="../src/MainWindow.cpp" line="1424"/>
         <source>Widgets panel</source>
         <translation>Panel de widgets</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1403"/>
+        <location filename="../src/MainWindow.cpp" line="1426"/>
         <source>Widgets side dock</source>
         <translation>Barra lateral de widgets</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1405"/>
+        <location filename="../src/MainWindow.cpp" line="1428"/>
         <source>Tools panel</source>
         <translation>Panel de herramientas</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1407"/>
+        <location filename="../src/MainWindow.cpp" line="1430"/>
         <source>Fast search panel</source>
         <translation>Panel de búsqueda rápida</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1409"/>
+        <location filename="../src/MainWindow.cpp" line="1432"/>
         <source>&amp;Help</source>
         <translation>&amp;Ayuda</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1411"/>
+        <location filename="../src/MainWindow.cpp" line="1434"/>
         <source>Homepage</source>
         <translation>Página web</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1413"/>
+        <location filename="../src/MainWindow.cpp" line="1436"/>
         <source>Source (git)</source>
         <translation>Código fuente (git)</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1415"/>
+        <location filename="../src/MainWindow.cpp" line="1438"/>
         <source>Report a Bug</source>
         <translation>Reportar fallo</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1417"/>
+        <location filename="../src/MainWindow.cpp" line="1440"/>
         <source>Wiki of project</source>
         <translation>Wiki del proyecto</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1419"/>
+        <location filename="../src/MainWindow.cpp" line="1442"/>
         <source>Changelog (git)</source>
         <translation>Lista de cambios (git)</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1421"/>
+        <location filename="../src/MainWindow.cpp" line="1444"/>
         <source>About EiskaltDC++</source>
         <translation>Acerca de EiskaltDC++</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1423"/>
+        <location filename="../src/MainWindow.cpp" line="1446"/>
         <source>About Qt</source>
         <translation>Acerca de Qt</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1426"/>
-        <location filename="../src/MainWindow.cpp" line="1458"/>
+        <location filename="../src/MainWindow.cpp" line="1449"/>
+        <location filename="../src/MainWindow.cpp" line="1481"/>
         <source>Actions</source>
         <translation>Acciones</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1429"/>
+        <location filename="../src/MainWindow.cpp" line="1452"/>
         <source>Main layout</source>
         <translation>Diseño principal</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1663"/>
+        <location filename="../src/MainWindow.cpp" line="1686"/>
         <source>%1/s / %2/s</source>
         <translation>%1/s / %2/s</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1664"/>
+        <location filename="../src/MainWindow.cpp" line="1687"/>
         <source>%1 / %2</source>
         <translation>%1 / %2</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1671"/>
+        <location filename="../src/MainWindow.cpp" line="1694"/>
         <source>/s</source>
         <translation>/s</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1692"/>
+        <location filename="../src/MainWindow.cpp" line="1714"/>
         <source>Free %1</source>
         <translation>Libre %1</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1695"/>
+        <location filename="../src/MainWindow.cpp" line="1717"/>
         <source>Free %1 of %2</source>
         <translation>Libre %1 de %2</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1732"/>
-        <location filename="../src/MainWindow.cpp" line="1742"/>
-        <location filename="../src/MainWindow.cpp" line="1758"/>
-        <location filename="../src/MainWindow.cpp" line="1773"/>
+        <location filename="../src/MainWindow.cpp" line="1764"/>
+        <location filename="../src/MainWindow.cpp" line="1774"/>
+        <location filename="../src/MainWindow.cpp" line="1790"/>
+        <location filename="../src/MainWindow.cpp" line="1805"/>
         <source>Hash progress</source>
         <translation>Progreso del indexado</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1735"/>
+        <location filename="../src/MainWindow.cpp" line="1767"/>
         <source>List update</source>
         <translation>Actualizando lista</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1747"/>
+        <location filename="../src/MainWindow.cpp" line="1779"/>
         <source>Delayed</source>
         <translation>Cuenta a Atrás</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1762"/>
+        <location filename="../src/MainWindow.cpp" line="1794"/>
         <source>Paused</source>
         <translation>Pausado</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1776"/>
+        <location filename="../src/MainWindow.cpp" line="1808"/>
         <source>%p%</source>
         <translation>%p%</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1865"/>
+        <location filename="../src/MainWindow.cpp" line="1897"/>
         <source>Choose file to open</source>
         <translation>Elige archivo para abrir</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1867"/>
+        <location filename="../src/MainWindow.cpp" line="1899"/>
         <source>Modern XML Filelists</source>
         <translation>Lista de archivos XML modernas</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1868"/>
+        <location filename="../src/MainWindow.cpp" line="1900"/>
         <source>Modern XML Filelists uncompressed</source>
         <translation>Lista de archivos XML modernas sin comprimir</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1869"/>
+        <location filename="../src/MainWindow.cpp" line="1901"/>
         <source>All files</source>
         <translation>Todos los archivos</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1880"/>
+        <location filename="../src/MainWindow.cpp" line="1912"/>
         <source>Unable to load file list: Invalid file list name</source>
         <translation>Incapaz de cargar lista de archivos: Nombre de lista de archivos invalido</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2045"/>
+        <location filename="../src/MainWindow.cpp" line="2076"/>
         <source>Menu</source>
         <translation>Menú</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2082"/>
+        <location filename="../src/MainWindow.cpp" line="2113"/>
         <source>Unable to open %1 port. Searching or file transfers will not work correctly until you change settings or turn off any application that might be using that port.</source>
         <translation>No se puede abrir el puerto %1. La búsqueda y la transferencia de archivos no funcionarán correctamente hasta que cambie las opciones o apague la aplicación que esté usando dicho puerto.</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2083"/>
+        <location filename="../src/MainWindow.cpp" line="2114"/>
         <source>Connectivity Manager: Warning</source>
         <translation>Advertencia del gestor de conectividad.</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2103"/>
+        <location filename="../src/MainWindow.cpp" line="2134"/>
         <source>Log files (*.log);;All files (*.*)</source>
         <translation>Archivos de registro (*.log);;Todos los archivos (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2174"/>
+        <location filename="../src/MainWindow.cpp" line="2205"/>
         <source>Enter magnet link:</source>
         <translation>Introducir enlace Magnet:</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2328"/>
+        <location filename="../src/MainWindow.cpp" line="2359"/>
         <source>Script Engine</source>
         <translation>Motor de Scripts</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2571"/>
+        <location filename="../src/MainWindow.cpp" line="2604"/>
         <source>Button style</source>
         <translation>Estilo del botón</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2572"/>
+        <location filename="../src/MainWindow.cpp" line="2605"/>
         <source>Icons only</source>
         <translation>Sólo iconos</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2573"/>
+        <location filename="../src/MainWindow.cpp" line="2606"/>
         <source>Text only</source>
         <translation>Sólo texto</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2574"/>
+        <location filename="../src/MainWindow.cpp" line="2607"/>
         <source>Text beside icons</source>
         <translation>Texto al lado de los iconos</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2575"/>
+        <location filename="../src/MainWindow.cpp" line="2608"/>
         <source>Text under icons</source>
         <translation>Texto bajo los iconos</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2585"/>
+        <location filename="../src/MainWindow.cpp" line="2618"/>
         <source>Customize</source>
         <translation>Personalizar</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2687"/>
+        <location filename="../src/MainWindow.cpp" line="2697"/>
+        <source>EiskaltDC++ is a graphical client for Direct Connect and ADC protocols.</source>
+        <translation>EiskaltDC++ es un cliente gráfico para los protocolos Direct Connect y ADC.</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2700"/>
+        <source>DC++ core version: %1 (modified)</source>
+        <translation>DC++ versión del núcleo: %1 (modificado)</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2703"/>
+        <source>Home page: </source>
+        <translation>Página de inicio: </translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2708"/>
+        <source>Total up: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation>Total subido: &lt;b&gt;%1&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2710"/>
+        <source>Total down: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation>Total bajado: &lt;b&gt;%1&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2712"/>
+        <source>Ratio: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation>Ratio: &lt;b&gt;%1&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2722"/>
         <source>&lt;b&gt;Developers&lt;/b&gt;&lt;br/&gt;</source>
         <translation>&lt;b&gt;Deesarrolladores&lt;/b&gt;&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2690"/>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp; (main developer since version 0.4.10)&lt;br/&gt;</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; (desarrollador central desde la versión 0.4.10)&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2693"/>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp; (Arch Linux maintainer and developer since version 0.4.10)&lt;br/&gt;</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; (mantenedor en Arch Linux y desarrollador desde la versión 0.4.10)&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2696"/>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp; (Debian/Ubuntu maintainer and developer since version 1.89.0)&lt;br/&gt;</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; (mantenedor en Debian/Ubuntu y desarrollador desde la versión 1.89.0)&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2697"/>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp; (translations coordinator since version 2.0.1)&lt;br/&gt;</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; (coordinador de las traducciones desde la versión 2.0.1)&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2698"/>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp; (release manager since version 2.0.3)&lt;br/&gt;</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; (responsable de publicación de versiones estables desde la versión 2.0.3)&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2701"/>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp; (MS Windows maintainer and developer since version 2.2.4)&lt;br/&gt;</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; (mantenedor en MS Windows y desarrollador desde la versión 2.2.4)&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2704"/>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp; (developer since version 2.0.3)&lt;br/&gt;</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; (desarrollador desde la versión 2.0.3)&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2706"/>
+        <location filename="../src/MainWindow.cpp" line="2776"/>
         <source>&lt;b&gt;Graphic files&lt;/b&gt;&lt;br/&gt;</source>
         <translation>&lt;b&gt;Gráficos&lt;/b&gt;&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2709"/>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp; (creator of the logo of the project)&lt;br/&gt;</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; (creador del logo del proyecto)&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2711"/>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp; (tiny updates of the logo)&lt;br/&gt;</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; (actualizaciones menores en el logo)&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2718"/>
-        <source>Participate in the translation. It is easy: &lt;a href=&quot;https://www.transifex.com/projects/p/eiskaltdcpp/&quot;&gt;https://www.transifex.com/projects/p/eiskaltdcpp/&lt;/a&gt;&lt;br/&gt;</source>
-        <translation>Participa en la traducción. es fácil: &lt;a href=&quot;https://www.transifex.com/projects/p/eiskaltdcpp/&quot;&gt;https://www.transifex.com/projects/p/eiskaltdcpp/&lt;/a&gt;&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2722"/>
+        <location filename="../src/MainWindow.cpp" line="2797"/>
         <source>Russian translation&lt;br/&gt;</source>
         <translation>Traducción al Ruso&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2726"/>
+        <location filename="../src/MainWindow.cpp" line="2803"/>
         <source>Belarusian translation&lt;br/&gt;</source>
         <translation>Traducción al Bielorruso&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2730"/>
+        <location filename="../src/MainWindow.cpp" line="2807"/>
         <source>Hungarian translation&lt;br/&gt;</source>
         <translation>Traducción al Húngaro&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2734"/>
+        <location filename="../src/MainWindow.cpp" line="2811"/>
         <source>French translation&lt;br/&gt;</source>
         <translation>Traducción al Francés&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2737"/>
+        <location filename="../src/MainWindow.cpp" line="2814"/>
         <source>Polish translation&lt;br/&gt;</source>
         <translation>Traducción al Polaco&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2740"/>
+        <location filename="../src/MainWindow.cpp" line="2817"/>
         <source>Ukrainian translation&lt;br/&gt;</source>
         <translation>Traducción al Ucraniano&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2744"/>
+        <location filename="../src/MainWindow.cpp" line="2821"/>
         <source>Serbian (Cyrillic) translation&lt;br/&gt;</source>
         <translation>Traducción al Serbio (Cirílico)&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2748"/>
+        <location filename="../src/MainWindow.cpp" line="2825"/>
         <source>Serbian (Latin) translation&lt;br/&gt;</source>
         <translation>Traducción al Serbio (Latín)&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2752"/>
+        <location filename="../src/MainWindow.cpp" line="2829"/>
         <source>Spanish translation&lt;br/&gt;</source>
         <translation>Traducción al Español&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2756"/>
+        <location filename="../src/MainWindow.cpp" line="2833"/>
         <source>Basque translation&lt;br/&gt;</source>
         <translation>Traducción al Euskera&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2759"/>
+        <location filename="../src/MainWindow.cpp" line="2836"/>
         <source>Bulgarian translation&lt;br/&gt;</source>
         <translation>Traducción al Búlgaro&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2762"/>
+        <location filename="../src/MainWindow.cpp" line="2839"/>
         <source>Slovak translation&lt;br/&gt;</source>
         <translation>Traducción al Eslovaco&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2765"/>
+        <location filename="../src/MainWindow.cpp" line="2842"/>
         <source>Czech translation&lt;br/&gt;</source>
         <translation>Traducción al Checoslovaco&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2768"/>
+        <location filename="../src/MainWindow.cpp" line="2845"/>
         <source>German translation&lt;br/&gt;</source>
         <translation>Traducción al Alemán&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2773"/>
+        <location filename="../src/MainWindow.cpp" line="2850"/>
         <source>Greek translation&lt;br/&gt;</source>
         <translation>Traducción al Griego&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2776"/>
+        <location filename="../src/MainWindow.cpp" line="2853"/>
         <source>Italian translation&lt;br/&gt;</source>
         <translation>Traducción al Italiano&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2780"/>
+        <location filename="../src/MainWindow.cpp" line="2857"/>
         <source>Portuguese (Brazil) translation&lt;br/&gt;</source>
         <translation>Traducción al Portugués (Brasil)&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2783"/>
+        <location filename="../src/MainWindow.cpp" line="2860"/>
         <source>Vietnamese translation&lt;br/&gt;</source>
         <translation>Traducción al vietnamita&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2786"/>
+        <location filename="../src/MainWindow.cpp" line="2863"/>
         <source>Chinese (China) translation&lt;br/&gt;</source>
         <translation>Traducción al Chino (China)&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2789"/>
+        <location filename="../src/MainWindow.cpp" line="2866"/>
         <source>Swedish (Sweden) translation&lt;br/&gt;</source>
         <translation>Traducción al Sueco (Suecia)&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2792"/>
+        <location filename="../src/MainWindow.cpp" line="2869"/>
         <source>Turkish translation&lt;br/&gt;</source>
         <translation>Traducción al Turco&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="3025"/>
+        <location filename="../src/MainWindow.cpp" line="3103"/>
         <source>Additional</source>
         <translation>Adicional</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="3026"/>
+        <location filename="../src/MainWindow.cpp" line="3104"/>
         <source>Suppress sound notifications</source>
         <translation>Suprimir sonido de las notificaciones</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="3027"/>
+        <location filename="../src/MainWindow.cpp" line="3105"/>
         <source>Suppress text notifications</source>
         <translation>Suprimir texto de las notificaciones</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="3021"/>
+        <location filename="../src/MainWindow.cpp" line="3099"/>
         <source>Setup speed limits</source>
         <translation>Configurar velocidad limite</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2664"/>
-        <source>EiskaltDC++ is a graphical client for Direct Connect and ADC protocols.&lt;br/&gt;&lt;br/&gt;DC++ core version: %1 (modified)&lt;br/&gt;&lt;br/&gt;Home page: &lt;a href=&quot;https://github.com/eiskaltdcpp/eiskaltdcpp/&quot;&gt;https://github.com/eiskaltdcpp/eiskaltdcpp/&lt;/a&gt;&lt;br/&gt;&lt;br/&gt;Total up: &lt;b&gt;%2&lt;/b&gt;&lt;br/&gt;Total down: &lt;b&gt;%3&lt;/b&gt;&lt;br/&gt;Ratio: &lt;b&gt;%4&lt;/b&gt;</source>
-        <translation>EiskaltDC++ es un cliente gráfico para los protocolos Direct Connect y ADC.&lt;br/&gt;&lt;br/&gt;DC++ versión del núcleo: %1 (modificado)&lt;br/&gt;&lt;br/&gt;Página de inicio: &lt;a href=&quot;https://github.com/eiskaltdcpp/eiskaltdcpp/&quot;&gt;https://github.com/eiskaltdcpp/eiskaltdcpp/&lt;/a&gt;&lt;br/&gt;&lt;br/&gt;Total subido: &lt;b&gt;%2&lt;/b&gt;&lt;br/&gt;Total bajado: &lt;b&gt;%3&lt;/b&gt;&lt;br/&gt;Ratio: &lt;b&gt;%4&lt;/b&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2684"/>
+        <location filename="../src/MainWindow.cpp" line="2719"/>
         <source>Please use &lt;a href=&quot;https://github.com/eiskaltdcpp/eiskaltdcpp/issues&quot;&gt;https://github.com/eiskaltdcpp/eiskaltdcpp/issues&lt;/a&gt; to report bugs.&lt;br/&gt;</source>
         <translation>Por favor, usa &lt;a href=&quot;https://github.com/eiskaltdcpp/eiskaltdcpp/issues&quot;&gt;https://github.com/eiskaltdcpp/eiskaltdcpp/issues&lt;/a&gt; para reportar errores.&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2832"/>
+        <location filename="../src/MainWindow.cpp" line="2726"/>
+        <location filename="../src/MainWindow.cpp" line="2754"/>
+        <source>lead developer</source>
+        <translation>desarrollador central</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2729"/>
+        <location filename="../src/MainWindow.cpp" line="2751"/>
+        <source>release manager</source>
+        <translation>responsable de publicación de versiones estables</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2734"/>
+        <source>Arch Linux maintainer</source>
+        <translation>mantenedor en Arch Linux</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2737"/>
+        <location filename="../src/MainWindow.cpp" line="2745"/>
+        <location filename="../src/MainWindow.cpp" line="2768"/>
+        <location filename="../src/MainWindow.cpp" line="2773"/>
+        <source>developer</source>
+        <translation>desarrollador</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2742"/>
+        <source>Debian/Ubuntu maintainer</source>
+        <translation>mantenedor en Debian/Ubuntu</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2748"/>
+        <source>translations coordinator</source>
+        <translation>coordinador de las traducciones</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2757"/>
+        <source>macOS maintainer</source>
+        <translation>mantenedor en macOS</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2760"/>
+        <location filename="../src/MainWindow.cpp" line="2765"/>
+        <source>MS Windows maintainer</source>
+        <translation>mantenedor en MS Windows</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2780"/>
+        <source>creator of the logo of the project</source>
+        <translation>creador del logo del proyecto</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2785"/>
+        <source>tiny updates of the logo</source>
+        <translation>actualizaciones menores en el logo</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2793"/>
+        <source>Participate in the translation. It is easy:</source>
+        <translation>Participa en la traducción. es fácil:</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2909"/>
         <source>Show close buttons</source>
         <translation>Mostrar botones de cerrado</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2867"/>
+        <location filename="../src/MainWindow.cpp" line="2944"/>
         <source>[No name]</source>
         <translation>[Sin nombre]</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2955"/>
+        <location filename="../src/MainWindow.cpp" line="3033"/>
         <source>Download Queue</source>
         <translation>Cola de descarga</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2955"/>
+        <location filename="../src/MainWindow.cpp" line="3033"/>
         <source>All downloads complete</source>
         <translation>Todas las descargas completadas</translation>
     </message>
@@ -2655,27 +2533,27 @@ Descargas: %3 Subidas: %4</translation>
 <context>
     <name>PMWindow</name>
     <message>
-        <location filename="../src/PMWindow.cpp" line="105"/>
+        <location filename="../src/PMWindow.cpp" line="103"/>
         <source>Private message</source>
         <translation>Mensaje privado</translation>
     </message>
     <message>
-        <location filename="../src/PMWindow.cpp" line="106"/>
+        <location filename="../src/PMWindow.cpp" line="104"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
     <message>
-        <location filename="../src/PMWindow.cpp" line="308"/>
+        <location filename="../src/PMWindow.cpp" line="314"/>
         <source>%1 on hub %2</source>
         <translation>%1 en el hub %2</translation>
     </message>
     <message>
-        <location filename="../src/PMWindow.cpp" line="338"/>
+        <location filename="../src/PMWindow.cpp" line="356"/>
         <source>Chat cleared.</source>
         <translation>Chat limpiado.</translation>
     </message>
     <message>
-        <location filename="../src/PMWindow.cpp" line="426"/>
+        <location filename="../src/PMWindow.cpp" line="444"/>
         <source>User went offline</source>
         <translation>El usuario se desconectó</translation>
     </message>
@@ -2777,13 +2655,16 @@ Descargas: %3 Subidas: %4</translation>
     </message>
     <message>
         <location filename="../src/PublicHubs.cpp" line="290"/>
-        <source>Hub list downloaded... (%1 %2) </source>
-        <translation>Lista de hubs descargada... (%1 %2) </translation>
+        <source>Hub list downloaded... (%1)</source>
+        <translation>Lista de Hubs descargada... (%1)</translation>
     </message>
     <message>
-        <location filename="../src/PublicHubs.cpp" line="290"/>
+        <source>Hub list downloaded... (%1 %2) </source>
+        <translation type="vanished">Lista de hubs descargada... (%1 %2) </translation>
+    </message>
+    <message>
         <source>from Coral</source>
-        <translation>desde la red Coral</translation>
+        <translation type="vanished">desde la red Coral</translation>
     </message>
     <message>
         <location filename="../src/PublicHubs.cpp" line="294"/>
@@ -2839,12 +2720,12 @@ Descargas: %3 Subidas: %4</translation>
         <translation>Los iconos de la aplicación han sido cargados</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="225"/>
-        <source>Shutting down libdcpp...</source>
-        <translation>Apagando libdcpp...</translation>
+        <location filename="../src/main.cpp" line="230"/>
+        <source>Shutting down libeiskaltdcpp...</source>
+        <translation>Apagando libeiskaltdcpp...</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="260"/>
+        <location filename="../src/main.cpp" line="265"/>
         <source>Quit...</source>
         <translation>Saliendo...</translation>
     </message>
@@ -2852,7 +2733,7 @@ Descargas: %3 Subidas: %4</translation>
 <context>
     <name>QueuedUsers</name>
     <message>
-        <location filename="../src/QueuedUsers.cpp" line="68"/>
+        <location filename="../src/QueuedUsers.cpp" line="72"/>
         <source>Grant slot</source>
         <translation>Conceder slot</translation>
     </message>
@@ -2865,12 +2746,12 @@ Descargas: %3 Subidas: %4</translation>
 <context>
     <name>QueuedUsersModel</name>
     <message>
-        <location filename="../src/QueuedUsers.cpp" line="116"/>
+        <location filename="../src/QueuedUsers.cpp" line="120"/>
         <source>User</source>
         <translation>Usuario</translation>
     </message>
     <message>
-        <location filename="../src/QueuedUsers.cpp" line="116"/>
+        <location filename="../src/QueuedUsers.cpp" line="120"/>
         <source>File</source>
         <translation>Archivo</translation>
     </message>
@@ -2894,14 +2775,9 @@ Descargas: %3 Subidas: %4</translation>
 <context>
     <name>SearchBlackListDelegate</name>
     <message>
-        <location filename="../src/SearchBlacklistDialog.cpp" line="344"/>
+        <location filename="../src/SearchBlacklistDialog.cpp" line="346"/>
         <source>Filename</source>
         <translation>Nombre del archivo</translation>
-    </message>
-    <message>
-        <location filename="../src/SearchBlacklistDialog.cpp" line="345"/>
-        <source>TTH</source>
-        <translation>TTH</translation>
     </message>
 </context>
 <context>
@@ -2925,11 +2801,6 @@ Descargas: %3 Subidas: %4</translation>
         <translation>Nombre del archivo</translation>
     </message>
     <message>
-        <location filename="../src/SearchBlacklistDialog.cpp" line="164"/>
-        <source>TTH</source>
-        <translation>TTH</translation>
-    </message>
-    <message>
         <location filename="../src/SearchBlacklistDialog.cpp" line="179"/>
         <source>Key</source>
         <translation>Palabra</translation>
@@ -2948,13 +2819,8 @@ Descargas: %3 Subidas: %4</translation>
 <context>
     <name>SearchFrame</name>
     <message>
-        <location filename="../ui/UISearchFrame.ui" line="14"/>
-        <source>Form</source>
-        <translation>Forma</translation>
-    </message>
-    <message>
         <location filename="../ui/UISearchFrame.ui" line="44"/>
-        <location filename="../src/SearchFrame.cpp" line="362"/>
+        <location filename="../src/SearchFrame.cpp" line="363"/>
         <source>Search</source>
         <translation>Buscar</translation>
     </message>
@@ -3149,39 +3015,44 @@ Descargas: %3 Subidas: %4</translation>
         <translation>Añadir a la lista negra</translation>
     </message>
     <message>
-        <location filename="../src/SearchFrame.cpp" line="291"/>
-        <location filename="../src/SearchFrame.cpp" line="294"/>
+        <location filename="../src/SearchFrame.cpp" line="292"/>
+        <location filename="../src/SearchFrame.cpp" line="295"/>
         <source>Browse</source>
         <translation>Explorar</translation>
     </message>
     <message>
-        <location filename="../src/SearchFrame.cpp" line="481"/>
+        <location filename="../src/SearchFrame.cpp" line="477"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
     <message>
-        <location filename="../src/SearchFrame.cpp" line="1084"/>
+        <location filename="../src/SearchFrame.cpp" line="1080"/>
         <source>Search - %1</source>
         <translation>Búsqueda - %1</translation>
     </message>
     <message>
-        <location filename="../src/SearchFrame.cpp" line="1192"/>
-        <location filename="../src/SearchFrame.cpp" line="1250"/>
+        <location filename="../src/SearchFrame.cpp" line="1188"/>
+        <location filename="../src/SearchFrame.cpp" line="1246"/>
         <source>Select directory</source>
         <translation>Seleccionar directorio</translation>
     </message>
     <message>
-        <location filename="../src/SearchFrame.cpp" line="1557"/>
+        <location filename="../src/SearchFrame.cpp" line="1554"/>
         <source>Searching for %1 ...</source>
         <translation>Buscando %1 ...</translation>
     </message>
     <message>
-        <location filename="../src/SearchFrame.cpp" line="1574"/>
+        <location filename="../src/SearchFrame.cpp" line="1558"/>
+        <source>Search progress of &quot;%1&quot; is %2%</source>
+        <translation>Progreso de búsqueda de &quot;%1&quot; es %2%</translation>
+    </message>
+    <message>
+        <location filename="../src/SearchFrame.cpp" line="1581"/>
         <source>&lt;b&gt;No results&lt;/b&gt;</source>
         <translation>&lt;b&gt;Sin resultados&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/SearchFrame.cpp" line="1583"/>
+        <location filename="../src/SearchFrame.cpp" line="1590"/>
         <source>Found: &lt;b&gt;%1&lt;/b&gt;  Dropped: &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Encontrados: &lt;b&gt;%1&lt;/b&gt;  Descartados: &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
@@ -3189,72 +3060,67 @@ Descargas: %3 Subidas: %4</translation>
 <context>
     <name>SearchModel</name>
     <message>
-        <location filename="../src/SearchModel.cpp" line="55"/>
+        <location filename="../src/SearchModel.cpp" line="50"/>
         <source>Count</source>
         <translation>Cantidad</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="55"/>
+        <location filename="../src/SearchModel.cpp" line="50"/>
         <source>File</source>
         <translation>Archivo</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="55"/>
+        <location filename="../src/SearchModel.cpp" line="50"/>
         <source>Ext</source>
         <translation>Extensión</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="55"/>
+        <location filename="../src/SearchModel.cpp" line="50"/>
         <source>Size</source>
         <translation>Tamaño</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="56"/>
+        <location filename="../src/SearchModel.cpp" line="51"/>
         <source>Exact size</source>
         <translation>Tamaño exacto</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="56"/>
-        <source>TTH</source>
-        <translation>TTH</translation>
-    </message>
-    <message>
-        <location filename="../src/SearchModel.cpp" line="56"/>
+        <location filename="../src/SearchModel.cpp" line="51"/>
         <source>Path</source>
         <translation>Ruta</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="56"/>
+        <location filename="../src/SearchModel.cpp" line="51"/>
         <source>Nick</source>
         <translation>Nick</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="57"/>
+        <location filename="../src/SearchModel.cpp" line="52"/>
         <source>Free slots</source>
         <translation>Slots libres</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="57"/>
+        <location filename="../src/SearchModel.cpp" line="52"/>
         <source>Total slots</source>
         <translation>Slots totales</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="58"/>
+        <location filename="../src/SearchModel.cpp" line="53"/>
         <source>IP</source>
         <translation>IP</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="58"/>
+        <location filename="../src/SearchModel.cpp" line="53"/>
         <source>Hub</source>
         <translation>Hub</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="58"/>
+        <location filename="../src/SearchModel.cpp" line="53"/>
         <source>Host</source>
         <translation>Host</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="137"/>
+        <location filename="../src/SearchModel.cpp" line="132"/>
         <source>File already exists: %1</source>
         <translation>El archivo ya existe: %1</translation>
     </message>
@@ -3333,18 +3199,18 @@ Descargas: %3 Subidas: %4</translation>
 <context>
     <name>SettingsConnection</name>
     <message>
-        <location filename="../src/SettingsConnection.cpp" line="112"/>
+        <location filename="../src/SettingsConnection.cpp" line="109"/>
         <source>No valid SOCKS5 server IP found!</source>
         <translation>No se encontró una IP del servidor SOCKS5 válida!</translation>
     </message>
     <message>
-        <location filename="../src/SettingsConnection.cpp" line="157"/>
-        <location filename="../src/SettingsConnection.cpp" line="170"/>
+        <location filename="../src/SettingsConnection.cpp" line="154"/>
+        <location filename="../src/SettingsConnection.cpp" line="167"/>
         <source>Program need root privileges to open ports less than 1024</source>
         <translation>El programa necesita privilegios de Administrador para abrir puertos más bajos que 1024</translation>
     </message>
     <message>
-        <location filename="../src/SettingsConnection.cpp" line="368"/>
+        <location filename="../src/SettingsConnection.cpp" line="365"/>
         <source>Warning</source>
         <translation>Advertencia</translation>
     </message>
@@ -3352,28 +3218,28 @@ Descargas: %3 Subidas: %4</translation>
 <context>
     <name>SettingsDownloads</name>
     <message>
-        <location filename="../src/SettingsDownloads.cpp" line="160"/>
-        <location filename="../src/SettingsDownloads.cpp" line="195"/>
+        <location filename="../src/SettingsDownloads.cpp" line="158"/>
+        <location filename="../src/SettingsDownloads.cpp" line="193"/>
         <source>Select directory</source>
         <translation>Seleccionar directorio</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDownloads.cpp" line="177"/>
+        <location filename="../src/SettingsDownloads.cpp" line="175"/>
         <source>New</source>
         <translation>Nuevo</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDownloads.cpp" line="183"/>
+        <location filename="../src/SettingsDownloads.cpp" line="181"/>
         <source>Delete</source>
         <translation>Borrar</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDownloads.cpp" line="190"/>
+        <location filename="../src/SettingsDownloads.cpp" line="188"/>
         <source>Enter alias for directory</source>
         <translation>Introducir alias para el directorio</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDownloads.cpp" line="190"/>
+        <location filename="../src/SettingsDownloads.cpp" line="188"/>
         <source>Alias</source>
         <translation>Alias</translation>
     </message>
@@ -3386,177 +3252,177 @@ Descargas: %3 Subidas: %4</translation>
         <translation>Por defecto (se necesita reiniciar)</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="76"/>
+        <location filename="../src/SettingsGUI.cpp" line="74"/>
         <source>English</source>
         <translation>Inglés</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="77"/>
+        <location filename="../src/SettingsGUI.cpp" line="75"/>
         <source>Russian</source>
         <translation>Ruso</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="78"/>
+        <location filename="../src/SettingsGUI.cpp" line="76"/>
         <source>Belarusian</source>
         <translation>Bielorruso</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="79"/>
+        <location filename="../src/SettingsGUI.cpp" line="77"/>
         <source>Hungarian</source>
         <translation>Húngaro</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="80"/>
+        <location filename="../src/SettingsGUI.cpp" line="78"/>
         <source>French</source>
         <translation>Francés</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="81"/>
+        <location filename="../src/SettingsGUI.cpp" line="79"/>
         <source>Polish</source>
         <translation>Polaco</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="82"/>
+        <location filename="../src/SettingsGUI.cpp" line="80"/>
         <source>Portuguese (Brazil)</source>
         <translation>Portugués (Brasil)</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="83"/>
+        <location filename="../src/SettingsGUI.cpp" line="81"/>
         <source>Serbian (Cyrillic)</source>
         <translation>Serbio (Cirílico)</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="84"/>
+        <location filename="../src/SettingsGUI.cpp" line="82"/>
         <source>Serbian (Latin)</source>
         <translation>Serbio (Latin)</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="85"/>
+        <location filename="../src/SettingsGUI.cpp" line="83"/>
         <source>Ukrainian</source>
         <translation>Ucraniano</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="86"/>
+        <location filename="../src/SettingsGUI.cpp" line="84"/>
         <source>Spanish</source>
         <translation>Español</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="87"/>
+        <location filename="../src/SettingsGUI.cpp" line="85"/>
         <source>Basque</source>
         <translation>Euskera</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="88"/>
+        <location filename="../src/SettingsGUI.cpp" line="86"/>
         <source>Bulgarian</source>
         <translation>Búlgaro</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="89"/>
+        <location filename="../src/SettingsGUI.cpp" line="87"/>
         <source>Slovak</source>
         <translation>Eslovaco</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="90"/>
+        <location filename="../src/SettingsGUI.cpp" line="88"/>
         <source>Czech</source>
         <translation>Checoslovaco</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="91"/>
+        <location filename="../src/SettingsGUI.cpp" line="89"/>
         <source>German</source>
         <translation>Alemán</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="92"/>
+        <location filename="../src/SettingsGUI.cpp" line="90"/>
         <source>Greek</source>
         <translation>Griego</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="93"/>
+        <location filename="../src/SettingsGUI.cpp" line="91"/>
         <source>Italian</source>
         <translation>Italiano</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="94"/>
+        <location filename="../src/SettingsGUI.cpp" line="92"/>
         <source>Vietnamese</source>
         <translation>Vietnamita</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="95"/>
+        <location filename="../src/SettingsGUI.cpp" line="93"/>
         <source>Chinese (China)</source>
         <translation>Chino (China)</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="96"/>
+        <location filename="../src/SettingsGUI.cpp" line="94"/>
         <source>Swedish (Sweden)</source>
         <translation>Sueco (Suecia)</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="97"/>
+        <location filename="../src/SettingsGUI.cpp" line="95"/>
         <source>Turkish</source>
         <translation>Turco</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="246"/>
+        <location filename="../src/SettingsGUI.cpp" line="233"/>
         <source>Local user</source>
         <translation>Usuario local</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="250"/>
+        <location filename="../src/SettingsGUI.cpp" line="237"/>
         <source>Operator</source>
         <translation>Operador</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="254"/>
+        <location filename="../src/SettingsGUI.cpp" line="241"/>
         <source>Bot</source>
         <translation>Bot</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="258"/>
+        <location filename="../src/SettingsGUI.cpp" line="245"/>
         <source>Private: local user</source>
         <translation>Privado: usuario local</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="262"/>
+        <location filename="../src/SettingsGUI.cpp" line="249"/>
         <source>Private: user</source>
         <translation>Privado: usuario</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="266"/>
+        <location filename="../src/SettingsGUI.cpp" line="253"/>
         <source>Chat: Say nick</source>
         <translation>Chat: nick mencionado</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="270"/>
+        <location filename="../src/SettingsGUI.cpp" line="257"/>
         <source>Status</source>
         <translation>Estado</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="274"/>
+        <location filename="../src/SettingsGUI.cpp" line="261"/>
         <source>User</source>
         <translation>Usuario</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="278"/>
+        <location filename="../src/SettingsGUI.cpp" line="265"/>
         <source>Favorite User</source>
         <translation>Usuario favorito</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="282"/>
+        <location filename="../src/SettingsGUI.cpp" line="269"/>
         <source>Time stamp</source>
         <translation>Fecha y hora</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="286"/>
+        <location filename="../src/SettingsGUI.cpp" line="273"/>
         <source>Message</source>
         <translation>Mensaje</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="603"/>
+        <location filename="../src/SettingsGUI.cpp" line="590"/>
         <source>Select translation</source>
         <translation>Seleccionar traducción</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="603"/>
+        <location filename="../src/SettingsGUI.cpp" line="592"/>
         <source>Translation (*.qm)</source>
         <translation>Traducción (*.qm)</translation>
     </message>
@@ -3754,38 +3620,38 @@ Descargas: %3 Subidas: %4</translation>
         <translation>Error del buscador de compartidos: %1</translation>
     </message>
     <message>
-        <location filename="../src/ShareBrowser.cpp" line="622"/>
-        <location filename="../src/ShareBrowser.cpp" line="644"/>
+        <location filename="../src/ShareBrowser.cpp" line="620"/>
+        <location filename="../src/ShareBrowser.cpp" line="642"/>
         <source>Total size: %1</source>
         <translation>Tamaño total: %1</translation>
     </message>
     <message>
-        <location filename="../src/ShareBrowser.cpp" line="642"/>
+        <location filename="../src/ShareBrowser.cpp" line="640"/>
         <source>Selected %1 from %2 items; </source>
         <translation>Seleccionados %1 de %2 objetos; </translation>
     </message>
     <message>
-        <location filename="../src/ShareBrowser.cpp" line="647"/>
+        <location filename="../src/ShareBrowser.cpp" line="645"/>
         <source>; Selected: %1</source>
         <translation>; Seleccionados: %1</translation>
     </message>
     <message>
-        <location filename="../src/ShareBrowser.cpp" line="848"/>
+        <location filename="../src/ShareBrowser.cpp" line="846"/>
         <source>Select directory</source>
         <translation>Seleccionar directorio</translation>
     </message>
     <message>
-        <location filename="../src/ShareBrowser.cpp" line="978"/>
+        <location filename="../src/ShareBrowser.cpp" line="976"/>
         <source>Enter restriction size (in GB)</source>
         <translation>Introducir restricción (en Gb)</translation>
     </message>
     <message>
-        <location filename="../src/ShareBrowser.cpp" line="1116"/>
+        <location filename="../src/ShareBrowser.cpp" line="1114"/>
         <source>Share browser</source>
         <translation>Explorar compartidos</translation>
     </message>
     <message>
-        <location filename="../src/ShareBrowser.cpp" line="1123"/>
+        <location filename="../src/ShareBrowser.cpp" line="1121"/>
         <source>Matched %1 files</source>
         <translation>Emparejado %1 archivos</translation>
     </message>
@@ -3842,12 +3708,12 @@ Descargas: %3 Subidas: %4</translation>
 <context>
     <name>ShortcutsModel</name>
     <message>
-        <location filename="../src/SettingsShortcuts.cpp" line="175"/>
+        <location filename="../src/SettingsShortcuts.cpp" line="172"/>
         <source>Action</source>
         <translation>Acción</translation>
     </message>
     <message>
-        <location filename="../src/SettingsShortcuts.cpp" line="176"/>
+        <location filename="../src/SettingsShortcuts.cpp" line="173"/>
         <source>Hotkey</source>
         <translation>Tecla Rápida</translation>
     </message>
@@ -3855,97 +3721,97 @@ Descargas: %3 Subidas: %4</translation>
 <context>
     <name>SideBarModel</name>
     <message>
-        <location filename="../src/SideBar.cpp" line="56"/>
-        <location filename="../src/SideBar.cpp" line="405"/>
+        <location filename="../src/SideBar.cpp" line="68"/>
+        <location filename="../src/SideBar.cpp" line="422"/>
         <source>Hubs</source>
         <translation>Hubs</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="57"/>
-        <location filename="../src/SideBar.cpp" line="406"/>
+        <location filename="../src/SideBar.cpp" line="69"/>
+        <location filename="../src/SideBar.cpp" line="423"/>
         <source>Private Messages</source>
         <translation>Mensajes privados</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="58"/>
-        <location filename="../src/SideBar.cpp" line="407"/>
+        <location filename="../src/SideBar.cpp" line="70"/>
+        <location filename="../src/SideBar.cpp" line="424"/>
         <source>Search</source>
         <translation>Búsqueda</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="59"/>
-        <location filename="../src/SideBar.cpp" line="408"/>
+        <location filename="../src/SideBar.cpp" line="71"/>
+        <location filename="../src/SideBar.cpp" line="425"/>
         <source>Share Browsers</source>
         <translation>Navegador de compartidos</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="60"/>
-        <location filename="../src/SideBar.cpp" line="409"/>
+        <location filename="../src/SideBar.cpp" line="72"/>
+        <location filename="../src/SideBar.cpp" line="426"/>
         <source>ADLSearch</source>
         <translation>Búsqueda ADL</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="61"/>
-        <location filename="../src/SideBar.cpp" line="410"/>
+        <location filename="../src/SideBar.cpp" line="73"/>
+        <location filename="../src/SideBar.cpp" line="427"/>
         <source>Download Queue</source>
         <translation>Cola de descarga</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="62"/>
-        <location filename="../src/SideBar.cpp" line="418"/>
+        <location filename="../src/SideBar.cpp" line="74"/>
+        <location filename="../src/SideBar.cpp" line="435"/>
         <source>Queued Users</source>
         <translation>Usuarios en cola</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="63"/>
-        <location filename="../src/SideBar.cpp" line="411"/>
+        <location filename="../src/SideBar.cpp" line="75"/>
+        <location filename="../src/SideBar.cpp" line="428"/>
         <source>Finished Uploads</source>
         <translation>Subidas finalizadas</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="64"/>
-        <location filename="../src/SideBar.cpp" line="412"/>
+        <location filename="../src/SideBar.cpp" line="76"/>
+        <location filename="../src/SideBar.cpp" line="429"/>
         <source>Finished Downloads</source>
         <translation>Descargas finalizadas</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="65"/>
-        <location filename="../src/SideBar.cpp" line="413"/>
+        <location filename="../src/SideBar.cpp" line="77"/>
+        <location filename="../src/SideBar.cpp" line="430"/>
         <source>Favorite Hubs</source>
         <translation>Hubs favoritos</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="66"/>
-        <location filename="../src/SideBar.cpp" line="414"/>
+        <location filename="../src/SideBar.cpp" line="78"/>
+        <location filename="../src/SideBar.cpp" line="431"/>
         <source>Favorite Users</source>
         <translation>Usuarios favoritos</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="67"/>
-        <location filename="../src/SideBar.cpp" line="415"/>
+        <location filename="../src/SideBar.cpp" line="79"/>
+        <location filename="../src/SideBar.cpp" line="432"/>
         <source>Public Hubs</source>
         <translation>Hubs públicos</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="68"/>
-        <location filename="../src/SideBar.cpp" line="416"/>
+        <location filename="../src/SideBar.cpp" line="80"/>
+        <location filename="../src/SideBar.cpp" line="433"/>
         <source>Spy</source>
         <translation>Espía</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="69"/>
-        <location filename="../src/SideBar.cpp" line="419"/>
-        <source>CmdDebug</source>
-        <translation>CmdDebug</translation>
+        <location filename="../src/SideBar.cpp" line="81"/>
+        <location filename="../src/SideBar.cpp" line="436"/>
+        <source>Debug Console</source>
+        <translation>Consola de Depuración</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="71"/>
-        <location filename="../src/SideBar.cpp" line="417"/>
+        <location filename="../src/SideBar.cpp" line="83"/>
+        <location filename="../src/SideBar.cpp" line="434"/>
         <source>Other Widgets</source>
         <translation>Otros Widgets</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="137"/>
+        <location filename="../src/SideBar.cpp" line="153"/>
         <source>Widgets</source>
         <translation>Widgets</translation>
     </message>
@@ -3953,42 +3819,42 @@ Descargas: %3 Subidas: %4</translation>
 <context>
     <name>SideBarView</name>
     <message>
-        <location filename="../src/SideBar.cpp" line="556"/>
+        <location filename="../src/SideBar.cpp" line="573"/>
         <source>Close all</source>
         <translation>Cerrar todo</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="577"/>
+        <location filename="../src/SideBar.cpp" line="594"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="636"/>
+        <location filename="../src/SideBar.cpp" line="653"/>
         <source>Choose file to open</source>
         <translation>Elija archivo para abrir</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="638"/>
+        <location filename="../src/SideBar.cpp" line="655"/>
         <source>Modern XML Filelists</source>
         <translation>Lista de archivos moderna XML</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="639"/>
+        <location filename="../src/SideBar.cpp" line="656"/>
         <source>Modern XML Filelists uncompressed</source>
         <translation>Lista de archivos moderna XML sin comprimir</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="640"/>
+        <location filename="../src/SideBar.cpp" line="657"/>
         <source>All files</source>
         <translation>Todos los Archivos</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="655"/>
+        <location filename="../src/SideBar.cpp" line="672"/>
         <source>Open log file</source>
         <translation>Abrir archivo de registro</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="655"/>
+        <location filename="../src/SideBar.cpp" line="672"/>
         <source>Log files (*.log);;All files (*.*)</source>
         <translation>Archivos de registro (*.log);;Todos los archivos (*.*)</translation>
     </message>
@@ -4045,7 +3911,7 @@ Y continuará trabajando aunque el widget esté oculto.
 <context>
     <name>TabFrame</name>
     <message>
-        <location filename="../src/TabFrame.cpp" line="363"/>
+        <location filename="../src/TabFrame.cpp" line="359"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
@@ -4053,7 +3919,7 @@ Y continuará trabajando aunque el widget esté oculto.
 <context>
     <name>ToolBar</name>
     <message>
-        <location filename="../src/ToolBar.cpp" line="249"/>
+        <location filename="../src/ToolBar.cpp" line="247"/>
         <source>Show close buttons</source>
         <translation>Mostrar botones de cerrado</translation>
     </message>
@@ -4061,216 +3927,183 @@ Y continuará trabajando aunque el widget esté oculto.
 <context>
     <name>TransferView</name>
     <message>
-        <location filename="../src/TransferView.cpp" line="48"/>
+        <location filename="../src/TransferView.cpp" line="49"/>
         <source>Browse files</source>
         <translation>Explorar archivos</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="51"/>
+        <location filename="../src/TransferView.cpp" line="52"/>
         <source>Search Alternates</source>
         <translation>Buscar alternativos</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="54"/>
+        <location filename="../src/TransferView.cpp" line="55"/>
         <source>Match Queue</source>
         <translation>Emparejar cola</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="57"/>
+        <location filename="../src/TransferView.cpp" line="58"/>
         <source>Send Private Message</source>
         <translation>Enviar mensaje privado</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="60"/>
+        <location filename="../src/TransferView.cpp" line="61"/>
         <source>Add to favorites</source>
         <translation>Añadir a favoritos</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="63"/>
+        <location filename="../src/TransferView.cpp" line="64"/>
         <source>Grant extra slot</source>
         <translation>Conceder slot extra</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="66"/>
+        <location filename="../src/TransferView.cpp" line="67"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="69"/>
+        <location filename="../src/TransferView.cpp" line="70"/>
         <source>Users</source>
         <translation>Usuarios</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="70"/>
+        <location filename="../src/TransferView.cpp" line="71"/>
         <source>Speed</source>
         <translation>Velocidad</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="71"/>
+        <location filename="../src/TransferView.cpp" line="72"/>
         <source>Status</source>
         <translation>Estado</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="72"/>
+        <location filename="../src/TransferView.cpp" line="73"/>
         <source>Flags</source>
         <translation>Opciones</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="73"/>
+        <location filename="../src/TransferView.cpp" line="74"/>
         <source>Size</source>
         <translation>Tamaño</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="74"/>
+        <location filename="../src/TransferView.cpp" line="75"/>
         <source>Time left</source>
         <translation>Tiempo restante</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="75"/>
+        <location filename="../src/TransferView.cpp" line="76"/>
         <source>Filename</source>
         <translation>Nombre de archivo</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="76"/>
+        <location filename="../src/TransferView.cpp" line="77"/>
         <source>Hub</source>
         <translation>Hub</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="77"/>
+        <location filename="../src/TransferView.cpp" line="78"/>
         <source>IP</source>
         <translation>IP</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="78"/>
+        <location filename="../src/TransferView.cpp" line="79"/>
         <source>Encryption</source>
         <translation>Cifrado</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="79"/>
+        <location filename="../src/TransferView.cpp" line="80"/>
         <source>Magnet</source>
         <translation>Magnet</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="84"/>
+        <location filename="../src/TransferView.cpp" line="85"/>
         <source>Remove Source</source>
         <translation>Eliminar fuente</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="90"/>
+        <location filename="../src/TransferView.cpp" line="91"/>
         <source>Force attempt</source>
         <translation>Forzar conexión</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="93"/>
+        <location filename="../src/TransferView.cpp" line="94"/>
         <source>Close connection(s)</source>
         <translation>Cerrar conexión(es)</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="96"/>
+        <location filename="../src/TransferView.cpp" line="97"/>
         <source>Show only transferred files</source>
         <translation>Mostrar sólo archivos transferidos</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="349"/>
-        <location filename="../src/TransferView.cpp" line="661"/>
+        <location filename="../src/TransferView.cpp" line="350"/>
+        <location filename="../src/TransferView.cpp" line="662"/>
         <source>Download complete</source>
         <translation>Descarga completada</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="387"/>
+        <location filename="../src/TransferView.cpp" line="388"/>
         <source>File list</source>
         <translation>Lista de archivos</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="389"/>
-        <source>TTH: </source>
-        <translation>TTH: </translation>
-    </message>
-    <message>
-        <location filename="../src/TransferView.cpp" line="604"/>
+        <location filename="../src/TransferView.cpp" line="605"/>
         <source>Requesting</source>
         <translation>Solicitando</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="615"/>
+        <location filename="../src/TransferView.cpp" line="616"/>
         <source>Download starting...</source>
         <translation>Comenzando descarga...</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="633"/>
-        <location filename="../src/TransferView.cpp" line="811"/>
-        <source>[S]</source>
-        <translation>[S]</translation>
-    </message>
-    <message>
-        <location filename="../src/TransferView.cpp" line="635"/>
-        <location filename="../src/TransferView.cpp" line="813"/>
-        <source>[U]</source>
-        <translation>[U]</translation>
-    </message>
-    <message>
-        <location filename="../src/TransferView.cpp" line="639"/>
-        <source>[T]</source>
-        <translation>[T]</translation>
-    </message>
-    <message>
-        <location filename="../src/TransferView.cpp" line="641"/>
-        <location filename="../src/TransferView.cpp" line="816"/>
-        <source>[Z]</source>
-        <translation>[Z]</translation>
-    </message>
-    <message>
-        <location filename="../src/TransferView.cpp" line="645"/>
+        <location filename="../src/TransferView.cpp" line="646"/>
         <source>Downloaded %1</source>
         <translation>Descargado %1</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="646"/>
-        <source> (%1%)</source>
-        <translation> (%1%)</translation>
-    </message>
-    <message>
-        <location filename="../src/TransferView.cpp" line="700"/>
+        <location filename="../src/TransferView.cpp" line="701"/>
         <source>Connecting...</source>
         <translation>Conectando...</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="724"/>
+        <location filename="../src/TransferView.cpp" line="725"/>
         <source>Connected</source>
         <translation>Conectado</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="755"/>
+        <location filename="../src/TransferView.cpp" line="756"/>
         <source>Connecting</source>
         <translation>Conectando</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="757"/>
+        <location filename="../src/TransferView.cpp" line="758"/>
         <source>No download slots</source>
         <translation>Sin slots de descarga</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="759"/>
+        <location filename="../src/TransferView.cpp" line="760"/>
         <source>Waiting to retry</source>
         <translation>Esperando para reintentar</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="793"/>
+        <location filename="../src/TransferView.cpp" line="794"/>
         <source>Upload starting...</source>
         <translation>Empezando subida...</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="820"/>
+        <location filename="../src/TransferView.cpp" line="821"/>
         <source>Uploaded %1 (%2%) </source>
         <translation>Subido %1 (%2%) </translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="837"/>
+        <location filename="../src/TransferView.cpp" line="838"/>
         <source>Upload complete</source>
         <translation>Subida completada</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="849"/>
+        <location filename="../src/TransferView.cpp" line="852"/>
         <source>Upload failed</source>
         <translation>Subida fallida</translation>
     </message>
@@ -4278,91 +4111,80 @@ Y continuará trabajando aunque el widget esté oculto.
 <context>
     <name>TransferViewModel</name>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="52"/>
+        <location filename="../src/TransferViewModel.cpp" line="50"/>
         <source>Users</source>
         <translation>Usuarios</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="52"/>
+        <location filename="../src/TransferViewModel.cpp" line="50"/>
         <source>Speed</source>
         <translation>Velocidad</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="52"/>
+        <location filename="../src/TransferViewModel.cpp" line="50"/>
         <source>Status</source>
         <translation>Estado</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="52"/>
+        <location filename="../src/TransferViewModel.cpp" line="50"/>
         <source>Flags</source>
         <translation>Indicadores</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="52"/>
+        <location filename="../src/TransferViewModel.cpp" line="50"/>
         <source>Size</source>
         <translation>Tamaño</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="53"/>
+        <location filename="../src/TransferViewModel.cpp" line="51"/>
         <source>Time left</source>
         <translation>Tiempo restante</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="53"/>
+        <location filename="../src/TransferViewModel.cpp" line="51"/>
         <source>File name</source>
         <translation>Nombre del archivo</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="53"/>
+        <location filename="../src/TransferViewModel.cpp" line="51"/>
         <source>Host</source>
         <translation>Host</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="53"/>
+        <location filename="../src/TransferViewModel.cpp" line="51"/>
         <source>IP</source>
         <translation>IP</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="54"/>
+        <location filename="../src/TransferViewModel.cpp" line="52"/>
         <source>Encryption</source>
         <translation>Cifrado</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="113"/>
+        <location filename="../src/TransferViewModel.cpp" line="111"/>
         <source>/s</source>
         <translation>/s</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="306"/>
-        <location filename="../src/TransferViewModel.cpp" line="364"/>
-        <location filename="../src/TransferViewModel.cpp" line="406"/>
+        <location filename="../src/TransferViewModel.cpp" line="304"/>
+        <location filename="../src/TransferViewModel.cpp" line="362"/>
+        <location filename="../src/TransferViewModel.cpp" line="403"/>
         <source>File list</source>
         <translation>Lista de archivos</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="578"/>
+        <location filename="../src/TransferViewModel.cpp" line="575"/>
         <source>Downloaded </source>
         <translation>Descargado </translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="580"/>
+        <location filename="../src/TransferViewModel.cpp" line="577"/>
         <source>Waiting for slot </source>
         <translation>Esperando al slot </translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="589"/>
-        <location filename="../src/TransferViewModel.cpp" line="591"/>
-        <source>TTH: </source>
-        <translation>TTH: </translation>
-    </message>
-    <message>
-        <location filename="../src/TransferViewModel.cpp" line="596"/>
-        <source>%1/%2</source>
-        <translation>%1/%2</translation>
-    </message>
-    <message>
-        <location filename="../src/TransferViewModel.cpp" line="634"/>
-        <location filename="../src/TransferViewModel.cpp" line="640"/>
+        <location filename="../src/TransferViewModel.cpp" line="631"/>
+        <location filename="../src/TransferViewModel.cpp" line="637"/>
         <source>Finished</source>
         <translation>Finalizado</translation>
     </message>
@@ -4370,34 +4192,29 @@ Y continuará trabajando aunque el widget esté oculto.
 <context>
     <name>UCModel</name>
     <message>
-        <location filename="../src/UCModel.cpp" line="83"/>
+        <location filename="../src/UCModel.cpp" line="84"/>
         <source>Name</source>
         <translation>Nombre</translation>
     </message>
     <message>
-        <location filename="../src/UCModel.cpp" line="84"/>
+        <location filename="../src/UCModel.cpp" line="85"/>
         <source>Command</source>
         <translation>Orden</translation>
     </message>
     <message>
-        <location filename="../src/UCModel.cpp" line="85"/>
+        <location filename="../src/UCModel.cpp" line="86"/>
         <source>Hub</source>
         <translation>Hub</translation>
     </message>
     <message>
-        <location filename="../src/UCModel.cpp" line="151"/>
-        <location filename="../src/UCModel.cpp" line="204"/>
+        <location filename="../src/UCModel.cpp" line="152"/>
+        <location filename="../src/UCModel.cpp" line="205"/>
         <source>Separator</source>
         <translation>Separador</translation>
     </message>
 </context>
 <context>
     <name>UIADLS</name>
-    <message>
-        <location filename="../ui/UIADLSearch.ui" line="14"/>
-        <source>Form</source>
-        <translation>Forma</translation>
-    </message>
     <message>
         <location filename="../ui/UIADLSearch.ui" line="56"/>
         <source>Add new</source>
@@ -4427,73 +4244,68 @@ Y continuará trabajando aunque el widget esté oculto.
 <context>
     <name>UIADLSEditor</name>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="20"/>
-        <source>Dialog</source>
-        <translation>Diálogo</translation>
-    </message>
-    <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="29"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="38"/>
         <source>Favorite hub name.</source>
         <translation>Nombre del hub favorito.</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="42"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="51"/>
         <source>Search string</source>
         <translation>Cadena de búsqueda</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="65"/>
-        <location filename="../ui/UIADLSearchEditor.ui" line="99"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="74"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="117"/>
         <source>Directory</source>
         <translation>Directorio</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="78"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="87"/>
         <source>Type source</source>
         <translation>Tipo de fuente</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="94"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="112"/>
         <source>Filename</source>
         <translation>Nombre de archivo</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="104"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="122"/>
         <source>Full path</source>
         <translation>Ruta Completa</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="115"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="133"/>
         <source>Min/Max Size</source>
         <translation>Tamaño Mín/Máx</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="166"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="193"/>
         <source>B</source>
         <translation>B</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="171"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="198"/>
         <source>KiB</source>
         <translation>KiB</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="176"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="203"/>
         <source>MiB</source>
         <translation>MiB</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="181"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="208"/>
         <source>GiB</source>
         <translation>GiB</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="229"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="265"/>
         <source>Download</source>
         <translation>Descargar</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="242"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="278"/>
         <source>On</source>
         <translation>Activada</translation>
     </message>
@@ -4506,19 +4318,6 @@ Y continuará trabajando aunque el widget esté oculto.
         <translation>Acerca de EiskaltDC++</translation>
     </message>
     <message>
-        <location filename="../ui/UIAbout.ui" line="20"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EiskaltDC++&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;⏎
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;⏎
-p, li { white-space: pre-wrap; }⏎
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;⏎
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EiskaltDC++&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <location filename="../ui/UIAbout.ui" line="41"/>
         <source>About program</source>
         <translation>Acerca del Programa</translation>
@@ -4527,21 +4326,6 @@ p, li { white-space: pre-wrap; }⏎
         <location filename="../ui/UIAbout.ui" line="67"/>
         <source>Authors</source>
         <translation>Autores</translation>
-    </message>
-    <message>
-        <location filename="../ui/UIAbout.ui" line="73"/>
-        <location filename="../ui/UIAbout.ui" line="97"/>
-        <location filename="../ui/UIAbout.ui" line="118"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../ui/UIAbout.ui" line="91"/>
@@ -4556,21 +4340,6 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>UIActionCustomizer</name>
-    <message>
-        <location filename="../ui/UIActionCustomizer.ui" line="14"/>
-        <source>Dialog</source>
-        <translation>Diálogo</translation>
-    </message>
-    <message>
-        <location filename="../ui/UIActionCustomizer.ui" line="29"/>
-        <source>&gt;&gt;</source>
-        <translation>&gt;&gt;</translation>
-    </message>
-    <message>
-        <location filename="../ui/UIActionCustomizer.ui" line="45"/>
-        <source>&lt;&lt;</source>
-        <translation>&lt;&lt;</translation>
-    </message>
     <message>
         <location filename="../ui/UIActionCustomizer.ui" line="88"/>
         <source>Up</source>
@@ -4630,20 +4399,6 @@ p, li { white-space: pre-wrap; }
         <translation>Lista Negra</translation>
     </message>
     <message>
-        <location filename="../ui/UIAntiSpam.ui" line="131"/>
-        <location filename="../ui/UIAntiSpam.ui" line="197"/>
-        <location filename="../ui/UIAntiSpam.ui" line="263"/>
-        <source>+</source>
-        <translation>+</translation>
-    </message>
-    <message>
-        <location filename="../ui/UIAntiSpam.ui" line="144"/>
-        <location filename="../ui/UIAntiSpam.ui" line="210"/>
-        <location filename="../ui/UIAntiSpam.ui" line="276"/>
-        <source>-</source>
-        <translation>-</translation>
-    </message>
-    <message>
         <location filename="../ui/UIAntiSpam.ui" line="157"/>
         <location filename="../ui/UIAntiSpam.ui" line="223"/>
         <location filename="../ui/UIAntiSpam.ui" line="289"/>
@@ -4674,24 +4429,10 @@ p, li { white-space: pre-wrap; }
         <translation>Mover usuario a la lista &quot;Blanca&quot;</translation>
     </message>
     <message>
-        <location filename="../ui/UIAntiSpam.ui" line="317"/>
-        <location filename="../ui/UIAntiSpam.ui" line="330"/>
-        <location filename="../ui/UIAntiSpam.ui" line="385"/>
-        <source>&gt;&gt;&gt;</source>
-        <translation>&gt;&gt;&gt;</translation>
-    </message>
-    <message>
         <location filename="../ui/UIAntiSpam.ui" line="327"/>
         <location filename="../ui/UIAntiSpam.ui" line="340"/>
         <source>Move user to &quot;Gray&quot; list</source>
         <translation>Mover usuario a la lista &quot;Gris&quot;</translation>
-    </message>
-    <message>
-        <location filename="../ui/UIAntiSpam.ui" line="343"/>
-        <location filename="../ui/UIAntiSpam.ui" line="356"/>
-        <location filename="../ui/UIAntiSpam.ui" line="372"/>
-        <source>&lt;&lt;&lt;</source>
-        <translation>&lt;&lt;&lt;</translation>
     </message>
     <message>
         <location filename="../ui/UIAntiSpam.ui" line="353"/>
@@ -4708,58 +4449,18 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>UICmdDebug</name>
     <message>
-        <location filename="../ui/UICmdDebug.ui" line="14"/>
-        <source>Form</source>
-        <translation>Forma</translation>
-    </message>
-    <message>
-        <location filename="../ui/UICmdDebug.ui" line="29"/>
-        <source>CL_IN</source>
-        <translation>CL_IN</translation>
-    </message>
-    <message>
-        <location filename="../ui/UICmdDebug.ui" line="36"/>
-        <source>CL_OUT</source>
-        <translation>CL_OUT</translation>
-    </message>
-    <message>
-        <location filename="../ui/UICmdDebug.ui" line="43"/>
-        <source>HUB_IN</source>
-        <translation>HUB_IN</translation>
-    </message>
-    <message>
-        <location filename="../ui/UICmdDebug.ui" line="50"/>
-        <source>HUB_OUT</source>
-        <translation>HUB_OUT</translation>
-    </message>
-    <message>
-        <location filename="../ui/UICmdDebug.ui" line="57"/>
-        <source>DHT_IN</source>
-        <translation>DHT_IN</translation>
-    </message>
-    <message>
-        <location filename="../ui/UICmdDebug.ui" line="64"/>
-        <source>DHT_OUT</source>
-        <translation>DHT_OUT</translation>
-    </message>
-    <message>
-        <location filename="../ui/UICmdDebug.ui" line="71"/>
+        <location filename="../ui/UICmdDebug.ui" line="52"/>
         <source>Filter by IP</source>
         <translation>Filtrar por IP</translation>
     </message>
     <message>
-        <location filename="../ui/UICmdDebug.ui" line="81"/>
+        <location filename="../ui/UICmdDebug.ui" line="100"/>
         <source>Lines:</source>
         <translation>Lineas:</translation>
     </message>
 </context>
 <context>
     <name>UIDownloadQueue</name>
-    <message>
-        <location filename="../ui/UIDownloadQueue.ui" line="14"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <location filename="../ui/UIDownloadQueue.ui" line="41"/>
         <source>Expand all</source>
@@ -4773,11 +4474,6 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>UIFavoriteHubEditor</name>
-    <message>
-        <location filename="../ui/UIFavoriteHubEditor.ui" line="14"/>
-        <source>Dialog</source>
-        <translation>Diálogo</translation>
-    </message>
     <message>
         <location filename="../ui/UIFavoriteHubEditor.ui" line="20"/>
         <source>Hub</source>
@@ -4859,11 +4555,6 @@ p, li { white-space: pre-wrap; }
         <translation>IP externa</translation>
     </message>
     <message>
-        <location filename="../ui/UIFavoriteHubEditor.ui" line="152"/>
-        <source>000.000.000.000; </source>
-        <translation>000.000.000.000; </translation>
-    </message>
-    <message>
         <location filename="../ui/UIFavoriteHubEditor.ui" line="162"/>
         <source>Auto update from Internet</source>
         <translation>Actualizar automáticamente desde Internet</translation>
@@ -4879,43 +4570,38 @@ p, li { white-space: pre-wrap; }
         <translation>Identificación</translation>
     </message>
     <message>
-        <location filename="../ui/UIFavoriteHubEditor.ui" line="214"/>
+        <location filename="../ui/UIFavoriteHubEditor.ui" line="223"/>
         <source>This nickname, or handle, will identify you when you join a hub.</source>
         <translation>Este nickname, o título, le identificará cuando se una al hub.</translation>
     </message>
     <message>
-        <location filename="../ui/UIFavoriteHubEditor.ui" line="221"/>
+        <location filename="../ui/UIFavoriteHubEditor.ui" line="230"/>
         <source>If hub requires password, define it here.</source>
         <translation>Si el hub requiere contraseña, indíquelo aquí.</translation>
     </message>
     <message>
-        <location filename="../ui/UIFavoriteHubEditor.ui" line="234"/>
+        <location filename="../ui/UIFavoriteHubEditor.ui" line="243"/>
         <source>This description will be shown in the user list.</source>
         <translation>Esta descripción se ,mostrará en la lista de usuarios.</translation>
     </message>
     <message>
-        <location filename="../ui/UIFavoriteHubEditor.ui" line="241"/>
+        <location filename="../ui/UIFavoriteHubEditor.ui" line="250"/>
         <source>Nick</source>
         <translation>Nick</translation>
     </message>
     <message>
-        <location filename="../ui/UIFavoriteHubEditor.ui" line="248"/>
+        <location filename="../ui/UIFavoriteHubEditor.ui" line="257"/>
         <source>User description</source>
         <translation>Descripción del usuario</translation>
     </message>
     <message>
-        <location filename="../ui/UIFavoriteHubEditor.ui" line="255"/>
+        <location filename="../ui/UIFavoriteHubEditor.ui" line="264"/>
         <source>Password</source>
         <translation>Contraseña</translation>
     </message>
 </context>
 <context>
     <name>UIFavoriteHubs</name>
-    <message>
-        <location filename="../ui/UIFavoriteHubs.ui" line="14"/>
-        <source>Form</source>
-        <translation>Forma</translation>
-    </message>
     <message>
         <location filename="../ui/UIFavoriteHubs.ui" line="56"/>
         <source>Add new</source>
@@ -4940,11 +4626,6 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>UIFavoriteUsers</name>
     <message>
-        <location filename="../ui/UIFavoriteUsers.ui" line="14"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
         <location filename="../ui/UIFavoriteUsers.ui" line="41"/>
         <source>Auto grant slot to all users</source>
         <translation>conceder automáticamente slot a todos los usuarios</translation>
@@ -4958,33 +4639,23 @@ p, li { white-space: pre-wrap; }
         <translation>Calculadora TTH</translation>
     </message>
     <message>
-        <location filename="../ui/UIFileHasher.ui" line="54"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="../ui/UIFileHasher.ui" line="73"/>
+        <location filename="../ui/UIFileHasher.ui" line="82"/>
         <source>Compute</source>
         <translation>Calcular</translation>
     </message>
     <message>
-        <location filename="../ui/UIFileHasher.ui" line="80"/>
+        <location filename="../ui/UIFileHasher.ui" line="89"/>
         <source>Get magnet</source>
         <translation>Obtener Magnet</translation>
     </message>
     <message>
-        <location filename="../ui/UIFileHasher.ui" line="100"/>
+        <location filename="../ui/UIFileHasher.ui" line="109"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
 </context>
 <context>
     <name>UIFinishedTransfers</name>
-    <message>
-        <location filename="../ui/UIFinishedTransfers.ui" line="14"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <location filename="../ui/UIFinishedTransfers.ui" line="22"/>
         <source>Show</source>
@@ -5024,17 +4695,17 @@ p, li { white-space: pre-wrap; }
         <translation>Progreso del indexado</translation>
     </message>
     <message>
-        <location filename="../ui/UIHashProgressDialog.ui" line="109"/>
+        <location filename="../ui/UIHashProgressDialog.ui" line="125"/>
         <source>Close on finish</source>
         <translation>Cerrar al terminar</translation>
     </message>
     <message>
-        <location filename="../ui/UIHashProgressDialog.ui" line="129"/>
+        <location filename="../ui/UIHashProgressDialog.ui" line="145"/>
         <source>Start</source>
         <translation>Empezar</translation>
     </message>
     <message>
-        <location filename="../ui/UIHashProgressDialog.ui" line="136"/>
+        <location filename="../ui/UIHashProgressDialog.ui" line="152"/>
         <source>Hide</source>
         <translation>Ocultar</translation>
     </message>
@@ -5042,73 +4713,48 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>UIHubFrame</name>
     <message>
-        <location filename="../ui/HubFrame.ui" line="14"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
-        <location filename="../ui/HubFrame.ui" line="81"/>
+        <location filename="../ui/HubFrame.ui" line="97"/>
         <source>Find: </source>
         <translation>Buscar: </translation>
     </message>
     <message>
-        <location filename="../ui/HubFrame.ui" line="95"/>
+        <location filename="../ui/HubFrame.ui" line="111"/>
         <source>Previous (Shift+F3)</source>
         <translation>Anterior (Shift+F3)</translation>
     </message>
     <message>
-        <location filename="../ui/HubFrame.ui" line="98"/>
-        <source>&lt;</source>
-        <translation>&lt;</translation>
-    </message>
-    <message>
-        <location filename="../ui/HubFrame.ui" line="101"/>
+        <location filename="../ui/HubFrame.ui" line="117"/>
         <source>Shift+F3</source>
         <translation>Shift+F3</translation>
     </message>
     <message>
-        <location filename="../ui/HubFrame.ui" line="108"/>
+        <location filename="../ui/HubFrame.ui" line="124"/>
         <source>Next (F3)</source>
         <translation>Siguiente (F3)</translation>
     </message>
     <message>
-        <location filename="../ui/HubFrame.ui" line="111"/>
-        <source>&gt;</source>
-        <translation>&gt;</translation>
-    </message>
-    <message>
-        <location filename="../ui/HubFrame.ui" line="114"/>
+        <location filename="../ui/HubFrame.ui" line="130"/>
         <source>F3</source>
         <translation>F3</translation>
     </message>
     <message>
-        <location filename="../ui/HubFrame.ui" line="121"/>
+        <location filename="../ui/HubFrame.ui" line="137"/>
         <source>Highlight all</source>
         <translation>Marcar todos</translation>
     </message>
     <message>
-        <location filename="../ui/HubFrame.ui" line="124"/>
-        <source>A</source>
-        <translation>A</translation>
-    </message>
-    <message>
-        <location filename="../ui/HubFrame.ui" line="137"/>
+        <location filename="../ui/HubFrame.ui" line="153"/>
         <source>Hide find frame (Ctrl+F)</source>
         <translation>Ocultar barra de búsqueda (Ctrl+F)</translation>
     </message>
     <message>
-        <location filename="../ui/HubFrame.ui" line="281"/>
+        <location filename="../ui/HubFrame.ui" line="306"/>
         <source>Last status message on hub</source>
         <translation>Último mensaje de status en el hub</translation>
     </message>
 </context>
 <context>
     <name>UIHubManager</name>
-    <message>
-        <location filename="../ui/UIHubManager.ui" line="14"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <location filename="../ui/UIHubManager.ui" line="33"/>
         <source>Hub</source>
@@ -5153,42 +4799,42 @@ p, li { white-space: pre-wrap; }
         <translation>Importar</translation>
     </message>
     <message>
-        <location filename="../ui/UIIPFilter.ui" line="108"/>
+        <location filename="../ui/UIIPFilter.ui" line="99"/>
         <source>Direction</source>
         <translation>Dirección</translation>
     </message>
     <message>
-        <location filename="../ui/UIIPFilter.ui" line="114"/>
+        <location filename="../ui/UIIPFilter.ui" line="105"/>
         <source>BOTH</source>
         <translation>Ambas</translation>
     </message>
     <message>
-        <location filename="../ui/UIIPFilter.ui" line="121"/>
+        <location filename="../ui/UIIPFilter.ui" line="112"/>
         <source>IN</source>
         <translation>Entrada</translation>
     </message>
     <message>
-        <location filename="../ui/UIIPFilter.ui" line="128"/>
+        <location filename="../ui/UIIPFilter.ui" line="119"/>
         <source>OUT</source>
         <translation>Salida</translation>
     </message>
     <message>
-        <location filename="../ui/UIIPFilter.ui" line="141"/>
+        <location filename="../ui/UIIPFilter.ui" line="132"/>
         <source>UP</source>
         <translation>Subir</translation>
     </message>
     <message>
-        <location filename="../ui/UIIPFilter.ui" line="148"/>
+        <location filename="../ui/UIIPFilter.ui" line="139"/>
         <source>DOWN</source>
         <translation>Bajar</translation>
     </message>
     <message>
-        <location filename="../ui/UIIPFilter.ui" line="158"/>
+        <location filename="../ui/UIIPFilter.ui" line="149"/>
         <source>Add</source>
         <translation>Añadir</translation>
     </message>
     <message>
-        <location filename="../ui/UIIPFilter.ui" line="165"/>
+        <location filename="../ui/UIIPFilter.ui" line="156"/>
         <source>OK</source>
         <translation>Aceptar</translation>
     </message>
@@ -5196,42 +4842,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>UIMagnet</name>
     <message>
-        <location filename="../ui/UIMagnet.ui" line="20"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
-        <location filename="../ui/UIMagnet.ui" line="58"/>
-        <source>TTH</source>
-        <translation>TTH</translation>
-    </message>
-    <message>
-        <location filename="../ui/UIMagnet.ui" line="65"/>
+        <location filename="../ui/UIMagnet.ui" line="74"/>
         <source>Filename</source>
         <translation>Nombre de archivo</translation>
     </message>
     <message>
-        <location filename="../ui/UIMagnet.ui" line="75"/>
+        <location filename="../ui/UIMagnet.ui" line="84"/>
         <source>Filepath</source>
         <translation>Ruta de los archivos</translation>
     </message>
     <message>
-        <location filename="../ui/UIMagnet.ui" line="89"/>
+        <location filename="../ui/UIMagnet.ui" line="98"/>
         <source>Size</source>
         <translation>Tamaño</translation>
     </message>
     <message>
-        <location filename="../ui/UIMagnet.ui" line="127"/>
+        <location filename="../ui/UIMagnet.ui" line="136"/>
         <source>Opens search dialog and searches file.</source>
         <translation>Abre el diálogo de búsqueda y busca archivos.</translation>
     </message>
     <message>
-        <location filename="../ui/UIMagnet.ui" line="130"/>
+        <location filename="../ui/UIMagnet.ui" line="139"/>
         <source>Search</source>
         <translation>Buscar</translation>
     </message>
     <message>
-        <location filename="../ui/UIMagnet.ui" line="137"/>
+        <location filename="../ui/UIMagnet.ui" line="146"/>
         <source>Adds magnet to download queue. If autosearch for alternatives is enabled
 in options, file will be downloaded without opening search dialog.</source>
         <translation>Añade el enlace Magnet a la cola de descargas,
@@ -5240,17 +4876,17 @@ en las opciones, el archivo será descargado sin abrir el
 diálogo de búsqueda.</translation>
     </message>
     <message>
-        <location filename="../ui/UIMagnet.ui" line="141"/>
+        <location filename="../ui/UIMagnet.ui" line="150"/>
         <source>Add to queue</source>
         <translation>Añadir a la cola</translation>
     </message>
     <message>
-        <location filename="../ui/UIMagnet.ui" line="161"/>
+        <location filename="../ui/UIMagnet.ui" line="170"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../ui/UIMagnet.ui" line="170"/>
+        <location filename="../ui/UIMagnet.ui" line="179"/>
         <source>Remember my choice</source>
         <translation>Recordar mi elección</translation>
     </message>
@@ -5258,86 +4894,53 @@ diálogo de búsqueda.</translation>
 <context>
     <name>UIPrivateMessage</name>
     <message>
-        <location filename="../ui/PrivateMessage.ui" line="14"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
-        <location filename="../ui/PrivateMessage.ui" line="74"/>
+        <location filename="../ui/PrivateMessage.ui" line="81"/>
         <source>Find:</source>
         <translation>Encontrar:</translation>
     </message>
     <message>
-        <location filename="../ui/PrivateMessage.ui" line="81"/>
+        <location filename="../ui/PrivateMessage.ui" line="88"/>
         <source>Previous (Shift+F3)</source>
         <translation>Anterior (Shift+F3)</translation>
     </message>
     <message>
-        <location filename="../ui/PrivateMessage.ui" line="84"/>
-        <source>&lt;</source>
-        <translation>&lt;</translation>
-    </message>
-    <message>
-        <location filename="../ui/PrivateMessage.ui" line="87"/>
+        <location filename="../ui/PrivateMessage.ui" line="94"/>
         <source>Shift+F3</source>
         <translation>Shift+F3</translation>
     </message>
     <message>
-        <location filename="../ui/PrivateMessage.ui" line="94"/>
+        <location filename="../ui/PrivateMessage.ui" line="101"/>
         <source>Next (F3)</source>
         <translation>Siguiente (F3)</translation>
     </message>
     <message>
-        <location filename="../ui/PrivateMessage.ui" line="97"/>
-        <source>&gt;</source>
-        <translation>&gt;</translation>
-    </message>
-    <message>
-        <location filename="../ui/PrivateMessage.ui" line="100"/>
+        <location filename="../ui/PrivateMessage.ui" line="107"/>
         <source>F3</source>
         <translation>F3</translation>
     </message>
     <message>
-        <location filename="../ui/PrivateMessage.ui" line="107"/>
+        <location filename="../ui/PrivateMessage.ui" line="114"/>
         <source>Hide find frame (Ctrl+F)</source>
         <translation>Ocultar barra de búsqueda (Ctrl+F)</translation>
     </message>
     <message>
-        <location filename="../ui/PrivateMessage.ui" line="117"/>
+        <location filename="../ui/PrivateMessage.ui" line="124"/>
         <source>Highlight all</source>
         <translation>Marcar todos</translation>
     </message>
     <message>
-        <location filename="../ui/PrivateMessage.ui" line="120"/>
-        <source>A</source>
-        <translation>A</translation>
-    </message>
-    <message>
-        <location filename="../ui/PrivateMessage.ui" line="222"/>
+        <location filename="../ui/PrivateMessage.ui" line="229"/>
         <source>Go to hub</source>
         <translation>Ir al hub</translation>
     </message>
     <message>
-        <location filename="../ui/PrivateMessage.ui" line="229"/>
+        <location filename="../ui/PrivateMessage.ui" line="236"/>
         <source>User share</source>
         <translation>Compartido del usuario</translation>
     </message>
 </context>
 <context>
-    <name>UIPublicHubs</name>
-    <message>
-        <location filename="../ui/UIPublicHubs.ui" line="14"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-</context>
-<context>
     <name>UIPublicHubsList</name>
-    <message>
-        <location filename="../ui/UIPublicHubsList.ui" line="14"/>
-        <source>Dialog</source>
-        <translation>Diálogo</translation>
-    </message>
     <message>
         <location filename="../ui/UIPublicHubsList.ui" line="23"/>
         <source>Up</source>
@@ -5365,14 +4968,6 @@ diálogo de búsqueda.</translation>
     </message>
 </context>
 <context>
-    <name>UIQueuedUsers</name>
-    <message>
-        <location filename="../ui/UIQueuedUsers.ui" line="14"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-</context>
-<context>
     <name>UIQuickConnect</name>
     <message>
         <location filename="../ui/UIQuickConnect.ui" line="32"/>
@@ -5387,11 +4982,6 @@ diálogo de búsqueda.</translation>
 </context>
 <context>
     <name>UIScriptManager</name>
-    <message>
-        <location filename="../ui/UIScriptManager.ui" line="14"/>
-        <source>Dialog</source>
-        <translation>Diálogo</translation>
-    </message>
     <message>
         <location filename="../ui/UIScriptManager.ui" line="21"/>
         <source>Do nothing</source>
@@ -5442,11 +5032,6 @@ diálogo de búsqueda.</translation>
 <context>
     <name>UISettingsAdvanced</name>
     <message>
-        <location filename="../ui/UISettingsAdvanced.ui" line="14"/>
-        <source>Form</source>
-        <translation>Forma</translation>
-    </message>
-    <message>
         <location filename="../ui/UISettingsAdvanced.ui" line="36"/>
         <source>Mime Handler</source>
         <translation>Manejador de mimetypes</translation>
@@ -5454,11 +5039,6 @@ diálogo de búsqueda.</translation>
 </context>
 <context>
     <name>UISettingsConnection</name>
-    <message>
-        <location filename="../ui/UISettingsConnection.ui" line="14"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <location filename="../ui/UISettingsConnection.ui" line="27"/>
         <source>Connection</source>
@@ -5475,7 +5055,7 @@ diálogo de búsqueda.</translation>
         <translation>Conexiones entrantes</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="55"/>
+        <location filename="../ui/UISettingsConnection.ui" line="73"/>
         <source>Select this mode if your computer is connected directly to the internet.
 Do not select this mode if you have a router or any external firewall.
 If your computer is not behind a router all you have to do is to choose
@@ -5492,12 +5072,12 @@ configurar dicho cortafuegos para que EiskaltDC++ pueda tener acceso
 a Internet.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="63"/>
+        <location filename="../ui/UISettingsConnection.ui" line="81"/>
         <source>Active mode</source>
         <translation>Modo Activo</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="73"/>
+        <location filename="../ui/UISettingsConnection.ui" line="91"/>
         <source>Select this mode if you are behind a firewall (router), and will set up
 the TCP, UDP and TLS port forwarding on your own.
 You will need to specify the external IP address of your router using
@@ -5511,12 +5091,12 @@ desea que las descargas funcionen correctamente.
 Use esta opción solo si no le han funcionado las otras opciones.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="80"/>
+        <location filename="../ui/UISettingsConnection.ui" line="98"/>
         <source>Firewall with port forwarding</source>
         <translation>Cortafuegos con redirección de puertos</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="90"/>
+        <location filename="../ui/UISettingsConnection.ui" line="108"/>
         <source>Select this mode if none of the previous modes apply. In this mode,
 EiskaltDC++ will not try to make inbound connections, only outbound ones.
 This mode carries some serious limitations:
@@ -5532,12 +5112,12 @@ Este modo tiene serias limitaciones:
   * No podrá descargar ni buscar contenidos en algunos hubs.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="98"/>
+        <location filename="../ui/UISettingsConnection.ui" line="116"/>
         <source>Passive mode</source>
         <translation>Modo Pasivo</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="105"/>
+        <location filename="../ui/UISettingsConnection.ui" line="123"/>
         <source>Select this mode if you are behind a firewall/router that supports
 the UPnP standard for program auto-configuration.
 Most routers do support UPnP but you may need to enable it
@@ -5553,52 +5133,52 @@ De este modo, EiskaltDC++ puede configurar automáticamente
 el router para abrir puertos y obtener, también, la dirección IP externa.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="113"/>
+        <location filename="../ui/UISettingsConnection.ui" line="131"/>
         <source>Firewall with UPnP</source>
         <translation>Cortafuegos con UPnP</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="138"/>
+        <location filename="../ui/UISettingsConnection.ui" line="165"/>
         <source>External/WAN IP:</source>
         <translation>Dirección IP Externa / del WAN:</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="152"/>
+        <location filename="../ui/UISettingsConnection.ui" line="179"/>
         <source>Don&apos;t allow Hub/UPnP/DHT to override</source>
         <translation>No permitir que el Hub/UPnP/DHT las sobreescriba</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="161"/>
+        <location filename="../ui/UISettingsConnection.ui" line="188"/>
         <source>TCP port</source>
         <translation>Puerto TCP</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="168"/>
+        <location filename="../ui/UISettingsConnection.ui" line="195"/>
         <source>UDP port</source>
         <translation>Puerto UDP</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="175"/>
+        <location filename="../ui/UISettingsConnection.ui" line="202"/>
         <source>TLS port</source>
         <translation>Puerto TLS</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="235"/>
+        <location filename="../ui/UISettingsConnection.ui" line="262"/>
         <source>Bind to address</source>
         <translation>Vincular a dirección</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="245"/>
+        <location filename="../ui/UISettingsConnection.ui" line="272"/>
         <source>Bind to interface</source>
         <translation>Vincular a interfaz</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="261"/>
+        <location filename="../ui/UISettingsConnection.ui" line="288"/>
         <source>Outgoing connections</source>
         <translation>Conexiones salientes</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="276"/>
+        <location filename="../ui/UISettingsConnection.ui" line="321"/>
         <source>Select this mode if you can make unrestricted outbound connections.
 This includes connecting to any IP address on any port.
 Choose this option if unsure.</source>
@@ -5608,12 +5188,12 @@ Esto incluye conexiones a todas las direcciones IP y a todos los puertos.
 Elija esta opción si no está seguro del tipo de conexión que dispone.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="281"/>
+        <location filename="../ui/UISettingsConnection.ui" line="326"/>
         <source>Direct connection</source>
         <translation>Conexión directa</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="291"/>
+        <location filename="../ui/UISettingsConnection.ui" line="336"/>
         <source>Select this mode if you want to make outbound connections through
 a SOCKS proxy. The caveats for Passive mode also apply here.
 SOCKS5 proxies are not the same as HTTP proxies.
@@ -5625,133 +5205,123 @@ Un proxy SOCKS5 no es lo mismo que un proxy HTTP.
 El soporte SOCKS5 de DC++ no incluye soporte GSSAPI.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="297"/>
+        <location filename="../ui/UISettingsConnection.ui" line="342"/>
         <source>SOCKS5</source>
         <translation>SOCKS5</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="319"/>
-        <source>000.000.000.000; </source>
-        <translation>000.000.000.000; </translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsConnection.ui" line="332"/>
+        <location filename="../ui/UISettingsConnection.ui" line="386"/>
         <source>IP</source>
         <translation>IP</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="339"/>
+        <location filename="../ui/UISettingsConnection.ui" line="393"/>
         <source>User</source>
         <translation>Usuario</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="346"/>
+        <location filename="../ui/UISettingsConnection.ui" line="400"/>
         <source>Password</source>
         <translation>Contraseña</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="353"/>
+        <location filename="../ui/UISettingsConnection.ui" line="407"/>
         <source>Port</source>
         <translation>Puerto</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="366"/>
-        <source>00000; </source>
-        <translation>00000; </translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsConnection.ui" line="373"/>
+        <location filename="../ui/UISettingsConnection.ui" line="427"/>
         <source>Use to resolve hostnames</source>
         <translation>Usar para resolver los nombres de host</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="401"/>
+        <location filename="../ui/UISettingsConnection.ui" line="455"/>
         <source>DynDNS Address:</source>
         <translation>Dirección DynDNS:</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="427"/>
+        <location filename="../ui/UISettingsConnection.ui" line="481"/>
         <source>When enabled can hang program on exit.</source>
         <translation>Cuando se activa se puede colgar el programa al salir.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="430"/>
+        <location filename="../ui/UISettingsConnection.ui" line="484"/>
         <source>Automatically update external IP (restart required)</source>
         <translation>Actualizar automaticamente la IP externa (necesita reiniciar)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="454"/>
-        <location filename="../ui/UISettingsConnection.ui" line="469"/>
+        <location filename="../ui/UISettingsConnection.ui" line="508"/>
+        <location filename="../ui/UISettingsConnection.ui" line="523"/>
         <source>Limits</source>
         <translation>Límites</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="475"/>
+        <location filename="../ui/UISettingsConnection.ui" line="529"/>
         <source>Enable Throttle</source>
         <translation>Habilitar límites</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="506"/>
-        <location filename="../ui/UISettingsConnection.ui" line="658"/>
+        <location filename="../ui/UISettingsConnection.ui" line="569"/>
+        <location filename="../ui/UISettingsConnection.ui" line="721"/>
         <source>Download</source>
         <translation>Descarga</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="520"/>
-        <location filename="../ui/UISettingsConnection.ui" line="554"/>
-        <location filename="../ui/UISettingsConnection.ui" line="699"/>
-        <location filename="../ui/UISettingsConnection.ui" line="732"/>
+        <location filename="../ui/UISettingsConnection.ui" line="583"/>
+        <location filename="../ui/UISettingsConnection.ui" line="617"/>
+        <location filename="../ui/UISettingsConnection.ui" line="762"/>
+        <location filename="../ui/UISettingsConnection.ui" line="795"/>
         <source>KiB/s</source>
         <translation>KiB/s</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="540"/>
-        <location filename="../ui/UISettingsConnection.ui" line="685"/>
+        <location filename="../ui/UISettingsConnection.ui" line="603"/>
+        <location filename="../ui/UISettingsConnection.ui" line="748"/>
         <source>Upload</source>
         <translation>Subida</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="583"/>
+        <location filename="../ui/UISettingsConnection.ui" line="646"/>
         <source>Alternate speed limit at time from </source>
         <translation>Limite de velocidad alternativo desde las </translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="609"/>
+        <location filename="../ui/UISettingsConnection.ui" line="672"/>
         <source>to</source>
         <translation>a las</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="623"/>
+        <location filename="../ui/UISettingsConnection.ui" line="686"/>
         <source>hour(s)</source>
         <translation>hora(s)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="722"/>
+        <location filename="../ui/UISettingsConnection.ui" line="785"/>
         <source>Slots</source>
         <translation>Slots</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="765"/>
+        <location filename="../ui/UISettingsConnection.ui" line="828"/>
         <source>Advanced</source>
         <translation>Avanzado</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="792"/>
+        <location filename="../ui/UISettingsConnection.ui" line="855"/>
         <source>Reconnect to hub (seconds)</source>
         <translation>Reconectar al hub (segundos)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="815"/>
+        <location filename="../ui/UISettingsConnection.ui" line="878"/>
         <source>Type-of-Service (ToS)</source>
         <translation>Tipo De Servicio (TOS)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="831"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <location filename="../ui/UISettingsConnection.ui" line="894"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;https://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Set the Type-Of-Service (TOS) field that is sent with every &lt;a href=&quot;http://en.wikipedia.org/wiki/IP_packet&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;IP packet&lt;/span&gt;&lt;/a&gt; originating from this socket. It is used to prioritize packets on the network. TOS is a byte. There are some standard TOS flags defined: &lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Set the Type-Of-Service (TOS) field that is sent with every &lt;a href=&quot;https://en.wikipedia.org/wiki/IP_packet&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;IP packet&lt;/span&gt;&lt;/a&gt; originating from this socket. It is used to prioritize packets on the network. TOS is a byte. There are some standard TOS flags defined: &lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt; - &amp;quot;Low delay&amp;quot;&lt;/span&gt; to minimize delays for interactive traffic&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt; - &amp;quot;Throughput&amp;quot;&lt;/span&gt; to optimize throughput&lt;/p&gt;
@@ -5759,7 +5329,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt; - &amp;quot;Minimal cost&amp;quot;&lt;/span&gt; should be used for &amp;quot;filler data&amp;quot; where slow transmission doesn&apos;t matter&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;At most one of these TOS values can be specified. Linux sends &lt;span style=&quot; font-weight:600;&quot;&gt;&amp;quot;Low delay&amp;quot;&lt;/span&gt; datagrams first by default, but the exact behaviour depends on the configured queueing discipline.&lt;span style=&quot; font-weight:600;&quot;&gt; Warning! This option needs superuser privileges!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;https://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -5773,78 +5343,73 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Como mucho se puede especificar uno de estos valores de TOS. Linux envía primero los datagaramas maracado como &lt;span style=&quot; font-weight:600;&quot;&gt;&quot;Baja latencia&quot;&lt;/span&gt; por defecto, pero el comportamiento exacto depende de la configuración de las reglas de encolado.&lt;span style=&quot; font-weight:600;&quot;&gt; ¡Atención! ¡esta opción necesita privilegios de administrador!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="846"/>
+        <location filename="../ui/UISettingsConnection.ui" line="909"/>
         <source>No</source>
         <translation>No</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="851"/>
+        <location filename="../ui/UISettingsConnection.ui" line="914"/>
         <source>Low delay</source>
         <translation>Baja Latencia</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="856"/>
+        <location filename="../ui/UISettingsConnection.ui" line="919"/>
         <source>Throughput</source>
         <translation>Transferencia</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="861"/>
+        <location filename="../ui/UISettingsConnection.ui" line="924"/>
         <source>Reliability</source>
         <translation>Fiabilidad</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="866"/>
+        <location filename="../ui/UISettingsConnection.ui" line="929"/>
         <source>Minimal cost</source>
         <translation>Bajo coste</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="876"/>
+        <location filename="../ui/UISettingsConnection.ui" line="939"/>
         <source>Enable DHT</source>
         <translation>Habilitar DHT</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="900"/>
+        <location filename="../ui/UISettingsConnection.ui" line="963"/>
         <source>DHT port</source>
         <translation>Puerto DHT</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="925"/>
+        <location filename="../ui/UISettingsConnection.ui" line="988"/>
         <source>TLS settings</source>
         <translation>Preferencias de TLS</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="932"/>
+        <location filename="../ui/UISettingsConnection.ui" line="995"/>
         <source>Disable TLS</source>
         <translation>Desactivar TLS</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="937"/>
+        <location filename="../ui/UISettingsConnection.ui" line="1000"/>
         <source>Allow TLS</source>
         <translation>Permitir TLS</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="942"/>
+        <location filename="../ui/UISettingsConnection.ui" line="1005"/>
         <source>Require TLS</source>
         <translation>Requerir TLS</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="950"/>
+        <location filename="../ui/UISettingsConnection.ui" line="1013"/>
         <source>Allow untrusted certificate for hubs</source>
         <translation>Permitir hubs con certificados no fiables</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="957"/>
+        <location filename="../ui/UISettingsConnection.ui" line="1020"/>
         <source>Allow untrusted certificate for clients</source>
         <translation>Permitir clientes con certificados no fiables</translation>
     </message>
 </context>
 <context>
     <name>UISettingsDownloads</name>
-    <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="14"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <location filename="../ui/UISettingsDownloads.ui" line="30"/>
         <source>Downloads</source>
@@ -5856,22 +5421,22 @@ p, li { white-space: pre-wrap; }
         <translation>Directorios</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="51"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="60"/>
         <source>Download directory</source>
         <translation>Directorio de descargas</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="84"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="93"/>
         <source>Use unfinished downloads directory</source>
         <translation>Usar directorio para archivos incompletos</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="97"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="106"/>
         <source>Limits</source>
         <translation>Límites</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="106"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="124"/>
         <source>This is another method of limiting simultaneous downloads,
 designed to prevent new downloads if your existing downloads
 exceed a specific threshold. It&apos;s measured in kibibytes per second,
@@ -5882,34 +5447,34 @@ han sobrepasado un umbral especifico. La medida está  en KiB/s.
 Este limite se deshabilitará si el valor es 0.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="119"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="137"/>
         <source>This limits the number of simultaneous downloads.
 A value of 0 means no limit.</source>
         <translation>Este es el limite de descargas simultaneas.
 El valor 0 significa sin limite.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="133"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="151"/>
         <source>Maximum simultaneous downloads (0 = infinite)</source>
         <translation>Numero máximo de descargas simultaneas (0 = sin limite)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="149"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="167"/>
         <source>No new downloads if speed exceeds (KiB/s, 0 = infinite)</source>
         <translation>No descargar nuevos archivos si la velocidad excede de (KiB/s, 0 = sin limite) </translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="159"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="177"/>
         <source>Note: Because of changing download speeds, this is not 100% accurate</source>
         <translation>Nota: Debido a cambios en las velocidades de descarga, esto no es fiable al 100%</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="172"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="190"/>
         <source>Public Hub lists</source>
         <translation>Listas de servidores públicos</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="181"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="208"/>
         <source>This HTTP proxy will only be used to request
 the Public Hub List specified above.
 It&apos;s not used for uploads, downloads, or connecting to a hub.</source>
@@ -5918,49 +5483,49 @@ una lista especifica de hubs públicos
 Esto no se usa para las subidas, descargas o conexiones a hubs.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="190"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="217"/>
         <source>Http proxy (hub list only)</source>
         <translation>Proxy HTTP (solo para lista de hubs)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="197"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="224"/>
         <source>Configure Public Hub Lists</source>
         <translation>Configurar listas de hubs públicos</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="221"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="248"/>
         <source>Download to</source>
         <translation>Descargar a</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="264"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="291"/>
         <source>Path</source>
         <translation>Ruta</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="269"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="296"/>
         <source>Alias</source>
         <translation>Alias</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="278"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="305"/>
         <source>Queue</source>
         <translation>Cola</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="284"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="311"/>
         <source>Auto-priority settings</source>
         <translation>Configuración automática de prioridades</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="293"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="329"/>
         <source>Files with the same or under the entered size
 will be set to Highest as priority. (default: 64 KiB)</source>
         <translation>Los archivos cuyo tamaño sea igual o inferior al tamaño introducido
 serán marcados con prioridad máxima (por defecto: 64 Kib)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="304"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="340"/>
         <source>Files with the same or under the entered size, but above Highest
 prio max size, will be set to High as priority. (default: 0 KiB)</source>
         <translation>Los archivos cuyo tamaño sea igual o inferior al tamaño introducido,
@@ -5968,7 +5533,7 @@ pero por encima del tamaño máximo para marcar con la prioridad
 máxima, serán marcados con prioridad alta. (por defecto: 0 KiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="315"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="351"/>
         <source>Files with the same or under the entered size, but above Highest and
 High prio max size, will be set to Normal as priority. (default: 0 KiB)</source>
         <translation>Los archivos cuyo tamaño sea igual o inferior al tamaño introducido,
@@ -5977,7 +5542,7 @@ máxima y alta, serán marcados con prioridad normal.
 (por defecto:0 KiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="326"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="362"/>
         <source>Files with the same or under the entered size, but above Highest, High
 and Normal prio max size, will be set to Low as priority. (default: 0 KiB)</source>
         <translation>Los archivos cuyo tamaño sea igual o inferior al tamaño introducido,
@@ -5986,44 +5551,44 @@ máxima, alta, y normal serán marcados con prioridad baja.
 (por defecto:0 KiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="343"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="379"/>
         <source>Highest priority max size (KiB)</source>
         <translation>Tamaño máx. con prioridad máxima (KiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="359"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="395"/>
         <source>High priority max size (KiB)</source>
         <translation>Tamaño máx. con prioridad alta (KiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="375"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="411"/>
         <source>Normal priority max size (KiB)</source>
         <translation>Tamaño máx. con prioridad normal (KiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="391"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="427"/>
         <source>Low priority max size (KiB)</source>
         <translation>Tamaño máx. con prioridad baja (KiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="420"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="456"/>
         <source>Auto-drop settings</source>
         <translation>Opciones de descarte automático</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="429"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="474"/>
         <source>If the download speed of a file is below the entered value,
 the source will be dropped. (default: 1024 B/s)</source>
         <translation>Cuando se descargue un archivo a una velocidad inferior al valor
 introducido, se descartará la fuente (por defecto: 1024 B/s)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="440"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="485"/>
         <source>Check every x second(s) if the source is slow. (default: 10 s)</source>
         <translation>Comprobar cada &quot;X&quot; segundo(s) si la fuente es lenta (por defecto: 10 s)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="450"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="495"/>
         <source>Amount of time (in seconds) that has to pass since the download
 started before a source can be dropped. (default: 15 s)</source>
         <translation>Cantidad de tiempo (en segundos) que tiene que pasar desde
@@ -6031,7 +5596,7 @@ que la descarga comenzó antes descartar la fuente
 (por defecto: 15 s)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="461"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="506"/>
         <source>This is the maximal time since the last chunk of data for
 the file was received. It is meant to improve speed measurement
 accuracy and to prevent dropping sources that are going to be
@@ -6042,60 +5607,60 @@ y evitar que se abandonen fuentes que se van a desconectar
 por su inactividad actual. (Por defecto: 10s)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="474"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="519"/>
         <source>Minimum amount of sources before any sources
 will be dropped. (default: 1)</source>
         <translation>Cantidad mínima de fuentes antes de que se descarte alguna
 (por defecto: 1)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="485"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="530"/>
         <source>Minimum filesize before sources will be dropped (in KiB). (default: 0 KiB)</source>
         <translation>Tamaño mínimo del archivo antes de que se descarte alguna fuente
 (en KiB). (por defecto: 0 KiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="501"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="546"/>
         <source>Drop sources below (B/s)</source>
         <translation>Descartar fuentes por debajo de (B/s)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="517"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="562"/>
         <source>Check every (s)</source>
         <translation>Comprobar cada (s)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="533"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="578"/>
         <source>Min. elapsed (s)</source>
         <translation>Mín. transcurrido (s)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="549"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="594"/>
         <source>Max inactivity (s)</source>
         <translation>Inactividad máx. (s)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="565"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="610"/>
         <source>Min sources online</source>
         <translation>Mín. de fuentes conectadas</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="581"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="626"/>
         <source>Min filesize (KiB)</source>
         <translation>Tamaño de archivo mín. (KiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="610"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="655"/>
         <source>Other options</source>
         <translation>Otras opciones</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="626"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="680"/>
         <source>Set lowest priority for newly added files larger than low priority size</source>
         <translation>Marcar con prioridad mínima los nuevos archivos añadidos más grandes que el tamaño para marcar con prioridad baja.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="629"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="683"/>
         <source>With this enabled, files that are larger than Low prio max size
 are set to Lowest as priority.
 If disabled, the files will be set to Normal as priority.</source>
@@ -6105,12 +5670,12 @@ marcados con prioridad mínima.
 Si se desactiva, los archivos serán marcados con prioridad normal.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="642"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="696"/>
         <source>Auto-drop slow sources for all queue items (except filelists)</source>
         <translation>Descartar automáticamente las fuentes lentas de todos los elementos en cola (excepto listas de archivos)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="645"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="699"/>
         <source>This option removes the slow sources for all queue items (except file lists).
 To enable autodrop, turn on either &quot;Autodrop slow sources for all queue items&quot;
 or &quot;Remove slow file lists&quot; (or both of them).</source>
@@ -6121,12 +5686,12 @@ automáticamente las fuentes lentas de todos los elementos en cola&quot; o
 &quot;Eliminar listas de archivos lentas&quot;. (o ambas opciones).</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="658"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="712"/>
         <source>Remove slow filelists</source>
         <translation>Eliminar listas de archivos lentas</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="661"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="715"/>
         <source>With this option enabled, EiskaltDC++ will delete a file list whose speed
 was recognized as too slow.
 To enable autodrop, turn on either &quot;Autodrop slow sources for all queue items&quot;
@@ -6138,24 +5703,24 @@ automáticamente las fuentes lentas de todos los elementos en cola&quot;
 o &quot;Eliminar listas de archivos lentas&quot; (o ambas).</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="675"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="729"/>
         <source>Don&apos;t remove the source when auto-dropping, only disconnect</source>
         <translation>No eliminar la fuente cuando se descarte automáticamente, solo desconectar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="678"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="732"/>
         <source>With this option enabled, sources will only be disconnected
 but not removed from the queue.</source>
         <translation>Con esta opción activada, se desconectará de las fuentes
 pero estas no serán eliminadas de la cola.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="690"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="744"/>
         <source>Automatically search for alternative download locations</source>
         <translation>Buscar automáticamente ubicación alternativas de descarga</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="693"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="747"/>
         <source>Every few minutes, the client will search for files in your
 Download Queue to find more download locations (more users/sources).
 The autosearch will find exact matches by searching via hash.
@@ -6172,12 +5737,12 @@ y que puede impedir las búsquedas manuales en los hubs
 que tengan alguna regla sobre el intervalo de búsqueda.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="709"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="763"/>
         <source>Automatically match queue for auto search hits</source>
         <translation>Emparejar automáticamente búsquedas automáticas en la cola</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="712"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="766"/>
         <source>Enable to automatically download a user&apos;s list and match them
 as sources for files in your Download Queue when they&apos;ve been
 discovered as a source for one of the files you&apos;re downloading.
@@ -6198,12 +5763,12 @@ incrementando, quizás, el tiempo que se necesita para completar
 una descarga y que descargará muchas listas de archivos.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="730"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="784"/>
         <source>Skip zero-byte files</source>
         <translation>Omitir archivos vacíos</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="733"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="787"/>
         <source>When this option is enabled, any zero byte files you
 try to download will be silently skipped.
 Sometimes empty files contain information through their naming.
@@ -6216,41 +5781,41 @@ Sin embargo, todos los archivos, aún estando vacíos, consumen
 algo de espacio en el disco.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="747"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="801"/>
         <source>Don&apos;t download files already in share</source>
         <translation>No descargar archivos que ya se estén compartiendo</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="750"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="804"/>
         <source>This option will stop you from downloading files
 which already exist in one of your shared directories.</source>
         <translation>Esta opción evitará que descargue archivos que ya
 existan en uno de sus directorios compartidos.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="762"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="816"/>
         <source>Don&apos;t download files already in the queue</source>
         <translation>No descargar archivos que ya estén en cola</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="765"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="819"/>
         <source>This option will stop you from downloading files
 which already exist in your queue.</source>
         <translation>Esta opción evitará que descargue archivos que ya
 existan en su cola de descarga.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="777"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="831"/>
         <source>SFV Check</source>
         <translation>Comprobación SFV</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="788"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="842"/>
         <source>Keep downloaded filelists</source>
         <translation>Mantener las listas de archivos descargadas</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="791"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="845"/>
         <source>Enable this option if you want to keep downloaded filelists
 in the download queue after they have been finished.
 After downloaded the queue items will have &apos;Finished&apos; status
@@ -6271,12 +5836,12 @@ Si deshabilitas esta función, estas entradas finalizadas no se borrarán
 de la cola, deberá borrarlos manualmente.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="807"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="861"/>
         <source>Keep downloaded files</source>
         <translation>Mantener archivos descargados</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="810"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="864"/>
         <source>Enable this option if you want to keep downloaded files and folders
 in the download queue after they have been finished.
 After downloaded the queue items will have &apos;Finished&apos; status
@@ -6305,48 +5870,43 @@ Si desactiva esta opción, no se eliminarán las entradas que estén
 en la cola de descargas, deberá hacerlo manualmente.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="829"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="883"/>
         <source>Compressed transfers</source>
         <translation>Comprimir transferencias</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="840"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="894"/>
         <source>Segmented downloads</source>
         <translation>Descargas segmentadas</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="855"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="909"/>
         <source>Advanced</source>
         <translation>Avanzado</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="876"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="930"/>
         <source>Interval for auto search alternates (minutes)</source>
         <translation>Intervalo de búsqueda automática de alternativas (minutos)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="899"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="953"/>
         <source>Segment size (in MB, 0 = auto segment size)</source>
         <translation>Tamaño del segmento (en MB, 0 = tamaño del segmento automático)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="916"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="970"/>
         <source>Allow simultaneous uploads by one user from few NMDC hubs</source>
         <translation>Permitir múltiples subidas a un mismo CID</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="923"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="977"/>
         <source>Allow simultaneous uploads by one IP</source>
         <translation>Permitir múltiples subidas a una misma IP</translation>
     </message>
 </context>
 <context>
     <name>UISettingsGUI</name>
-    <message>
-        <location filename="../ui/UISettingsGUI.ui" line="14"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <location filename="../ui/UISettingsGUI.ui" line="24"/>
         <source>Basic</source>
@@ -6358,158 +5918,158 @@ en la cola de descargas, deberá hacerlo manualmente.</translation>
         <translation>Archivo de lenguaje</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="64"/>
+        <location filename="../ui/UISettingsGUI.ui" line="55"/>
         <source>Theme</source>
         <translation>Tema</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="91"/>
+        <location filename="../ui/UISettingsGUI.ui" line="73"/>
         <source>Apply</source>
         <translation>Aplicar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="101"/>
+        <location filename="../ui/UISettingsGUI.ui" line="83"/>
         <source>Application font</source>
         <translation>Fuente del programa</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="122"/>
+        <location filename="../ui/UISettingsGUI.ui" line="95"/>
         <source>Change</source>
         <translation>Cambiar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="132"/>
+        <location filename="../ui/UISettingsGUI.ui" line="105"/>
         <source>Show icon in system tray</source>
         <translation>Mostrar icono en la barra de sistema</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="141"/>
+        <location filename="../ui/UISettingsGUI.ui" line="114"/>
         <source>Remember window position on exit</source>
         <translation>Recordar posición de la ventana al cerrar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="151"/>
+        <location filename="../ui/UISettingsGUI.ui" line="124"/>
         <source>Always hide window to system tray at startup</source>
-        <translation>Esconder la ventana en la barra de sistema al iniciar</translation>
+        <translation>Esconder siempre la ventana en la barra de sistema al iniciar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="158"/>
+        <location filename="../ui/UISettingsGUI.ui" line="131"/>
         <source>Always show window at startup</source>
         <translation>Mostrar la ventana al iniciar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="170"/>
-        <location filename="../ui/UISettingsGUI.ui" line="186"/>
+        <location filename="../ui/UISettingsGUI.ui" line="143"/>
+        <location filename="../ui/UISettingsGUI.ui" line="159"/>
         <source>(need restart)</source>
         <translation>(necesita reiniciar)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="173"/>
+        <location filename="../ui/UISettingsGUI.ui" line="146"/>
         <source>User theme</source>
         <translation>Usar tema</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="193"/>
+        <location filename="../ui/UISettingsGUI.ui" line="166"/>
         <source>Icon theme</source>
         <translation>Tema de iconos</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="209"/>
+        <location filename="../ui/UISettingsGUI.ui" line="182"/>
         <source>Emoticon theme</source>
         <translation>Tema de emoticonos</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="227"/>
+        <location filename="../ui/UISettingsGUI.ui" line="200"/>
         <source>Try to use system icons (need restart)</source>
         <translation>Tratar de usar los iconos del sistema (requiere reiniciar)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="234"/>
+        <location filename="../ui/UISettingsGUI.ui" line="207"/>
         <source>Don&apos;t show icons in menus (need restart)</source>
         <translation>No mostrar iconos en los menús (se necesita reiniciar)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="242"/>
+        <location filename="../ui/UISettingsGUI.ui" line="215"/>
         <source>Use default ToolBar (need restart)</source>
         <translation>Usar la barra de tareas por defecto (necesita reiniciar)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="247"/>
+        <location filename="../ui/UISettingsGUI.ui" line="220"/>
         <source>Use multi-line ToolBar (need restart)</source>
         <translation>Usar la barra de tareas multilinea (se necesita reiniciar)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="252"/>
+        <location filename="../ui/UISettingsGUI.ui" line="225"/>
         <source>Use SideBar instead of ToolBar (need restart)</source>
         <translation>Usar barra lateral en vez de de la barra de herramientas (requiere reiniciar)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="274"/>
+        <location filename="../ui/UISettingsGUI.ui" line="247"/>
         <source>Chat</source>
         <translation>Chat</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="280"/>
+        <location filename="../ui/UISettingsGUI.ui" line="253"/>
         <source>Show joins</source>
         <translation>Mostrar uniones (al chat)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="290"/>
+        <location filename="../ui/UISettingsGUI.ui" line="263"/>
         <source>Show joins only for favorite users</source>
         <translation>Mostrar sólo las uniones (al canal de chat) de usuarios favoritos</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="297"/>
+        <location filename="../ui/UISettingsGUI.ui" line="270"/>
         <source>Show hidden users</source>
         <translation>Mostrar usuarios ocultos</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="304"/>
+        <location filename="../ui/UISettingsGUI.ui" line="277"/>
         <source>Ignore private messages from Hub</source>
         <translation>Ignorar mensajes privados procedentes del hub</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="311"/>
+        <location filename="../ui/UISettingsGUI.ui" line="284"/>
         <source>Ignore private messages from Bot</source>
         <translation>Ignorar mensajes privados procedentes de un Bot</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="318"/>
+        <location filename="../ui/UISettingsGUI.ui" line="291"/>
         <source>Redirect messages from Bot to the main chat</source>
         <translation>Redireccionar mensajes desde el bot al chat principal</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="325"/>
+        <location filename="../ui/UISettingsGUI.ui" line="298"/>
         <source>Redirect new personal messages to the main chat</source>
         <translation>Redireccionar los nuevos mensajes personales al chat principal</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="332"/>
+        <location filename="../ui/UISettingsGUI.ui" line="305"/>
         <source>Do not change focus on new incoming private messages</source>
         <translation>No cambiar el foco cuando se reciba un mensaje privado</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="342"/>
+        <location filename="../ui/UISettingsGUI.ui" line="315"/>
         <source>Use separator for unread messages in the chat</source>
         <translation>Usar separador para mensajes no leídos en el chat</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="349"/>
+        <location filename="../ui/UISettingsGUI.ui" line="322"/>
         <source>Filter kick-messages from the chat</source>
         <translation>Filtrar mensajes de expulsión del chat</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="356"/>
+        <location filename="../ui/UISettingsGUI.ui" line="329"/>
         <source>Use Ctrl+Enter to send messages</source>
         <translation>Usar Ctrl+Enter para mandar mensajes</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="366"/>
+        <location filename="../ui/UISettingsGUI.ui" line="339"/>
         <source>Enable emoticons</source>
         <translation>Habilitar emoticonos</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="373"/>
+        <location filename="../ui/UISettingsGUI.ui" line="346"/>
         <source>If checked, you&apos;ll see emoticons even in the middle of words.
 If unchecked, you&apos;ll see emoticons only if they are isolated
 from other words by spaces.</source>
@@ -6519,220 +6079,195 @@ Si está desmarcado, verás los emoticonos sólo cuando estén
 separados de otras palabras por espacios.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="378"/>
+        <location filename="../ui/UISettingsGUI.ui" line="351"/>
         <source>Force emoticon parsing</source>
         <translation>Forzar procesado de emoticonos</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="385"/>
+        <location filename="../ui/UISettingsGUI.ui" line="358"/>
         <source>Use emoticons panel</source>
         <translation>Usar el panel de emoticonos</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="392"/>
+        <location filename="../ui/UISettingsGUI.ui" line="365"/>
         <source>Autohide emoticons panel</source>
         <translation>Esconder automáticamente el  panel de emoticonos</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="413"/>
+        <location filename="../ui/UISettingsGUI.ui" line="386"/>
         <source>Chat (extended)</source>
         <translation>Chat (extendido)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="427"/>
+        <location filename="../ui/UISettingsGUI.ui" line="400"/>
         <source>Double click action</source>
         <translation>Acción del doble click</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="441"/>
-        <location filename="../ui/UISettingsGUI.ui" line="460"/>
+        <location filename="../ui/UISettingsGUI.ui" line="414"/>
+        <location filename="../ui/UISettingsGUI.ui" line="433"/>
         <source>Insert nick into input widget</source>
         <translation>Introducir nick dentro del Widget de entrada</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="446"/>
-        <location filename="../ui/UISettingsGUI.ui" line="465"/>
+        <location filename="../ui/UISettingsGUI.ui" line="419"/>
+        <location filename="../ui/UISettingsGUI.ui" line="438"/>
         <source>Get file list</source>
         <translation>Obtener lista de archivos</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="451"/>
-        <location filename="../ui/UISettingsGUI.ui" line="470"/>
+        <location filename="../ui/UISettingsGUI.ui" line="424"/>
+        <location filename="../ui/UISettingsGUI.ui" line="443"/>
         <source>Private message</source>
         <translation>Mensaje privado</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="487"/>
+        <location filename="../ui/UISettingsGUI.ui" line="460"/>
         <source>Application unit base</source>
         <translation>Base de las unidades de la aplicación</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="528"/>
+        <location filename="../ui/UISettingsGUI.ui" line="504"/>
         <source>Timestamp</source>
         <translation>Formato de hora</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="598"/>
-        <source>hh:mm:ss</source>
-        <translation>hh:mm:ss</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsGUI.ui" line="547"/>
+        <location filename="../ui/UISettingsGUI.ui" line="523"/>
         <source>Middle click action</source>
         <translation>Acción del click central</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="484"/>
+        <location filename="../ui/UISettingsGUI.ui" line="457"/>
         <source>Show kibibyte (KiB) or kilobyte (KB), etc.</source>
         <translation>Mostrar kibiyte (KiB) o kilobyte (KB), etc.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="501"/>
-        <source>IEC</source>
-        <translation>IEC</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsGUI.ui" line="506"/>
-        <source>JEDEC</source>
-        <translation>JEDEC</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsGUI.ui" line="511"/>
+        <location filename="../ui/UISettingsGUI.ui" line="487"/>
         <source>Metric</source>
         <translation>Métrico</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="525"/>
+        <location filename="../ui/UISettingsGUI.ui" line="501"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;These expressions may be used for the time:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Expression&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Output&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;h&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the hour without a leading zero (0 to 23 or 1 to 12 if AM/PM display)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;hh&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the hour with a leading zero (00 to 23 or 01 to 12 if AM/PM display)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;H&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the hour without a leading zero (0 to 23, even with AM/PM display)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;HH&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the hour with a leading zero (00 to 23, even with AM/PM display)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;m&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the minute without a leading zero (0 to 59)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;mm&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the minute with a leading zero (00 to 59)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;s&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the second without a leading zero (0 to 59)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;ss&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the second with a leading zero (00 to 59)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;z&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the milliseconds without leading zeroes (0 to 999)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;zzz&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the milliseconds with leading zeroes (000 to 999)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;AP or A&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;use AM/PM display. &lt;span style=&quot; font-style:italic;&quot;&gt;A/AP&lt;/span&gt; will be replaced by either &amp;quot;AM&amp;quot; or &amp;quot;PM&amp;quot;.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;ap or a&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;use am/pm display. &lt;span style=&quot; font-style:italic;&quot;&gt;a/ap&lt;/span&gt; will be replaced by either &amp;quot;am&amp;quot; or &amp;quot;pm&amp;quot;.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;t&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the timezone (for example &amp;quot;CEST&amp;quot;)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Se pueden usar las siguientes expresiones para el tiempo:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Expresión&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Salida&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;h&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;la hora sin un cero al prinicipio (de 0 a 23 o de 1 a 12 si se usa AM/PM).&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;hh&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;la hora con un cero al prinicipio (de 00 a 23 o de 01 a 12 si se usa AM/PM).&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;H&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;la hora sin un cero al prinicipio (de 0 a 23 incluso si se usa AM/PM).&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;HH&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;la hora con un cero al prinicipio (de 00 a 23 incluso si se usa AM/PM).&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;m&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;los minutos sin un cero al principio (de 0 a 59).&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;mm&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;los minutos con un cero al principio (de 00 a 59).&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;s&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;los segundos sin un cero al principio (de 0 a 59).&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;ss&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;los segundos con un cero al principio (de 00 a 59).&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;z&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;los millisegundos sin ceros al principio (de 0 a 999).&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;zzz&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;los millisegundos con ceros al principio (de 000 a 999).&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;AP o A&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;usar AM/PM. &lt;span style=&quot; font-style:italic;&quot;&gt;A/AP&lt;/span&gt; será reemplazado por &amp;quot;AM&amp;quot; o bien &amp;quot;PM&amp;quot;.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;ap o a&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;usar am/pm. &lt;span style=&quot; font-style:italic;&quot;&gt;a/ap&lt;/span&gt; será reemplazado por &amp;quot;am&amp;quot; o bien &amp;quot;pm&amp;quot;.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;t&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;la zona horaria (por ejemplo &amp;quot;CEST&amp;quot;).&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="566"/>
+        <location filename="../ui/UISettingsGUI.ui" line="542"/>
         <source>Default action with magnet</source>
         <translation>Acción por defecto con un enlace Magnet</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="580"/>
+        <location filename="../ui/UISettingsGUI.ui" line="556"/>
         <source>Ask</source>
         <translation>Preguntar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="585"/>
+        <location filename="../ui/UISettingsGUI.ui" line="561"/>
         <source>Search</source>
         <translation>Buscar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="590"/>
-        <location filename="../ui/UISettingsGUI.ui" line="938"/>
+        <location filename="../ui/UISettingsGUI.ui" line="566"/>
+        <location filename="../ui/UISettingsGUI.ui" line="878"/>
         <source>Download</source>
         <translation>Descargar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="615"/>
+        <location filename="../ui/UISettingsGUI.ui" line="591"/>
         <source>Remember outgoing messages (0 = don&apos;t remember)</source>
         <translation>Recordar mensajes salientes (0= no recordar)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="644"/>
+        <location filename="../ui/UISettingsGUI.ui" line="620"/>
         <source>Maximum paragraphs</source>
         <translation>Máximo de párrafos</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="670"/>
+        <location filename="../ui/UISettingsGUI.ui" line="646"/>
         <source>Separator in chat</source>
         <translation>Separador en el chat</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="684"/>
-        <source>:</source>
-        <translation>:</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsGUI.ui" line="689"/>
-        <source>,</source>
-        <translation>,</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsGUI.ui" line="699"/>
+        <location filename="../ui/UISettingsGUI.ui" line="675"/>
         <source>Highlight favorite users in user list</source>
         <translation>Resaltar usuarios favoritos en la lista de usuarios</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="706"/>
+        <location filename="../ui/UISettingsGUI.ui" line="682"/>
         <source>Depending on hub configuration: information about
 them is usually available only to operators</source>
         <translation>Dependiendo de la configuración del hub: la información sobre
 ellas suele estar disponible únicamente para los operadores</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="710"/>
+        <location filename="../ui/UISettingsGUI.ui" line="686"/>
         <source>Show ip-addresses of users in chat</source>
         <translation>Mostrar direcciones IPs de los usuarios en el chat</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="717"/>
+        <location filename="../ui/UISettingsGUI.ui" line="693"/>
         <source>Show country of users in chat</source>
         <translation>Mostrar país de los usuarios en el chat</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="724"/>
+        <location filename="../ui/UISettingsGUI.ui" line="700"/>
         <source>Parse BBCode</source>
         <translation>Procesar BBCode</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="745"/>
+        <location filename="../ui/UISettingsGUI.ui" line="721"/>
         <source>Colors</source>
         <translation>Colores</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="751"/>
+        <location filename="../ui/UISettingsGUI.ui" line="727"/>
         <source>Text colors in chat</source>
         <translation>Colorear texto en el chat</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="782"/>
+        <location filename="../ui/UISettingsGUI.ui" line="749"/>
         <source>Highlighting of search results in the chat</source>
         <translation>Resaltado de los resultados de búsqueda en el chat</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="800"/>
-        <location filename="../ui/UISettingsGUI.ui" line="867"/>
+        <location filename="../ui/UISettingsGUI.ui" line="758"/>
+        <location filename="../ui/UISettingsGUI.ui" line="816"/>
         <source>Color</source>
         <translation>Color</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="820"/>
-        <location filename="../ui/UISettingsGUI.ui" line="884"/>
+        <location filename="../ui/UISettingsGUI.ui" line="778"/>
+        <location filename="../ui/UISettingsGUI.ui" line="833"/>
         <source>Transparency</source>
         <translation>Transparencia</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="849"/>
+        <location filename="../ui/UISettingsGUI.ui" line="807"/>
         <source>Highlighting of already shared files</source>
         <translation>Resaltado de archivos compartidos actualmente </translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="913"/>
+        <location filename="../ui/UISettingsGUI.ui" line="862"/>
         <source>Transfer colors</source>
         <translation>Colores de las transferencias</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="945"/>
+        <location filename="../ui/UISettingsGUI.ui" line="885"/>
         <source>Upload</source>
         <translation>Subida</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="972"/>
+        <location filename="../ui/UISettingsGUI.ui" line="912"/>
         <source>Reset</source>
         <translation>Reiniciar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="984"/>
+        <location filename="../ui/UISettingsGUI.ui" line="924"/>
         <source>Change background color in the chat</source>
         <translation>Cambiar el color de fondo del chat</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="1027"/>
+        <location filename="../ui/UISettingsGUI.ui" line="967"/>
         <source>Fonts</source>
         <translation>Fuentes</translation>
     </message>
@@ -6740,49 +6275,39 @@ ellas suele estar disponible únicamente para los operadores</translation>
 <context>
     <name>UISettingsHistory</name>
     <message>
-        <location filename="../ui/UISettingsHistory.ui" line="14"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsHistory.ui" line="44"/>
+        <location filename="../ui/UISettingsHistory.ui" line="53"/>
         <source>Clear search history on program exit</source>
         <translation>Limpiar historial de búsquedas al cerrar el programa</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsHistory.ui" line="57"/>
+        <location filename="../ui/UISettingsHistory.ui" line="66"/>
         <source>Clear download directories history on program exit</source>
         <translation>Limpiar historial de directorios de descarga al cerrar el programa</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsHistory.ui" line="67"/>
-        <location filename="../ui/UISettingsHistory.ui" line="74"/>
+        <location filename="../ui/UISettingsHistory.ui" line="76"/>
+        <location filename="../ui/UISettingsHistory.ui" line="83"/>
         <source>Clear now</source>
         <translation>Limpiar ahora</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsHistory.ui" line="87"/>
+        <location filename="../ui/UISettingsHistory.ui" line="96"/>
         <source>Number of search history elements to store:</source>
         <translation>Número de elementos del historial de búsqueda para almacenar:</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsHistory.ui" line="113"/>
+        <location filename="../ui/UISettingsHistory.ui" line="122"/>
         <source>Number of download directories history elements to store:</source>
         <translation>Número de elementos del historial de directorios de descarga a almacenar:</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsHistory.ui" line="152"/>
+        <location filename="../ui/UISettingsHistory.ui" line="161"/>
         <source>Memorize TTH search phrases</source>
         <translation>Memorizar búsquedas por TTH</translation>
     </message>
 </context>
 <context>
     <name>UISettingsLog</name>
-    <message>
-        <location filename="../ui/UISettingsLog.ui" line="14"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <location filename="../ui/UISettingsLog.ui" line="430"/>
         <source>Log directory</source>
@@ -6842,8 +6367,8 @@ ellas suele estar disponible únicamente para los operadores</translation>
     </message>
     <message>
         <location filename="../ui/UISettingsLog.ui" line="294"/>
-        <source>Cmd Debug</source>
-        <translation>Cmd Debug</translation>
+        <source>Debug Console</source>
+        <translation>Debug Console</translation>
     </message>
     <message>
         <location filename="../ui/UISettingsLog.ui" line="346"/>
@@ -6872,12 +6397,12 @@ ellas suele estar disponible únicamente para los operadores</translation>
     </message>
     <message>
         <location filename="../ui/UISettingsLog.ui" line="385"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;https://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://dcplusplus.sourceforge.net/webhelp/settings_logs.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#296fbe;&quot;&gt;Help&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;https://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -6886,11 +6411,6 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>UISettingsNotification</name>
-    <message>
-        <location filename="../ui/UISettingsNotification.ui" line="14"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <location filename="../ui/UISettingsNotification.ui" line="24"/>
         <source>Text</source>
@@ -6908,19 +6428,19 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../ui/UISettingsNotification.ui" line="49"/>
-        <location filename="../ui/UISettingsNotification.ui" line="192"/>
+        <location filename="../ui/UISettingsNotification.ui" line="201"/>
         <source>Your nick is mentioned in main chat</source>
         <translation>Tu nick sea mencionado en el chat principal</translation>
     </message>
     <message>
         <location filename="../ui/UISettingsNotification.ui" line="56"/>
-        <location filename="../ui/UISettingsNotification.ui" line="224"/>
+        <location filename="../ui/UISettingsNotification.ui" line="242"/>
         <source>Private message</source>
         <translation>Mensaje privado</translation>
     </message>
     <message>
         <location filename="../ui/UISettingsNotification.ui" line="63"/>
-        <location filename="../ui/UISettingsNotification.ui" line="263"/>
+        <location filename="../ui/UISettingsNotification.ui" line="290"/>
         <source>Transfer done</source>
         <translation>Transferencia completada</translation>
     </message>
@@ -6950,55 +6470,55 @@ p, li { white-space: pre-wrap; }
         <translation>Cambiar icono cuando la ventana principal es visible</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsNotification.ui" line="124"/>
+        <location filename="../ui/UISettingsNotification.ui" line="133"/>
         <source>Notification module</source>
         <translation>Módulo de notificación</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsNotification.ui" line="144"/>
+        <location filename="../ui/UISettingsNotification.ui" line="153"/>
         <source>Default (Qt)</source>
         <translation>Por defecto (Qt)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsNotification.ui" line="149"/>
+        <location filename="../ui/UISettingsNotification.ui" line="158"/>
         <source>D-Bus</source>
         <translation>D-Bus</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsNotification.ui" line="177"/>
+        <location filename="../ui/UISettingsNotification.ui" line="186"/>
         <source>Sound</source>
         <translation>Sonidos</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsNotification.ui" line="183"/>
+        <location filename="../ui/UISettingsNotification.ui" line="192"/>
         <source>Enable sounds</source>
         <translation>Habilitar sonidos</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsNotification.ui" line="207"/>
-        <location filename="../ui/UISettingsNotification.ui" line="239"/>
-        <location filename="../ui/UISettingsNotification.ui" line="278"/>
-        <location filename="../ui/UISettingsNotification.ui" line="310"/>
+        <location filename="../ui/UISettingsNotification.ui" line="225"/>
+        <location filename="../ui/UISettingsNotification.ui" line="266"/>
+        <location filename="../ui/UISettingsNotification.ui" line="314"/>
+        <location filename="../ui/UISettingsNotification.ui" line="355"/>
         <source>Test</source>
         <translation>Probar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsNotification.ui" line="253"/>
+        <location filename="../ui/UISettingsNotification.ui" line="280"/>
         <source>Play sound on active PM window</source>
         <translation>Reproducir sonido en la ventana de Mensajes Privados activa</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsNotification.ui" line="295"/>
+        <location filename="../ui/UISettingsNotification.ui" line="331"/>
         <source>Favorite user event</source>
         <translation>Evento de usuario favorito</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsNotification.ui" line="343"/>
+        <location filename="../ui/UISettingsNotification.ui" line="388"/>
         <source>Use external command</source>
         <translation>Usar comando externo</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsNotification.ui" line="355"/>
+        <location filename="../ui/UISettingsNotification.ui" line="409"/>
         <source>If your sound files&apos; format is unsupported by Qt, you can define
 custom media player here to play them.
 For example: /usr/bin/mplayer</source>
@@ -7010,68 +6530,63 @@ Por ejemplo: /usr/bin/mplayer</translation>
 <context>
     <name>UISettingsPersonal</name>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="20"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="38"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="47"/>
         <source>This description will show in the user list.
 It can be overridden on a per-hub basis in the Favorite Hub Properties.</source>
         <translation>Esta descripción se mostrará en la lista de usuarios.
 se puede cambiar en las propiedades de los Hubs favoritos.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="46"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="55"/>
         <source>If you are in away mode, this message will be sent to everybody
 who sends private message to you.</source>
         <translation>Si está en el modo ausente, este mensaje se enviará a todo el mundo
 que le mande un mensaje privado.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="54"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="63"/>
         <source>Nick</source>
         <translation>Nick</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="61"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="70"/>
         <source>This nickname, or handle, will identify you when you join a hub.
 It can be overridden on a per-hub basis in the Favorite Hub Properties.</source>
         <translation>Se le identificará por este nickname, o título, cuando se una a un hub.
 Se puede cambiar en las propiedades de los Hubs favoritos.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="69"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="78"/>
         <source>E-Mail</source>
         <translation>E-Mail</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="76"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="85"/>
         <source>Description</source>
         <translation>Descripción</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="83"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="92"/>
         <source>Away message</source>
         <translation>Mensaje de ausencia</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="90"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="99"/>
         <source>Auto away interval (min)</source>
         <translation>Ausentar automáticamente tras (min)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="110"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="119"/>
         <source>This field is for sharing your email address, if you wish it.</source>
         <translation>Este campo es para compartir su dirección e-mail, si así lo desea.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="151"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="169"/>
         <source>Line speed (upload)</source>
         <translation>Velocidad de linea (subida)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="170"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="188"/>
         <source>This drop-down contains a number of common upload speeds (in MiB/s),
 please choose the one closest to your own.
 Do not put in your download speed; this setting is a measure
@@ -7083,23 +6598,18 @@ una medida de la velocidad que tienes como fuente
 para otros usuarios.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="186"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="204"/>
         <source>MiB/s</source>
         <translation>MiB/s</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="199"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="217"/>
         <source>Default hub encoding</source>
         <translation>Codificación por defecto del hub</translation>
     </message>
 </context>
 <context>
     <name>UISettingsSharing</name>
-    <message>
-        <location filename="../ui/UISettingsSharing.ui" line="14"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
     <message>
         <location filename="../ui/UISettingsSharing.ui" line="27"/>
         <source>Basic</source>
@@ -7219,72 +6729,42 @@ el cliente aparente quedar congelado.</translation>
         <translation>Tamaño del buffer (MiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="292"/>
-        <source>1</source>
-        <translation>1</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsSharing.ui" line="297"/>
-        <source>2</source>
-        <translation>2</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsSharing.ui" line="302"/>
-        <source>4</source>
-        <translation>4</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsSharing.ui" line="307"/>
+        <location filename="../ui/UISettingsSharing.ui" line="288"/>
         <source>8</source>
         <translation>8</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="312"/>
-        <source>16</source>
-        <translation>16</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsSharing.ui" line="317"/>
-        <source>32</source>
-        <translation>32</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsSharing.ui" line="322"/>
-        <source>64</source>
-        <translation>64</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsSharing.ui" line="338"/>
+        <location filename="../ui/UISettingsSharing.ui" line="341"/>
         <source>FastHash options (restart needed)</source>
         <translation>Opciones de indexado rápido (se necesita reiniciar)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="346"/>
+        <location filename="../ui/UISettingsSharing.ui" line="349"/>
         <source>Private page mapping</source>
         <translation>Asignar páginas privadas</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="353"/>
+        <location filename="../ui/UISettingsSharing.ui" line="356"/>
         <source>No reserve</source>
         <translation>No reservar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="367"/>
+        <location filename="../ui/UISettingsSharing.ui" line="370"/>
         <source>Proactive read from disk</source>
         <translation>Lectura pro-activa desde el disco</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="379"/>
+        <location filename="../ui/UISettingsSharing.ui" line="382"/>
         <source>Use ADL search only in own file list</source>
         <translation>Usar la búsqueda ADL solo en su propia lista de archivos</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="394"/>
+        <location filename="../ui/UISettingsSharing.ui" line="397"/>
         <source>Automatically open extra slot if speed is below (KiB/s, 0 = infinite)</source>
         <translation>Abrir automáticamente Slot si la velocidad está por debajo de (KiB/s, 0 = sin limite)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="410"/>
+        <location filename="../ui/UISettingsSharing.ui" line="413"/>
         <source>If the average upload speed drops below the given number,
 an additional upload slot will be granted.
 These slots are granted once every 30 seconds at maximum.
@@ -7297,41 +6777,41 @@ Si la velocidad de subida original es incrementada, el Slot
 concedido no será cerrado.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="430"/>
+        <location filename="../ui/UISettingsSharing.ui" line="433"/>
         <source>Hashing delay on startup (seconds, -1 = infinity)</source>
         <translation>Retrasar el indexado al iniciar (Segundos, -1 = infinito)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="446"/>
-        <location filename="../ui/UISettingsSharing.ui" line="481"/>
+        <location filename="../ui/UISettingsSharing.ui" line="449"/>
+        <location filename="../ui/UISettingsSharing.ui" line="484"/>
         <source>Here you can set time interval of auto refreshing your share.</source>
         <translation>Aquí puede configurar el intervalo de tiempo ente actualizaciones
 automáticas de sus compartidos.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="465"/>
+        <location filename="../ui/UISettingsSharing.ui" line="468"/>
         <source>Auto refresh time (minutes, 0 = off)</source>
         <translation>Periodo de refresco automático (minutos, 0 = desactivar)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="497"/>
+        <location filename="../ui/UISettingsSharing.ui" line="500"/>
         <source>Max hash speed (MB/s) (0 = infinite)</source>
         <translation>Velocidad de indexado máxima (MB/s) (0 = infinito)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="510"/>
+        <location filename="../ui/UISettingsSharing.ui" line="513"/>
         <source>You can limit maximum hash speed here
 if your system becomes slow while hashing files.</source>
         <translation>Aquí puede ajustar el limite de velocidad del indexado
 si su sistema se vuelve lento cuando se indexan archivos.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="524"/>
+        <location filename="../ui/UISettingsSharing.ui" line="527"/>
         <source>Upload slots</source>
         <translation>Slots de subida</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="534"/>
+        <location filename="../ui/UISettingsSharing.ui" line="537"/>
         <source>Configure the number of slots that other users can occupy
 to download files from you. A remote user can use only
 one slot for each hub that they&apos;re on with you.
@@ -7355,67 +6835,31 @@ volverá a conceder un slot a dicho usuario.</translation>
     </message>
 </context>
 <context>
-    <name>UISettingsShortcuts</name>
-    <message>
-        <location filename="../ui/UISettingsShortcuts.ui" line="14"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-</context>
-<context>
     <name>UISettingsUC</name>
     <message>
-        <location filename="../ui/UISettingsUC.ui" line="14"/>
-        <source>Form</source>
-        <translation>Formario</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsUC.ui" line="42"/>
+        <location filename="../ui/UISettingsUC.ui" line="51"/>
         <source>Add</source>
         <translation>Añadir</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsUC.ui" line="49"/>
+        <location filename="../ui/UISettingsUC.ui" line="58"/>
         <source>Change</source>
         <translation>Cambiar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsUC.ui" line="56"/>
+        <location filename="../ui/UISettingsUC.ui" line="65"/>
         <source>Remove</source>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsUC.ui" line="63"/>
+        <location filename="../ui/UISettingsUC.ui" line="72"/>
         <source>Up</source>
         <translation>Subir</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsUC.ui" line="83"/>
+        <location filename="../ui/UISettingsUC.ui" line="92"/>
         <source>Down</source>
         <translation>Bajar</translation>
-    </message>
-</context>
-<context>
-    <name>UIShareBrowser</name>
-    <message>
-        <location filename="../ui/UIShareBrowser.ui" line="20"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message utf8="true">
-        <location filename="../ui/UIShareBrowser.ui" line="103"/>
-        <source>←</source>
-        <translation>←</translation>
-    </message>
-    <message utf8="true">
-        <location filename="../ui/UIShareBrowser.ui" line="110"/>
-        <source>→</source>
-        <translation>→</translation>
-    </message>
-    <message utf8="true">
-        <location filename="../ui/UIShareBrowser.ui" line="117"/>
-        <source>↑</source>
-        <translation>↑</translation>
     </message>
 </context>
 <context>
@@ -7455,11 +6899,6 @@ volverá a conceder un slot a dicho usuario.</translation>
 <context>
     <name>UISpy</name>
     <message>
-        <location filename="../ui/UISpy.ui" line="14"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
-    </message>
-    <message>
         <location filename="../ui/UISpy.ui" line="35"/>
         <source>Ignore TTH search</source>
         <translation>Ignorar búsquedas por TTH</translation>
@@ -7478,14 +6917,6 @@ volverá a conceder un slot a dicho usuario.</translation>
         <location filename="../ui/UISpy.ui" line="69"/>
         <source>Clear</source>
         <translation>Limpiar</translation>
-    </message>
-</context>
-<context>
-    <name>UITransferView</name>
-    <message>
-        <location filename="../ui/UITransferView.ui" line="20"/>
-        <source>Form</source>
-        <translation>Formulario</translation>
     </message>
 </context>
 <context>
@@ -7584,57 +7015,57 @@ volverá a conceder un slot a dicho usuario.</translation>
 <context>
     <name>UserListModel</name>
     <message>
-        <location filename="../src/UserListModel.cpp" line="130"/>
+        <location filename="../src/UserListModel.cpp" line="131"/>
         <source>&lt;b&gt;Hub role&lt;/b&gt;: Operator</source>
         <translation>&lt;b&gt;Rol en el hub&lt;/b&gt;: Operador</translation>
     </message>
     <message>
-        <location filename="../src/UserListModel.cpp" line="132"/>
+        <location filename="../src/UserListModel.cpp" line="133"/>
         <source>&lt;b&gt;Hub role&lt;/b&gt;: User</source>
         <translation>&lt;b&gt;Rol en el hub&lt;/b&gt;: Usuario</translation>
     </message>
     <message>
-        <location filename="../src/UserListModel.cpp" line="135"/>
+        <location filename="../src/UserListModel.cpp" line="136"/>
         <source>&lt;br/&gt;&lt;b&gt;Favorite user&lt;/b&gt;</source>
         <translation>&lt;br/&gt;&lt;b&gt;Usuario favorito&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/UserListModel.cpp" line="168"/>
+        <location filename="../src/UserListModel.cpp" line="169"/>
         <source>Nick</source>
         <translation>Nick</translation>
     </message>
     <message>
-        <location filename="../src/UserListModel.cpp" line="169"/>
+        <location filename="../src/UserListModel.cpp" line="170"/>
         <source>Comment</source>
         <translation>Comentario</translation>
     </message>
     <message>
-        <location filename="../src/UserListModel.cpp" line="170"/>
+        <location filename="../src/UserListModel.cpp" line="171"/>
         <source>Tag</source>
         <translation>Etiqueta</translation>
     </message>
     <message>
-        <location filename="../src/UserListModel.cpp" line="171"/>
+        <location filename="../src/UserListModel.cpp" line="172"/>
         <source>Connection</source>
         <translation>Conexión</translation>
     </message>
     <message>
-        <location filename="../src/UserListModel.cpp" line="172"/>
+        <location filename="../src/UserListModel.cpp" line="173"/>
         <source>E-mail</source>
         <translation>E-mail</translation>
     </message>
     <message>
-        <location filename="../src/UserListModel.cpp" line="173"/>
+        <location filename="../src/UserListModel.cpp" line="174"/>
         <source>Share</source>
         <translation>Compartido</translation>
     </message>
     <message>
-        <location filename="../src/UserListModel.cpp" line="174"/>
+        <location filename="../src/UserListModel.cpp" line="175"/>
         <source>Exact share size</source>
         <translation>Extraer tamaño compartido</translation>
     </message>
     <message>
-        <location filename="../src/UserListModel.cpp" line="175"/>
+        <location filename="../src/UserListModel.cpp" line="176"/>
         <source>IP</source>
         <translation>IP</translation>
     </message>
@@ -7642,30 +7073,30 @@ volverá a conceder un slot a dicho usuario.</translation>
 <context>
     <name>WulforSettings</name>
     <message>
-        <location filename="../src/WulforSettings.cpp" line="411"/>
-        <source>Gui setting %1: %2</source>
+        <location filename="../src/WulforSettings.cpp" line="404"/>
+        <source>GUI setting %1: %2</source>
         <translation>Configuración de la GUI %1: %2</translation>
     </message>
     <message>
-        <location filename="../src/WulforSettings.cpp" line="420"/>
-        <source>Change gui setting %1 to %2</source>
+        <location filename="../src/WulforSettings.cpp" line="413"/>
+        <source>Change GUI setting %1 to %2</source>
         <translation>Cambiar la configuración de la GUI %1 a %2</translation>
     </message>
 </context>
 <context>
     <name>WulforUtil</name>
     <message>
-        <location filename="../src/WulforUtil.cpp" line="704"/>
+        <location filename="../src/WulforUtil.cpp" line="747"/>
         <source>System default</source>
         <translation>Por defecto del sistema</translation>
     </message>
     <message>
-        <location filename="../src/WulforUtil.cpp" line="1013"/>
+        <location filename="../src/WulforUtil.cpp" line="1054"/>
         <source>Offline</source>
         <translation>Desconectado</translation>
     </message>
     <message>
-        <location filename="../src/WulforUtil.cpp" line="1116"/>
+        <location filename="../src/WulforUtil.cpp" line="1157"/>
         <source>User commands</source>
         <translation>Órdenes de usuario</translation>
     </message>

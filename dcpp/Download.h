@@ -12,29 +12,31 @@
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+* along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 #pragma once
 
 #include <string>
+#include <memory>
+
 #include "forward.h"
-#include "noexcept.h"
 #include "Transfer.h"
 #include "MerkleTree.h"
 #include "Flags.h"
-#include "Streams.h"
+#include "GetSet.h"
 
 namespace dcpp {
 
 using std::string;
+using std::unique_ptr;
 
 /**
  * Comes as an argument in the DownloadManagerListener functions.
  * Use it to retrieve information about the ongoing transfer.
  */
-class Download : public Transfer, public Flags {
+class Download : public Transfer, public Flags
+{
 public:
     enum {
         FLAG_ZDOWNLOAD = 1 << 1,
@@ -51,12 +53,10 @@ public:
     virtual ~Download();
 
     /** @return Target filename without path. */
-    string getTargetFileName();
+    string getTargetFileName() const;
 
     /** @internal */
-    const string& getDownloadTarget() {
-        return (getTempTarget().empty() ? getPath() : getTempTarget());
-    }
+    const string& getDownloadTarget() const;
 
     /** @internal */
     TigerTree& getTigerTree() { return tt; }
@@ -67,9 +67,8 @@ public:
     GETSET(string, tempTarget, TempTarget);
     GETSET(OutputStream*, file, File);
     GETSET(bool, treeValid, TreeValid);
+
 private:
-    Download(const Download&);
-    Download& operator=(const Download&);
 
     TigerTree tt;
     string pfs;

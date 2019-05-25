@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -31,9 +30,9 @@ PublicHubs::PublicHubs():
     filter("")
 {
 #if !GTK_CHECK_VERSION(3,0,0)
-    gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(getWidget("statusMain")),FALSE);
-    gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(getWidget("statusHubs")),FALSE);
-    gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(getWidget("statusUsers")),FALSE);
+    gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(getWidget("statusMain")),false);
+    gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(getWidget("statusHubs")),false);
+    gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(getWidget("statusUsers")),false);
 #endif
 
     // Configure the dialog
@@ -61,8 +60,8 @@ PublicHubs::PublicHubs():
     g_object_unref(hubStore);
     hubSelection = gtk_tree_view_get_selection(hubView.get());
     gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(hubStore), hubView.col(_("Users")), GTK_SORT_DESCENDING);
-    gtk_tree_view_column_set_sort_indicator(gtk_tree_view_get_column(hubView.get(), hubView.col(_("Users"))), TRUE);
-    gtk_tree_view_set_fixed_height_mode(hubView.get(), TRUE);
+    gtk_tree_view_column_set_sort_indicator(gtk_tree_view_get_column(hubView.get(), hubView.col(_("Users"))), true);
+    gtk_tree_view_set_fixed_height_mode(hubView.get(), true);
 
     // Initialize list of public hub lists treeview
     listsView.setView(GTK_TREE_VIEW(getWidget("listsView")));
@@ -71,7 +70,7 @@ PublicHubs::PublicHubs():
     listsStore = gtk_list_store_newv(listsView.getColCount(), listsView.getGTypes());
     gtk_tree_view_set_model(listsView.get(), GTK_TREE_MODEL(listsStore));
     g_object_unref(listsStore);
-    gtk_tree_view_set_headers_visible(listsView.get(), FALSE);
+    gtk_tree_view_set_headers_visible(listsView.get(), false);
     listsSelection = gtk_tree_view_get_selection(listsView.get());
     GtkTreeViewColumn *c = gtk_tree_view_get_column(listsView.get(), 0);
     GList *l = gtk_cell_layout_get_cells(GTK_CELL_LAYOUT(c));
@@ -122,11 +121,11 @@ void PublicHubs::buildHubList_gui()
     StringList list = FavoriteManager::getInstance()->getHubLists();
     int selected = FavoriteManager::getInstance()->getSelectedHubList();
 
-    for (auto it = list.begin(); it != list.end(); ++it)
+    for (auto &it : list)
     {
         GtkTreeIter iter;
         gtk_list_store_append(listsStore, &iter);
-        gtk_list_store_set(listsStore, &iter, 0, it->c_str(), -1);
+        gtk_list_store_set(listsStore, &iter, 0, it.c_str(), -1);
     }
 
     if (static_cast<size_t>(selected) >= list.size())
@@ -152,22 +151,22 @@ void PublicHubs::updateList_gui()
     for (i = hubs.begin(); i != hubs.end(); ++i)
     {
         if (filter.getPattern().empty() || filter.match(i->getName()) ||
-            filter.match(i->getDescription()) || filter.match(i->getServer()))
+                filter.match(i->getDescription()) || filter.match(i->getServer()))
         {
             gtk_list_store_append(hubStore, &iter);
             gtk_list_store_set(hubStore, &iter,
-                hubView.col(_("Name")), i->getName().c_str(),
-                hubView.col(_("Description")), i->getDescription().c_str(),
-                hubView.col(_("Users")), i->getUsers(),
-                hubView.col(_("Address")), i->getServer().c_str(),
-                hubView.col(_("Country")), i->getCountry().c_str(),
-                hubView.col(_("Shared")), (int64_t)i->getShared(),
-                hubView.col(_("Min Share")), (int64_t)i->getMinShare(),
-                hubView.col(_("Min Slots")), i->getMinSlots(),
-                hubView.col(_("Max Hubs")), i->getMaxHubs(),
-                hubView.col(_("Max Users")), i->getMaxUsers(),
-                hubView.col(_("Rating")), i->getRating().c_str(),
-                -1);
+                               hubView.col(_("Name")), i->getName().c_str(),
+                               hubView.col(_("Description")), i->getDescription().c_str(),
+                               hubView.col(_("Users")), i->getUsers(),
+                               hubView.col(_("Address")), i->getServer().c_str(),
+                               hubView.col(_("Country")), i->getCountry().c_str(),
+                               hubView.col(_("Shared")), (int64_t)i->getShared(),
+                               hubView.col(_("Min Share")), (int64_t)i->getMinShare(),
+                               hubView.col(_("Min Slots")), i->getMinSlots(),
+                               hubView.col(_("Max Hubs")), i->getMaxHubs(),
+                               hubView.col(_("Max Users")), i->getMaxUsers(),
+                               hubView.col(_("Rating")), i->getRating().c_str(),
+                               -1);
 
             numUsers += i->getUsers();
             numHubs++;
@@ -183,19 +182,20 @@ void PublicHubs::updateList_gui()
 void PublicHubs::setStatus_gui(string statusBar, string text)
 {
     gtk_statusbar_pop(GTK_STATUSBAR(getWidget(statusBar)), 0);
-    gtk_statusbar_push(GTK_STATUSBAR(getWidget(statusBar)), 0, text.c_str());
+    gtk_statusbar_push(GTK_STATUSBAR(getWidget(statusBar)), 0,
+                       g_filename_to_utf8(text.c_str(),-1,NULL,NULL,NULL));
 }
 
-gboolean PublicHubs::onFocusIn_gui(GtkWidget *widget, GdkEventFocus *event, gpointer data)
+gboolean PublicHubs::onFocusIn_gui(GtkWidget*, GdkEventFocus*, gpointer data)
 {
     PublicHubs *ph = (PublicHubs *)data;
 
     gtk_widget_grab_focus(ph->getWidget("filterEntry"));
 
-    return TRUE;
+    return true;
 }
 
-gboolean PublicHubs::onButtonPress_gui(GtkWidget *widget, GdkEventButton *event, gpointer data)
+gboolean PublicHubs::onButtonPress_gui(GtkWidget*, GdkEventButton *event, gpointer data)
 {
     PublicHubs *ph = (PublicHubs *)data;
 
@@ -205,10 +205,10 @@ gboolean PublicHubs::onButtonPress_gui(GtkWidget *widget, GdkEventButton *event,
         ph->oldButton = event->button;
     }
 
-    return FALSE;
+    return false;
 }
 
-gboolean PublicHubs::onButtonRelease_gui(GtkWidget *widget, GdkEventButton *event, gpointer data)
+gboolean PublicHubs::onButtonRelease_gui(GtkWidget*, GdkEventButton *event, gpointer data)
 {
     PublicHubs *ph = (PublicHubs *)data;
 
@@ -216,7 +216,11 @@ gboolean PublicHubs::onButtonRelease_gui(GtkWidget *widget, GdkEventButton *even
     {
         if (event->button == 3 && ph->oldType == GDK_BUTTON_PRESS)
         {
+#if GTK_CHECK_VERSION(3,22,0)
+            gtk_menu_popup_at_pointer(GTK_MENU(ph->getWidget("menu")),NULL);
+#else
             gtk_menu_popup(GTK_MENU(ph->getWidget("menu")), NULL, NULL, NULL, NULL, 0, event->time);
+#endif
             gtk_widget_show_all(ph->getWidget("menu"));
         }
         else if (event->button == 1 && ph->oldType == GDK_2BUTTON_PRESS)
@@ -225,30 +229,34 @@ gboolean PublicHubs::onButtonRelease_gui(GtkWidget *widget, GdkEventButton *even
         }
     }
 
-    return FALSE;
+    return false;
 }
 
-gboolean PublicHubs::onKeyRelease_gui(GtkWidget *widget, GdkEventKey *event, gpointer data)
+gboolean PublicHubs::onKeyRelease_gui(GtkWidget*, GdkEventKey *event, gpointer data)
 {
     PublicHubs *ph = (PublicHubs *)data;
 
     if (gtk_tree_selection_get_selected(ph->hubSelection, NULL, NULL))
     {
-        if (event->keyval == GDK_Menu || (event->keyval == GDK_F10 && event->state & GDK_SHIFT_MASK))
+        if (event->keyval == GDK_KEY_Menu || (event->keyval == GDK_KEY_F10 && event->state & GDK_SHIFT_MASK))
         {
+#if GTK_CHECK_VERSION(3,22,0)
+            gtk_menu_popup_at_pointer(GTK_MENU(ph->getWidget("menu")),NULL);
+#else
             gtk_menu_popup(GTK_MENU(ph->getWidget("menu")), NULL, NULL, NULL, NULL, 0, event->time);
+#endif
             gtk_widget_show_all(ph->getWidget("menu"));
         }
-        else if (event->keyval == GDK_Return || event->keyval == GDK_KP_Enter)
+        else if (event->keyval == GDK_KEY_Return || event->keyval == GDK_KEY_KP_Enter)
         {
             ph->onConnect_gui(NULL, data);
         }
     }
 
-    return FALSE;
+    return false;
 }
 
-gboolean PublicHubs::onFilterHubs_gui(GtkWidget *widget, GdkEventKey *event, gpointer data)
+gboolean PublicHubs::onFilterHubs_gui(GtkWidget*, GdkEventKey*, gpointer data)
 {
     PublicHubs *ph = (PublicHubs *)data;
     StringSearch pattern(gtk_entry_get_text(GTK_ENTRY(ph->getWidget("filterEntry"))));
@@ -259,10 +267,10 @@ gboolean PublicHubs::onFilterHubs_gui(GtkWidget *widget, GdkEventKey *event, gpo
         ph->updateList_gui();
     }
 
-    return FALSE;
+    return false;
 }
 
-void PublicHubs::onConnect_gui(GtkWidget *widget, gpointer data)
+void PublicHubs::onConnect_gui(GtkWidget*, gpointer data)
 {
     PublicHubs *ph = (PublicHubs *)data;
     GtkTreeIter iter;
@@ -274,7 +282,7 @@ void PublicHubs::onConnect_gui(GtkWidget *widget, gpointer data)
     }
 }
 
-void PublicHubs::onRefresh_gui(GtkWidget *widget, gpointer data)
+void PublicHubs::onRefresh_gui(GtkWidget*, gpointer data)
 {
     PublicHubs *ph = (PublicHubs *)data;
     int pos = gtk_combo_box_get_active(GTK_COMBO_BOX(ph->getWidget("hubListBox")));
@@ -284,7 +292,7 @@ void PublicHubs::onRefresh_gui(GtkWidget *widget, gpointer data)
     WulforManager::get()->dispatchClientFunc(func);
 }
 
-void PublicHubs::onAddFav_gui(GtkMenuItem *item, gpointer data)
+void PublicHubs::onAddFav_gui(GtkMenuItem*, gpointer data)
 {
     PublicHubs *ph = (PublicHubs *)data;
     GtkTreeIter iter;
@@ -298,7 +306,7 @@ void PublicHubs::onAddFav_gui(GtkMenuItem *item, gpointer data)
 
         entry.setName(name);
         entry.setServer(address);
-        entry.setDescription(description);
+        entry.setHubDescription(description);
         entry.setNick(SETTING(NICK));
         entry.setPassword("");
         entry.setUserDescription(SETTING(DESCRIPTION));
@@ -309,7 +317,7 @@ void PublicHubs::onAddFav_gui(GtkMenuItem *item, gpointer data)
     }
 }
 
-void PublicHubs::onConfigure_gui(GtkWidget *widget, gpointer data)
+void PublicHubs::onConfigure_gui(GtkWidget*, gpointer data)
 {
     PublicHubs *ph = (PublicHubs *)data;
 
@@ -353,7 +361,7 @@ void PublicHubs::onConfigure_gui(GtkWidget *widget, gpointer data)
     }
 }
 
-void PublicHubs::onAdd_gui(GtkWidget *widget, gpointer data)
+void PublicHubs::onAdd_gui(GtkWidget*, gpointer data)
 {
     PublicHubs *ph = (PublicHubs *)data;
     GtkTreeIter iter;
@@ -364,11 +372,11 @@ void PublicHubs::onAdd_gui(GtkWidget *widget, gpointer data)
     gtk_list_store_set(ph->listsStore, &iter, ph->listsView.col(_("List")), _("New list"), -1);
     path = gtk_tree_model_get_path(GTK_TREE_MODEL(ph->listsStore), &iter);
     col = gtk_tree_view_get_column(ph->listsView.get(), 0);
-    gtk_tree_view_set_cursor(ph->listsView.get(), path, col, TRUE);
+    gtk_tree_view_set_cursor(ph->listsView.get(), path, col, true);
     gtk_tree_path_free(path);
 }
 
-void PublicHubs::onMoveUp_gui(GtkWidget *widget, gpointer data)
+void PublicHubs::onMoveUp_gui(GtkWidget*, gpointer data)
 {
     PublicHubs *ph = (PublicHubs *)data;
     GtkTreeIter prev, current;
@@ -383,7 +391,7 @@ void PublicHubs::onMoveUp_gui(GtkWidget *widget, gpointer data)
     }
 }
 
-void PublicHubs::onMoveDown_gui(GtkWidget *widget, gpointer data)
+void PublicHubs::onMoveDown_gui(GtkWidget*, gpointer data)
 {
     PublicHubs *ph = (PublicHubs *)data;
     GtkTreeIter current, next;
@@ -396,7 +404,7 @@ void PublicHubs::onMoveDown_gui(GtkWidget *widget, gpointer data)
     }
 }
 
-void PublicHubs::onRemove_gui(GtkWidget *widget, gpointer data)
+void PublicHubs::onRemove_gui(GtkWidget*, gpointer data)
 {
     PublicHubs *ph = (PublicHubs *)data;
     GtkTreeIter current;
@@ -405,7 +413,7 @@ void PublicHubs::onRemove_gui(GtkWidget *widget, gpointer data)
         gtk_list_store_remove(ph->listsStore, &current);
 }
 
-void PublicHubs::onCellEdited_gui(GtkCellRendererText *cell, char *path, char *text, gpointer data)
+void PublicHubs::onCellEdited_gui(GtkCellRendererText*, char *path, char *text, gpointer data)
 {
     PublicHubs *ph = (PublicHubs *)data;
     GtkTreeIter it;
@@ -454,9 +462,9 @@ void PublicHubs::on(FavoriteManagerListener::DownloadFailed, const string &file)
     WulforManager::get()->dispatchGuiFunc(func);
 }
 
-void PublicHubs::on(FavoriteManagerListener::DownloadFinished, const string &file, bool fromCoral) noexcept
+void PublicHubs::on(FavoriteManagerListener::DownloadFinished, const string &file) noexcept
 {
-    string msg = _("Download finished: ") + file + (fromCoral ? _("from Coral") : "");
+    string msg = _("Download finished: ") + file;
     typedef Func2<PublicHubs, string, string> Func;
     Func *f2 = new Func(this, &PublicHubs::setStatus_gui, "statusMain", msg);
     WulforManager::get()->dispatchGuiFunc(f2);
@@ -469,21 +477,21 @@ void PublicHubs::on(FavoriteManagerListener::DownloadFinished, const string &fil
 
 void PublicHubs::on(FavoriteManagerListener::LoadedFromCache, const string &file, const std::string& d) noexcept
 {
-	string msg = _("Loaded from cache: ") + file + "(" + d +")";
-	typedef Func2<PublicHubs, string, string> Func;
-	Func *func = new Func(this, &PublicHubs::setStatus_gui, "statusMain", msg);
-	WulforManager::get()->dispatchGuiFunc(func);
+    string msg = _("Loaded from cache: ") + file + "(" + d +")";
+    typedef Func2<PublicHubs, string, string> Func;
+    Func *func = new Func(this, &PublicHubs::setStatus_gui, "statusMain", msg);
+    WulforManager::get()->dispatchGuiFunc(func);
 
-	hubs = FavoriteManager::getInstance()->getPublicHubs();
+    hubs = FavoriteManager::getInstance()->getPublicHubs();
 
-	Func0<PublicHubs> *f0 = new Func0<PublicHubs>(this, &PublicHubs::updateList_gui);
-	WulforManager::get()->dispatchGuiFunc(f0);
+    Func0<PublicHubs> *f0 = new Func0<PublicHubs>(this, &PublicHubs::updateList_gui);
+    WulforManager::get()->dispatchGuiFunc(f0);
 }
 
 void PublicHubs::on(FavoriteManagerListener::Corrupted, const string &file) noexcept
 {
-	string msg = _("Downloaded hub list is corrupted or unsupported ") + file;
-	typedef Func2<PublicHubs, string, string> Func;
-	Func *func = new Func(this, &PublicHubs::setStatus_gui, "statusMain", msg);
-	WulforManager::get()->dispatchGuiFunc(func);
+    string msg = _("Downloaded hub list is corrupted or unsupported ") + file;
+    typedef Func2<PublicHubs, string, string> Func;
+    Func *func = new Func(this, &PublicHubs::setStatus_gui, "statusMain", msg);
+    WulforManager::get()->dispatchGuiFunc(func);
 }

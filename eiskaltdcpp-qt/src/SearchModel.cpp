@@ -29,16 +29,11 @@
 #include "dcpp/CID.h"
 #include "dcpp/ShareManager.h"
 
-//#define _DEBUG_MODEL_
-
-
-#include <QtDebug>
-
-using namespace dcpp;
-
-#ifdef _DEBUG_MODEL_
+#ifdef _DEBUG_QT_UI
 #include <QtDebug>
 #endif
+
+using namespace dcpp;
 
 void SearchProxyModel::sort(int column, Qt::SortOrder order){
     if (sourceModel())
@@ -53,7 +48,7 @@ SearchModel::SearchModel(QObject *parent):
 {
     QList<QVariant> rootData;
     rootData << tr("Count") << tr("File") << tr("Ext") << tr("Size")
-             << tr("Exact size") << tr("TTH")   << tr("Path") << tr("Nick")
+             << tr("Exact size") << QString("TTH")   << tr("Path") << tr("Nick")
              << tr("Free slots") << tr("Total slots")
              << tr("IP") << tr("Hub") << tr("Host");
 
@@ -152,7 +147,7 @@ void SearchModel::repaint(){
 Qt::ItemFlags SearchModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
-        return 0;
+        return nullptr;
 
     return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
@@ -336,7 +331,7 @@ bool SearchModel::addResultPtr(const QMap<QString, QVariant> &map){
                   map["CID"].toString(),
                   map["ISDIR"].toBool());
     }
-    catch (SearchListException){
+    catch (SearchListException &) {
         return false;
     }
 }
@@ -371,7 +366,7 @@ bool SearchModel::addResult
     if (size > 0)
         ext = file_info.suffix().toUpper();
 
-    SearchItem * parent = NULL;
+    SearchItem * parent = nullptr;
 
     if (!isDir && tths.contains(tth)) {
         parent = tths[tth];
@@ -519,6 +514,7 @@ SearchItem::SearchItem(const QList<QVariant> &data, SearchItem *parent) :
 SearchItem::~SearchItem()
 {
     qDeleteAll(childItems);
+    childItems.clear();
 }
 
 void SearchItem::appendChild(SearchItem *item) {

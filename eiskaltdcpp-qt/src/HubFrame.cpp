@@ -106,7 +106,7 @@ static inline void clearLayout(QLayout *l){
     if (!l)
         return;
 
-    QLayoutItem *item = NULL;
+    QLayoutItem *item = nullptr;
     while ((item = l->takeAt(0))){
         l->removeWidget(item->widget());
         item->widget()->deleteLater();
@@ -140,7 +140,7 @@ static bool parseBasicBBCode(const QString &tag, const QString &txt, QString &in
     return false;
 }
 
-HubFrame::Menu *HubFrame::Menu::instance = NULL;
+HubFrame::Menu *HubFrame::Menu::instance = nullptr;
 unsigned HubFrame::Menu::counter = 0;
 
 void HubFrame::Menu::newInstance(){
@@ -160,7 +160,7 @@ void HubFrame::Menu::deleteInstance(){
 
     delete instance;
 
-    instance = NULL;
+    instance = nullptr;
 }
 
 HubFrame::Menu *HubFrame::Menu::getInstance(){
@@ -174,43 +174,43 @@ HubFrame::Menu::Menu(){
     last_user_cmd = "";
 
     // Userlist actions
-    QAction *copy_text   = new QAction(WU->getPixmap(WulforUtil::eiEDITCOPY), tr("Copy"), NULL);
-    QAction *search_text = new QAction(WU->getPixmap(WulforUtil::eiFIND), tr("Search text"), NULL);
-    QAction *copy_nick   = new QAction(WU->getPixmap(WulforUtil::eiEDITCOPY), tr("Copy nick"), NULL);
-    QAction *find        = new QAction(WU->getPixmap(WulforUtil::eiFIND), tr("Show in list"), NULL);
-    QAction *browse      = new QAction(WU->getPixmap(WulforUtil::eiFOLDER_BLUE), tr("Browse files"), NULL);
-    QAction *match_queue = new QAction(WU->getPixmap(WulforUtil::eiDOWN), tr("Match Queue"), NULL);
-    QAction *private_msg = new QAction(WU->getPixmap(WulforUtil::eiMESSAGE), tr("Private Message"), NULL);
-    QAction *fav_add     = new QAction(WU->getPixmap(WulforUtil::eiFAVADD), tr("Add to Favorites"), NULL);
-    QAction *fav_del     = new QAction(WU->getPixmap(WulforUtil::eiFAVREM), tr("Remove from Favorites"), NULL);
-    QAction *grant_slot  = new QAction(WU->getPixmap(WulforUtil::eiEDITADD), tr("Grant slot"), NULL);
-    QAction *rem_queue   = new QAction(WU->getPixmap(WulforUtil::eiEDITDELETE), tr("Remove from Queue"), NULL);
+    QAction *copy_text   = new QAction(WU->getPixmap(WulforUtil::eiEDITCOPY), tr("Copy"), nullptr);
+    QAction *search_text = new QAction(WU->getPixmap(WulforUtil::eiFIND), tr("Search text"), nullptr);
+    QAction *copy_nick   = new QAction(WU->getPixmap(WulforUtil::eiEDITCOPY), tr("Copy nick"), nullptr);
+    QAction *find        = new QAction(WU->getPixmap(WulforUtil::eiFIND), tr("Show in list"), nullptr);
+    QAction *browse      = new QAction(WU->getPixmap(WulforUtil::eiFOLDER_BLUE), tr("Browse files"), nullptr);
+    QAction *match_queue = new QAction(WU->getPixmap(WulforUtil::eiDOWN), tr("Match Queue"), nullptr);
+    QAction *private_msg = new QAction(WU->getPixmap(WulforUtil::eiMESSAGE), tr("Private Message"), nullptr);
+    QAction *fav_add     = new QAction(WU->getPixmap(WulforUtil::eiFAVADD), tr("Add to Favorites"), nullptr);
+    QAction *fav_del     = new QAction(WU->getPixmap(WulforUtil::eiFAVREM), tr("Remove from Favorites"), nullptr);
+    QAction *grant_slot  = new QAction(WU->getPixmap(WulforUtil::eiEDITADD), tr("Grant slot"), nullptr);
+    QAction *rem_queue   = new QAction(WU->getPixmap(WulforUtil::eiEDITDELETE), tr("Remove from Queue"), nullptr);
 
     // Chat actions
-    QAction *sep1        = new QAction(NULL);
-    QAction *clear_chat  = new QAction(WU->getPixmap(WulforUtil::eiCLEAR), tr("Clear chat"), NULL);
-    QAction *find_in_chat= new QAction(WU->getPixmap(WulforUtil::eiFIND), tr("Find in chat"), NULL);
-    QAction *dis_chat    = new QAction(WU->getPixmap(WulforUtil::eiFILECLOSE), tr("Disable/Enable chat"), NULL);
-    QAction *sep2        = new QAction(NULL);
-    QAction *select_all  = new QAction(tr("Select all"), NULL);
-    QAction *sep3        = new QAction(NULL);
-    QAction *zoom_in     = new QAction(WU->getPixmap(WulforUtil::eiZOOM_IN), tr("Zoom In"), NULL);
-    QAction *zoom_out    = new QAction(WU->getPixmap(WulforUtil::eiZOOM_OUT), tr("Zoom Out"), NULL);
+    QAction *sep1        = new QAction(nullptr);
+    QAction *clear_chat  = new QAction(WU->getPixmap(WulforUtil::eiCLEAR), tr("Clear chat"), nullptr);
+    QAction *find_in_chat= new QAction(WU->getPixmap(WulforUtil::eiFIND), tr("Find in chat"), nullptr);
+    QAction *dis_chat    = new QAction(WU->getPixmap(WulforUtil::eiFILECLOSE), tr("Disable/Enable chat"), nullptr);
+    QAction *sep2        = new QAction(nullptr);
+    QAction *select_all  = new QAction(tr("Select all"), nullptr);
+    QAction *sep3        = new QAction(nullptr);
+    QAction *zoom_in     = new QAction(WU->getPixmap(WulforUtil::eiZOOM_IN), tr("Zoom In"), nullptr);
+    QAction *zoom_out    = new QAction(WU->getPixmap(WulforUtil::eiZOOM_OUT), tr("Zoom Out"), nullptr);
 
     // submenu copy_data for user list
-    QAction *copy_data_nick  = new QAction(tr("Nick"), NULL);
-    QAction *copy_data_cmnt  = new QAction(tr("Comment"), NULL);
-    QAction *copy_data_ip    = new QAction(tr("IP"), NULL);
-    QAction *copy_data_share = new QAction(tr("Share"), NULL);
-    QAction *copy_data_tag   = new QAction(tr("Tag"), NULL);
-    QAction *copy_data_email = new QAction(tr("E-mail"), NULL);
-    QAction *sep4            = new QAction(NULL);
-    QAction *copy_data_all   = new QAction(tr("All"), NULL);
+    QAction *copy_data_nick  = new QAction(tr("Nick"), nullptr);
+    QAction *copy_data_cmnt  = new QAction(tr("Comment"), nullptr);
+    QAction *copy_data_ip    = new QAction(tr("IP"), nullptr);
+    QAction *copy_data_share = new QAction(tr("Share"), nullptr);
+    QAction *copy_data_tag   = new QAction(tr("Tag"), nullptr);
+    QAction *copy_data_email = new QAction(tr("E-mail"), nullptr);
+    QAction *sep4            = new QAction(nullptr);
+    QAction *copy_data_all   = new QAction(tr("All"), nullptr);
 
-    QMenu *menuCopyData = new QMenu(NULL);
+    QMenu *menuCopyData = new QMenu(nullptr);
     menuCopyData->addActions(QList<QAction*>() << copy_data_nick << copy_data_cmnt << copy_data_ip << copy_data_share << copy_data_tag << copy_data_email << sep4 << copy_data_all);
 
-    QAction *copy_data   = new QAction(WU->getPixmap(WulforUtil::eiEDITCOPY), tr("Copy data"), NULL);
+    QAction *copy_data   = new QAction(WU->getPixmap(WulforUtil::eiEDITCOPY), tr("Copy data"), nullptr);
     copy_data->setMenu(menuCopyData);
     // end submenu
 
@@ -290,6 +290,8 @@ HubFrame::Menu::~Menu(){
 
     qDeleteAll(chat_actions);
     qDeleteAll(actions);
+    chat_actions.clear();
+    actions.clear();
 }
 
 HubFrame::Menu::Action HubFrame::Menu::execUserMenu(Client *client, const QString &cid = QString()){
@@ -306,7 +308,7 @@ HubFrame::Menu::Action HubFrame::Menu::execUserMenu(Client *client, const QStrin
 
     menu->addActions(ul_actions);
 
-    QMenu *user_menu = NULL;
+    QMenu *user_menu = nullptr;
 
     if (!cid.isEmpty()){
         user_menu = WulforUtil::getInstance()->buildUserCmdMenu(client->getHubUrl(), UserCommand::CONTEXT_USER);
@@ -315,10 +317,10 @@ HubFrame::Menu::Action HubFrame::Menu::execUserMenu(Client *client, const QStrin
             menu->addMenu(user_menu);
     }
 
-    QMenu *antispam_menu = NULL;
+    QMenu *antispam_menu = nullptr;
 
     if (AntiSpam::getInstance()){
-        antispam_menu = new QMenu(NULL);
+        antispam_menu = new QMenu(nullptr);
         antispam_menu->setTitle(tr("AntiSpam"));
         antispam_menu->menuAction()->setIcon(WICON(WulforUtil::eiSPAM));
         antispam_menu->setProperty("iconVisibleInMenu", true);
@@ -395,7 +397,7 @@ HubFrame::Menu::Action HubFrame::Menu::execChatMenu(Client *client, const QStrin
         menu->addActions(chat_actions);
     }
 
-    QMenu *user_menu = NULL;
+    QMenu *user_menu = nullptr;
 
     if (!cid.isEmpty() && !pmw){
         user_menu = WulforUtil::getInstance()->buildUserCmdMenu(client->getHubUrl(), UserCommand::CONTEXT_HUB);
@@ -404,10 +406,10 @@ HubFrame::Menu::Action HubFrame::Menu::execChatMenu(Client *client, const QStrin
             menu->addMenu(user_menu);
     }
 
-    QMenu *antispam_menu = NULL;
+    QMenu *antispam_menu = nullptr;
 
     if (AntiSpam::getInstance()){
-        antispam_menu = new QMenu(NULL);
+        antispam_menu = new QMenu(nullptr);
         antispam_menu->setTitle(tr("AntiSpam"));
 
         antispam_menu->addAction(tr("Add to Black"))->setData(static_cast<int>(AntiSpamBlack));
@@ -459,7 +461,7 @@ QString HubFrame::LinkParser::parseForLinks(QString input, bool use_emot){
 
     static QList<QChar> unwise_chars = QList<QChar>() << '{' << '}' << '|' << '\\' << '^' << '[' << ']' << '`';
     static QStringList link_types = QStringList() << "http://" << "https://" << "ftp://" << "www."
-                                                  << "dchub://" << "adc://" << "adcs://" << "magnet:";
+                                                  << "dchub://" << "nmdcs://" << "adc://" << "adcs://" << "magnet:";
 
     QString output = "";
 
@@ -530,6 +532,7 @@ QString HubFrame::LinkParser::parseForLinks(QString input, bool use_emot){
                         QString keywords = u.queryItemValue("kt");
                         QString hub = u.hasQueryItem("xs")? u.queryItemValue("xs") : "";
                         if (!(hub.startsWith("dchub://", Qt::CaseInsensitive) ||
+                              hub.startsWith("nmdcs://", Qt::CaseInsensitive) ||
                               hub.startsWith("adc://", Qt::CaseInsensitive) ||
                               hub.startsWith("adcs://", Qt::CaseInsensitive)) && !hub.isEmpty())
                             hub.prepend("dchub://");
@@ -579,13 +582,9 @@ QString HubFrame::LinkParser::parseForLinks(QString input, bool use_emot){
         if (input.isEmpty())
             break;
 
-        auto it = emoticons.begin();
-        auto end_it = emoticons.end();
         bool smile_found = false;
-
-        for (; it != end_it; ++it){//Let's try to parse smiles
-            const QString &emo_text = it.key();
-            EmoticonObject *obj = it.value();
+        for (const QString &emo_text : emoticons.keys()){ //Let's try to parse smiles
+            EmoticonObject *obj = emoticons[emo_text];
 
             if (input.startsWith(emo_text) && obj){
                 if (force_emot || input == emo_text){
@@ -753,7 +752,7 @@ QString HubFrame::LinkParser::parseForLinks(QString input, bool use_emot){
                 output += html_link;
                 input.remove(0, input.indexOf("[/magnet]")+1+9);
             }
-            while (0);
+            while (false);
         }
 
         if (input.isEmpty())
@@ -791,19 +790,19 @@ void HubFrame::LinkParser::parseForMagnetAlias(QString &output){
     }
 }
 
-HubFrame::HubFrame(QWidget *parent, QString hub="", QString encoding=""):
-        QWidget(parent),
-        d_ptr(new HubFramePrivate())
+HubFrame::HubFrame(QWidget *parent, QString hub="", QString encoding="")
+    : QWidget(parent)
+    , d_ptr(new HubFramePrivate())
 {
     Q_D(HubFrame);
 
     d->total_shared = 0;
-    d->arenaMenu = NULL;
-    d->codec = NULL;
+    d->arenaMenu = nullptr;
+    d->codec = nullptr;
     d->chatDisabled = false;
     d->hasMessages = false;
     d->hasHighlightMessages = false;
-    d->client = NULL;
+    d->client = nullptr;
 
     setupUi(this);
 
@@ -849,7 +848,7 @@ HubFrame::~HubFrame(){
 
     Menu::deleteInstance();
 
-    treeView_USERS->setModel(NULL);
+    treeView_USERS->setModel(nullptr);
 
     delete d->proxy;
     delete d->model;
@@ -863,17 +862,20 @@ bool HubFrame::eventFilter(QObject *obj, QEvent *e){
     if (e->type() == QEvent::KeyRelease){
         QKeyEvent *k_e = reinterpret_cast<QKeyEvent*>(e);
 
+        const bool keyEnter = (k_e->key() == Qt::Key_Enter || k_e->key() == Qt::Key_Return);
+        const bool shiftModifier = (k_e->modifiers() == Qt::ShiftModifier);
+
         if ((static_cast<QTextEdit*>(obj) == plainTextEdit_INPUT) &&
-            (k_e->key() == Qt::Key_Enter || k_e->key() == Qt::Key_Return) &&
-            (k_e->modifiers() != Qt::ShiftModifier))
+            (keyEnter && shiftModifier))
         {
             return true;
         }
-        else if (static_cast<QLineEdit*>(obj) == lineEdit_FIND){
-            bool ret = QWidget::eventFilter(obj, e);
+        else if (static_cast<QLineEdit*>(obj) == lineEdit_FIND) {
+            const bool ret = QWidget::eventFilter(obj, e);
 
-            if (k_e->key() == Qt::Key_Enter || k_e->key() == Qt::Key_Return)
+            if (keyEnter) {
                 slotFindForward();
+            }
 
             return ret;
         }
@@ -882,16 +884,23 @@ bool HubFrame::eventFilter(QObject *obj, QEvent *e){
     else if (e->type() == QEvent::KeyPress){
         QKeyEvent *k_e = reinterpret_cast<QKeyEvent*>(e);
 
-        if ((static_cast<QTextEdit*>(obj) == plainTextEdit_INPUT) &&
-            (!WBGET(WB_USE_CTRL_ENTER) || k_e->modifiers() == Qt::ControlModifier) &&
-            ((k_e->key() == Qt::Key_Enter || k_e->key() == Qt::Key_Return) && k_e->modifiers() != Qt::ShiftModifier) ||
-             (k_e->key() == Qt::Key_Enter && k_e->modifiers() == Qt::KeypadModifier))
+        const bool controlModifier = (k_e->modifiers() == Qt::ControlModifier);
+
+        if (static_cast<QTextEdit*>(obj) == plainTextEdit_INPUT)
         {
-            sendChat(plainTextEdit_INPUT->toPlainText(), false, false);
+            const bool useCtrlEnter = WBGET(WB_USE_CTRL_ENTER);
+            const bool keyEnter = (k_e->key() == Qt::Key_Enter || k_e->key() == Qt::Key_Return);
+            const bool shiftModifier = (k_e->modifiers() == Qt::ShiftModifier);
 
-            plainTextEdit_INPUT->setPlainText("");
+            if ((useCtrlEnter && keyEnter && controlModifier) ||
+                (!useCtrlEnter && keyEnter && !controlModifier && !shiftModifier))
+            {
+                sendChat(plainTextEdit_INPUT->toPlainText(), false, false);
 
-            return true;
+                plainTextEdit_INPUT->setPlainText("");
+
+                return true;
+            }
         }
 
         if (qobject_cast<LineEdit*>(obj) == lineEdit_FIND && k_e->key() == Qt::Key_Escape){
@@ -902,7 +911,7 @@ bool HubFrame::eventFilter(QObject *obj, QEvent *e){
             return true;
         }
 
-        if (k_e->modifiers() == Qt::ControlModifier){
+        if (controlModifier) {
             if (k_e->key() == Qt::Key_Equal || k_e->key() == Qt::Key_Plus){
                 textEdit_CHAT->zoomIn();
 
@@ -1073,7 +1082,7 @@ void HubFrame::closeEvent(QCloseEvent *e){
 
     blockSignals(true);
 
-    QObject::disconnect(this, NULL, this, NULL);
+    QObject::disconnect(this, nullptr, this, nullptr);
 
     FavoriteManager::getInstance()->removeListener(this);
 
@@ -1108,7 +1117,7 @@ void HubFrame::closeEvent(QCloseEvent *e){
     }
 
     if (isVisible())
-        HubManager::getInstance()->setActiveHub(NULL);
+        HubManager::getInstance()->setActiveHub(nullptr);
 
     setAttribute(Qt::WA_DeleteOnClose);
 
@@ -1144,14 +1153,14 @@ void HubFrame::hideEvent(QHideEvent *e){
     d->drawLine = true;
 
     if (!isVisible())
-        HubManager::getInstance()->setActiveHub(NULL);
+        HubManager::getInstance()->setActiveHub(nullptr);
 }
 
 void HubFrame::init(){
     Q_D(HubFrame);
 
     d->model = new UserListModel(this);
-    d->proxy = NULL;
+    d->proxy = nullptr;
 
     treeView_USERS->setModel(d->model);
     treeView_USERS->setSortingEnabled(true);
@@ -1320,7 +1329,7 @@ void HubFrame::save(){
 }
 
 void HubFrame::load(){
-    int w_chat = WIGET(WI_CHAT_WIDTH), w_ulist = WIGET(WI_CHAT_USERLIST_WIDTH);
+    const int w_chat = WIGET(WI_CHAT_WIDTH), w_ulist = WIGET(WI_CHAT_USERLIST_WIDTH);
 
     QString ustate = WSGET(WS_CHAT_USERLIST_STATE);
 
@@ -2119,7 +2128,7 @@ void HubFrame::userUpdated(const UserPtr &user, const dcpp::Identity &id){
                     break;
 
                 addStatus(nick + tr(" joins the chat"));
-            } while (0);
+            } while (false);
         }
 
         if (isFavorite)
@@ -2144,6 +2153,7 @@ void HubFrame::userUpdated(const UserPtr &user, const dcpp::Identity &id){
 }
 
 void HubFrame::userRemoved(const UserPtr &user, const dcpp::Identity &id){
+    Q_UNUSED(id)
     Q_D(HubFrame);
 
     UserListItem *item = d->model->itemForPtr(user);
@@ -2176,7 +2186,7 @@ void HubFrame::userRemoved(const UserPtr &user, const dcpp::Identity &id){
                 break;
 
             addStatus(nick + tr(" left the chat"));
-        } while (0);
+        } while (false);
     }
 
     if (FavoriteManager::getInstance()->isFavoriteUser(user))
@@ -2284,7 +2294,7 @@ void HubFrame::changeFavStatus(const QString &id) {
     if (user) {
         Q_D(HubFrame);
 
-        UserListItem *item = NULL;
+        UserListItem *item = nullptr;
 
         if (d->model)
             item = d->model->itemForPtr(user);
@@ -2323,7 +2333,7 @@ void HubFrame::addAsFavorite(){
 
         aEntry.setServer(d->client->getHubUrl());
         aEntry.setName(d->client->getHubName());
-        aEntry.setDescription(d->client->getHubDescription());
+        aEntry.setHubDescription(d->client->getHubDescription());
         aEntry.setConnect(false);
         aEntry.setNick(d->client->getMyNick());
         aEntry.setEncoding(d->client->getEncoding());
@@ -2568,11 +2578,11 @@ void HubFrame::clearUsers(){
     d->model->repaint();
 }
 
-void HubFrame::pmUserOffline(QString cid){
+void HubFrame::pmUserOffline(const QString &cid){
     pmUserEvent(cid, tr("User offline."));
 }
 
-void HubFrame::pmUserEvent(QString cid, QString e){
+void HubFrame::pmUserEvent(const QString &cid, const QString &e){
     Q_D(HubFrame);
 
     if (!d->pm.contains(cid))
@@ -2740,7 +2750,7 @@ void HubFrame::slotPMClosed(QString cid){
 template < QString (UserListItem::*func)() const >
 static void copyTagToClipboard(QModelIndexList &list){
     QString ret = "";
-    UserListItem *item = NULL;
+    UserListItem *item = nullptr;
 
     for (const auto &i : list) {
         item = reinterpret_cast<UserListItem*> ( i.internalPointer() );
@@ -2758,7 +2768,7 @@ static void copyTagToClipboard(QModelIndexList &list){
 template < qulonglong (UserListItem::*func)() const >
 static void copyTagToClipboard(QModelIndexList &list){
     QString ret = "";
-    UserListItem *item = NULL;
+    UserListItem *item = nullptr;
 
     for (const auto &i : list) {
         item = reinterpret_cast<UserListItem*> ( i.internalPointer() );
@@ -2794,7 +2804,7 @@ void HubFrame::slotUserListMenu(const QPoint&){
     }
 
     Menu::Action action = Menu::getInstance()->execUserMenu(d->client, cid);
-    UserListItem *item = NULL;
+    UserListItem *item = nullptr;
 
     proxy_list = selection_model->selectedRows(0);
 
@@ -3361,7 +3371,7 @@ void HubFrame::slotFindTextEdited(const QString & text){
     QTextCursor c = textEdit_CHAT->textCursor();
 
     c.movePosition(QTextCursor::StartOfLine,QTextCursor::MoveAnchor,1);
-    c = textEdit_CHAT->document()->find(lineEdit_FIND->text(), c, 0);
+    c = textEdit_CHAT->document()->find(lineEdit_FIND->text(), c, nullptr);
     if (!c.isNull()) {
         textEdit_CHAT->setExtraSelections(QList<QTextEdit::ExtraSelection>());
         textEdit_CHAT->setTextCursor(c);
@@ -3387,13 +3397,13 @@ void HubFrame::slotFindAll(){
 
         selection.format.setBackground(color);
 
-        QTextCursor c = textEdit_CHAT->document()->find(lineEdit_FIND->text(), 0, 0);
+        QTextCursor c = textEdit_CHAT->document()->find(lineEdit_FIND->text(), 0, nullptr);
 
         while (!c.isNull()) {
             selection.cursor = c;
             extraSelections.append(selection);
 
-            c = textEdit_CHAT->document()->find(lineEdit_FIND->text(), c, 0);
+            c = textEdit_CHAT->document()->find(lineEdit_FIND->text(), c, nullptr);
         }
     }
     textEdit_CHAT->setExtraSelections(extraSelections);
@@ -3459,15 +3469,10 @@ void HubFrame::slotSmileClicked(){
 }
 
 void HubFrame::slotSmileContextMenu(){
-#if !defined(Q_OS_WIN)
-    QString emot = CLIENT_DATA_DIR "/emoticons/";
-#else
-    QString emot = qApp->applicationDirPath()+QDir::separator()+CLIENT_DATA_DIR "/emoticons/";
-#endif
-
     QMenu *m = new QMenu(this);
 
-    for (const auto &f : QDir(emot).entryList(QDir::Dirs | QDir::NoSymLinks | QDir::NoDotAndDotDot)){
+    for (const auto &f : QDir(WulforUtil::getInstance()->getEmoticonsPath())
+                              .entryList(QDir::Dirs | QDir::NoSymLinks | QDir::NoDotAndDotDot)){
         if (!f.isEmpty()){
             QAction * act = m->addAction(f);
             act->setCheckable(true);
@@ -3565,7 +3570,7 @@ void HubFrame::slotInputContextMenu(){
 
             m->addAction(add_to_dict);
 
-            QMenu *ss = NULL;
+            QMenu *ss = nullptr;
             if (!list.isEmpty()) {
                 ss = new QMenu(tr("Suggestions"), this);
 
@@ -3730,6 +3735,7 @@ void HubFrame::on(FavoriteManagerListener::UserRemoved, const FavoriteUser& aUse
 }
 
 void HubFrame::on(ClientListener::Connecting, Client *c) noexcept{
+    Q_UNUSED(c)
     Q_D(HubFrame);
 
     QString status = tr("Connecting to %1").arg(QString::fromStdString(d->client->getHubUrl()));
@@ -3755,6 +3761,7 @@ void HubFrame::on(ClientListener::UserUpdated, Client*, const OnlineUser &user) 
 }
 
 void HubFrame::on(ClientListener::UsersUpdated x, Client*, const OnlineUserList &list) noexcept{
+    Q_UNUSED(x)
     for (const auto &it : list){
         const OnlineUser &user = *it;
         if (user.getIdentity().isHidden() && !WBGET(WB_SHOW_HIDDEN_USERS))
@@ -3857,7 +3864,7 @@ void HubFrame::on(ClientListener::Message, Client*, const ChatMessage &message) 
 
                     return;
                 }
-            } while (0);
+            } while (false);
         }
         else if (isEcho && isInSandBox && !hasPMWindow)
             return;

@@ -16,6 +16,10 @@
 #include <QAbstractItemModel>
 #include <QMenu>
 
+#ifdef _DEBUG_QT_UI
+#include <QDebug>
+#endif
+
 QueuedUsers::QueuedUsers(){
     setupUi(this);
 
@@ -125,6 +129,7 @@ QueuedUsersModel::~QueuedUsersModel()
 
 int QueuedUsersModel::columnCount(const QModelIndex &parent) const
 {
+    Q_UNUSED(parent)
     return 2;
 }
 
@@ -148,7 +153,7 @@ QVariant QueuedUsersModel::data(const QModelIndex &index, int role) const
 Qt::ItemFlags QueuedUsersModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
-        return 0;
+        return nullptr;
 
     return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
@@ -215,8 +220,10 @@ namespace {
 template <Qt::SortOrder order>
 struct Compare {
     void static sort(int col, QList<QueuedUserItem*>& items) {
-#ifdef _DEBUG_MODEL_
-        qDebug() << "Sorting by " << col << " column and " << WulforUtil::getInstance()->sortOrderToInt(order) << " order.";
+#ifdef _DEBUG_QT_UI
+        qDebug() << "Sorting by " << col
+                 << " column and " << WulforUtil::getInstance()->sortOrderToInt(order)
+                 << " order.";
 #endif
         qStableSort(items.begin(), items.end(), getAttrComp(col));
     }
@@ -286,7 +293,7 @@ void QueuedUsersModel::addResult(const VarMap &map)
     const QString &file = map["FILE"].toString();
     const QString &hub  = map["HUB"].toString();
     auto it = cids.find(cid);
-    QueuedUserItem *parentItem = NULL;
+    QueuedUserItem *parentItem = nullptr;
 
     if (it != cids.end())
         parentItem = it.value();
@@ -320,7 +327,7 @@ void QueuedUsersModel::remResult(const VarMap &map){
 
     const QString &cid  = map["CID"].toString();
     auto it = cids.find(cid);
-    QueuedUserItem *parentItem = NULL;
+    QueuedUserItem *parentItem = nullptr;
 
     if (it != cids.end())
         parentItem = it.value();
@@ -349,6 +356,7 @@ QueuedUserItem::QueuedUserItem(const QList<QVariant> &data, QueuedUserItem *pare
 QueuedUserItem::~QueuedUserItem()
 {
     qDeleteAll(childItems);
+    childItems.clear();
 }
 
 void QueuedUserItem::appendChild(QueuedUserItem *item) {

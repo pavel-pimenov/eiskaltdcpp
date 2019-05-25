@@ -1,4 +1,6 @@
 /*
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -10,17 +12,22 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
 #include <string>
 
-struct MediaInfo{
-  std::string video_info;
-  std::string audio_info;
-  std::string resolution;
-  uint16_t bitrate;
+namespace dcpp {
+
+using std::string;
+
+struct MediaInfo {
+    string video_info;
+    string audio_info;
+    string resolution;
+    uint16_t bitrate = 0;
 };
+
+} // namespace dcpp

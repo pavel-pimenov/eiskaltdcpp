@@ -81,10 +81,9 @@ void SettingsDownloads::ok(){
     SM->set(SettingsManager::AUTODROP_INACTIVITY, _tq(QString().setNum(spinBox_MAXINACT->value())));
     SM->set(SettingsManager::AUTODROP_FILESIZE, _tq(QString().setNum(spinBox_MINFSZ->value())));
 
-    auto it = other_settings.constBegin();
-
-    for (; it != other_settings.constEnd(); ++it)
+    for (auto it = other_settings.constBegin(); it != other_settings.constEnd(); ++it) {
         SM->set(it.key(), listWidget->item(it.value())->checkState() == Qt::Checked);
+    }
     
     SM->set(SettingsManager::ALLOW_SIM_UPLOADS, checkBox_ALLOW_SIM_UPLOADS->isChecked());
     SM->set(SettingsManager::ALLOW_UPLOAD_MULTI_HUB, checkBox_ALLOW_UPLOAD_MULTI_HUB->isChecked());
@@ -96,7 +95,7 @@ void SettingsDownloads::init(){
         lineEdit_UNF_DL_DIR->setText(_q(SETTING(TEMP_DOWNLOAD_DIRECTORY)));
         lineEdit_PROXY->setText(_q(SETTING(HTTP_PROXY)));
 
-        checkBox_NO_USE_TEMP_DIR->setChecked(!(((bool)SettingsManager::getInstance()->get(SettingsManager::NO_USE_TEMP_DIR))? Qt::Checked : Qt::Unchecked));
+        checkBox_NO_USE_TEMP_DIR->setChecked(!SETTING(NO_USE_TEMP_DIR));
         spinBox_AUTO_SEARCH_TIME->setValue(SETTING(AUTO_SEARCH_TIME));
         spinBox_SEGMENT_SIZE->setValue(SETTING(SEGMENT_SIZE));
         spinBox_MAXDL->setValue(SETTING(DOWNLOAD_SLOTS));
@@ -145,10 +144,9 @@ void SettingsDownloads::init(){
         spinBox_MAXINACT->setValue(SETTING(AUTODROP_INACTIVITY));
         spinBox_MINFSZ->setValue(SETTING(AUTODROP_FILESIZE));
 
-        auto it = other_settings.constBegin();
-
-        for (; it != other_settings.constEnd(); ++it)
+        for (auto it = other_settings.constBegin(); it != other_settings.constEnd(); ++it) {
             listWidget->item(it.value())->setCheckState(((bool)SettingsManager::getInstance()->get(it.key()))? Qt::Checked : Qt::Unchecked);
+        }
     }
     {
         checkBox_ALLOW_SIM_UPLOADS->setCheckState(SETTING(ALLOW_SIM_UPLOADS)? Qt::Checked : Qt::Unchecked);

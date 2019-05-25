@@ -12,15 +12,17 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
 #include "ChatMessage.h"
 
+#include "Client.h"
 #include "format.h"
-#include "User.h"
+#include "OnlineUser.h"
+#include "SettingsManager.h"
+#include "SimpleXML.h"
 #include "Util.h"
 
 namespace dcpp {

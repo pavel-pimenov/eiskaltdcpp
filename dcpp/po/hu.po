@@ -1,315 +1,45 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR EiskaltDC++ team
 # This file is distributed under the same license as the PACKAGE package.
-# 
-# Translators:
-# Boris Pek <tehnick-8@yandex.ru>, 2017
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: EiskaltDC++\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://github.com/eiskaltdcpp/eiskaltdcpp/issues\n"
-"POT-Creation-Date: 2015-11-30 00:28+0300\n"
-"PO-Revision-Date: 2013-11-19 16:45+0000\n"
-"Last-Translator: Boris Pek <tehnick-8@yandex.ru>, 2017\n"
-"Language-Team: Hungarian (https://www.transifex.com/tehnick/teams/11818/hu/)\n"
+"POT-Creation-Date: 2019-05-07 01:10+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Márk Lutring <marcus@elitemail.hu>, 2018\n"
+"Language-Team: Hungarian (https://www.transifex.com/tehnick/teams/11818/"
+"hu/)\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../SearchManager.cpp:36
-msgid "Any"
-msgstr "Minden"
-
-#: ../SearchManager.cpp:37
-msgid "Audio"
-msgstr "Audió"
-
-#: ../SearchManager.cpp:38
-msgid "Compressed"
-msgstr "Tömörített"
-
-#: ../SearchManager.cpp:39
-msgid "Document"
-msgstr "Dokumentum"
-
-#: ../SearchManager.cpp:40
-msgid "Executable"
-msgstr "Futtatható"
-
-#: ../SearchManager.cpp:41
-msgid "Picture"
-msgstr "Kép"
-
-#: ../SearchManager.cpp:42
-msgid "Video"
-msgstr "Videó"
-
-#: ../SearchManager.cpp:43
-msgid "Directory"
-msgstr "Könyvtár"
-
-#: ../SearchManager.cpp:44
-msgid "TTH"
-msgstr "TTH"
-
-#: ../SearchManager.cpp:45
-msgid "CD Image"
-msgstr "CD képfájl"
-
-#: ../SearchManager.cpp:149
-msgid "Search enabled again"
-msgstr "Keresés ismét engedélyezve"
-
-#: ../SearchManager.cpp:157
-msgid "Search disabled: %1%"
-msgstr "Keresés tiltva:%1%"
-
-#: ../SearchManager.cpp:281 ../SearchManager.cpp:368 ../SearchManager.cpp:370
-#: ../Transfer.cpp:81 ../Transfer.cpp:85 ../QueueManager.cpp:2171
-#: ../QueueManager.cpp:2177 ../QueueManager.cpp:2183 ../ClientManager.cpp:178
-msgid "Offline"
-msgstr "Kilépett"
-
-#: ../HashManager.cpp:218 ../HashManager.cpp:418
-msgid "Hashing failed: %1%"
-msgstr "Sikertelen indexelés: %1%"
-
-#: ../HashManager.cpp:225
-msgid "Finished hashing: %1% (%2% at %3%/s)"
-msgstr "Indexelés befejezve: %1% (%2%, %3%/s sebességgel)"
-
-#: ../HashManager.cpp:228
-msgid "Finished hashing: %1% (%2%)"
-msgstr "Indexelés befejezve: %1% (%2%)"
-
-#: ../HashManager.cpp:231
-msgid "Finished hashing: %1%"
-msgstr "Indexelés befejezve: %1%"
-
-#: ../HashManager.cpp:260 ../HashManager.cpp:474
-msgid "Error saving hash data: %1%"
-msgstr "Hiba a hash adatok mentésekor: %1%"
-
-#: ../HashManager.cpp:273
-msgid "Unable to read hash data file"
-msgstr "A hash adatfájl beolvasása nem lehetséges"
-
-#: ../HashManager.cpp:606
-msgid "Error creating hash data file: %1%"
-msgstr "Hiba a hash adatfájl létrehozásakor: %1%"
-
-#: ../HashManager.cpp:958
-msgid "Hash database rebuilt"
-msgstr "A hash adatbázis újraépítve"
-
-#: ../HashManager.cpp:1052
-msgid ""
-"%1% not shared; calculated CRC32 does not match the one found in SFV file."
-msgstr ""
-"%1% nincs megosztva. A kiszámított CRC32 nem egyezik az SFV fájlban lévővel."
-
-#: ../HashManager.cpp:1057
-msgid "Error hashing %1%: %2%"
-msgstr "Hiba a következő hashelésekor: %1%: %2%"
-
-#: ../Transfer.cpp:91 ../QueueManager.cpp:2200 ../AdcHub.cpp:193
-msgid "%1%/s"
-msgstr "%1%/s"
-
-#: ../ConnectivityManager.cpp:80
-msgid "Determining the best connectivity settings..."
-msgstr "Legjobb kapcsolat beállítások felderítése..."
-
-#: ../ConnectivityManager.cpp:85
-msgid ""
-"Unable to open %1% port(s); connectivity settings must be configured "
-"manually"
-msgstr ""
-"%1% port(ok) megnyitása sikertelen. A kapcsolatot kézzel kell beállítani"
-
-#: ../ConnectivityManager.cpp:95
-msgid ""
-"Public IP address detected, selecting active mode with direct connection"
-msgstr ""
-"Publikus IP cím sikeresen lekérdezve, aktív mód kiválasztása közvetlen "
-"kapcsolattal"
-
-#: ../ConnectivityManager.cpp:102
-msgid ""
-"Local network with possible NAT detected, trying to map the ports using "
-"UPnP..."
-msgstr ""
-"Helyi hálózat és lehetséges NAT észlelve, kísérlet a portok feltérképezésére"
-" UPnP használatával ..."
-
-#: ../ConnectivityManager.cpp:130
-msgid ""
-"Automatic setup of active mode has failed. You may want to set up your "
-"connection manually for better connectivity"
-msgstr ""
-"Az aktív mód automatikus beállítása nem sikerült. Érdemes lehet az aktív mód"
-" beállításait kézzel elvégezni, a jobb kapcsolatok érdekében."
-
-#: ../ConnectivityManager.cpp:142
-msgid "Transfer (TCP)"
-msgstr "Átvitel (TCP)"
-
-#: ../ConnectivityManager.cpp:148
-msgid "Search (UDP)"
-msgstr "Keresés (UDP)"
-
-#: ../ConnectivityManager.cpp:154
-msgid "DHT (UDP)"
-msgstr "DHT (UDP)"
-
-#: ../ConnectivityManager.cpp:169
-msgid "Connectivity: "
-msgstr "Kapcsolatok: "
-
-#: ../BufferedSocket.cpp:153 ../BufferedSocket.cpp:169
-#: ../ConnectionManager.cpp:186 ../Socket.cpp:221
-msgid "Connection timeout"
-msgstr "Időtúllépés"
-
-#: ../BufferedSocket.cpp:184 ../SSLSocket.cpp:154
-msgid "Connection closed"
-msgstr "Kapcsolat lezárva"
-
-#: ../BufferedSocket.cpp:275
-msgid "Maximum command length exceeded"
-msgstr "A maximális parancs hossz túllépve"
-
-#: ../BufferedSocket.cpp:461
-msgid "Disconnected"
-msgstr "Szétkapcsolva"
-
-#: ../UploadManager.cpp:133
-msgid "Connection already exists."
-msgstr "Kapcsolat lezárva"
-
-#: ../UploadManager.cpp:268
-msgid "Unable to send file %1%: %2%"
-msgstr "A fájl küldése sikertelen: %1%: %2%"
-
-#: ../UploadManager.cpp:555
-msgid "IPFilter: Blocked incoming connection to "
-msgstr "IPFilter: Blokkolt bejövő kapcsolat innen: "
-
-#: ../UploadManager.cpp:625
-msgid "Disconnected user leaving the hub: %1%"
-msgstr "A hubról kilépő felhasználó szétkapcsolva: %1%"
-
-#: ../DirectoryListing.cpp:209
-msgid "Directory missing name attribute"
-msgstr "Hiányzik a könyvtár név attribútuma"
-
-#: ../QueueManager.cpp:243
-msgid "No needed part"
-msgstr "Nem szükséges részlet"
-
-#: ../QueueManager.cpp:633
-msgid "Searching TTH alternates for: %1%"
-msgstr "TTH alternatíva keresése: %1%"
-
-#: ../QueueManager.cpp:684 ../QueueManager.cpp:745
-msgid "A file with the same hash already exists in your share"
-msgstr "A megosztásodban már van egy fájl ugyanezzel a hash-hel"
-
-#: ../QueueManager.cpp:710 ../QueueManager.cpp:787
-msgid "This file is already queued"
-msgstr "A fájl már a sorban van"
-
-#: ../QueueManager.cpp:723 ../QueueManager.cpp:799
-msgid "A file with a different size already exists in the queue"
-msgstr "Egy különböző mérettel rendelkező fájl már van a sorban"
-
-#: ../QueueManager.cpp:727
-msgid "A file with different tth root already exists in the queue"
-msgstr "Egy különböző TTH gyökerű fájl már van a sorban"
-
-#: ../QueueManager.cpp:739
-msgid "You're trying to download from yourself!"
-msgstr "Saját magadtól próbálsz meg letölteni!"
-
-#: ../QueueManager.cpp:802
-msgid "A file with a different TTH root already exists in the queue"
-msgstr "Egy különböző TTH gyökerű fájl már van a sorban"
-
-#: ../QueueManager.cpp:806
-msgid "This file has already finished downloading"
-msgstr "Ennek a fájlnak a letöltése már befejeződött"
-
-#: ../QueueManager.cpp:843 ../QueueManager.cpp:852
-msgid "Target filename too long"
-msgstr "A cél fájlneve túl hosszú"
-
-#: ../QueueManager.cpp:848 ../QueueManager.cpp:856
-msgid ""
-"Invalid target file (missing directory, check default download directory "
-"setting)"
-msgstr ""
-"Érvénytelen célfájl (hiányzó könyvtár, ellenőrizd az alapértelmezett "
-"letöltési könyvtár beállításait)"
-
-#: ../QueueManager.cpp:864
-msgid "File already exists at the target location"
-msgstr "A fájl már létezik a megadott helyen"
-
-#: ../QueueManager.cpp:877 ../QueueManager.cpp:881
-msgid "Duplicate source: %1%"
-msgstr "Dupla forrás: %1%"
-
-#: ../QueueManager.cpp:1148
-msgid "Target removed"
-msgstr "Cél eltávolítva"
-
-#: ../QueueManager.cpp:1156
-msgid "Target file is missing or wrong size"
-msgstr "A cél fájl hiányzik vagy nem megfelelő méretű"
-
-#: ../QueueManager.cpp:1205
-msgid "Unable to move %1% to %2% (%3%); renamed to %4%"
-msgstr "Sikertelen áthelyezés [%1% ide: %2% (%3%)]; átnevezve erre: %4%"
-
-#: ../QueueManager.cpp:1208
-msgid "Unable to move %1% to %2% (%3%) nor to rename to %4% (%5%)"
-msgstr ""
-"Sikertelen áthelyezés [%1% ide: %2% (%3%)], vagy átnevezés [erre: %4% (%5)]"
-
-#: ../QueueManager.cpp:1403
-msgid "Unable to open filelist: %1%"
-msgstr "Nem sikerült megnyitni a fájl-listát: %1%"
-
-#: ../QueueManager.cpp:1426
-msgid "%1%: Matched %2% file"
-msgstr "%1%: Találat: %2% fájl"
-
-#: ../QueueManager.cpp:1796
-msgid ""
-"Target path for this item is not available: %1%; pause this queue item."
-msgstr ""
-"Cél útvonal ehhez az elemhez nem elérhető: %1%; szüneteltesse ezt a "
-"várakozási sor elemet"
-
-#: ../QueueManager.cpp:2035 ../QueueManager.cpp:2044
-msgid "CRC32 inconsistency (SFV-Check)"
-msgstr "CRC32 inkonzisztencia (SFV-Ellenőrzéskor)"
-
-#: ../QueueManager.cpp:2225
-msgid "%1% : Matched %2% files"
-msgstr "%1%: Találat: %2% fájl"
-
-#: ../AdcHub.cpp:156
+#: ../ADLSearch.cpp:40
+msgid "<Enter string>"
+msgstr "<Kulcsszava(k)>"
+
+#: ../ADLSearch.cpp:444
+msgid "Discard"
+msgstr "Eldob"
+
+#: ../AdcHub.cpp:155
 msgid "%1% (%2%) has same CID {%3%} as %4% (%5%), ignoring"
 msgstr "%1% (%2%) CID-je {%3%} ugyanaz, mint %4% (%5%)-é, kihagyva"
 
-#: ../AdcHub.cpp:228
+#: ../AdcHub.cpp:192 ../QueueManager.cpp:2188 ../Transfer.cpp:91
+msgid "%1%/s"
+msgstr "%1%/s"
+
+#: ../AdcHub.cpp:227
 msgid "Failed to negotiate base protocol"
 msgstr "Az alap protokoll egyeztetése sikertelen"
 
-#: ../AdcHub.cpp:234
+#: ../AdcHub.cpp:233
 msgid ""
 "Hub probably uses an old version of ADC, please encourage the owner to "
 "upgrade"
@@ -317,95 +47,322 @@ msgstr ""
 "A hub vélhetően régi verziójú ADC protokollt használ, kérlek szólj a "
 "tulajnak, hogy frissítsen"
 
-#: ../AdcHub.cpp:305
+#: ../AdcHub.cpp:304
 msgid "%1% was kicked by %2%: %3%"
 msgstr "%1%-t kirúgta %2%: %3%"
 
-#: ../AdcHub.cpp:308
+#: ../AdcHub.cpp:307
 msgid "%1% was kicked: %2%"
 msgstr "%1% kirúgva: %2%"
 
-#: ../AdcHub.cpp:694
+#: ../AdcHub.cpp:709
 msgid "Not listening for connections - please restart %1%"
 msgstr "Nem figyel kapcsolatokra - kérlek, indítsd újra a %1%-t"
 
-#: ../FavoriteManager.cpp:429
-msgid "Kick user(s)"
-msgstr "Felhasználó(k) kirúgása"
-
-#: ../FavoriteManager.cpp:433
-msgid "Redirect user(s)"
-msgstr "Felhasználó(k) átirányítása"
-
-#: ../FavoriteManager.cpp:489
-msgid "Auto-connect group (converted)"
-msgstr "Automatikusan csatlakozó hubok csoportja (konvertált)"
-
-#: ../NmdcHub.cpp:295
-msgid "%1% (Nick unknown)"
-msgstr "%1% (Nick ismeretlen)"
-
-#: ../NmdcHub.cpp:672
-msgid "Hub topic:"
-msgstr "Hub topic:"
-
-#: ../ConnectionManager.cpp:179
-msgid "All download slots taken"
-msgstr "Összes letöltési szál foglalt"
-
-#: ../ConnectionManager.cpp:253
-msgid "Connectivity restored"
-msgstr "Kapcsolódás lehetősége visszaállítva"
-
-#: ../ConnectionManager.cpp:261
-msgid "Connectivity error: %1%"
-msgstr "Kapcsolódási hiba: %1%"
-
-#: ../BZUtils.cpp:33 ../BZUtils.cpp:54 ../BZUtils.cpp:62 ../ZUtils.cpp:37
-#: ../ZUtils.cpp:58 ../ZUtils.cpp:80 ../ZUtils.cpp:90
+#: ../BZUtils.cpp:34 ../BZUtils.cpp:55 ../BZUtils.cpp:63 ../ZUtils.cpp:36
+#: ../ZUtils.cpp:65 ../ZUtils.cpp:92 ../ZUtils.cpp:102
 msgid "Error during compression"
 msgstr "Hiba a tömörítéskor"
 
-#: ../BZUtils.cpp:74 ../BZUtils.cpp:96 ../BZUtils.cpp:99
-#: ../CryptoManager.cpp:400 ../CryptoManager.cpp:419 ../CryptoManager.cpp:433
-#: ../ZUtils.cpp:104 ../ZUtils.cpp:127 ../ZUtils.cpp:137
+#: ../BZUtils.cpp:75 ../BZUtils.cpp:97 ../BZUtils.cpp:100
+#: ../CryptoManager.cpp:406 ../CryptoManager.cpp:425 ../CryptoManager.cpp:439
+#: ../ZUtils.cpp:116 ../ZUtils.cpp:138 ../ZUtils.cpp:152
 msgid "Error during decompression"
 msgstr "Hiba a kicsomagoláskor"
 
-#: ../UPnPManager.cpp:45
+#: ../BufferedSocket.cpp:159 ../BufferedSocket.cpp:175
+#: ../ConnectionManager.cpp:204 ../Socket.cpp:220
+msgid "Connection timeout"
+msgstr "Időtúllépés"
+
+#: ../BufferedSocket.cpp:190 ../SSLSocket.cpp:197
+msgid "Connection closed"
+msgstr "Kapcsolat lezárva"
+
+#: ../BufferedSocket.cpp:281
+msgid "Maximum command length exceeded"
+msgstr "A maximális parancs hossz túllépve"
+
+#: ../BufferedSocket.cpp:467
+msgid "Disconnected"
+msgstr "Szétkapcsolva"
+
+#: ../ChatMessage.cpp:35
+msgid "Sent "
+msgstr "Elküldve"
+
+#: ../ClientManager.cpp:186 ../QueueManager.cpp:2159 ../QueueManager.cpp:2165
+#: ../QueueManager.cpp:2171 ../SearchManager.cpp:279 ../SearchManager.cpp:366
+#: ../SearchManager.cpp:368 ../Transfer.cpp:81 ../Transfer.cpp:85
+msgid "Offline"
+msgstr "Kilépett"
+
+#: ../ConnectionManager.cpp:197
+msgid "All download slots taken"
+msgstr "Összes letöltési szál foglalt"
+
+#: ../ConnectionManager.cpp:278
+msgid "Connectivity restored"
+msgstr "Kapcsolódás lehetősége visszaállítva"
+
+#: ../ConnectionManager.cpp:286
+msgid "Connectivity error: %1%"
+msgstr "Kapcsolódási hiba: %1%"
+
+#: ../ConnectionManager.cpp:817
+msgid "Blocked a C-C connection to a hub ('%1%:%2%'; request from '%3%')"
+msgstr ""
+
+#: ../ConnectionManager.cpp:835
+msgid "Blocking '%1%', potential DDoS detected (originating hub '%2%')"
+msgstr ""
+
+#: ../ConnectivityManager.cpp:83
+msgid "Determining the best connectivity settings..."
+msgstr "Legjobb kapcsolat beállítások felderítése..."
+
+#: ../ConnectivityManager.cpp:88
+msgid ""
+"Unable to open %1% port(s); connectivity settings must be configured manually"
+msgstr ""
+"%1% port(ok) megnyitása sikertelen. A kapcsolatot kézzel kell beállítani"
+
+#: ../ConnectivityManager.cpp:98
+msgid ""
+"Public IP address detected, selecting active mode with direct connection"
+msgstr ""
+"Publikus IP cím sikeresen lekérdezve, aktív mód kiválasztása közvetlen "
+"kapcsolattal"
+
+#: ../ConnectivityManager.cpp:105
+msgid ""
+"Local network with possible NAT detected, trying to map the ports using "
+"UPnP..."
+msgstr ""
+"Helyi hálózat és lehetséges NAT észlelve, kísérlet a portok feltérképezésére "
+"UPnP használatával ..."
+
+#: ../ConnectivityManager.cpp:133
+msgid ""
+"Automatic setup of active mode has failed. You may want to set up your "
+"connection manually for better connectivity"
+msgstr ""
+"Az aktív mód automatikus beállítása nem sikerült. Érdemes lehet az aktív mód "
+"beállításait kézzel elvégezni, a jobb kapcsolatok érdekében."
+
+#: ../ConnectivityManager.cpp:145
+msgid "Transfer (TCP)"
+msgstr "Átvitel (TCP)"
+
+#: ../ConnectivityManager.cpp:151
+msgid "Search (UDP)"
+msgstr "Keresés (UDP)"
+
+#: ../ConnectivityManager.cpp:157
+msgid "DHT (UDP)"
+msgstr "DHT (UDP)"
+
+#: ../ConnectivityManager.cpp:172
+msgid "Connectivity: "
+msgstr "Kapcsolatok: "
+
+#: ../CryptoManager.cpp:166
+msgid "No private key file chosen"
+msgstr "Nincs kiválasztva privát kulcs fájl"
+
+#: ../CryptoManager.cpp:169
+msgid "No certificate file chosen"
+msgstr "Nincs kiválasztva tanúsítvány fájl"
+
+#: ../CryptoManager.cpp:181
+msgid "Error generating certificate"
+msgstr "Hiba a tanúsítvány készítésekor"
+
+#: ../CryptoManager.cpp:244
+msgid "TLS disabled, no certificate file set"
+msgstr "TLS letiltva, nincs tanúsítvány fájl beállítva"
+
+#: ../CryptoManager.cpp:252
+msgid "Generated new TLS certificate"
+msgstr "Új TLS tanúsítvány generálva"
+
+#: ../CryptoManager.cpp:254
+msgid "TLS disabled, failed to generate certificate: %1%"
+msgstr "TLS letiltva, a tanúsítvány fájl generálása sikertelen: %1%"
+
+#: ../CryptoManager.cpp:259 ../CryptoManager.cpp:263 ../CryptoManager.cpp:268
+#: ../CryptoManager.cpp:272
+msgid "Failed to load certificate file"
+msgstr "Nem sikerült betölteni a tanúsítvány fájlt"
+
+#: ../CryptoManager.cpp:277 ../CryptoManager.cpp:281 ../CryptoManager.cpp:286
+#: ../CryptoManager.cpp:290
+msgid "Failed to load private key"
+msgstr "Nem sikerült betölteni a pirvát kulcsot"
+
+#: ../DCPlusPlus.cpp:115
+msgid "Hash database"
+msgstr "Hash adatbázis"
+
+#: ../DCPlusPlus.cpp:118
+msgid "Shared Files"
+msgstr "Megosztott fájlok"
+
+#: ../DCPlusPlus.cpp:127
+msgid "Download Queue"
+msgstr "Letöltési Sor"
+
+#: ../DCPlusPlus.cpp:130
+msgid "Users"
+msgstr "Felhasználó(k)"
+
+#: ../DirectoryListing.cpp:95
+msgid "Invalid file list extension (must be .xml or .bz2)"
+msgstr ""
+
+#: ../DirectoryListing.cpp:214
+msgid "Directory missing name attribute"
+msgstr "Hiányzik a könyvtár név attribútuma"
+
+#: ../DownloadManager.cpp:133
+msgid "IPFilter: Blocked outgoing connection to "
+msgstr "IPFilter: Blokkolt kimenő kapcsolat: "
+
+#: ../DownloadManager.cpp:233
+msgid "Invalid size"
+msgstr "Érvénytelen méret"
+
+#: ../DownloadManager.cpp:238
+msgid "Response does not match request"
+msgstr "A válasz nem felel meg a kérésnek"
+
+#: ../DownloadManager.cpp:245
+msgid "Could not open target file: %1%"
+msgstr "Nem sikerült megnyitni a célfájlt a következő miatt: %1%"
+
+#: ../DownloadManager.cpp:324
+msgid "Full tree does not match TTH root"
+msgstr "A teljes fa nem megfelelő a TTH gyökérhez"
+
+#: ../DownloadManager.cpp:388
+msgid "No slots available"
+msgstr "Nincs szabad slot"
+
+#: ../DownloadManager.cpp:499
+msgid "%1%: File not available"
+msgstr "%1%: A fájl nem elérhető"
+
+#: ../FavoriteManager.cpp:409
+msgid "Kick user(s)"
+msgstr "Felhasználó(k) kirúgása"
+
+#: ../FavoriteManager.cpp:413
+msgid "Redirect user(s)"
+msgstr "Felhasználó(k) átirányítása"
+
+#: ../FavoriteManager.cpp:469
+msgid "Auto-connect group (converted)"
+msgstr "Automatikusan csatlakozó hubok csoportja (konvertált)"
+
+#: ../FavoriteManager.cpp:667
+msgid "Invalid URL: %1%"
+msgstr ""
+
+#: ../HashManager.cpp:230 ../HashManager.cpp:428
+msgid "Hashing failed: %1%"
+msgstr "Sikertelen indexelés: %1%"
+
+#: ../HashManager.cpp:237
+msgid "Finished hashing: %1% (%2% at %3%/s)"
+msgstr "Indexelés befejezve: %1% (%2%, %3%/s sebességgel)"
+
+#: ../HashManager.cpp:240
+msgid "Finished hashing: %1% (%2%)"
+msgstr "Indexelés befejezve: %1% (%2%)"
+
+#: ../HashManager.cpp:243
+msgid "Finished hashing: %1%"
+msgstr "Indexelés befejezve: %1%"
+
+#: ../HashManager.cpp:271 ../HashManager.cpp:483
+msgid "Error saving hash data: %1%"
+msgstr "Hiba a hash adatok mentésekor: %1%"
+
+#: ../HashManager.cpp:284
+msgid "Unable to read hash data file"
+msgstr "A hash adatfájl beolvasása nem lehetséges"
+
+#: ../HashManager.cpp:616
+msgid "Error creating hash data file: %1%"
+msgstr "Hiba a hash adatfájl létrehozásakor: %1%"
+
+#: ../HashManager.cpp:967
+msgid "Hash database rebuilt"
+msgstr "A hash adatbázis újraépítve"
+
+#: ../HashManager.cpp:1061
+msgid ""
+"%1% not shared; calculated CRC32 does not match the one found in SFV file."
+msgstr ""
+"%1% nincs megosztva. A kiszámított CRC32 nem egyezik az SFV fájlban lévővel."
+
+#: ../HashManager.cpp:1066
+msgid "Error hashing %1%: %2%"
+msgstr "Hiba a következő hashelésekor: %1%: %2%"
+
+#: ../HttpConnection.cpp:218
+#, fuzzy
+msgid "Transfer-encoding error (%1%)"
+msgstr " Átviteli port (%1% TCP)"
+
+#: ../HttpConnection.cpp:257
+msgid "Endless redirection loop (%1%)"
+msgstr "Végtelen átirányítási kör (%1%)"
+
+#: ../HttpConnection.cpp:301
+msgid "Too much data in response body (%1%)"
+msgstr ""
+
+#: ../MappingManager.cpp:44
 msgid "No UPnP implementation available"
 msgstr "UPnP implementáció nem elérhető"
 
-#: ../UPnPManager.cpp:50
+#: ../MappingManager.cpp:49
 msgid "Another UPnP port mapping attempt is in progress..."
 msgstr "Egy másik UPnP port feltérképezés folyamatban van ..."
 
-#: ../UPnPManager.cpp:82
+#: ../MappingManager.cpp:81
 msgid "Failed to initialize the %1% interface"
 msgstr "%1% interfész inicializálása nem sikerült"
 
-#: ../UPnPManager.cpp:86
+#: ../MappingManager.cpp:85
 msgid " Transfer Port (%1% TCP)"
 msgstr " Átviteli port (%1% TCP)"
 
-#: ../UPnPManager.cpp:87 ../UPnPManager.cpp:92 ../UPnPManager.cpp:97
-#: ../UPnPManager.cpp:102
+#: ../MappingManager.cpp:86 ../MappingManager.cpp:91 ../MappingManager.cpp:96
+#: ../MappingManager.cpp:101
 msgid "The %1% interface has failed to map the %2% %3% port"
 msgstr "A(z) %1% interfésznek nem sikerült a(z) %2% %3% portok felderítése"
 
-#: ../UPnPManager.cpp:91
+#: ../MappingManager.cpp:90
 msgid " Encrypted Transfer Port (%1% TCP)"
 msgstr " Titkosított átviteli port (%1% TCP)"
 
-#: ../UPnPManager.cpp:96
+#: ../MappingManager.cpp:95
 msgid " Search Port (%1% UDP)"
 msgstr " Keresési port (%1% UDP)"
 
-#: ../UPnPManager.cpp:101
+#: ../MappingManager.cpp:100
 msgid " DHT Port (%1% UDP)"
 msgstr " DHT port (%1% UDP)"
 
-#: ../UPnPManager.cpp:113 ../UPnPManager.cpp:115
+#: ../MappingManager.cpp:110
+msgid ""
+"Successfully created port mappings (TCP: %1%, UDP: %2%, TLS: %3%, DHT: %4%), "
+"mapped using the %5% interface"
+msgstr ""
+
+#: ../MappingManager.cpp:112 ../MappingManager.cpp:114
 msgid ""
 "Successfully created port mappings (TCP: %1%, UDP: %2%, TLS: %3%), mapped "
 "using the %4% interface"
@@ -413,170 +370,257 @@ msgstr ""
 "A port-hozzárendelés sikeresen létrehozva (TCP: %1%, UDP: %2%, TLS: %3%), a "
 "használt interfész: %4%"
 
-#: ../UPnPManager.cpp:127
+#: ../MappingManager.cpp:126
 msgid "Failed to get external IP"
 msgstr "Külső IP lekérdezése sikertelen"
 
-#: ../UPnPManager.cpp:137
+#: ../MappingManager.cpp:136
 msgid "Failed to create port mappings"
 msgstr "Nem sikerült létrehozni a port-hozzárendeléseket."
 
-#: ../UPnPManager.cpp:146
+#: ../MappingManager.cpp:145
 msgid "Successfully removed port mappings with the %1% interface"
 msgstr "A port-hozzárendelés sikeresen törölve a következő interfésszel: %1%"
 
-#: ../UPnPManager.cpp:147
+#: ../MappingManager.cpp:146
 msgid "Failed to remove port mappings with the %1% interface"
 msgstr ""
 "Nem sikerült megszüntetni a port-hozzárendeléseket a következő interfészen: "
 "%1%"
 
-#: ../UPnPManager.cpp:152
+#: ../MappingManager.cpp:151
 msgid "UPnP: %1%"
 msgstr "UPnP: %1%"
 
-#: ../ADLSearch.cpp:40
-msgid "<Enter string>"
-msgstr "<Kulcsszava(k)>"
+#: ../NmdcHub.cpp:299
+msgid "%1% (Nick unknown)"
+msgstr "%1% (Nick ismeretlen)"
 
-#: ../ADLSearch.cpp:487
-msgid "Discard"
-msgstr "Eldob"
+#: ../NmdcHub.cpp:680
+msgid "Hub topic:"
+msgstr "Hub topic:"
 
-#: ../SSLSocket.cpp:160
+#: ../PerFolderLimit.cpp:87
+msgid "Too small share to download from "
+msgstr ""
+
+#: ../PerFolderLimit.cpp:87
+msgid "GiB"
+msgstr "GiB"
+
+#: ../PerFolderLimit.cpp:89
+msgid "Denied to send file"
+msgstr ""
+
+#: ../PerFolderLimit.cpp:90 ../SettingsManager.cpp:618
+msgid " to "
+msgstr "erre:"
+
+#: ../QueueManager.cpp:231
+msgid "No needed part"
+msgstr "Nem szükséges részlet"
+
+#: ../QueueManager.cpp:619
+msgid "Searching TTH alternates for: %1%"
+msgstr "TTH alternatíva keresése: %1%"
+
+#: ../QueueManager.cpp:670 ../QueueManager.cpp:731
+msgid "A file with the same hash already exists in your share"
+msgstr "A megosztásodban már van egy fájl ugyanezzel a hash-hel"
+
+#: ../QueueManager.cpp:695 ../QueueManager.cpp:772
+msgid "This file is already queued"
+msgstr "A fájl már a sorban van"
+
+#: ../QueueManager.cpp:708 ../QueueManager.cpp:784
+msgid "A file with a different size already exists in the queue"
+msgstr "Egy különböző mérettel rendelkező fájl már van a sorban"
+
+#: ../QueueManager.cpp:712
+msgid "A file with different tth root already exists in the queue"
+msgstr "Egy különböző TTH gyökerű fájl már van a sorban"
+
+#: ../QueueManager.cpp:725
+msgid "You're trying to download from yourself!"
+msgstr "Saját magadtól próbálsz meg letölteni!"
+
+#: ../QueueManager.cpp:787
+msgid "A file with a different TTH root already exists in the queue"
+msgstr "Egy különböző TTH gyökerű fájl már van a sorban"
+
+#: ../QueueManager.cpp:791
+msgid "This file has already finished downloading"
+msgstr "Ennek a fájlnak a letöltése már befejeződött"
+
+#: ../QueueManager.cpp:828 ../QueueManager.cpp:837
+msgid "Target filename too long"
+msgstr "A cél fájlneve túl hosszú"
+
+#: ../QueueManager.cpp:833 ../QueueManager.cpp:841
+msgid ""
+"Invalid target file (missing directory, check default download directory "
+"setting)"
+msgstr ""
+"Érvénytelen célfájl (hiányzó könyvtár, ellenőrizd az alapértelmezett "
+"letöltési könyvtár beállításait)"
+
+#: ../QueueManager.cpp:849
+msgid "File already exists at the target location"
+msgstr "A fájl már létezik a megadott helyen"
+
+#: ../QueueManager.cpp:862 ../QueueManager.cpp:866
+msgid "Duplicate source: %1%"
+msgstr "Dupla forrás: %1%"
+
+#: ../QueueManager.cpp:1144
+msgid "Target removed"
+msgstr "Cél eltávolítva"
+
+#: ../QueueManager.cpp:1152
+msgid "Target file is missing or wrong size"
+msgstr "A cél fájl hiányzik vagy nem megfelelő méretű"
+
+#: ../QueueManager.cpp:1201
+msgid "Unable to move %1% to %2% (%3%); renamed to %4%"
+msgstr "Sikertelen áthelyezés [%1% ide: %2% (%3%)]; átnevezve erre: %4%"
+
+#: ../QueueManager.cpp:1204
+msgid "Unable to move %1% to %2% (%3%) nor to rename to %4% (%5%)"
+msgstr ""
+"Sikertelen áthelyezés [%1% ide: %2% (%3%)], vagy átnevezés [erre: %4% (%5)]"
+
+#: ../QueueManager.cpp:1402
+msgid "Unable to open filelist: %1%"
+msgstr "Nem sikerült megnyitni a fájl-listát: %1%"
+
+#: ../QueueManager.cpp:1424
+msgid "%1%: Matched %2% file"
+msgstr "%1%: Találat: %2% fájl"
+
+#: ../QueueManager.cpp:1794
+msgid "Target path for this item is not available: %1%; pause this queue item."
+msgstr ""
+"Cél útvonal ehhez az elemhez nem elérhető: %1%; szüneteltesse ezt a "
+"várakozási sor elemet"
+
+#: ../QueueManager.cpp:2027 ../QueueManager.cpp:2036
+msgid "CRC32 inconsistency (SFV-Check)"
+msgstr "CRC32 inkonzisztencia (SFV-Ellenőrzéskor)"
+
+#: ../QueueManager.cpp:2210
+msgid "%1% : Matched %2% files"
+msgstr "%1%: Találat: %2% fájl"
+
+#: ../SSLSocket.cpp:203
 msgid "SSL Error: %1% (%2%, %3%)"
 msgstr "SSL Hiba: %1% (%2%, %3%)"
 
-#: ../DownloadManager.cpp:135
-msgid "IPFilter: Blocked outgoing connection to "
-msgstr "IPFilter: Blokkolt kimenő kapcsolat: "
+#: ../SearchManager.cpp:37
+msgid "Any"
+msgstr "Minden"
 
-#: ../DownloadManager.cpp:237
-msgid "Invalid size"
-msgstr "Érvénytelen méret"
+#: ../SearchManager.cpp:38
+msgid "Audio"
+msgstr "Audió"
 
-#: ../DownloadManager.cpp:242
-msgid "Response does not match request"
-msgstr "A válasz nem felel meg a kérésnek"
+#: ../SearchManager.cpp:39
+msgid "Compressed"
+msgstr "Tömörített"
 
-#: ../DownloadManager.cpp:249
-msgid "Could not open target file: %1%"
-msgstr "Nem sikerült megnyitni a célfájlt a következő miatt: %1%"
+#: ../SearchManager.cpp:40
+msgid "Document"
+msgstr "Dokumentum"
 
-#: ../DownloadManager.cpp:328
-msgid "Full tree does not match TTH root"
-msgstr "A teljes fa nem megfelelő a TTH gyökérhez"
+#: ../SearchManager.cpp:41
+msgid "Executable"
+msgstr "Futtatható"
 
-#: ../DownloadManager.cpp:393
-msgid "No slots available"
-msgstr "Nincs szabad slot"
+#: ../SearchManager.cpp:42
+msgid "Picture"
+msgstr "Kép"
 
-#: ../DownloadManager.cpp:504
-msgid "%1%: File not available"
-msgstr "%1%: A fájl nem elérhető"
+#: ../SearchManager.cpp:43
+msgid "Video"
+msgstr "Videó"
 
-#: ../UserConnection.cpp:53 ../UserConnection.cpp:68 ../UserConnection.cpp:145
-msgid "Invalid data"
-msgstr "Érvénytelen adat"
+#: ../SearchManager.cpp:44
+msgid "Directory"
+msgstr "Könyvtár"
 
-#: ../UserConnection.cpp:59
-msgid "Non-UTF-8 data in an ADC connection"
-msgstr "Nem-UTF-8 adat az ADC kapcsolatban"
+#: ../SearchManager.cpp:45
+msgid "TTH"
+msgstr "TTH"
 
-#: ../Thread.cpp:34 ../Thread.cpp:42
-msgid "Unable to create thread"
-msgstr "A szál léterhozása sikertelen"
+#: ../SearchManager.cpp:46
+msgid "CD Image"
+msgstr "CD képfájl"
 
-#: ../DCPlusPlus.cpp:121
-msgid "Hash database"
-msgstr "Hash adatbázis"
+#: ../SearchManager.cpp:148
+msgid "Search enabled again"
+msgstr "Keresés ismét engedélyezve"
 
-#: ../DCPlusPlus.cpp:124
-msgid "Shared Files"
-msgstr "Megosztott fájlok"
+#: ../SearchManager.cpp:156
+msgid "Search disabled: %1%"
+msgstr "Keresés tiltva:%1%"
 
-#: ../DCPlusPlus.cpp:133
-msgid "Download Queue"
-msgstr "Letöltési Sor"
+#: ../SettingsManager.cpp:187
+msgid "downloaded from"
+msgstr "letöltve"
 
-#: ../DCPlusPlus.cpp:136
-msgid "Users"
-msgstr "Felhasználó(k)"
+#: ../SettingsManager.cpp:527
+msgid "Invalid search type name"
+msgstr "Érvénytelen keresési feltétel"
 
-#: ../Util.cpp:654
-#, c-format
-msgid "%d B"
-msgstr "%d B"
+#: ../SettingsManager.cpp:531 ../SettingsManager.cpp:553
+msgid "This search type already exists"
+msgstr "A megadott keresési feltétel már létezik"
 
-#: ../Util.cpp:656
-#, c-format
-msgid "%.02f KiB"
-msgstr "%.02f KiB"
+#: ../SettingsManager.cpp:585
+msgid "No such search type"
+msgstr "Keresési feltétel nem található"
 
-#: ../Util.cpp:658
-#, c-format
-msgid "%.02f MiB"
-msgstr "%.02f MiB"
+#: ../SettingsManager.cpp:613 ../SettingsManager.cpp:618
+msgid "Error: setting not found!"
+msgstr "Hiba: Beállítás nem található!"
 
-#: ../Util.cpp:660
-#, c-format
-msgid "%.02f GiB"
-msgstr "%.02f GiB"
+#: ../SettingsManager.cpp:613
+msgid "Core setting "
+msgstr "Alapbeállítás"
 
-#: ../Util.cpp:662
-#, c-format
-msgid "%.02f TiB"
-msgstr "%.02f TiB"
+#: ../SettingsManager.cpp:618
+msgid "Change core setting "
+msgstr "Alapbeállítás megváltoztatása: "
 
-#: ../Util.cpp:664
-#, c-format
-msgid "%.02f PiB"
-msgstr "%.02f PiB"
-
-#: ../Util.cpp:698
-#, c-format
-msgid "%s B"
-msgstr "%s B"
-
-#: ../Util.cpp:702
-#, c-format
-msgid "%'lld B"
-msgstr "%'lld B"
-
-#: ../HttpConnection.cpp:166
-msgid "Endless redirection loop (%1%)"
-msgstr "Végtelen átirányítási kör (%1%)"
-
-#: ../ShareManager.cpp:446
+#: ../ShareManager.cpp:452
 msgid "No directory specified"
 msgstr "Nincs könyvtár megadva"
 
-#: ../ShareManager.cpp:450
+#: ../ShareManager.cpp:456
 msgid "Directory is hidden"
 msgstr "Rejtett könyvtár"
 
-#: ../ShareManager.cpp:454
+#: ../ShareManager.cpp:460
 msgid "The temporary download directory cannot be shared"
 msgstr "Az ideiglenes letöltési könyvtár nem megosztható"
 
-#: ../ShareManager.cpp:642
+#: ../ShareManager.cpp:651
 msgid "Invalid file name found while hashing folder %1%"
 msgstr ""
 "Érvénytelen fájlnév található a következő könyvtárban indexelésekor: %1%"
 
-#: ../ShareManager.cpp:661
+#: ../ShareManager.cpp:670
 msgid "Skip share file: %1% (Size: %2%)"
 msgstr ""
 "A felhasználó azt választotta, hogy a következő fájlt nem osztja meg: %1% "
 "(Méret: %2%)"
 
-#: ../ShareManager.cpp:682
+#: ../ShareManager.cpp:691
 msgid "Skip share temp file: %1% (Size: %2%)"
 msgstr ""
 "A felhasználó azt választotta, hogy a következő ideiglenes fájlt nem osztja "
 "meg: %1% (Méret: %2%)"
 
-#: ../ShareManager.cpp:772
+#: ../ShareManager.cpp:781
 msgid ""
 "Duplicate file will not be shared: %1% (Size: %2% B) Dupe matched against: "
 "%3%"
@@ -584,88 +628,56 @@ msgstr ""
 "Többször meglévő fájl nem lesz megosztva: %1% (Méret: %2% B) Megegyezik "
 "ezzel: %3%"
 
-#: ../ShareManager.cpp:793
+#: ../ShareManager.cpp:803
 msgid ""
-"File list refresh in progress, please wait for it to finish before trying to"
-" refresh again"
+"File list refresh in progress, please wait for it to finish before trying to "
+"refresh again"
 msgstr ""
 "A fájl-lista frissítése már folyamatban van. Várd meg, amíg befejeződik, "
 "mielőtt újra frissíteni próbálnál!"
 
-#: ../ShareManager.cpp:814
+#: ../ShareManager.cpp:824
 msgid "File list refresh failed: %1%"
 msgstr "Hiba a fájl-lista frissítésekor: %1%"
 
-#: ../ShareManager.cpp:837
+#: ../ShareManager.cpp:845
 msgid "File list refresh initiated"
 msgstr "A fájl-lista frissítése elkezdődött"
 
-#: ../ShareManager.cpp:862
+#: ../ShareManager.cpp:870
 msgid "File list refresh finished"
 msgstr "A fájl-lista frissítése befejeződött"
 
-#: ../ShareManager.cpp:944
+#: ../ShareManager.cpp:952
 msgid "File list %1% generated"
 msgstr "Fájl-lista %1% létrehozva"
 
-#: ../SettingsManager.cpp:182
-msgid "downloaded from"
-msgstr "letöltve"
-
-#: ../SettingsManager.cpp:521
-msgid "Invalid search type name"
-msgstr "Érvénytelen keresési feltétel"
-
-#: ../SettingsManager.cpp:525 ../SettingsManager.cpp:547
-msgid "This search type already exists"
-msgstr "A megadott keresési feltétel már létezik"
-
-#: ../SettingsManager.cpp:579
-msgid "No such search type"
-msgstr "Keresési feltétel nem található"
-
-#: ../SettingsManager.cpp:607 ../SettingsManager.cpp:612
-msgid "Error: setting not found!"
-msgstr "Hiba: Beállítás nem található!"
-
-#: ../SettingsManager.cpp:607
-msgid "Core setting "
-msgstr "Alapbeállítás"
-
-#: ../SettingsManager.cpp:612
-msgid "Change core setting "
-msgstr "Alapbeállítás megváltoztatása: "
-
-#: ../SettingsManager.cpp:612
-msgid " to "
-msgstr "erre:"
-
-#: ../Socket.cpp:86
+#: ../Socket.cpp:85
 #, c-format
 msgid "Unknown error: 0x%1$x"
 msgstr "Ismeretlen hiba: 0x%1$x"
 
-#: ../Socket.cpp:229 ../Socket.cpp:237 ../Socket.cpp:270 ../Socket.cpp:274
-#: ../Socket.cpp:298 ../Socket.cpp:313
+#: ../Socket.cpp:228 ../Socket.cpp:236 ../Socket.cpp:269 ../Socket.cpp:273
+#: ../Socket.cpp:297 ../Socket.cpp:312
 msgid "The socks server failed establish a connection"
 msgstr "Nem sikerült a socks kiszolgálóhoz kapcsolódni"
 
-#: ../Socket.cpp:302
+#: ../Socket.cpp:301
 msgid "The socks server requires authentication"
 msgstr "A socks kiszolgáló hitelesítést igényel"
 
-#: ../Socket.cpp:316
+#: ../Socket.cpp:315
 msgid "The socks server doesn't support login / password authentication"
 msgstr ""
 "A socks kiszolgáló nem támogatja a bejelentkezési név / jelszó hitelesítést"
 
-#: ../Socket.cpp:330 ../Socket.cpp:334
+#: ../Socket.cpp:329 ../Socket.cpp:333
 msgid "Socks server authentication failed (bad login / password?)"
 msgstr ""
-"A hitelesítés a socks kiszolgálónál nem sikerült (rossz felhasználói "
-"név/jelszó?)"
+"A hitelesítés a socks kiszolgálónál nem sikerült (rossz felhasználói név/"
+"jelszó?)"
 
-#: ../Socket.cpp:471
+#: ../Socket.cpp:518
 msgid ""
 "Failed to set up the socks server for UDP relay (check socks address and "
 "port)"
@@ -673,58 +685,115 @@ msgstr ""
 "A socks kiszolgáló beállítása az UDP port továbbításra nem sikerült "
 "(ellenőrizd a kiszolgáló címét és a portot)"
 
-#: ../CryptoManager.cpp:162
-msgid "No private key file chosen"
-msgstr "Nincs kiválasztva privát kulcs fájl"
+#: ../Thread.cpp:29 ../Thread.cpp:37
+msgid "Unable to create thread"
+msgstr "A szál léterhozása sikertelen"
 
-#: ../CryptoManager.cpp:165
-msgid "No certificate file chosen"
-msgstr "Nincs kiválasztva tanúsítvány fájl"
+#: ../UploadManager.cpp:134
+msgid "Connection already exists."
+msgstr "Kapcsolat lezárva"
 
-#: ../CryptoManager.cpp:177
-msgid "Error generating certificate"
-msgstr "Hiba a tanúsítvány készítésekor"
+#: ../UploadManager.cpp:269
+msgid "Unable to send file %1%: %2%"
+msgstr "A fájl küldése sikertelen: %1%: %2%"
 
-#: ../CryptoManager.cpp:240
-msgid "TLS disabled, no certificate file set"
-msgstr "TLS letiltva, nincs tanúsítvány fájl beállítva"
+#: ../UploadManager.cpp:549
+msgid "IPFilter: Blocked incoming connection to "
+msgstr "IPFilter: Blokkolt bejövő kapcsolat innen: "
 
-#: ../CryptoManager.cpp:248
-msgid "Generated new TLS certificate"
-msgstr "Új TLS tanúsítvány generálva"
+#: ../UploadManager.cpp:617
+msgid "Disconnected user leaving the hub: %1%"
+msgstr "A hubról kilépő felhasználó szétkapcsolva: %1%"
 
-#: ../CryptoManager.cpp:250
-msgid "TLS disabled, failed to generate certificate: %1%"
-msgstr "TLS letiltva, a tanúsítvány fájl generálása sikertelen: %1%"
+#: ../UserConnection.cpp:56 ../UserConnection.cpp:71 ../UserConnection.cpp:145
+msgid "Invalid data"
+msgstr "Érvénytelen adat"
 
-#: ../CryptoManager.cpp:255 ../CryptoManager.cpp:259 ../CryptoManager.cpp:264
-#: ../CryptoManager.cpp:268
-msgid "Failed to load certificate file"
-msgstr "Nem sikerült betölteni a tanúsítvány fájlt"
+#: ../UserConnection.cpp:62
+msgid "Non-UTF-8 data in an ADC connection"
+msgstr "Nem-UTF-8 adat az ADC kapcsolatban"
 
-#: ../CryptoManager.cpp:273 ../CryptoManager.cpp:277 ../CryptoManager.cpp:282
-#: ../CryptoManager.cpp:286
-msgid "Failed to load private key"
-msgstr "Nem sikerült betölteni a pirvát kulcsot"
+#: ../Util.cpp:715
+#, c-format
+msgid "%d B"
+msgstr "%d B"
 
-#: ../ChatMessage.cpp:33
-msgid "Sent "
-msgstr "Elküldve"
+#: ../Util.cpp:717
+#, c-format
+msgid "%.02f KiB"
+msgstr "%.02f KiB"
 
-#: ../Streams.h:141
-msgid "More bytes written than requested"
-msgstr "A kértnél több byte írása történt"
+#: ../Util.cpp:717
+#, c-format
+msgid "%.02f KB"
+msgstr ""
 
-#: ../MerkleCheckOutputStream.h:52 ../MerkleCheckOutputStream.h:112
+#: ../Util.cpp:719
+#, c-format
+msgid "%.02f MiB"
+msgstr "%.02f MiB"
+
+#: ../Util.cpp:719
+#, c-format
+msgid "%.02f MB"
+msgstr ""
+
+#: ../Util.cpp:721
+#, c-format
+msgid "%.02f GiB"
+msgstr "%.02f GiB"
+
+#: ../Util.cpp:721
+#, c-format
+msgid "%.02f GB"
+msgstr ""
+
+#: ../Util.cpp:723
+#, c-format
+msgid "%.02f TiB"
+msgstr "%.02f TiB"
+
+#: ../Util.cpp:723
+#, c-format
+msgid "%.02f TB"
+msgstr ""
+
+#: ../Util.cpp:725
+#, c-format
+msgid "%.02f PiB"
+msgstr "%.02f PiB"
+
+#: ../Util.cpp:725
+#, c-format
+msgid "%.02f PB"
+msgstr ""
+
+#: ../Util.cpp:759
+#, c-format
+msgid "%s B"
+msgstr "%s B"
+
+#: ../Util.cpp:763
+#, c-format
+msgid "%'lld B"
+msgstr "%'lld B"
+
+#: ../MerkleCheckOutputStream.h:50 ../MerkleCheckOutputStream.h:110
 msgid "TTH inconsistency"
 msgstr "TTH inkonzisztencia"
 
-#~ msgid ""
-#~ "This hub is trying to use your client to spam %1%, please urge hub owner to "
-#~ "fix this"
-#~ msgstr ""
-#~ "Ez a hub a kliensedet spam küldésére próbálja felhasználni (%1%), kérlek "
-#~ "értesítsd a hub üzemeltetőit, hogy javítsák a problémát."
+#: ../Streams.h:157
+msgid "More bytes written than requested"
+msgstr "A kértnél több byte írása történt"
 
-#~ msgid "Error: segv parser :D"
-#~ msgstr "Hiba: segv-elemző :D"
+#: ../../dht/BootstrapManager.cpp:50
+msgid "DHT bootstrapping started"
+msgstr ""
+
+#: ../../dht/BootstrapManager.cpp:113
+msgid "DHT bootstrapping is finished successfully."
+msgstr ""
+
+#: ../../dht/BootstrapManager.cpp:117 ../../dht/BootstrapManager.cpp:124
+msgid "DHT bootstrap error: "
+msgstr ""

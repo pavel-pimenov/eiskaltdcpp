@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -30,7 +29,7 @@ using namespace std;
 using namespace dcpp;
 
 UserCommandMenu::UserCommandMenu(GtkWidget *userCommandMenu, int ctx):
-    Entry(Entry::USER_COMMAND_MENU, "", generateID()),
+    Entry(Entry::USER_COMMAND_MENU, "", generateID(this)),
     userCommandMenu(userCommandMenu),
     ctx(ctx)
 {
@@ -53,8 +52,9 @@ void UserCommandMenu::addUser(const string &cid)
     ucParams.push_back(u);
 }
 
-void UserCommandMenu::addFile(const std::string &cid, const std::string &name, const std::string &path,
-    const int64_t &size, const string &tth)
+void UserCommandMenu::addFile(const string &cid, const string &name,
+                              const string &path, const int64_t &size,
+                              const string &tth)
 {
     UCParam u;
     u.cid = cid;
@@ -82,7 +82,7 @@ void UserCommandMenu::buildMenu_gui()
 
     GtkWidget *menuItem;
     GtkWidget *menu = userCommandMenu;
-    bool separator = FALSE; // tracks whether last menu item was a separator
+    bool separator = false; // tracks whether last menu item was a separator
 
     for (auto i = userCommandList.begin(); i != userCommandList.end(); ++i)
     {
@@ -93,12 +93,12 @@ void UserCommandMenu::buildMenu_gui()
         {
             menuItem = gtk_separator_menu_item_new();
             gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuItem);
-            separator = TRUE;
+            separator = true;
         }
         else if (uc.getType() == UserCommand::TYPE_RAW || uc.getType() == UserCommand::TYPE_RAW_ONCE)
         {
             string command = uc.getName();
-            separator = FALSE;
+            separator = false;
             menu = userCommandMenu;
 
             createSubMenu_gui(menu, command);
@@ -122,7 +122,7 @@ void UserCommandMenu::createSubMenu_gui(GtkWidget *&menu, string &command)
     // Create subfolders based on path separators in the command
     while ((i = command.find('\\')) != string::npos)
     {
-        bool createSubmenu = TRUE;
+        bool createSubmenu = true;
         GList *menuItems = gtk_container_get_children(GTK_CONTAINER(menu));
 
         // Search for the sub menu to append the command to
@@ -132,7 +132,7 @@ void UserCommandMenu::createSubMenu_gui(GtkWidget *&menu, string &command)
             if (gtk_menu_item_get_submenu(item) && WulforUtil::getTextFromMenu(item) == command.substr(0, i))
             {
                 menu = gtk_menu_item_get_submenu(item);
-                createSubmenu = FALSE;
+                createSubmenu = false;
                 break;
             }
         }
@@ -180,7 +180,7 @@ void UserCommandMenu::onUserCommandClick_gui(GtkMenuItem *item, gpointer data)
                 params["tth"] = params["fileTR"];
             }
             F4 *func = new F4(ucm, &UserCommandMenu::sendUserCommand_client,
-                i->cid, commandName, hub, params);
+                              i->cid, commandName, hub, params);
             WulforManager::get()->dispatchClientFunc(func);
         }
     }

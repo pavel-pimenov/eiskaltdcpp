@@ -15,13 +15,8 @@
 class ArenaWidgetFactory {
 public:
 
-    ArenaWidgetFactory(){
-
-    }
-
-    virtual ~ArenaWidgetFactory(){
-
-    }
+    ArenaWidgetFactory() = default;
+    virtual ~ArenaWidgetFactory() {}
 
     template <class T, typename ... Params>
     T *create(const Params& ... args) {
@@ -33,7 +28,7 @@ public:
     }
 
     template < template < class > class Type = dcpp::Singleton, class T >
-    auto create () -> decltype(Type<T>::getInstance()) {
+    inline T *create() {
         if (!Type<T>::getInstance())
             Type<T>::newInstance();
 

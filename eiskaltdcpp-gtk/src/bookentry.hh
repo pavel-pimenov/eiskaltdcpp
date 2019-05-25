@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -25,37 +24,37 @@
 
 class BookEntry : public Entry
 {
-    public:
-        BookEntry(const EntryType type = EntryType::NONE, const std::string &text = "", const std::string &ui = "", const std::string &id = "");
-        virtual ~BookEntry() { }
+public:
+    BookEntry(const EntryType type = EntryType::NONE, const std::string &text = "", const std::string &ui = "", const std::string &id = "");
+    virtual ~BookEntry() { }
 
-        GtkWidget *getContainer();
-        GtkWidget *getLabelBox() { return labelBox; }
-        GtkWidget *getCloseButton() { return closeButton; }
-        GtkWidget *getTabMenuItem() { return tabMenuItem; }
-        void setIcon_gui(const EntryType type);
-        void setIcon_gui(const std::string &stock);
-        void setLabel_gui(std::string text);
-        const std::string& getLabelText();
-        void setBold_gui();
-        void setUrgent_gui();
-        void setActive_gui();
-        bool isActive_gui();
-        virtual void show() = 0;
+    GtkWidget *getContainer();
+    GtkWidget *getLabelBox() { return labelBox; }
+    GtkWidget *getCloseButton() { return closeButton; }
+    GtkWidget *getTabMenuItem() { return tabMenuItem; }
+    void setIcon_gui(const EntryType type);
+    void setIcon_gui(const std::string &stock);
+    void setLabel_gui(std::string text);
+    const std::string& getLabelText() const;
+    void setBold_gui();
+    void setUrgent_gui();
+    void setActive_gui();
+    bool isActive_gui();
+    virtual void show() = 0;
 
-    private:
-        void updateLabel_gui();
+private:
+    void updateLabel_gui();
 
-        std::string labelText;
-        std::string truncatedLabelText;
-        GtkWidget *eventBox;
-        GtkWidget *labelBox;
-        GtkWidget *tabMenuItem;
-        GtkWidget *closeButton;
-        GtkLabel *label;
+    std::string labelText;
+    std::string truncatedLabelText;
+    GtkWidget *eventBox;
+    GtkWidget *labelBox;
+    GtkWidget *tabMenuItem;
+    GtkWidget *closeButton;
+    GtkLabel *label;
 
-        bool bold;
-        bool urgent;
-        static const glong labelSize = 20; ///@todo: make a preference?
-        GtkWidget *icon;
+    bool bold;
+    bool urgent;
+    static const glong labelSize = 20; ///@todo: make a preference?
+    GtkWidget *icon;
 };

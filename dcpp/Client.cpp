@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +13,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
@@ -21,21 +21,22 @@
 #include "Client.h"
 
 #include "BufferedSocket.h"
+#include "ClientManager.h"
+#include "ConnectivityManager.h"
 #include "DebugManager.h"
 #include "FavoriteManager.h"
 #include "TimerManager.h"
-#include "ClientManager.h"
 #include "version.h"
 
 namespace dcpp {
 
 Client::Counts Client::counts;
 
-Client::Client(const string& hubURL, char separator_, bool secure_) :
+Client::Client(const string& hubURL, char separator_, bool secure_, Socket::Protocol proto_) :
     myIdentity(ClientManager::getInstance()->getMe(), 0),
     reconnDelay(120), lastActivity(GET_TICK()), registered(false), autoReconnect(false),
     encoding(Text::hubDefaultCharset), state(STATE_DISCONNECTED), sock(0),
-    hubUrl(hubURL), port(0), separator(separator_),
+    hubUrl(hubURL), separator(separator_), proto(proto_),
     secure(secure_), countType(COUNT_UNCOUNTED)
 {
     string file, proto, query, fragment;
@@ -73,10 +74,10 @@ void Client::reloadSettings(bool updateNick) {
 
     string ClientId;
     if (::strncmp(getHubUrl().c_str(),"adc://", 6) == 0 ||
-        ::strncmp(getHubUrl().c_str(),"adcs://", 7) == 0)
+            ::strncmp(getHubUrl().c_str(),"adcs://", 7) == 0)
         ClientId = fullADCVersionString;
     else
-        ClientId = fullVersionString;
+        ClientId = fullNMDCVersionString;
 
     if(hub) {
         if(updateNick) {
@@ -133,7 +134,7 @@ void Client::connect() {
     try {
         sock = BufferedSocket::getSocket(separator);
         sock->addListener(this);
-        sock->connect(address, port, secure, BOOLSETTING(ALLOW_UNTRUSTED_HUBS), true);
+        sock->connect(address, port, secure, BOOLSETTING(ALLOW_UNTRUSTED_HUBS), true, proto);
     } catch(const Exception& e) {
         shutdown();
         /// @todo at this point, this hub instance is completely useless
@@ -200,6 +201,7 @@ std::string Client::getCipherName() const {
 vector<uint8_t> Client::getKeyprint() const {
     return isReady() ? sock->getKeyprint() : vector<uint8_t>();
 }
+
 void Client::updateCounts(bool aRemove) {
     // We always remove the count and then add the correct one if requested...
     if(countType == COUNT_NORMAL) {
@@ -224,6 +226,14 @@ void Client::updateCounts(bool aRemove) {
             countType = COUNT_NORMAL;
         }
     }
+}
+
+void Client::updated(OnlineUser& user) {
+    fire(ClientListener::UserUpdated(), this, user);
+}
+
+void Client::updated(OnlineUserList& users) {
+    fire(ClientListener::UsersUpdated(), this, users);
 }
 
 string Client::getLocalIp() const {

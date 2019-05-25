@@ -22,7 +22,7 @@ class HashProgress :
 {
     Q_OBJECT
 public:
-    HashProgress(QWidget* = NULL);
+    HashProgress(QWidget* = nullptr);
     virtual ~HashProgress();
     enum { IDLE, RUNNING, LISTUPDATE, PAUSED, DELAYED };
     static unsigned getHashStatus();
@@ -41,7 +41,7 @@ private:
     QTimer *timer;
 
     bool autoClose;
-    qint64 startBytes;
+    uint64_t startBytes;
     size_t startFiles;
-    qint32 startTime;
+    uint64_t startTime;
 };

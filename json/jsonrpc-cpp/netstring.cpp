@@ -13,7 +13,7 @@
  *  GNU Lesser General Public License for more details.
  *
  *  You should have received a copy of the GNU Lesser General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 /**
@@ -46,7 +46,7 @@ namespace netstring
     return ret;
   }
 
-  std::string decode(const std::string& str) throw(netstring::NetstringException) 
+  std::string decode(const std::string& str)
   {
     unsigned long len = 0;
     size_t index = 0; /* position of ":" */

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,13 +13,12 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
-
 #include "QueueItem.h"
+
 #include "HashManager.h"
 #include "Download.h"
 #include "File.h"
@@ -27,29 +27,29 @@
 namespace dcpp {
 
 namespace {
-    const string TEMP_EXTENSION = ".dctmp";
+const string TEMP_EXTENSION = ".dctmp";
 
-    string getTempName(const string& aFileName, const TTHValue& aRoot) {
-        string tmp(aFileName);
-        tmp += "." + aRoot.toBase32();
-        tmp += TEMP_EXTENSION;
-        return tmp;
-    }
+string getTempName(const string& aFileName, const TTHValue& aRoot) {
+    string tmp(aFileName);
+    tmp += "." + aRoot.toBase32();
+    tmp += TEMP_EXTENSION;
+    return tmp;
+}
 }
 
 int QueueItem::countOnlineUsers() const {
     int n = 0;
-    for(auto i = sources.begin(), iend = sources.end(); i != iend; ++i) {
-        if(i->getUser().user->isOnline())
-        n++;
+    for(auto& i: sources) {
+        if(i.getUser().user->isOnline())
+            n++;
     }
     return n;
 }
 
 void QueueItem::getOnlineUsers(HintedUserList& l) const {
-    for(auto i = sources.begin(), iend = sources.end(); i != iend; ++i)
-        if(i->getUser().user->isOnline())
-            l.push_back(i->getUser());
+    for(auto& i: sources)
+        if(i.getUser().user->isOnline())
+            l.push_back(i.getUser());
 }
 
 void QueueItem::addSource(const HintedUser& aUser) {
@@ -59,7 +59,7 @@ void QueueItem::addSource(const HintedUser& aUser) {
         sources.push_back(*i);
         badSources.erase(i);
     } else {
-        sources.push_back(Source(aUser));
+        sources.emplace_back(aUser);
     }
 }
 
@@ -162,7 +162,7 @@ Segment QueueItem::getNextSegment(int64_t blockSize, int64_t wantedSize, int64_t
 
     if(targetSize > blockSize) {
         // Round off to nearest block size
-                targetSize = Util::roundDown(targetSize, blockSize);
+        targetSize = Util::roundDown(targetSize, blockSize);
     } else {
         targetSize = blockSize;
     }
@@ -171,13 +171,13 @@ Segment QueueItem::getNextSegment(int64_t blockSize, int64_t wantedSize, int64_t
     int64_t curSize = targetSize;
 
     while(start < getSize()) {
-        int64_t end = std::min(getSize(), start + curSize);
+        const int64_t end = std::min(getSize(), start + curSize);
         Segment block(start, end - start);
         bool overlaps = false;
         for(auto i = done.begin(); !overlaps && i != done.end(); ++i) {
             if(curSize <= blockSize) {
-                int64_t dstart = i->getStart();
-                int64_t dend = i->getEnd();
+                const int64_t dstart = i->getStart();
+                const int64_t dend = i->getEnd();
                 // We accept partial overlaps, only consider the block done if it is fully consumed by the done block
                 if(dstart <= start && dend >= end) {
                     overlaps = true;
@@ -199,18 +199,14 @@ Segment QueueItem::getNextSegment(int64_t blockSize, int64_t wantedSize, int64_t
                         int64_t b = max(start, *j);
                         int64_t e = min(end, *(j+1));
 
-                        // segment must be blockSize aligned
-                        dcassert(b % blockSize == 0);
-                        dcassert(e % blockSize == 0 || e == getSize());
-
                         bool merged = false;
                         if(!neededParts.empty())
                         {
                             Segment& prev = neededParts.back();
                             if(b == prev.getEnd() && e > prev.getEnd())
                             {
-                                 prev.setSize(prev.getSize() + (e - b));
-                                 merged = true;
+                                prev.setSize(prev.getSize() + (e - b));
+                                merged = true;
                             }
                         }
 
@@ -244,30 +240,28 @@ Segment QueueItem::getNextSegment(int64_t blockSize, int64_t wantedSize, int64_t
     if(partialSource == NULL && BOOLSETTING(OVERLAP_CHUNKS) && lastSpeed > 0) {
         // overlap slow running chunk
 
-        for(auto i = downloads.begin(); i != downloads.end(); ++i) {
-            Download* d = *i;
+        for(auto d: downloads) {
 
             // current chunk mustn't be already overlapped
             if(d->getOverlapped())
-                    continue;
+                continue;
 
             // current chunk must be running at least for 2 seconds
             if(d->getStart() == 0 || GET_TIME() - d->getStart() < 2000)
-                    continue;
+                continue;
 
             // current chunk mustn't be finished in next 10 seconds
             if(d->getSecondsLeft() < 10)
-                    continue;
+                continue;
 
             // overlap current chunk at last block boundary
-            int64_t pos = d->getPos() - (d->getPos() % blockSize);
-            int64_t size = d->getSize() - pos;
+            const int64_t pos = d->getPos() - (d->getPos() % blockSize);
+            const int64_t size = d->getSize() - pos;
 
             // new user should finish this chunk more than 2x faster
-            int64_t newChunkLeft = size / lastSpeed;
+            const int64_t newChunkLeft = size / lastSpeed;
             if(2 * newChunkLeft < d->getSecondsLeft()) {
-                dcdebug("Overlapping... old user: %I64d s, new user: %I64d s\n", static_cast<int>(d->getSecondsLeft()), static_cast<int>(newChunkLeft));
-                return Segment(d->getStartPos() + pos, size/*, true*/);//TODO bool
+                return Segment(d->getStartPos() + pos, size/*, true*/); // TODO: bool
             }
         }
     }
@@ -278,8 +272,8 @@ Segment QueueItem::getNextSegment(int64_t blockSize, int64_t wantedSize, int64_t
 
 int64_t QueueItem::getDownloadedBytes() const {
     int64_t total = 0;
-    for(auto i = done.begin(); i != done.end(); ++i) {
-        total += i->getSize();
+    for(auto& i: done) {
+        total += i.getSize();
     }
     return total;
 }
@@ -304,33 +298,40 @@ void QueueItem::addSegment(const Segment& segment) {
         }
     }
 }
-//Partial
-bool QueueItem::isNeededPart(const PartsInfo& partsInfo, int64_t blockSize)
-{
-    dcassert(partsInfo.size() % 2 == 0);
 
-    SegmentConstIter i  = done.begin();
-    for(PartsInfo::const_iterator j = partsInfo.begin(); j != partsInfo.end(); j+=2) {
+string QueueItem::getListName() const {
+    dcassert(isSet(QueueItem::FLAG_USER_LIST));
+    if(isSet(QueueItem::FLAG_XML_BZLIST)) {
+        return getTarget() + ".xml.bz2";
+    } else {
+        return getTarget() + ".xml";
+    }
+}
+
+// Partial
+bool QueueItem::isNeededPart(const PartsInfo& partsInfo, int64_t blockSize) const {
+    auto i  = done.begin();
+    for(auto j = partsInfo.begin(); j != partsInfo.end(); j+=2) {
         while(i != done.end() && (*i).getEnd() <= (*j) * blockSize)
             ++i;
 
         if(i == done.end() || !((*i).getStart() <= (*j) * blockSize && (*i).getEnd() >= (*(j+1)) * blockSize))
-                return true;
+            return true;
     }
 
     return false;
-
 }
 
 void QueueItem::getPartialInfo(PartsInfo& partialInfo, int64_t blockSize) const {
     size_t maxSize = min(done.size() * 2, (size_t)510);
     partialInfo.reserve(maxSize);
 
-    SegmentConstIter i = done.begin();
-    for(; i != done.end() && partialInfo.size() < maxSize; ++i) {
+    for(auto& i : done) {
+        if(partialInfo.size() >= maxSize)
+            break;
 
-        uint16_t s = (uint16_t)((*i).getStart() / blockSize);
-        uint16_t e = (uint16_t)(((*i).getEnd() - 1) / blockSize + 1);
+        uint16_t s = (uint16_t)(i.getStart() / blockSize);
+        uint16_t e = (uint16_t)((i.getEnd() - 1) / blockSize + 1);
 
         partialInfo.push_back(s);
         partialInfo.push_back(e);

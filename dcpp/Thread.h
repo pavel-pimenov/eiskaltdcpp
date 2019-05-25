@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
@@ -24,16 +23,19 @@
 #include <pthread.h>
 #include <sched.h>
 #include <sys/resource.h>
+#include <unistd.h>
 #endif
 
-#include <boost/noncopyable.hpp>
+#include <cstdint>
+
+#include "NonCopyable.h"
 #include "Exception.h"
 
 namespace dcpp {
 
 STANDARD_EXCEPTION(ThreadException);
 
-class Thread : private boost::noncopyable
+class Thread : private NonCopyable
 {
 public:
 #ifdef _WIN32
@@ -88,18 +90,18 @@ public:
         }
     }
 
-    void setThreadPriority(Priority p) {
 #ifndef __HAIKU__
-    setpriority(PRIO_PROCESS, 0, p);
+    void setThreadPriority(Priority p) { setpriority(PRIO_PROCESS, 0, p); }
+#else
+    void setThreadPriority(Priority p) { }
 #endif
-    }
+
     static void sleep(uint32_t millis) { ::usleep(millis*1000); }
     static void yield() { ::sched_yield(); }
 
 #endif
 
 protected:
-    void setThreadName(const char* const threadName) const;
     virtual int run() = 0;
 
 #ifdef _WIN32

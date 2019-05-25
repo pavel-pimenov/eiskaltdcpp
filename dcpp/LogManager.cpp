@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +13,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
@@ -41,7 +41,7 @@ void LogManager::message(const string& msg) {
         // Keep the last 100 messages (completely arbitrary number...)
         while(lastLogs.size() > 100)
             lastLogs.pop_front();
-        lastLogs.push_back(make_pair(t, msg));
+        lastLogs.emplace_back(t, msg);
     }
     fire(LogManagerListener::Message(), t, msg);
 }

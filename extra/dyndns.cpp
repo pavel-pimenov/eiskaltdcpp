@@ -11,9 +11,7 @@
 //      GNU General Public License for more details.
 //
 //      You should have received a copy of the GNU General Public License
-//      along with this program; if not, write to the Free Software
-//      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-//      MA 02110-1301, USA.
+//      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
 #include "dyndns.h"
@@ -22,41 +20,64 @@
 
 namespace dcpp {
 
-DynDNS::DynDNS() {
+DynDNS::DynDNS() :
+    request(false),
+    minutesCounter(0)
+{
     httpConnection.addListener(this);
-    request = true;
-    Request();
 }
-
 
 DynDNS::~DynDNS() {
     httpConnection.removeListener(this);
 }
 
+void DynDNS::load()
+{
+    request = true;
+    minutesCounter = 0;
+    Request();
+}
+
+void DynDNS::stop()
+{
+    request = false;
+}
+
 void DynDNS::Request() {
     if (BOOLSETTING(DYNDNS_ENABLE)) {
-        httpConnection.setCoralizeState(HttpConnection::CST_NOCORALIZE);
-        string tmps = !SETTING(DYNDNS_SERVER).compare(0,7,"http://") ? SETTING(DYNDNS_SERVER) : "http://" + SETTING(DYNDNS_SERVER);
+        string tmps = SETTING(DYNDNS_SERVER);
+        if (!SETTING(DYNDNS_SERVER).compare(0,7,"http://") &&
+                !SETTING(DYNDNS_SERVER).compare(0,8,"https://")) {
+            tmps = "http://" + SETTING(DYNDNS_SERVER);
+        }
         httpConnection.downloadFile(tmps);
     }
 }
 
-void DynDNS::on(TimerManagerListener::Minute, uint64_t aTick) noexcept {
-    if (request)
+void DynDNS::on(TimerManagerListener::Minute, uint64_t) noexcept {
+    ++minutesCounter;
+    if (minutesCounter < 2) {
+        return;
+    }
+    else {
+        minutesCounter = 0;
+    }
+
+    if (request) {
         Request();
+    }
 }
 
 void DynDNS::on(HttpConnectionListener::Data, HttpConnection*, const uint8_t* buf, size_t len) noexcept {
     html += string((const char*)buf, len);
 }
 
-void DynDNS::on(HttpConnectionListener::Complete, HttpConnection*, string const&, bool /*fromCoral*/) noexcept {
+void DynDNS::on(HttpConnectionListener::Complete, HttpConnection*, string const&) noexcept {
     request = false;
     string internetIP;
     if (!html.empty()) {
         int start = html.find(":")+2;
         int end = html.find("</body>");
-
 
         if ((start == -1) || (end < start)) {
             internetIP = "";
@@ -64,24 +85,27 @@ void DynDNS::on(HttpConnectionListener::Complete, HttpConnection*, string const&
             internetIP = html.substr(start, end - start);
         }
     }
-    else
+    else {
         internetIP = "";
+    }
 
     if (!internetIP.empty()) {
         SettingsManager::getInstance()->set(SettingsManager::INTERNETIP, internetIP);
         Client::List clients = ClientManager::getInstance()->getClients();
 
-        for(Client::Iter i = clients.begin(); i != clients.end(); ++i) {
-            if((*i)->isConnected()) {
-                (*i)->reloadSettings(false);
+        for(auto c : clients) {
+            if(c->isConnected()) {
+                c->reloadSettings(false);
             }
         }
     }
     request = true;
 }
 
-void DynDNS::on(HttpConnectionListener::Failed, HttpConnection* conn, const string& aLine) noexcept {
-    Request();
+void DynDNS::on(HttpConnectionListener::Failed, HttpConnection*, const string&) noexcept {
+    if (request) {
+        Request();
+    }
 }
 
 }

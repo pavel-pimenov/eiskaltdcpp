@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
@@ -21,15 +20,16 @@
 #include "User.h"
 
 #include "AdcHub.h"
-#include "FavoriteUser.h"
-#include "StringTokenizer.h"
 #include "ClientManager.h"
+#include "FavoriteUser.h"
+#include "format.h"
+#include "StringTokenizer.h"
 
 namespace dcpp {
 
 FastCriticalSection Identity::cs;
 
-OnlineUser::OnlineUser(const UserPtr& ptr, ClientBase& client_, uint32_t sid_) : identity(ptr, sid_), client(client_), isInList(false) {
+OnlineUser::OnlineUser(const UserPtr& ptr, ClientBase& client_, uint32_t sid_) : isInList(false), identity(ptr, sid_), client(client_) {
 
 }
 
@@ -38,8 +38,8 @@ bool Identity::isTcpActive(const Client* c) const {
         return c->isActive(); // userlist should display our real mode
     } else {
         return (!user->isSet(User::NMDC)) ?
-                !getIp().empty() && supports(AdcHub::TCP4_FEATURE) :
-                !user->isSet(User::PASSIVE);
+                    !getIp().empty() && supports(AdcHub::TCP4_FEATURE) :
+                    !user->isSet(User::PASSIVE);
     }
 }
 
@@ -52,15 +52,15 @@ bool Identity::isUdpActive() const {
 void Identity::getParams(StringMap& sm, const string& prefix, bool compatibility, bool dht) const {
     {
         FastLock l(cs);
-        for(InfMap::const_iterator i = info.begin(); i != info.end(); ++i) {
-            sm[prefix + string((char*)(&i->first), 2)] = i->second;
+        for(auto& i: info) {
+            sm[prefix + string((char*)(&i.first), 2)] = i.second;
         }
     }
     if(
-#ifdef WITH_DHT
-       !dht &&
-#endif
-               user) {
+        #ifdef WITH_DHT
+            !dht &&
+        #endif
+            user) {
         sm[prefix + "SID"] = getSIDString();
         sm[prefix + "CID"] = user->getCID().toBase32();
         sm[prefix + "TAG"] = getTag();
@@ -94,19 +94,35 @@ string Identity::getTag() const {
         return get("TA");
     if(get("VE").empty() || get("HN").empty() || get("HR").empty() ||get("HO").empty() || get("SL").empty())
         return Util::emptyString;
-    return "<" + get("VE") + ",M:" + string(isTcpActive() ? "A" : "P") + ",H:" + get("HN") + "/" +
-        get("HR") + "/" + get("HO") + ",S:" + get("SL") + ">";
+    return "<" + getApplication() + ",M:" + string(isTcpActive() ? "A" : "P") +
+            ",H:" + get("HN") + "/" + get("HR") + "/" + get("HO") + ",S:" + get("SL") + ">";
+}
+
+string Identity::getApplication() const {
+    auto application = get("AP");
+    auto version = get("VE");
+
+    if(version.empty()) {
+        return application;
+    }
+
+    if(application.empty()) {
+        // AP is an extension, so we can't guarantee that the other party supports it, so default to VE.
+        return version;
+    }
+
+    return application + ' ' + version;
 }
 
 string Identity::get(const char* name) const {
     FastLock l(cs);
-    InfMap::const_iterator i = info.find(*(short*)name);
+    auto i = info.find(*(short*)name);
     return i == info.end() ? Util::emptyString : i->second;
 }
 
 bool Identity::isSet(const char* name) const {
     FastLock l(cs);
-    InfMap::const_iterator i = info.find(*(short*)name);
+    auto i = info.find(*(short*)name);
     return i != info.end();
 }
 
@@ -122,8 +138,8 @@ void Identity::set(const char* name, const string& val) {
 bool Identity::supports(const string& name) const {
     string su = get("SU");
     StringTokenizer<string> st(su, ',');
-    for(auto i = st.getTokens().begin(); i != st.getTokens().end(); ++i) {
-        if(*i == name)
+    for(auto& i: st.getTokens()) {
+        if(i == name)
             return true;
     }
     return false;
@@ -133,8 +149,8 @@ std::map<string, string> Identity::getInfo() const {
     std::map<string, string> ret;
 
     FastLock l(cs);
-    for(InfIterC i = info.begin(); i != info.end(); ++i) {
-        ret[string((char*)(&i->first), 2)] = i->second;
+    for(auto& i: info) {
+        ret[string((char*)(&i.first), 2)] = i.second;
     }
 
     return ret;

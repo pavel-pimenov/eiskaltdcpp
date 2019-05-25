@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2019 Boris Pek <tehnick-8@yandex.ru>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,83 +13,83 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
-#include "BufferedSocket.h"
-#include "noexcept.h"
+#include <string>
+
+#include "BufferedSocketListener.h"
+#include "HttpConnectionListener.h"
+#include "NonCopyable.h"
+#include "GetSet.h"
+#include "Speaker.h"
+#include "Util.h"
 
 namespace dcpp {
 
-class HttpConnection;
+using std::string;
 
-class HttpConnectionListener {
-public:
-    virtual ~HttpConnectionListener() { }
-    template<int I> struct X { enum { TYPE = I }; };
-
-    typedef X<0> Data;
-    typedef X<1> Failed;
-    typedef X<2> Complete;
-    typedef X<3> Redirected;
-    typedef X<4> TypeNormal;
-    typedef X<5> TypeBZ2;
-    typedef X<6> Retried;
-
-    virtual void on(Data, HttpConnection*, const uint8_t*, size_t) noexcept =0;
-    virtual void on(Failed, HttpConnection*, const string&) noexcept { }
-    virtual void on(Complete, HttpConnection*, const string&, bool) noexcept { }
-    virtual void on(Redirected, HttpConnection*, const string&) noexcept { }
-    virtual void on(TypeNormal, HttpConnection*) noexcept { }
-    virtual void on(TypeBZ2, HttpConnection*) noexcept { }
-    virtual void on(Retried, HttpConnection*, const bool) noexcept { }
-};
-
-class HttpConnection : BufferedSocketListener, public Speaker<HttpConnectionListener>
+class HttpConnection : BufferedSocketListener, public Speaker<HttpConnectionListener>, private NonCopyable
 {
 public:
-    void downloadFile(const string& aUrl);
-    HttpConnection() : ok(false), port(80), size(-1), moved302(false), coralizeState(CST_DEFAULT), socket(NULL) { }
-    virtual ~HttpConnection() noexcept {
-        if(socket) {
-            socket->removeListener(this);
-            BufferedSocket::putSocket(socket);
-        }
-    }
+    HttpConnection(const string& aUserAgent = Util::emptyString);
+    virtual ~HttpConnection();
 
-    enum CoralizeStates {CST_DEFAULT, CST_CONNECTED, CST_NOCORALIZE};
-    void setCoralizeState(CoralizeStates _cor) { coralizeState = _cor; }
+    void downloadFile(const string& aUrl);
+    void download(const string& aUrl, const StringMap& postData);
+
+    void abort();
+
+    const string& getMimeType() const { return mimeType; }
+    const string& getStatus() const { return statusLine; }
+
+    int64_t getSize() const { return size; }
+    int64_t getDone() const { return done; }
+    double getSpeed() const { return speed; }
+
+    GETSET(string, url, Url);
 
 private:
+    enum RequestType { TYPE_GET, TYPE_POST };
+    enum ConnectionStates { CONN_UNKNOWN, CONN_OK, CONN_FAILED, CONN_MOVED, CONN_CHUNKED };
 
-    HttpConnection(const HttpConnection&);
-    HttpConnection& operator=(const HttpConnection&);
-
-    string currentUrl;
+    string userAgent;
+    string method;
     string file;
     string server;
-    bool ok;
-    uint16_t port;
-    int64_t size;
-    bool moved302;
+    string port;
 
-    CoralizeStates coralizeState;
+    string requestBody;
+
+    string mimeType;
+    string statusLine;
+    int64_t size;
+    int64_t done;
+    double speed;
+
+    // counters to compute a best-effort speed
+    int64_t lastPos;
+    uint64_t lastTick;
+
+    ConnectionStates connState;
+    RequestType connType;
 
     BufferedSocket* socket;
 
+    void prepareRequest(RequestType type);
+    void abortRequest(bool disconnect);
+
+    void updateSpeed();
+
     // BufferedSocketListener
-    virtual void on(Connected) noexcept;
-    virtual void on(Line, const string&) noexcept;
-    virtual void on(Data, uint8_t*, size_t) noexcept;
-    virtual void on(ModeChange) noexcept;
-    virtual void on(Failed, const string&) noexcept;
-
-    void onConnected();
-    void onLine(const string& aLine);
-
+    void on(Connected) noexcept;
+    void on(Line, const string&) noexcept;
+    void on(Data, uint8_t*, size_t) noexcept;
+    void on(ModeChange) noexcept;
+    void on(Failed, const string&) noexcept;
 };
 
 } // namespace dcpp
+

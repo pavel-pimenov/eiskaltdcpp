@@ -37,7 +37,7 @@ macro(GET_RELATIVE_SOURCES varname dir sources)
 
 endmacro(GET_RELATIVE_SOURCES)
 
-get_absolute_sources(abs_dcpp_sources "${DCPP_SRCS};${DCPP_HDRS}")
+get_absolute_sources(abs_dcpp_sources "${DCPP_SRCS};${DCPP_HDRS};${DHT_SRCS}")
 get_relative_sources(rel_dcpp_sources "${dcpp_SOURCE_DIR}/po" "${abs_dcpp_sources}")
 file(MAKE_DIRECTORY "${dcpp_BINARY_DIR}/po")
 set(dcpp_files_from "${dcpp_BINARY_DIR}/po/libeiskaltdcpp_srcs.txt")
@@ -312,7 +312,8 @@ if(UPDATE_PO)
 				${dcpp_SOURCE_DIR}/po/${LANG}.po.lang.dummy
 			)
 
-		add_custom_target(po-update-${LANG}
+		string (REPLACE "@" "_" SAFE_LANG_NAME ${LANG})
+		add_custom_target(po-update-${SAFE_LANG_NAME}
 			COMMENT "po-update ${LANG}: Done."
 			DEPENDS ${po-update-LANG-SRC}
 		)
@@ -368,7 +369,8 @@ if(CREATE_MO)
 			)
 
 		if(UPDATE_PO)
-			add_custom_target(mo-update-${LANG}
+			string (REPLACE "@" "_" SAFE_LANG_NAME ${LANG})
+			add_custom_target(mo-update-${SAFE_LANG_NAME}
 				COMMENT "mo-update ${LANG}: Done."
 				DEPENDS ${mo-update-LANG-SRC}
 			)

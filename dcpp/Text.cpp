@@ -12,29 +12,35 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
 
 #include "Text.h"
-#include "Util.h"
 
-#ifndef _WIN32
+#include <cmath>
+
+#ifdef _WIN32
+#include "w.h"
+#else
 #include <errno.h>
 #include <iconv.h>
 #include <langinfo.h>
 
 #ifndef ICONV_CONST
- #define ICONV_CONST
+#define ICONV_CONST
 #endif
 
 #endif
+
+#include "Util.h"
 
 namespace dcpp {
 
 namespace Text {
+
+using std::abs;
 
 const string utf8 = "utf-8"; // optimization
 string systemCharset;
@@ -101,8 +107,8 @@ int utf8ToWc(const char* str, wchar_t& c) {
                         return -3;
 
                     c = (((wchar_t)c0 & 0x0f) << 12) |
-                        (((wchar_t)c1 & 0x3f) << 6) |
-                        ((wchar_t)c2 & 0x3f);
+                            (((wchar_t)c1 & 0x3f) << 6) |
+                            ((wchar_t)c2 & 0x3f);
 
                     return 3;
                 }
@@ -116,7 +122,7 @@ int utf8ToWc(const char* str, wchar_t& c) {
                     return -2;
 
                 c = (((wchar_t)c0 & 0x1f) << 6) |
-                    ((wchar_t)c1 & 0x3f);
+                        ((wchar_t)c1 & 0x3f);
                 return 2;
             }
         } else {                    // 10xxxxxx
@@ -219,13 +225,16 @@ const string& wideToAcp(const wstring& str, string& tmp) noexcept {
     return tmp;
 #else
     const wchar_t* src = str.c_str();
-    int n = wcsrtombs(NULL, &src, 0, NULL);
+    mbstate_t ps;
+    memset(&ps, 0, sizeof(ps)); // initialize ps
+    int n = wcsrtombs(NULL, &src, 0, &ps);
     if(n < 1) {
         return Util::emptyString;
     }
     src = str.c_str();
     tmp.resize(n);
-    n = wcsrtombs(&tmp[0], &src, n, NULL);
+    memset(&ps, 0, sizeof(ps)); // reset ps
+    n = wcsrtombs(&tmp[0], &src, n, &ps);
     if(n < 1) {
         return Util::emptyString;
     }
@@ -269,9 +278,9 @@ const wstring& utf8ToWide(const string& str, wstring& tgt) noexcept {
 
 wchar_t toLower(wchar_t c) noexcept {
 #ifdef _WIN32
-        return static_cast<wchar_t>(reinterpret_cast<ptrdiff_t>(CharLowerW((LPWSTR)c)));
+    return static_cast<wchar_t>(reinterpret_cast<ptrdiff_t>(CharLowerW((LPWSTR)c)));
 #else
-        return (wchar_t)towlower(c);
+    return (wchar_t)std::towlower(c);
 #endif
 }
 
@@ -280,9 +289,8 @@ const wstring& toLower(const wstring& str, wstring& tmp) noexcept {
         return Util::emptyStringW;
     tmp.clear();
     tmp.reserve(str.length());
-    wstring::const_iterator end = str.end();
-    for(wstring::const_iterator i = str.begin(); i != end; ++i) {
-        tmp += toLower(*i);
+    for(auto& i: str) {
+        tmp += toLower(i);
     }
     return tmp;
 }

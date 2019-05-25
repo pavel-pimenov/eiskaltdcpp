@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
@@ -30,11 +29,13 @@ typedef SOCKET socket_t;
 #include <netdb.h>
 #include <fcntl.h>
 #include <errno.h>
-#include <vector>
+
 typedef int socket_t;
 const int INVALID_SOCKET = -1;
 #define SOCKET_ERROR -1
 #endif
+
+#include "GetSet.h"
 #include "Util.h"
 #include "Exception.h"
 
@@ -49,7 +50,8 @@ public:
 #endif // _DEBUG
 
     SocketException(int aError) noexcept;
-    virtual ~SocketException() noexcept { }
+    virtual ~SocketException() throw() { }
+
 private:
     static string errorToString(int aError) noexcept;
 };
@@ -69,8 +71,14 @@ public:
         TYPE_UDP
     };
 
-    Socket() : sock(INVALID_SOCKET), connected(false) { }
-    Socket(const string& aIp, uint16_t aPort) : sock(INVALID_SOCKET), connected(false) { connect(aIp, aPort); }
+    enum Protocol {
+        PROTO_DEFAULT = 0,
+        PROTO_NMDC = 1,
+        PROTO_ADC = 2
+    };
+
+    Socket() : sock(INVALID_SOCKET), type(TYPE_TCP), connected(false), proto(PROTO_DEFAULT) { }
+    Socket(const string& aIp, const string& aPort) : sock(INVALID_SOCKET), type(TYPE_TCP), connected(false), proto(PROTO_DEFAULT) { connect(aIp, aPort); }
     virtual ~Socket() { disconnect(); }
 
     /**
@@ -80,12 +88,11 @@ public:
      * @param aPort Server port.
      * @throw SocketException If any connection error occurs.
      */
-    virtual void connect(const string& aIp, uint16_t aPort);
-    void connect(const string& aIp, const string& aPort) { connect(aIp, static_cast<uint16_t>(Util::toInt(aPort))); }
+    virtual void connect(const string& aIp, const string &aPort, const string &localPort = Util::emptyString);
     /**
      * Same as connect(), but through the SOCKS5 server
      */
-    void socksConnect(const string& aIp, uint16_t aPort, uint32_t timeout = 0);
+    void socksConnect(const string& aIp, const string &aPort, uint32_t timeout = 0);
 
     /**
      * Sends data, will block until all data has been sent or an exception occurs
@@ -96,8 +103,8 @@ public:
     void writeAll(const void* aBuffer, int aLen, uint32_t timeout = 0);
     virtual int write(const void* aBuffer, int aLen);
     int write(const string& aData) { return write(aData.data(), (int)aData.length()); }
-    virtual void writeTo(const string& aIp, uint16_t aPort, const void* aBuffer, int aLen, bool proxy = true);
-    void writeTo(const string& aIp, uint16_t aPort, const string& aData) { writeTo(aIp, aPort, aData.data(), (int)aData.length()); }
+    virtual void writeTo(const string& aIp, const std::string &aPort, const void* aBuffer, int aLen, bool proxy = true);
+    void writeTo(const string& aIp, const string& aPort, const string& aData) { writeTo(aIp, aPort, aData.data(), (int)aData.length()); }
     virtual void shutdown() noexcept;
     virtual void close() noexcept;
     void disconnect() noexcept;
@@ -137,30 +144,18 @@ public:
     static uint64_t getTotalDown() { return stats.totalDown; }
     static uint64_t getTotalUp() { return stats.totalUp; }
 
-#ifdef _WIN32
-    void setBlocking(bool block) noexcept {
-        u_long b = block ? 0 : 1;
-        ioctlsocket(sock, FIONBIO, &b);
-    }
-#else
-    void setBlocking(bool block) noexcept {
-        int flags = fcntl(sock, F_GETFL, 0);
-        if(block) {
-            fcntl(sock, F_SETFL, flags & (~O_NONBLOCK));
-        } else {
-            fcntl(sock, F_SETFL, flags | O_NONBLOCK);
-        }
-    }
-#endif
+    void setBlocking(bool block) noexcept;
 
     string getLocalIp() noexcept;
-    uint16_t getLocalPort() noexcept;
+    string getLocalPort() noexcept;
+
+    Protocol getNextProtocol() noexcept;
 
     // Low level interface
     virtual void create(int aType = TYPE_TCP);
 
     /** Binds a socket to a certain local port and possibly IP. */
-    virtual uint16_t bind(uint16_t aPort = 0, const string& aIp = "0.0.0.0");
+    virtual const string bind(const string &aPort = Util::emptyString, const string& aIp = "0.0.0.0");
     virtual void listen();
     virtual void accept(const Socket& listeningSocket);
 
@@ -169,18 +164,21 @@ public:
 
     virtual bool isSecure() const noexcept { return false; }
     virtual bool isTrusted() const noexcept { return false; }
-    virtual std::string getCipherName() const noexcept { return Util::emptyString; }
-    virtual std::vector<uint8_t> getKeyprint() const noexcept { return std::vector<uint8_t>(); }
+    virtual string getCipherName() const noexcept { return Util::emptyString; }
+    virtual ByteVector getKeyprint() const noexcept { return ByteVector(); }
 
     /** When socks settings are updated, this has to be called... */
     static void socksUpdated();
     string getIfaceI4 (const string &iface);
 
     GETSET(string, ip, Ip);
+
     socket_t sock;
+
 protected:
     int type;
     bool connected;
+    Protocol proto;
 
     class Stats {
     public:
@@ -190,54 +188,17 @@ protected:
     static Stats stats;
 
     static string udpServer;
-    static uint16_t udpPort;
+    static string udpPort;
 
 private:
     Socket(const Socket&);
     Socket& operator=(const Socket&);
 
-
     void socksAuth(uint32_t timeout);
 
-#ifdef _WIN32
-    static int getLastError() { return ::WSAGetLastError(); }
-    static int checksocket(int ret) {
-        if(ret == SOCKET_ERROR) {
-            throw SocketException(getLastError());
-        }
-        return ret;
-    }
-    static int check(int ret, bool blockOk = false) {
-        if(ret == SOCKET_ERROR) {
-            int error = getLastError();
-            if(blockOk && error == WSAEWOULDBLOCK) {
-                return -1;
-            } else {
-                throw SocketException(error);
-            }
-        }
-        return ret;
-    }
-#else
-    static int getLastError() { return errno; }
-    static int checksocket(int ret) {
-        if(ret < 0) {
-            throw SocketException(getLastError());
-        }
-        return ret;
-    }
-    static int check(int ret, bool blockOk = false) {
-        if(ret == -1) {
-            int error = getLastError();
-            if(blockOk && (error == EWOULDBLOCK || error == ENOBUFS || error == EINPROGRESS || error == EAGAIN) ) {
-                return -1;
-            } else {
-                throw SocketException(error);
-            }
-        }
-        return ret;
-    }
-#endif
+    static int getLastError();
+    static int checksocket(int ret);
+    static int check(int ret, bool blockOk = false);
 
 };
 

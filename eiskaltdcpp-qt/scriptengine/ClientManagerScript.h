@@ -55,10 +55,10 @@ protected:
     virtual void on(ClientDisconnected, dcpp::Client*) throw();
 
 private:
-    ClientManagerScript(QObject *parent = 0);
-    ClientManagerScript(const ClientManagerScript&) {}
+    ClientManagerScript(QObject *parent = nullptr);
+    ClientManagerScript(const ClientManagerScript&);
     ~ClientManagerScript();
-    ClientManagerScript &operator =(const ClientManagerScript&) { return *this; }
+    ClientManagerScript &operator=(const ClientManagerScript&);
 
     dcpp::ClientManager *CM;
 };

@@ -12,13 +12,11 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
-#include <boost/scoped_array.hpp>
 #include "Streams.h"
 #include "Exception.h"
 
@@ -31,12 +29,12 @@ public:
     CountOutputStream(OutputStream* aStream) : s(aStream), count(0) { }
     virtual ~CountOutputStream() { if(managed) delete s; }
 
-        size_t flush() {
+    size_t flush() {
         size_t n = s->flush();
         count += n;
         return n;
     }
-        size_t write(const void* buf, size_t len) {
+    size_t write(const void* buf, size_t len) {
         size_t n = s->write(buf, len);
         count += n;
         return n;
@@ -56,11 +54,11 @@ public:
     CalcOutputStream(OutputStream* aStream) : s(aStream) { }
     virtual ~CalcOutputStream() { if(managed) delete s; }
 
-        size_t flush() {
+    size_t flush() {
         return s->flush();
     }
 
-        size_t write(const void* buf, size_t len) {
+    size_t write(const void* buf, size_t len) {
         filter(buf, len);
         return s->write(buf, len);
     }
@@ -78,7 +76,7 @@ public:
     CalcInputStream(InputStream* aStream) : s(aStream) { }
     virtual ~CalcInputStream() { if(managed) delete s; }
 
-        size_t read(void* buf, size_t& len) {
+    size_t read(void* buf, size_t& len) {
         size_t x = s->read(buf, len);
         filter(buf, x);
         return x;
@@ -98,7 +96,7 @@ public:
     FilteredOutputStream(OutputStream* aFile) : f(aFile), buf(new uint8_t[BUF_SIZE]), flushed(false), more(true) { }
     virtual ~FilteredOutputStream() { if(manage) delete f; }
 
-        size_t flush() {
+    size_t flush() {
         if(flushed)
             return 0;
 
@@ -118,7 +116,7 @@ public:
         return written + f->flush();
     }
 
-        size_t write(const void* wbuf, size_t len) {
+    size_t write(const void* wbuf, size_t len) {
         if(flushed)
             throw Exception("No filtered writes after flush");
 
@@ -152,7 +150,7 @@ private:
     OutputStream* f;
     Filter filter;
 
-    boost::scoped_array<uint8_t> buf;
+    std::unique_ptr<uint8_t[]> buf;
     bool flushed;
     bool more;
 };
@@ -161,7 +159,7 @@ template<class Filter, bool managed>
 class FilteredInputStream : public InputStream {
 public:
     FilteredInputStream(InputStream* aFile) : f(aFile), buf(new uint8_t[BUF_SIZE]), pos(0), valid(0), more(true) { }
-        virtual ~FilteredInputStream() { if(managed) delete f; }
+    virtual ~FilteredInputStream() { if(managed) delete f; }
 
     /**
     * Read data through filter, keep calling until len returns 0.
@@ -202,7 +200,7 @@ private:
 
     InputStream* f;
     Filter filter;
-    boost::scoped_array<uint8_t> buf;
+    std::unique_ptr<uint8_t[]> buf;
     size_t pos;
     size_t valid;
     bool more;

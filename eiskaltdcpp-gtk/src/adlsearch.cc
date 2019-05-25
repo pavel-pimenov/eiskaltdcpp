@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -34,7 +33,7 @@ SearchADL::SearchADL():
     g_object_ref_sink(getWidget("menu"));
 
     // Initialize search list treeview
-    searchADLView.setView(GTK_TREE_VIEW(getWidget("searchADLView")), TRUE, "searchadl");
+    searchADLView.setView(GTK_TREE_VIEW(getWidget("searchADLView")), true, "searchadl");
     searchADLView.insertColumn(_("Enabled"), G_TYPE_BOOLEAN, TreeView::BOOL, 100);
     searchADLView.insertColumn(_("Search String"), G_TYPE_STRING, TreeView::STRING, 100);
     searchADLView.insertColumn(_("Source Type"), G_TYPE_STRING, TreeView::STRING, 90);
@@ -55,15 +54,15 @@ SearchADL::SearchADL():
     searchADLSelection = gtk_tree_view_get_selection(searchADLView.get());
     gtk_tree_selection_set_mode(searchADLSelection, GTK_SELECTION_SINGLE);
 
-    gtk_tree_view_column_set_clickable(gtk_tree_view_get_column(searchADLView.get(), searchADLView.col(_("Enabled"))), FALSE);
-    gtk_tree_view_column_set_clickable(gtk_tree_view_get_column(searchADLView.get(), searchADLView.col(_("Search String"))), FALSE);
-    gtk_tree_view_column_set_clickable(gtk_tree_view_get_column(searchADLView.get(), searchADLView.col(_("Source Type"))), FALSE);
-    gtk_tree_view_column_set_clickable(gtk_tree_view_get_column(searchADLView.get(), searchADLView.col(_("Destination Directory"))), FALSE);
-    gtk_tree_view_column_set_clickable(gtk_tree_view_get_column(searchADLView.get(), searchADLView.col(_("Min Size"))), FALSE);
-    gtk_tree_view_column_set_clickable(gtk_tree_view_get_column(searchADLView.get(), searchADLView.col(_("Max Size"))), FALSE);
+    gtk_tree_view_column_set_clickable(gtk_tree_view_get_column(searchADLView.get(), searchADLView.col(_("Enabled"))), false);
+    gtk_tree_view_column_set_clickable(gtk_tree_view_get_column(searchADLView.get(), searchADLView.col(_("Search String"))), false);
+    gtk_tree_view_column_set_clickable(gtk_tree_view_get_column(searchADLView.get(), searchADLView.col(_("Source Type"))), false);
+    gtk_tree_view_column_set_clickable(gtk_tree_view_get_column(searchADLView.get(), searchADLView.col(_("Destination Directory"))), false);
+    gtk_tree_view_column_set_clickable(gtk_tree_view_get_column(searchADLView.get(), searchADLView.col(_("Min Size"))), false);
+    gtk_tree_view_column_set_clickable(gtk_tree_view_get_column(searchADLView.get(), searchADLView.col(_("Max Size"))), false);
 
     GList *list = gtk_cell_layout_get_cells(GTK_CELL_LAYOUT(gtk_tree_view_get_column(searchADLView.get(),
-        searchADLView.col(_("Enabled")))));
+                                                                                     searchADLView.col(_("Enabled")))));
     GObject *renderer = (GObject *)g_list_nth_data(list, 0);
     g_signal_connect(renderer, "toggled", G_CALLBACK(onActiveToggled_gui), (gpointer)this);
     g_list_free(list);
@@ -85,7 +84,7 @@ SearchADL::SearchADL():
 
 SearchADL::~SearchADL()
 {
-    ADLSearchManager::getInstance()->Save();
+    ADLSearchManager::getInstance()->save();
     gtk_widget_destroy(getWidget("ADLSearchDialog"));
     g_object_unref(getWidget("menu"));
 }
@@ -95,42 +94,40 @@ void SearchADL::show()
     // initialize searches list
     string minSize, maxSize;
     ADLSearchManager::SearchCollection &collection = ADLSearchManager::getInstance()->collection;
-    for (auto i = collection.begin(); i != collection.end(); ++i)
+    for (ADLSearch &search : collection)
     {
         GtkTreeIter iter;
-        ADLSearch &search = *i;
         minSize = search.minFileSize >= 0 ? Util::toString(search.minFileSize) + " " +
-            search.SizeTypeToString(search.typeFileSize) : "";
+                                            search.SizeTypeToString(search.typeFileSize) : "";
         maxSize = search.maxFileSize >= 0 ? Util::toString(search.maxFileSize) + " " +
-            search.SizeTypeToString(search.typeFileSize) : "";
+                                            search.SizeTypeToString(search.typeFileSize) : "";
 
         gtk_list_store_append(searchADLStore, &iter);
         gtk_list_store_set(searchADLStore, &iter,
-            searchADLView.col(_("Enabled")), search.isActive,
-            searchADLView.col(_("Search String")), search.searchString.c_str(),
-            searchADLView.col(_("Source Type")), search.SourceTypeToString(search.sourceType).c_str(),
-            searchADLView.col(_("Destination Directory")), search.destDir.c_str(),
-            searchADLView.col(_("Min Size")), minSize.c_str(),
-            searchADLView.col(_("Max Size")), maxSize.c_str(),
-            searchADLView.col("Download Matches"), search.isAutoQueue,
-            searchADLView.col("MinSize"), search.minFileSize,
-            searchADLView.col("MaxSize"), search.maxFileSize,
-            searchADLView.col("SourceType"), search.sourceType,
-            searchADLView.col("SizeType"), search.typeFileSize,
-            -1);
+                           searchADLView.col(_("Enabled")), search.isActive,
+                           searchADLView.col(_("Search String")), search.searchString.c_str(),
+                           searchADLView.col(_("Source Type")), search.SourceTypeToString(search.sourceType).c_str(),
+                           searchADLView.col(_("Destination Directory")), search.destDir.c_str(),
+                           searchADLView.col(_("Min Size")), minSize.c_str(),
+                           searchADLView.col(_("Max Size")), maxSize.c_str(),
+                           searchADLView.col("Download Matches"), search.isAutoQueue,
+                           searchADLView.col("MinSize"), search.minFileSize,
+                           searchADLView.col("MaxSize"), search.maxFileSize,
+                           searchADLView.col("SourceType"), search.sourceType,
+                           searchADLView.col("SizeType"), search.typeFileSize,
+                           -1);
     }
 }
 
-void SearchADL::onRemoveClicked_gui(GtkWidget *widget, gpointer data)
+void SearchADL::onRemoveClicked_gui(GtkWidget*, gpointer data)
 {
-    SearchADL *s = (SearchADL *)data;
+    SearchADL *s = reinterpret_cast<SearchADL *>(data);
 
     GtkTreeIter iter;
     if (gtk_tree_selection_get_selected(s->searchADLSelection, NULL, &iter))
     {
-        gchar *p = gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(s->searchADLStore), &iter);
+        g_autofree gchar *p = gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(s->searchADLStore), &iter);
         SearchType i = (SearchType)Util::toInt(p);
-        g_free(p);
 
         ADLSearchManager::SearchCollection &collection = ADLSearchManager::getInstance()->collection;
         if (i < collection.size())
@@ -141,11 +138,12 @@ void SearchADL::onRemoveClicked_gui(GtkWidget *widget, gpointer data)
     }
 }
 
-void SearchADL::onAddClicked_gui(GtkWidget *widget, gpointer data)
+void SearchADL::onAddClicked_gui(GtkWidget*, gpointer data)
 {
-    SearchADL *s = (SearchADL *)data;
+    SearchADL *s = reinterpret_cast<SearchADL *>(data);
 
     ADLSearch search;
+
     if (showPropertiesDialog_gui(search, false, s))
     {
         GtkTreeIter iter;
@@ -153,9 +151,8 @@ void SearchADL::onAddClicked_gui(GtkWidget *widget, gpointer data)
 
         if (gtk_tree_selection_get_selected(s->searchADLSelection, NULL, &iter))
         {
-            gchar *p = gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(s->searchADLStore), &iter);
+            g_autofree gchar *p = gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(s->searchADLStore), &iter);
             SearchType i = (SearchType)Util::toInt(p);
-            g_free(p);
 
             if (i < collection.size())
             {
@@ -174,9 +171,9 @@ void SearchADL::onAddClicked_gui(GtkWidget *widget, gpointer data)
     }
 }
 
-void SearchADL::onPropertiesClicked_gui(GtkWidget *widget, gpointer data)
+void SearchADL::onPropertiesClicked_gui(GtkWidget*, gpointer data)
 {
-    SearchADL *s = (SearchADL *)data;
+    SearchADL *s = reinterpret_cast<SearchADL *>(data);
     
     GtkTreeIter iter;
     if (gtk_tree_selection_get_selected(s->searchADLSelection, NULL, &iter))
@@ -184,9 +181,8 @@ void SearchADL::onPropertiesClicked_gui(GtkWidget *widget, gpointer data)
         ADLSearch search;
         if (showPropertiesDialog_gui(search, true, s))
         {
-            gchar *p = gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(s->searchADLStore), &iter);
+            g_autofree gchar *p = gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(s->searchADLStore), &iter);
             SearchType i = (SearchType)Util::toInt(p);
-            g_free(p);
 
             ADLSearchManager::SearchCollection &collection = ADLSearchManager::getInstance()->collection;
             if (i < collection.size())
@@ -201,23 +197,23 @@ void SearchADL::onPropertiesClicked_gui(GtkWidget *widget, gpointer data)
 void SearchADL::setSearch_gui(ADLSearch &search, GtkTreeIter *iter)
 {
     string minSize = search.minFileSize >= 0 ? Util::toString(search.minFileSize) + " " +
-        search.SizeTypeToString(search.typeFileSize) : "";
+                                               search.SizeTypeToString(search.typeFileSize) : "";
     string maxSize = search.maxFileSize >= 0 ? Util::toString(search.maxFileSize) + " " +
-        search.SizeTypeToString(search.typeFileSize) : "";
+                                               search.SizeTypeToString(search.typeFileSize) : "";
 
     gtk_list_store_set(searchADLStore, iter,
-        searchADLView.col(_("Enabled")), search.isActive,
-        searchADLView.col(_("Search String")), search.searchString.c_str(),
-        searchADLView.col(_("Source Type")), search.SourceTypeToString(search.sourceType).c_str(),
-        searchADLView.col(_("Destination Directory")), search.destDir.c_str(),
-        searchADLView.col(_("Min Size")), minSize.c_str(),
-        searchADLView.col(_("Max Size")), maxSize.c_str(),
-        searchADLView.col("Download Matches"), search.isAutoQueue,
-        searchADLView.col("MinSize"), search.minFileSize,
-        searchADLView.col("MaxSize"), search.maxFileSize,
-        searchADLView.col("SourceType"), search.sourceType,
-        searchADLView.col("SizeType"), search.typeFileSize,
-        -1);
+                       searchADLView.col(_("Enabled")), search.isActive,
+                       searchADLView.col(_("Search String")), search.searchString.c_str(),
+                       searchADLView.col(_("Source Type")), search.SourceTypeToString(search.sourceType).c_str(),
+                       searchADLView.col(_("Destination Directory")), search.destDir.c_str(),
+                       searchADLView.col(_("Min Size")), minSize.c_str(),
+                       searchADLView.col(_("Max Size")), maxSize.c_str(),
+                       searchADLView.col("Download Matches"), search.isAutoQueue,
+                       searchADLView.col("MinSize"), search.minFileSize,
+                       searchADLView.col("MaxSize"), search.maxFileSize,
+                       searchADLView.col("SourceType"), search.sourceType,
+                       searchADLView.col("SizeType"), search.typeFileSize,
+                       -1);
 }
 
 bool SearchADL::showPropertiesDialog_gui(ADLSearch &search, bool edit, SearchADL *s)
@@ -311,9 +307,9 @@ bool SearchADL::showPropertiesDialog_gui(ADLSearch &search, bool edit, SearchADL
     return true;
 }
 
-void SearchADL::onMoveUpClicked_gui(GtkWidget *widget, gpointer data)
+void SearchADL::onMoveUpClicked_gui(GtkWidget*, gpointer data)
 {
-    SearchADL *s = (SearchADL *)data;
+    SearchADL *s = reinterpret_cast<SearchADL *>(data);
 
     GtkTreeIter prev, current;
     GtkTreeModel *m = GTK_TREE_MODEL(s->searchADLStore);
@@ -321,12 +317,11 @@ void SearchADL::onMoveUpClicked_gui(GtkWidget *widget, gpointer data)
 
     if (gtk_tree_selection_get_selected(sel, NULL, &current))
     {
-        gchar *p = gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(s->searchADLStore), &current);
+        g_autofree gchar *p = gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(s->searchADLStore), &current);
         SearchType i = (SearchType)Util::toInt(p);
-        g_free(p);
 
         ADLSearchManager::SearchCollection &collection = ADLSearchManager::getInstance()->collection;
-        if (!i || !(i < collection.size()))
+        if (i == 0 || !(i < collection.size()))
             return;
 
         bool swap = false;
@@ -343,18 +338,17 @@ void SearchADL::onMoveUpClicked_gui(GtkWidget *widget, gpointer data)
     }
 }
 
-void SearchADL::onMoveDownClicked_gui(GtkWidget *widget, gpointer data)
+void SearchADL::onMoveDownClicked_gui(GtkWidget*, gpointer data)
 {
-    SearchADL *s = (SearchADL *)data;
+    SearchADL *s = reinterpret_cast<SearchADL *>(data);
 
     GtkTreeIter current, next;
     GtkTreeSelection *sel = gtk_tree_view_get_selection(s->searchADLView.get());
 
     if (gtk_tree_selection_get_selected(sel, NULL, &current))
     {
-        gchar *p = gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(s->searchADLStore), &current);
+        g_autofree gchar *p = gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(s->searchADLStore), &current);
         SearchType i = (SearchType)Util::toInt(p);
-        g_free(p);
 
         ADLSearchManager::SearchCollection &collection = ADLSearchManager::getInstance()->collection;
         if (collection.empty() || !(i < collection.size() - 1))
@@ -373,16 +367,15 @@ void SearchADL::onMoveDownClicked_gui(GtkWidget *widget, gpointer data)
     }
 }
 
-void SearchADL::onActiveToggled_gui(GtkCellRendererToggle *cell, gchar *path, gpointer data)
+void SearchADL::onActiveToggled_gui(GtkCellRendererToggle*, gchar *path, gpointer data)
 {
-    SearchADL *s = (SearchADL *)data;
+    SearchADL *s = reinterpret_cast<SearchADL *>(data);
     GtkTreeIter iter;
 
     if (gtk_tree_model_get_iter_from_string(GTK_TREE_MODEL(s->searchADLStore), &iter, path))
     {
-        gchar *p = gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(s->searchADLStore), &iter);
+        g_autofree gchar *p = gtk_tree_model_get_string_from_iter(GTK_TREE_MODEL(s->searchADLStore), &iter);
         SearchType i = (SearchType)Util::toInt(p);
-        g_free(p);
 
         ADLSearchManager::SearchCollection &collection = ADLSearchManager::getInstance()->collection;
         if (i < collection.size())
@@ -398,9 +391,9 @@ void SearchADL::onActiveToggled_gui(GtkCellRendererToggle *cell, gchar *path, gp
     }
 }
 
-gboolean SearchADL::onButtonPressed_gui(GtkWidget *widget, GdkEventButton *event, gpointer data)
+gboolean SearchADL::onButtonPressed_gui(GtkWidget*, GdkEventButton *event, gpointer data)
 {
-    SearchADL *s = (SearchADL *)data;
+    SearchADL *s = reinterpret_cast<SearchADL *>(data);
     s->previous = event->type;
 
     if (event->button == 3)
@@ -413,15 +406,15 @@ gboolean SearchADL::onButtonPressed_gui(GtkWidget *widget, GdkEventButton *event
             gtk_tree_path_free(path);
 
             if (selected)
-                return TRUE;
+                return true;
         }
     }
-    return FALSE;
+    return false;
 }
 
-gboolean SearchADL::onButtonReleased_gui(GtkWidget *widget, GdkEventButton *event, gpointer data)
+gboolean SearchADL::onButtonReleased_gui(GtkWidget*, GdkEventButton *event, gpointer data)
 {
-    SearchADL *s = (SearchADL *)data;
+    SearchADL *s = reinterpret_cast<SearchADL *>(data);
 
     if (gtk_tree_selection_get_selected(s->searchADLSelection, NULL, NULL))
     {
@@ -433,28 +426,36 @@ gboolean SearchADL::onButtonReleased_gui(GtkWidget *widget, GdkEventButton *even
         else if (event->button == 3 && event->type == GDK_BUTTON_RELEASE)
         {
             // show menu
+#if GTK_CHECK_VERSION(3,22,0)
+            gtk_menu_popup_at_pointer(GTK_MENU(s->getWidget("menu")),NULL);
+#else
             gtk_menu_popup(GTK_MENU(s->getWidget("menu")), NULL, NULL, NULL, NULL, 0, gtk_get_current_event_time());
+#endif
         }
     }
 
-    return FALSE;
+    return false;
 }
 
-gboolean SearchADL::onKeyReleased_gui(GtkWidget *widget, GdkEventKey *event, gpointer data)
+gboolean SearchADL::onKeyReleased_gui(GtkWidget*, GdkEventKey *event, gpointer data)
 {
-    SearchADL *s = (SearchADL *)data;
+    SearchADL *s = reinterpret_cast<SearchADL *>(data);
 
     if (gtk_tree_selection_get_selected(s->searchADLSelection, NULL, NULL))
     {
-        if (event->keyval == GDK_Delete || event->keyval == GDK_BackSpace)
+        if (event->keyval == GDK_KEY_Delete || event->keyval == GDK_KEY_BackSpace)
         {
             s->onRemoveClicked_gui(NULL, data);
         }
-        else if (event->keyval == GDK_Menu || (event->keyval == GDK_F10 && event->state & GDK_SHIFT_MASK))
+        else if (event->keyval == GDK_KEY_Menu || (event->keyval == GDK_KEY_F10 && event->state & GDK_SHIFT_MASK))
         {
+#if GTK_CHECK_VERSION(3,22,0)
+            gtk_menu_popup_at_pointer(GTK_MENU(s->getWidget("menu")),NULL);
+#else
             gtk_menu_popup(GTK_MENU(s->getWidget("menu")), NULL, NULL, NULL, NULL, 0, gtk_get_current_event_time());
+#endif
         }
     }
 
-    return FALSE;
+    return false;
 }

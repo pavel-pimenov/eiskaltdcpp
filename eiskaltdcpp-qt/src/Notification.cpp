@@ -30,7 +30,7 @@ static int getBitPos(unsigned eventId){
 }
 
 Notification::Notification(QObject *parent) :
-    QObject(parent), tray(NULL), notify(NULL), suppressSnd(false), suppressTxt(false)
+    QObject(parent), tray(nullptr), notify(nullptr), suppressSnd(false), suppressTxt(false)
 {
     switchModule(static_cast<unsigned>(WIGET(WI_NOTIFY_MODULE)));
 
@@ -55,7 +55,7 @@ void Notification::enableTray(bool enable){
 
         delete tray;
 
-        tray = NULL;
+        tray = nullptr;
 
 #if defined(Q_OS_MAC)
         MainWindow::getInstance()->setUnload(false);
@@ -68,7 +68,7 @@ void Notification::enableTray(bool enable){
     else {
         delete tray;
 
-        tray = NULL;
+        tray = nullptr;
 
         if (!QSystemTrayIcon::isSystemTrayAvailable() && checkSystemTrayCounter < 12){
             QTimer *timer = new QTimer(this);
@@ -187,7 +187,7 @@ void Notification::showMessage(int t, const QString &title, const QString &msg){
 
             if (notify)
                 notify->showMessage(title, msg, tray);
-        } while (0);
+        } while (false);
     }
 
     if (WBGET(WB_NOTIFY_SND_ENABLED) && !suppressSnd){
@@ -217,7 +217,7 @@ void Notification::showMessage(int t, const QString &title, const QString &msg){
                     r->start();
                 }
             }
-        } while (0);
+        } while (false);
     }
 }
 
@@ -370,7 +370,7 @@ void DBusNotifyModule::showMessage(const QString &title, const QString &msg, QOb
     QVariantList args;
     args << QString("EiskaltDC++");
     args << QVariant(QVariant::UInt);
-    args << QVariant(WulforUtil::getInstance()->getIconsPath() + "/" + "icon_appl_big.png");
+    args << QVariant(WulforUtil::getInstance()->getAppIconsPath() + "/" + "icon_appl_big.png");
     args << QString(title);
     args << QString(msg);
     args << QStringList();

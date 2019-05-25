@@ -54,7 +54,10 @@ ServerThread::ClientMap ServerThread::clientsMap;
 Json::Rpc::HTTPServer * jsonserver;
 #endif
 
-ServerThread::ServerThread() : lastUp(0), lastDown(0), lastUpdate(GET_TICK()) {
+ServerThread::ServerThread()
+    : lastUp(0)
+    , lastDown(0)
+    , lastUpdate(GET_TICK()) {
 }
 
 ServerThread::~ServerThread() {
@@ -66,7 +69,6 @@ void ServerThread::Resume() {
 }
 
 int ServerThread::run() {
-    setThreadName("ServerThread");
     dcpp::TimerManager::getInstance()->start();
     TimerManager::getInstance()->addListener(this);
     QueueManager::getInstance()->addListener(this);
@@ -231,7 +233,7 @@ int ServerThread::run() {
     return 0;
 }
 
-bool ServerThread::disconnect_all() {
+bool ServerThread::disconnectAll() {
     for (const auto& client : clientsMap) {
         if (clientsMap[client.first].curclient)
             disconnectClient(client.first);
@@ -257,7 +259,7 @@ void ServerThread::Close() {
 #endif
 
     ConnectionManager::getInstance()->disconnect();
-    disconnect_all();
+    disconnectAll();
 }
 
 void ServerThread::WaitFor() {
@@ -301,7 +303,7 @@ void ServerThread::disconnectClient(const string& address) {
         cl->removeListener(this);
         cl->disconnect(true);
         ClientManager::getInstance()->putClient(cl);
-        clientsMap[i->first].curclient = NULL;
+        clientsMap[i->first].curclient = nullptr;
     }
 }
 
@@ -370,6 +372,8 @@ void ServerThread::on(UserRemoved, Client* cur, const OnlineUser& user) noexcept
 }
 
 void ServerThread::on(Redirect, Client* cur, const string& line) noexcept {
+    (void)cur;
+
     if (isVerbose)
         cout << "Redirected to " << line << endl;
 }
@@ -432,6 +436,8 @@ void ServerThread::on(ClientListener::Message, Client *cl, const ChatMessage& me
 }
 
 void ServerThread::on(StatusMessage, Client *cl, const string& line, int statusFlags) noexcept {
+    (void)statusFlags;
+
     string msg = line;
 
     if (BOOLSETTING(LOG_STATUS_MESSAGES)) {
@@ -451,6 +457,7 @@ void ServerThread::on(NickTaken, Client*) noexcept {
 }
 
 void ServerThread::on(SearchFlood, Client*, const string& line) noexcept {
+    (void)line;
 }
 
 void ServerThread::on(SearchManagerListener::SR, const SearchResultPtr& result) noexcept {
@@ -1073,7 +1080,7 @@ bool ServerThread::removeQueueItem(const string& target) {
     return false;
 }
 
-void ServerThread::getHashStatus(string& target, int64_t& bytesLeft, size_t& filesLeft, string& status) {
+void ServerThread::getHashStatus(string& target, uint64_t& bytesLeft, size_t& filesLeft, string& status) {
     HashManager::getInstance()->getStats(target, bytesLeft, filesLeft);
     status = HashManager::getInstance()->isHashingPaused() ? "pause" : bytesLeft > 0 ? "hashing" : "idle";
 }
@@ -1311,7 +1318,7 @@ void ServerThread::lsDirInList(const string& directory, const string& filelist, 
 }
 
 void ServerThread::lsDirInList(DirectoryListing::Directory *dir, unordered_map<string,StringMap>& ret) {
-    if (dir == NULL)
+    if (dir == nullptr)
         return;
     for (const auto& d : dir->directories) {
         StringMap map;
@@ -1340,7 +1347,7 @@ bool ServerThread::downloadDirFromList(const string& directory, const string& do
 {
     auto it = listsMap.find(filelist);
     if (it != listsMap.end()) {
-        DirectoryListing::Directory *dir = NULL;
+        DirectoryListing::Directory *dir = nullptr;
         if (directory.empty() || directory == "\\") {
             dir = it->second->getRoot();
         } else {
@@ -1375,7 +1382,7 @@ bool ServerThread::downloadFileFromList(const string& target_file, const string&
     auto it = listsMap.find(filelist);
     if (it != listsMap.end()) {
         string directory = Util::getFilePath(target_file, '\\');
-        DirectoryListing::Directory *dir = NULL;
+        DirectoryListing::Directory *dir = nullptr;
         if (directory.empty() || directory == "\\") {
             dir = it->second->getRoot();
         } else {
@@ -1384,7 +1391,7 @@ bool ServerThread::downloadFileFromList(const string& target_file, const string&
         if (!dir)
             return false;
         string fname = Util::getFileName(target_file, '\\');
-        DirectoryListing::File* filePtr = NULL;
+        DirectoryListing::File* filePtr = nullptr;
         for (const auto& file : dir->files) {
             if (file->getName() == fname) {
                 filePtr = file;
@@ -1421,12 +1428,12 @@ bool ServerThread::settingsGetSet(string& out, const string& param, const string
     return b;
 }
 
-void ServerThread::ipfilterList(string& out, const string& separator)
+void ServerThread::ipFilterList(string& out, const string& separator)
 {
-    if (!ipfilter::getInstance())
+    if (!IPFilter::getInstance())
         return;
     string sep = separator.empty()? ";" : separator;
-    QIPList list = ipfilter::getInstance()->getRules();
+    IPList list = IPFilter::getInstance()->getRules();
     for (unsigned int i = 0; i < list.size(); ++i) {
 
         IPFilterElem *el = list.at(i);
@@ -1445,67 +1452,67 @@ void ServerThread::ipfilterList(string& out, const string& separator)
             default:
                 break;
         }
-        out+=prefix+string(ipfilter::Uint32ToString(el->ip)) + "/" + Util::toString(ipfilter::MaskToCIDR(el->mask))+ "|" + type + sep;
+        out+=prefix+string(IPFilter::Uint32ToString(el->ip)) + "/" + Util::toString(IPFilter::MaskToCIDR(el->mask))+ "|" + type + sep;
     }
 }
 
-void ServerThread::ipfilterOnOff(bool on)
+void ServerThread::ipFilterOnOff(bool on)
 {
     if (on) {
-        ipfilter::newInstance();
-        ipfilter::getInstance()->load();
+        IPFilter::newInstance();
+        IPFilter::getInstance()->load();
         SettingsManager::getInstance()->set(SettingsManager::IPFILTER, 1);
     } else {
-        if (!ipfilter::getInstance())
+        if (!IPFilter::getInstance())
             return;
-        ipfilter::getInstance()->shutdown();
+        IPFilter::getInstance()->shutdown();
         SettingsManager::getInstance()->set(SettingsManager::IPFILTER, 0);
     }
 }
 
-void ServerThread::ipfilterPurgeRules(const string& rules) {
-    if (!ipfilter::getInstance())
+void ServerThread::ipFilterPurgeRules(const string& rules) {
+    if (!IPFilter::getInstance())
         return;
     StringTokenizer<string> purge( rules, ";" );
-    for(StringIter i = purge.getTokens().begin(); i != purge.getTokens().end(); ++i) {
-        if (!i->find("!"))
-            ipfilter::getInstance()->remFromRules((*i), etaDROP);
+    for(const auto &token : purge.getTokens()) {
+        if (!token.find("!"))
+            IPFilter::getInstance()->remFromRules(token, etaDROP);
         else
-            ipfilter::getInstance()->remFromRules((*i), etaACPT);
+            IPFilter::getInstance()->remFromRules(token, etaACPT);
     }
 }
 
-void ServerThread::ipfilterAddRules(const string& rules) {
-    if (!ipfilter::getInstance())
+void ServerThread::ipFilterAddRules(const string& rules) {
+    if (!IPFilter::getInstance())
         return;
     StringTokenizer<string> add( rules, ";" );
-    for(StringIter i = add.getTokens().begin(); i != add.getTokens().end(); ++i)
+    for(const auto &token : add.getTokens())
     {
-        StringTokenizer<string> addsub( (*i), "|" );
+        StringTokenizer<string> addsub(token, "|");
         if (addsub.getTokens().size() == 0)
             return;
         if (addsub.getTokens().at(1) == "in")
-            ipfilter::getInstance()->addToRules(addsub.getTokens().at(0), eDIRECTION_IN);
+            IPFilter::getInstance()->addToRules(addsub.getTokens().at(0), eDIRECTION_IN);
         else if (addsub.getTokens().at(1) == "out")
-            ipfilter::getInstance()->addToRules(addsub.getTokens().at(0), eDIRECTION_OUT);
+            IPFilter::getInstance()->addToRules(addsub.getTokens().at(0), eDIRECTION_OUT);
         else
-            ipfilter::getInstance()->addToRules(addsub.getTokens().at(0), eDIRECTION_BOTH);
+            IPFilter::getInstance()->addToRules(addsub.getTokens().at(0), eDIRECTION_BOTH);
     }
 }
 
-void ServerThread::ipfilterUpDownRule(bool up, const string& rule) {
+void ServerThread::ipFilterUpDownRule(bool up, const string& rule) {
     if (up){
-        if (!ipfilter::getInstance())
+        if (!IPFilter::getInstance())
             return;
         uint32_t ip,mask; eTableAction act;
-        if (ipfilter::getInstance()->ParseString(rule, ip, mask, act))
-            ipfilter::getInstance()->moveRuleUp(ip, act);
+        if (IPFilter::getInstance()->ParseString(rule, ip, mask, act))
+            IPFilter::getInstance()->moveRuleUp(ip, act);
     } else {
-        if (!ipfilter::getInstance())
+        if (!IPFilter::getInstance())
             return;
         uint32_t ip,mask; eTableAction act;
-        if (ipfilter::getInstance()->ParseString(rule, ip, mask, act))
-            ipfilter::getInstance()->moveRuleDown(ip, act);
+        if (IPFilter::getInstance()->ParseString(rule, ip, mask, act))
+            IPFilter::getInstance()->moveRuleDown(ip, act);
     }
 }
 

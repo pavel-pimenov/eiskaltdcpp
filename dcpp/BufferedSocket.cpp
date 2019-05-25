@@ -1,5 +1,7 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
+ * Copyright (C) 2019 Boris Pek <tehnick-8@yandex.ru>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,32 +14,35 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
 
 #include "BufferedSocket.h"
 
-#include "TimerManager.h"
-#include "SettingsManager.h"
+#include <algorithm>
 
-#include "Streams.h"
-#include "SSLSocket.h"
+#include "ConnectivityManager.h"
 #include "CryptoManager.h"
+#include "SettingsManager.h"
+#include "SSLSocket.h"
+#include "Streams.h"
+#include "ThrottleManager.h"
+#include "TimerManager.h"
 #include "ZUtils.h"
 
-#include "ThrottleManager.h"
-
 namespace dcpp {
+
+using std::min;
+using std::max;
 
 // Polling is used for tasks...should be fixed...
 #define POLL_TIMEOUT 250
 
 BufferedSocket::BufferedSocket(char aSeparator) :
-separator(aSeparator), mode(MODE_LINE), dataBytes(0), rollback(0), state(STARTING),
-disconnecting(false)
+    separator(aSeparator), mode(MODE_LINE), dataBytes(0), rollback(0), state(STARTING),
+    disconnecting(false)
 {
     start();
 
@@ -57,14 +62,14 @@ void BufferedSocket::setMode (Modes aMode, size_t aRollback) {
     }
 
     switch (aMode) {
-        case MODE_LINE:
-            rollback = aRollback;
-            break;
-        case MODE_ZPIPE:
-            filterIn = std::unique_ptr<UnZFilter>(new UnZFilter);
-            break;
-        case MODE_DATA:
-            break;
+    case MODE_LINE:
+        rollback = aRollback;
+        break;
+    case MODE_ZPIPE:
+        filterIn = std::unique_ptr<UnZFilter>(new UnZFilter);
+        break;
+    case MODE_DATA:
+        break;
     }
     mode = aMode;
 }
@@ -95,13 +100,14 @@ void BufferedSocket::accept(const Socket& srv, bool secure, bool allowUntrusted)
     addTask(ACCEPTED, 0);
 }
 
-void BufferedSocket::connect(const string& aAddress, uint16_t aPort, bool secure, bool allowUntrusted, bool proxy) {
-    connect(aAddress, aPort, 0, NAT_NONE, secure, allowUntrusted, proxy);
+void BufferedSocket::connect(const string& aAddress, const string& aPort, bool secure, bool allowUntrusted, bool proxy, Socket::Protocol proto, const string& expKP) {
+    connect(aAddress, aPort, Util::emptyString, NAT_NONE, secure, allowUntrusted, proxy, proto, expKP);
 }
 
-void BufferedSocket::connect(const string& aAddress, uint16_t aPort, uint16_t localPort, NatRoles natRole, bool secure, bool allowUntrusted, bool proxy) {
+void BufferedSocket::connect(const string& aAddress, const string& aPort, const string& localPort, NatRoles natRole, bool secure, bool allowUntrusted, bool proxy, Socket::Protocol proto, const string& expKP) {
+    (void)expKP;
     dcdebug("BufferedSocket::connect() %p\n", (void*)this);
-    std::unique_ptr<Socket> s(secure ? (natRole == NAT_SERVER ? CryptoManager::getInstance()->getServerSocket(allowUntrusted) : CryptoManager::getInstance()->getClientSocket(allowUntrusted)) : new Socket);
+    std::unique_ptr<Socket> s(secure ? (natRole == NAT_SERVER ? CryptoManager::getInstance()->getServerSocket(allowUntrusted) : CryptoManager::getInstance()->getClientSocket(allowUntrusted, proto)) : new Socket);
 
     s->create();
     setSocket(move(s));
@@ -113,10 +119,10 @@ void BufferedSocket::connect(const string& aAddress, uint16_t aPort, uint16_t lo
 
 #define LONG_TIMEOUT 30000
 #define SHORT_TIMEOUT 1000
-void BufferedSocket::threadConnect(const string& aAddr, uint16_t aPort, uint16_t localPort, NatRoles natRole, bool proxy) {
+void BufferedSocket::threadConnect(const string& aAddr, const string &aPort, const string &localPort, NatRoles natRole, bool proxy) {
     dcassert(state == STARTING);
 
-    dcdebug("threadConnect %s:%d/%d\n", aAddr.c_str(), (int)localPort, (int)aPort);
+    dcdebug("threadConnect %s:%s/%s\n", aAddr.c_str(), localPort.c_str(), aPort.c_str());
     fire(BufferedSocketListener::Connecting());
 
     const uint64_t endTime = GET_TICK() + LONG_TIMEOUT;
@@ -190,84 +196,84 @@ void BufferedSocket::threadRead() {
 
     while (left > 0) {
         switch (mode) {
-            case MODE_ZPIPE: {
-                    const int BUF_SIZE = 1024;
-                    // Special to autodetect nmdc connections...
-                    string::size_type pos = 0;
-                    boost::scoped_array<char> buffer(new char[BUF_SIZE]);
-                    l = line;
-                    // decompress all input data and store in l.
-                    while (left) {
-                        size_t in = BUF_SIZE;
-                        size_t used = left;
-                        bool ret = (*filterIn) (&inbuf[0] + total - left, used, &buffer[0], in);
-                        left -= used;
-                        l.append (&buffer[0], in);
-                        // if the stream ends before the data runs out, keep remainder of data in inbuf
-                        if (!ret) {
-                            bufpos = total-left;
-                            setMode (MODE_LINE, rollback);
-                            break;
-                        }
-                    }
-                    // process all lines
-                    while ((pos = l.find(separator)) != string::npos) {
-                        if(pos > 0) // check empty (only pipe) command and don't waste cpu with it ;o)
-                            fire(BufferedSocketListener::Line(), l.substr(0, pos));
-                        l.erase (0, pos + 1 /* separator char */);
-                    }
-                    // store remainder
-                    line = l;
-
+        case MODE_ZPIPE: {
+            const int BUF_SIZE = 1024;
+            // Special to autodetect nmdc connections...
+            string::size_type pos = 0;
+            std::unique_ptr<char[]> buffer(new char[BUF_SIZE]);
+            l = line;
+            // decompress all input data and store in l.
+            while (left) {
+                size_t in = BUF_SIZE;
+                size_t used = left;
+                bool ret = (*filterIn) (&inbuf[0] + total - left, used, &buffer[0], in);
+                left -= used;
+                l.append (&buffer[0], in);
+                // if the stream ends before the data runs out, keep remainder of data in inbuf
+                if (!ret) {
+                    bufpos = total-left;
+                    setMode (MODE_LINE, rollback);
                     break;
                 }
-            case MODE_LINE:
-                // Special to autodetect nmdc connections...
-                if(separator == 0) {
-                    if(inbuf[0] == '$') {
-                        separator = '|';
-                    } else {
-                        separator = '\n';
-                    }
-                }
-                l = line + string ((char*)&inbuf[bufpos], left);
-                while ((pos = l.find(separator)) != string::npos) {
-                    if(pos > 0) // check empty (only pipe) command and don't waste cpu with it ;o)
-                        fire(BufferedSocketListener::Line(), l.substr(0, pos));
-                    l.erase (0, pos + 1 /* separator char */);
-                    if (l.length() < (size_t)left) left = l.length();
-                    if (mode != MODE_LINE) {
-                        // we changed mode; remainder of l is invalid.
-                        l.clear();
-                        bufpos = total - left;
-                        break;
-                    }
-                }
-                if (pos == string::npos)
-                    left = 0;
-                line = l;
-                break;
-            case MODE_DATA:
-                while(left > 0) {
-                    if(dataBytes == -1) {
-                        fire(BufferedSocketListener::Data(), &inbuf[bufpos], left);
-                        bufpos += (left - rollback);
-                        left = rollback;
-                        rollback = 0;
-                    } else {
-                        int high = (int)min(dataBytes, (int64_t)left);
-                        fire(BufferedSocketListener::Data(), &inbuf[bufpos], high);
-                        bufpos += high;
-                        left -= high;
+            }
+            // process all lines
+            while ((pos = l.find(separator)) != string::npos) {
+                if(pos > 0) // check empty (only pipe) command and don't waste cpu with it ;o)
+                    fire(BufferedSocketListener::Line(), l.substr(0, pos));
+                l.erase (0, pos + 1 /* separator char */);
+            }
+            // store remainder
+            line = l;
 
-                        dataBytes -= high;
-                        if(dataBytes == 0) {
-                            mode = MODE_LINE;
-                            fire(BufferedSocketListener::ModeChange());
-                        }
+            break;
+        }
+        case MODE_LINE:
+            // Special to autodetect nmdc connections...
+            if(separator == 0) {
+                if(inbuf[0] == '$') {
+                    separator = '|';
+                } else {
+                    separator = '\n';
+                }
+            }
+            l = line + string ((char*)&inbuf[bufpos], left);
+            while ((pos = l.find(separator)) != string::npos) {
+                if(pos > 0) // check empty (only pipe) command and don't waste cpu with it ;o)
+                    fire(BufferedSocketListener::Line(), l.substr(0, pos));
+                l.erase (0, pos + 1 /* separator char */);
+                if (l.length() < (size_t)left) left = l.length();
+                if (mode != MODE_LINE) {
+                    // we changed mode; remainder of l is invalid.
+                    l.clear();
+                    bufpos = total - left;
+                    break;
+                }
+            }
+            if (pos == string::npos)
+                left = 0;
+            line = l;
+            break;
+        case MODE_DATA:
+            while(left > 0) {
+                if(dataBytes == -1) {
+                    fire(BufferedSocketListener::Data(), &inbuf[bufpos], left);
+                    bufpos += (left - rollback);
+                    left = rollback;
+                    rollback = 0;
+                } else {
+                    int high = (int)min(dataBytes, (int64_t)left);
+                    fire(BufferedSocketListener::Data(), &inbuf[bufpos], high);
+                    bufpos += high;
+                    left -= high;
+
+                    dataBytes -= high;
+                    if(dataBytes == 0) {
+                        mode = MODE_LINE;
+                        fire(BufferedSocketListener::ModeChange());
                     }
                 }
-                break;
+            }
+            break;
         }
     }
 
@@ -481,7 +487,6 @@ void BufferedSocket::checkSocket() {
  */
 int BufferedSocket::run() {
     dcdebug("BufferedSocket::run() start %p\n", (void*)this);
-    setThreadName("BufferedSocket");
     while(true) {
         try {
             if(!checkEvents()) {
@@ -517,8 +522,8 @@ void BufferedSocket::shutdown() {
 }
 
 void BufferedSocket::addTask(Tasks task, TaskData* data) {
-    dcassert(task == DISCONNECT || task == SHUTDOWN || task == UPDATED || sock.get());
-    tasks.push_back(make_pair(task, unique_ptr<TaskData>(data))); taskSem.signal();
+    dcassert(task == DISCONNECT || task == SHUTDOWN || sock.get());
+    tasks.emplace_back(task, unique_ptr<TaskData>(data)); taskSem.signal();
 }
 
 } // namespace dcpp

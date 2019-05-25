@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -49,9 +48,9 @@ FinishedTransfers::FinishedTransfers(const EntryType type, const string &title, 
     totalTime(0)
 {
 #if !GTK_CHECK_VERSION(3,0,0)
-    gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(getWidget("averageSpeed")),FALSE);
-    gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(getWidget("totalSize")),FALSE);
-    gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(getWidget("totalItems")),FALSE);
+    gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(getWidget("averageSpeed")),false);
+    gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(getWidget("totalSize")),false);
+    gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR(getWidget("totalItems")),false);
 #endif
 
     // menu
@@ -73,9 +72,9 @@ FinishedTransfers::FinishedTransfers(const EntryType type, const string &title, 
     gtk_tree_view_set_model(fileView.get(), GTK_TREE_MODEL(fileStore));
     g_object_unref(fileStore);
     fileSelection = gtk_tree_view_get_selection(fileView.get());
-    gtk_tree_view_column_set_sort_indicator(gtk_tree_view_get_column(fileView.get(), fileView.col(_("Time"))), TRUE);
+    gtk_tree_view_column_set_sort_indicator(gtk_tree_view_get_column(fileView.get(), fileView.col(_("Time"))), true);
     gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fileStore), fileView.col(_("Time")), GTK_SORT_ASCENDING);
-    gtk_tree_view_set_fixed_height_mode(fileView.get(), TRUE);
+    gtk_tree_view_set_fixed_height_mode(fileView.get(), true);
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(fileView.get()), GTK_SELECTION_MULTIPLE);
 
     // Initialize user treeview
@@ -93,9 +92,9 @@ FinishedTransfers::FinishedTransfers(const EntryType type, const string &title, 
     gtk_tree_view_set_model(userView.get(), GTK_TREE_MODEL(userStore));
     g_object_unref(userStore);
     userSelection = gtk_tree_view_get_selection(userView.get());
-    gtk_tree_view_column_set_sort_indicator(gtk_tree_view_get_column(userView.get(), userView.col(_("Time"))), TRUE);
+    gtk_tree_view_column_set_sort_indicator(gtk_tree_view_get_column(userView.get(), userView.col(_("Time"))), true);
     gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(userStore), userView.col(_("Time")), GTK_SORT_ASCENDING);
-    gtk_tree_view_set_fixed_height_mode(userView.get(), TRUE);
+    gtk_tree_view_set_fixed_height_mode(userView.get(), true);
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(userView.get()), GTK_SELECTION_MULTIPLE);
 
     // Initialize the preview menu
@@ -116,9 +115,9 @@ FinishedTransfers::FinishedTransfers(const EntryType type, const string &title, 
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(getWidget("showOnlyFullFilesCheckButton")), BOOLSETTING(FINISHED_DL_ONLY_FULL));
 
     if (type == Entry::FINISHED_DOWNLOADS)
-       g_signal_connect(getWidget("showOnlyFullFilesCheckButton"), "toggled", G_CALLBACK(onShowOnlyFullFilesToggled_gui), (gpointer)this);
+        g_signal_connect(getWidget("showOnlyFullFilesCheckButton"), "toggled", G_CALLBACK(onShowOnlyFullFilesToggled_gui), (gpointer)this);
     else
-       gtk_widget_hide(getWidget("showOnlyFullFilesCheckButton"));
+        gtk_widget_hide(getWidget("showOnlyFullFilesCheckButton"));
 }
 
 FinishedTransfers::~FinishedTransfers()
@@ -145,12 +144,12 @@ bool FinishedTransfers::findUser_gui(GtkTreeIter* iter, const string& cid)
     while (valid)
     {
         if (userView.getString(iter, "CID") == cid)
-            return TRUE;
+            return true;
 
         valid = gtk_tree_model_iter_next(GTK_TREE_MODEL(userStore), iter);
     }
 
-    return FALSE;
+    return false;
 }
 
 bool FinishedTransfers::findFile_gui(GtkTreeIter* iter, const string& item)
@@ -160,12 +159,12 @@ bool FinishedTransfers::findFile_gui(GtkTreeIter* iter, const string& item)
     while (valid)
     {
         if (fileView.getString(iter, "Target") == item)
-            return TRUE;
+            return true;
 
         valid = gtk_tree_model_iter_next(GTK_TREE_MODEL(fileStore), iter);
     }
 
-    return FALSE;
+    return false;
 }
 
 void FinishedTransfers::addUser_gui(StringMap params, bool update)
@@ -189,15 +188,15 @@ void FinishedTransfers::addUser_gui(StringMap params, bool update)
     }
 
     gtk_list_store_set(userStore, &iter,
-        userView.col(_("Time")), params["Time"].c_str(),
-        userView.col(_("Nick")), params["Nick"].c_str(),
-        userView.col(_("Hub")), params["Hub"].c_str(),
-        userView.col(_("Files")), params["Files"].c_str(),
-        userView.col(_("Transferred")), transferred,
-        userView.col(_("Speed")), speed,
-        userView.col("CID"), params["CID"].c_str(),
-        userView.col("Elapsed Time"), time,
-        -1);
+                       userView.col(_("Time")), params["Time"].c_str(),
+            userView.col(_("Nick")), params["Nick"].c_str(),
+            userView.col(_("Hub")), params["Hub"].c_str(),
+            userView.col(_("Files")), params["Files"].c_str(),
+            userView.col(_("Transferred")), transferred,
+            userView.col(_("Speed")), speed,
+            userView.col("CID"), params["CID"].c_str(),
+            userView.col("Elapsed Time"), time,
+            -1);
 
     totalBytes += addSize;
     totalTime += addTime;
@@ -207,7 +206,7 @@ void FinishedTransfers::addUser_gui(StringMap params, bool update)
         updateStatus_gui();
 
         if ((!isUpload && WGETB("bold-finished-downloads")) ||
-             (isUpload && WGETB("bold-finished-uploads")))
+                (isUpload && WGETB("bold-finished-uploads")))
         {
             setBold_gui();
         }
@@ -216,11 +215,11 @@ void FinishedTransfers::addUser_gui(StringMap params, bool update)
 
 void FinishedTransfers::addFile_gui(StringMap params, bool update)
 {
-   if (!isUpload && params["full"] == "0" &&
-       gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(getWidget("showOnlyFullFilesCheckButton"))))
-   {
-       return;
-   }
+    if (!isUpload && params["full"] == "0" &&
+            gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(getWidget("showOnlyFullFilesCheckButton"))))
+    {
+        return;
+    }
 
     GtkTreeIter iter;
     int64_t transferred = Util::toInt64(params["Transferred"]);
@@ -233,23 +232,23 @@ void FinishedTransfers::addFile_gui(StringMap params, bool update)
         totalFiles++;
     }
     gtk_list_store_set(fileStore, &iter,
-        fileView.col(_("Time")), params["Time"].c_str(),
-        fileView.col(_("Filename")), params["Filename"].c_str(),
-        fileView.col(_("Path")), params["Path"].c_str(),
-        fileView.col(_("Nicks")), params["Nicks"].c_str(),
-        fileView.col(_("Transferred")), transferred,
-        fileView.col(_("Speed")), speed,
-        fileView.col(_("CRC Checked")), params["CRC Checked"].c_str(),
-        fileView.col("Target"), params["Target"].c_str(),
-        fileView.col("Elapsed Time"), time,
-        -1);
+                       fileView.col(_("Time")), params["Time"].c_str(),
+            fileView.col(_("Filename")), params["Filename"].c_str(),
+            fileView.col(_("Path")), params["Path"].c_str(),
+            fileView.col(_("Nicks")), params["Nicks"].c_str(),
+            fileView.col(_("Transferred")), transferred,
+            fileView.col(_("Speed")), speed,
+            fileView.col(_("CRC Checked")), params["CRC Checked"].c_str(),
+            fileView.col("Target"), params["Target"].c_str(),
+            fileView.col("Elapsed Time"), time,
+            -1);
 
     if (update)
     {
         updateStatus_gui();
 
         if ((!isUpload && WGETB("bold-finished-downloads")) ||
-             (isUpload && WGETB("bold-finished-uploads")))
+                (isUpload && WGETB("bold-finished-uploads")))
         {
             setBold_gui();
         }
@@ -285,6 +284,7 @@ void FinishedTransfers::updateStatus_gui()
 
 gboolean FinishedTransfers::onButtonPressed_gui(GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
+    (void)widget;
     FinishedTransfers *ft = (FinishedTransfers *)data;
     GtkTreeSelection *selection;
     TreeView *view;
@@ -310,16 +310,17 @@ gboolean FinishedTransfers::onButtonPressed_gui(GtkWidget *widget, GdkEventButto
             gtk_tree_path_free(path);
 
             if (selected)
-                return TRUE;
+                return true;
         }
     }
 
 
-    return FALSE;
+    return false;
 }
 
 gboolean FinishedTransfers::onButtonReleased_gui(GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
+    (void)widget;
     FinishedTransfers *ft = (FinishedTransfers *)data;
     GtkTreeSelection *selection;
     TreeView *view;
@@ -351,30 +352,35 @@ gboolean FinishedTransfers::onButtonReleased_gui(GtkWidget *widget, GdkEventButt
                 string target = ft->fileView.getString(&iter, "Target");
 
                 if (ft->appsPreviewMenu->buildMenu_gui(target))
-                    gtk_widget_set_sensitive(ft->getWidget("appsPreviewItem"), TRUE);
-                else gtk_widget_set_sensitive(ft->getWidget("appsPreviewItem"), FALSE);
+                    gtk_widget_set_sensitive(ft->getWidget("appsPreviewItem"), true);
+                else gtk_widget_set_sensitive(ft->getWidget("appsPreviewItem"), false);
             }
 
             gtk_tree_path_free(path);
             g_list_free(list);
 
-            gtk_widget_set_sensitive(ft->getWidget("openFolderItem"), TRUE);
+            gtk_widget_set_sensitive(ft->getWidget("openFolderItem"), true);
         }
         else
         {
-            gtk_widget_set_sensitive(ft->getWidget("appsPreviewItem"), FALSE);
-            gtk_widget_set_sensitive(ft->getWidget("openFolderItem"), FALSE);
+            gtk_widget_set_sensitive(ft->getWidget("appsPreviewItem"), false);
+            gtk_widget_set_sensitive(ft->getWidget("openFolderItem"), false);
         }
 
         gtk_widget_show_all(ft->getWidget("menu"));
+#if GTK_CHECK_VERSION(3,22,0)
+        gtk_menu_popup_at_pointer(GTK_MENU(ft->getWidget("menu")),NULL);
+#else
         gtk_menu_popup(GTK_MENU(ft->getWidget("menu")), NULL, NULL, NULL, NULL, 0, gtk_get_current_event_time());
+#endif
     }
 
-    return FALSE;
+    return false;
 }
 
 gboolean FinishedTransfers::onKeyReleased_gui(GtkWidget *widget, GdkEventKey *event, gpointer data)
 {
+    (void)widget;
     FinishedTransfers *ft = (FinishedTransfers *)data;
     GtkTreeSelection *selection;
     TreeView *view;
@@ -393,15 +399,15 @@ gboolean FinishedTransfers::onKeyReleased_gui(GtkWidget *widget, GdkEventKey *ev
 
     if (count > 0)
     {
-        if (view == &ft->fileView && (event->keyval == GDK_Return || event->keyval == GDK_KP_Enter))
+        if (view == &ft->fileView && (event->keyval == GDK_KEY_Return || event->keyval == GDK_KEY_KP_Enter))
         {
             onOpen_gui(NULL, data);
         }
-        else if (event->keyval == GDK_Delete || event->keyval == GDK_BackSpace)
+        else if (event->keyval == GDK_KEY_Delete || event->keyval == GDK_KEY_BackSpace)
         {
             onRemoveItems_gui(NULL, data);
         }
-        else if (event->keyval == GDK_Menu || (event->keyval == GDK_F10 && event->state & GDK_SHIFT_MASK))
+        else if (event->keyval == GDK_KEY_Menu || (event->keyval == GDK_KEY_F10 && event->state & GDK_SHIFT_MASK))
         {
             ft->appsPreviewMenu->cleanMenu_gui();
 
@@ -416,40 +422,41 @@ gboolean FinishedTransfers::onKeyReleased_gui(GtkWidget *widget, GdkEventKey *ev
                     string target = ft->fileView.getString(&iter, "Target");
 
                     if (ft->appsPreviewMenu->buildMenu_gui(target))
-                        gtk_widget_set_sensitive(ft->getWidget("appsPreviewItem"), TRUE);
-                    else gtk_widget_set_sensitive(ft->getWidget("appsPreviewItem"), FALSE);
+                        gtk_widget_set_sensitive(ft->getWidget("appsPreviewItem"), true);
+                    else gtk_widget_set_sensitive(ft->getWidget("appsPreviewItem"), false);
                 }
 
                 gtk_tree_path_free(path);
                 g_list_free(list);
 
-                gtk_widget_set_sensitive(ft->getWidget("openFolderItem"), TRUE);
+                gtk_widget_set_sensitive(ft->getWidget("openFolderItem"), true);
             }
             else
             {
-                gtk_widget_set_sensitive(ft->getWidget("appsPreviewItem"), FALSE);
-                gtk_widget_set_sensitive(ft->getWidget("openFolderItem"), FALSE);
+                gtk_widget_set_sensitive(ft->getWidget("appsPreviewItem"), false);
+                gtk_widget_set_sensitive(ft->getWidget("openFolderItem"), false);
             }
 
             gtk_widget_show_all(ft->getWidget("menu"));
+#if GTK_CHECK_VERSION(3,22,0)
+            gtk_menu_popup_at_pointer(GTK_MENU(ft->getWidget("menu")),NULL);
+#else
             gtk_menu_popup(GTK_MENU(ft->getWidget("menu")), NULL, NULL, NULL, NULL, 1, event->time);
+#endif
         }
     }
 
-    return FALSE;
+    return false;
 }
 
 void FinishedTransfers::onShowOnlyFullFilesToggled_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     FinishedTransfers *ft = (FinishedTransfers *)data;
     StringMap params;
     gtk_list_store_clear(ft->fileStore);
 
-#ifdef DO_NOT_USE_MUTEX
-    FinishedManager::getInstance()->lockLists();
-#else // DO_NOT_USE_MUTEX
     auto lock = FinishedManager::getInstance()->lockLists();
-#endif // DO_NOT_USE_MUTEX
 
     const FinishedManager::MapByFile &list = FinishedManager::getInstance()->getMapByFile(ft->isUpload);
 
@@ -457,17 +464,15 @@ void FinishedTransfers::onShowOnlyFullFilesToggled_gui(GtkWidget *widget, gpoint
     {
         params.clear();
         ft->getFinishedParams_client(it->second, it->first, params);
-        ft->addFile_gui(params, FALSE);
+        ft->addFile_gui(params, false);
     }
-#ifdef DO_NOT_USE_MUTEX
-    FinishedManager::getInstance()->unlockLists();
-#endif // DO_NOT_USE_MUTEX
 }
 
 void FinishedTransfers::onOpen_gui(GtkMenuItem *item, gpointer data)
 {
+    (void)item;
     FinishedTransfers *ft = (FinishedTransfers *)data;
-    int count = gtk_tree_selection_count_selected_rows(ft->fileSelection);
+    const int count = gtk_tree_selection_count_selected_rows(ft->fileSelection);
 
     if (count <= 0)
         return;
@@ -490,15 +495,16 @@ void FinishedTransfers::onOpen_gui(GtkMenuItem *item, gpointer data)
 
 }
 
-void FinishedTransfers::onPageSwitched_gui(GtkNotebook *notebook, GtkNotebook *page, guint num, gpointer data)
+void FinishedTransfers::onPageSwitched_gui(GtkNotebook*, GtkWidget*, guint, gpointer data)
 {
     ((FinishedTransfers*)data)->updateStatus_gui(); // Switch the total count between users and files
 }
 
 void FinishedTransfers::onOpenFolder_gui(GtkMenuItem *item, gpointer data)
 {
+    (void)item;
     FinishedTransfers *ft = (FinishedTransfers *)data;
-    int count = gtk_tree_selection_count_selected_rows(ft->fileSelection);
+    const int count = gtk_tree_selection_count_selected_rows(ft->fileSelection);
 
     if (count <= 0)
         return;
@@ -523,6 +529,7 @@ void FinishedTransfers::onOpenFolder_gui(GtkMenuItem *item, gpointer data)
 
 void FinishedTransfers::onRemoveItems_gui(GtkMenuItem *item, gpointer data)
 {
+    (void)item;
     FinishedTransfers *ft = (FinishedTransfers *)data;
     GtkTreeSelection *selection;
     TreeView *view;
@@ -617,6 +624,7 @@ void FinishedTransfers::removeFile_gui(string target)
 
 void FinishedTransfers::onRemoveAll_gui(GtkMenuItem *item, gpointer data)
 {
+    (void)item;
     FinishedTransfers *ft = (FinishedTransfers *)data;
 
     gtk_list_store_clear(ft->userStore);
@@ -635,11 +643,7 @@ void FinishedTransfers::onRemoveAll_gui(GtkMenuItem *item, gpointer data)
 void FinishedTransfers::initializeList_client()
 {
     StringMap params;
-#ifdef DO_NOT_USE_MUTEX
-    FinishedManager::getInstance()->lockLists();
-#else // DO_NOT_USE_MUTEX
     auto lock = FinishedManager::getInstance()->lockLists();
-#endif // DO_NOT_USE_MUTEX
     const FinishedManager::MapByFile &list = FinishedManager::getInstance()->getMapByFile(isUpload);
     const FinishedManager::MapByUser &user = FinishedManager::getInstance()->getMapByUser(isUpload);
 
@@ -647,19 +651,15 @@ void FinishedTransfers::initializeList_client()
     {
         params.clear();
         getFinishedParams_client(it->second, it->first, params);
-        addFile_gui(params, FALSE);
+        addFile_gui(params, false);
     }
 
     for (auto uit = user.begin(); uit != user.end(); ++uit)
     {
         params.clear();
         getFinishedParams_client(uit->second, uit->first, params);
-        addUser_gui(params, FALSE);
+        addUser_gui(params, false);
     }
-
-#ifdef DO_NOT_USE_MUTEX
-    FinishedManager::getInstance()->unlockLists();
-#endif // DO_NOT_USE_MUTEX
 
     updateStatus_gui();
 }
@@ -670,9 +670,9 @@ void FinishedTransfers::getFinishedParams_client(const FinishedFileItemPtr& item
     params["Filename"] = Util::getFileName(file);
     params["Time"] = Util::formatTime("%Y-%m-%d %H:%M:%S", item->getTime());
     params["Path"] = Util::getFilePath(file);
-    for (auto it = item->getUsers().begin(); it != item->getUsers().end(); ++it)
+    for (auto &user : item->getUsers())
     {
-            nicks += WulforUtil::getNicks(it->user->getCID(), it->hint) + ", ";
+        nicks += WulforUtil::getNicks(user.user->getCID(), user.hint) + ", ";
     }
     params["Nicks"] = nicks.substr(0, nicks.length() - 2);
     // item->getFileSize() seems to return crap. I guess there's no way to get
@@ -696,9 +696,9 @@ void FinishedTransfers::getFinishedParams_client(const FinishedUserItemPtr &item
     params["Time"] = Util::formatTime("%Y-%m-%d %H:%M:%S", item->getTime());
     params["Nick"] = WulforUtil::getNicks(user);
     params["Hub"] = WulforUtil::getHubNames(user);
-    for (auto it = item->getFiles().begin(); it != item->getFiles().end(); ++it)
+    for (auto &file : item->getFiles())
     {
-        files += *it + ", ";
+        files += file + ", ";
     }
     params["Files"] = files.substr(0, files.length() - 2);
     params["Transferred"] = Util::toString(item->getTransferred());
@@ -738,7 +738,7 @@ void FinishedTransfers::on(FinishedManagerListener::AddedFile, bool upload, cons
         getFinishedParams_client(item, file, params);
 
         typedef Func2<FinishedTransfers, StringMap, bool> F2;
-        F2* func = new F2(this, &FinishedTransfers::addFile_gui, params, TRUE);
+        F2* func = new F2(this, &FinishedTransfers::addFile_gui, params, true);
         WulforManager::get()->dispatchGuiFunc(func);
     }
 }
@@ -752,7 +752,7 @@ void FinishedTransfers::on(FinishedManagerListener::AddedUser, bool upload, cons
         getFinishedParams_client(item, user, params);
 
         typedef Func2<FinishedTransfers, StringMap, bool> F2;
-        F2 *func = new F2(this, &FinishedTransfers::addUser_gui, params, TRUE);
+        F2 *func = new F2(this, &FinishedTransfers::addUser_gui, params, true);
         WulforManager::get()->dispatchGuiFunc(func);
     }
 }
@@ -765,7 +765,7 @@ void FinishedTransfers::on(FinishedManagerListener::UpdatedFile, bool upload, co
         getFinishedParams_client(item, file, params);
 
         typedef Func2<FinishedTransfers, StringMap, bool> F2;
-        F2 *func = new F2(this, &FinishedTransfers::addFile_gui, params, TRUE);
+        F2 *func = new F2(this, &FinishedTransfers::addFile_gui, params, true);
         WulforManager::get()->dispatchGuiFunc(func);
     }
 }
@@ -785,7 +785,7 @@ void FinishedTransfers::on(FinishedManagerListener::UpdatedUser, bool upload, co
         getFinishedParams_client(item, user, params);
 
         typedef Func2<FinishedTransfers, StringMap, bool> F2;
-        F2 *func = new F2(this, &FinishedTransfers::addUser_gui, params, TRUE);
+        F2 *func = new F2(this, &FinishedTransfers::addUser_gui, params, true);
         WulforManager::get()->dispatchGuiFunc(func);
     }
 }

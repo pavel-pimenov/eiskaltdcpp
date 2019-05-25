@@ -67,34 +67,33 @@ void SettingsGUI::init(){
 
         int i = 0;
         int k = -1;
-#if !defined(Q_OS_WIN)
-        QDir translationsDir(CLIENT_TRANSLATIONS_DIR);
-#else
-        QDir translationsDir(qApp->applicationDirPath()+QDir::separator()+CLIENT_TRANSLATIONS_DIR);
-#endif
-        QMap<QString, QString> langNames;
-        langNames["en.qm"]       = tr("English");
-        langNames["ru.qm"]       = tr("Russian");
-        langNames["be.qm"]       = tr("Belarusian");
-        langNames["hu.qm"]       = tr("Hungarian");
-        langNames["fr.qm"]       = tr("French");
-        langNames["pl.qm"]       = tr("Polish");
-        langNames["pt_BR.qm"]    = tr("Portuguese (Brazil)");
-        langNames["sr.qm"]       = tr("Serbian (Cyrillic)");
-        langNames["sr@latin.qm"] = tr("Serbian (Latin)");
-        langNames["uk.qm"]       = tr("Ukrainian");
-        langNames["es.qm"]       = tr("Spanish");
-        langNames["eu.qm"]       = tr("Basque");
-        langNames["bg.qm"]       = tr("Bulgarian");
-        langNames["sk.qm"]       = tr("Slovak");
-        langNames["cs.qm"]       = tr("Czech");
-        langNames["de.qm"]       = tr("German");
-        langNames["el.qm"]       = tr("Greek");
-        langNames["it.qm"]       = tr("Italian");
-        langNames["vi.qm"]       = tr("Vietnamese");
-        langNames["zh_CN.qm"]    = tr("Chinese (China)");
-        langNames["sv_SE.qm"]    = tr("Swedish (Sweden)");
-        langNames["tr.qm"]       = tr("Turkish");
+
+        QDir translationsDir(WU->getTranslationsPath());
+
+        const QMap<QString, QString> langNames ({
+            { "en.qm",       tr("English") },
+            { "ru.qm",       tr("Russian") },
+            { "be.qm",       tr("Belarusian") },
+            { "hu.qm",       tr("Hungarian") },
+            { "fr.qm",       tr("French") },
+            { "pl.qm",       tr("Polish") },
+            { "pt_BR.qm",    tr("Portuguese (Brazil)") },
+            { "sr.qm",       tr("Serbian (Cyrillic)") },
+            { "sr@latin.qm", tr("Serbian (Latin)") },
+            { "uk.qm",       tr("Ukrainian") },
+            { "es.qm",       tr("Spanish") },
+            { "eu.qm",       tr("Basque") },
+            { "bg.qm",       tr("Bulgarian") },
+            { "sk.qm",       tr("Slovak") },
+            { "cs.qm",       tr("Czech") },
+            { "de.qm",       tr("German") },
+            { "el.qm",       tr("Greek") },
+            { "it.qm",       tr("Italian") },
+            { "vi.qm",       tr("Vietnamese") },
+            { "zh_CN.qm",    tr("Chinese (China)") },
+            { "sv_SE.qm",    tr("Swedish (Sweden)") },
+            { "tr.qm",       tr("Turkish") }
+        });
 
         QString full_path;
         QString lang;
@@ -109,16 +108,12 @@ void SettingsGUI::init(){
                 if (WSGET(WS_TRANSLATION_FILE).endsWith(f))
                     k = i;
 
-                i++;
+                ++i;
             }
         }
         comboBox_LANGS->setCurrentIndex(k);
 
-#if !defined(Q_OS_WIN)
-        QString users = CLIENT_ICONS_DIR "/user/";
-#else
-        QString users = qApp->applicationDirPath()+QDir::separator()+CLIENT_ICONS_DIR "/user/";
-#endif
+        const QString users = WU->getClientIconsPath() + "/user/";
         i = 0;
         k = -1;
         for (const QString &f : QDir(users).entryList(QDir::Dirs | QDir::NoSymLinks | QDir::NoDotAndDotDot)){
@@ -128,16 +123,12 @@ void SettingsGUI::init(){
                 if (f == WSGET(WS_APP_USERTHEME))
                     k = i;
 
-                i++;
+                ++i;
             }
         }
         comboBox_USERS->setCurrentIndex(k);
 
-#if !defined(Q_OS_WIN)
-        QString icons = CLIENT_ICONS_DIR "/appl/";
-#else
-        QString icons = qApp->applicationDirPath()+QDir::separator()+CLIENT_ICONS_DIR "/appl/";
-#endif
+        const QString icons = WU->getClientIconsPath() + "/appl/";
         i = 0;
         k = -1;
         for (const QString &f : QDir(icons).entryList(QDir::Dirs | QDir::NoSymLinks | QDir::NoDotAndDotDot)){
@@ -147,26 +138,22 @@ void SettingsGUI::init(){
                 if (f == WSGET(WS_APP_ICONTHEME))
                     k = i;
 
-                i++;
+                ++i;
             }
         }
         comboBox_ICONS->setCurrentIndex(k);
 
-#if !defined(Q_OS_WIN)
-        QString emot = CLIENT_DATA_DIR "/emoticons/";
-#else
-        QString emot = qApp->applicationDirPath()+QDir::separator()+CLIENT_DATA_DIR "/emoticons/";
-#endif
         comboBox_EMOT->setCurrentIndex(0);
         i = 0;
-        for (const QString &f : QDir(emot).entryList(QDir::Dirs | QDir::NoSymLinks | QDir::NoDotAndDotDot)){
+        for (const QString &f : QDir(WU->getEmoticonsPath())
+             .entryList(QDir::Dirs | QDir::NoSymLinks | QDir::NoDotAndDotDot)){
             if (!f.isEmpty()){
                 comboBox_EMOT->addItem(f);
 
                 if (f == WSGET(WS_APP_EMOTICON_THEME))
                     comboBox_EMOT->setCurrentIndex(i);
 
-                i++;
+                ++i;
             }
         }
 
@@ -197,10 +184,10 @@ void SettingsGUI::init(){
         checkBox_HIDE_ICONS_IN_MENU->setChecked(WBGET("mainwindow/dont-show-icons-in-menus", false));
 
         // Hide options which do not work in Mac OS X, MS Windows or Haiku:
-#if defined (Q_OS_WIN) || defined (__HAIKU__)
+#if defined (Q_OS_WIN) || defined(Q_OS_MAC) || defined (__HAIKU__)
         checkBox_ICONTHEME->hide();
-#elif defined(Q_OS_MAC)
-        checkBox_ICONTHEME->hide();
+#endif
+#if defined(Q_OS_MAC)
         groupBox_TRAY->hide();
 #endif
     }
@@ -344,7 +331,7 @@ void SettingsGUI::init(){
     connect(toolButton_LANGBROWSE, SIGNAL(clicked()), this, SLOT(slotBrowseLng()));
     connect(comboBox_LANGS, SIGNAL(activated(int)), this, SLOT(slotLngIndexChanged(int)));
     connect(comboBox_USERS, SIGNAL(activated(int)), this, SLOT(slotUsersChanged()));
-	connect(comboBox_ICONS, SIGNAL(activated(int)), this, SLOT(slotIconsChanged()));
+    connect(comboBox_ICONS, SIGNAL(activated(int)), this, SLOT(slotIconsChanged()));
     connect(toolButton_H_COLOR, SIGNAL(clicked()), this, SLOT(slotGetColor()));
     connect(toolButton_SHAREDFILES, SIGNAL(clicked()), this, SLOT(slotGetColor()));
     connect(toolButton_CHAT_BACKGROUND_COLOR, SIGNAL(clicked()), this, SLOT(slotGetColor()));
@@ -366,8 +353,7 @@ void SettingsGUI::ok(){
         if (!lineEdit_APPFONT->text().isEmpty())
             WSSET(WS_APP_FONT, lineEdit_APPFONT->text());
 
-        if (!lineEdit_LANGFILE->text().isEmpty() && (lineEdit_LANGFILE->text() != WSGET(WS_TRANSLATION_FILE)))
-            WSSET(WS_TRANSLATION_FILE, lineEdit_LANGFILE->text());
+        WSSET(WS_TRANSLATION_FILE, lineEdit_LANGFILE->text());
 
         WBSET(WB_MAINWINDOW_REMEMBER, radioButton_REMEMBER->isChecked());
         WBSET(WB_MAINWINDOW_HIDE, radioButton_HIDE->isChecked());
@@ -600,7 +586,10 @@ void SettingsGUI::slotBrowseFont(){
 }
 
 void SettingsGUI::slotBrowseLng(){
-    QString file = QFileDialog::getOpenFileName(this, tr("Select translation"), QString(CLIENT_TRANSLATIONS_DIR), tr("Translation (*.qm)"));
+    QString file = QFileDialog::getOpenFileName(this,
+                                                tr("Select translation"),
+                                                WulforUtil::getInstance()->getTranslationsPath(),
+                                                tr("Translation (*.qm)"));
 
     if (!file.isEmpty()){
         file = QDir::toNativeSeparators(file);

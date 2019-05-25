@@ -122,6 +122,8 @@ int Magnet::exec() {
 }
 
 void Magnet::search(const QString &file, const qulonglong &size, const QString &tth){
+    Q_UNUSED(size)
+
     if (!tth.isEmpty())
         Magnet::searchTTH(tth);
     else if (!file.isEmpty())
@@ -158,7 +160,7 @@ void Magnet::download() {
 }
 
 void Magnet::slotBrowse(){
-    QMenu *down_to = NULL;
+    QMenu *down_to = nullptr;
     QString aliases, paths;
 
     aliases = QByteArray::fromBase64(WSGET(WS_DOWNLOADTO_ALIASES).toUtf8());

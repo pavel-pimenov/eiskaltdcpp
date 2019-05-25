@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2009-2010 Big Muscle, http://strongdc.sf.net
+ * Copyright (C) 2019 Boris Pek <tehnick-8@yandex.ru>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +13,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdafx.h"
@@ -42,9 +42,14 @@
 namespace dht
 {
 
-    DHT::DHT(void) : bucket(NULL), lastPacket(0), firewalled(true), requestFWCheck(true), dirty(false)
+    DHT::DHT(void)
+        : bucket(nullptr)
+        , lastExternalIP(Util::getLocalIp()) // hack
+        , lastPacket(0)
+        , firewalled(true)
+        , requestFWCheck(true)
+        , dirty(false)
     {
-        lastExternalIP = Util::getLocalIp(); // hack
         type = ClientBase::DHT;
 
         IndexManager::newInstance();
@@ -53,7 +58,7 @@ namespace dht
     DHT::~DHT(void) throw()
     {
         // when DHT is disabled, we shouldn't try to perform exit cleanup
-        if(bucket == NULL) {
+        if(bucket == nullptr) {
             IndexManager::deleteInstance();
             return;
         }
@@ -113,14 +118,14 @@ namespace dht
             BootstrapManager::deleteInstance();
 
             delete bucket;
-            bucket = NULL;
+            bucket = nullptr;
         }
     }
 
     /*
      * Process incoming command
      */
-    void DHT::dispatch(const string& aLine, const string& ip, uint16_t port, bool isUdpKeyValid)
+    void DHT::dispatch(const string& aLine, const string& ip, const string& port, bool isUdpKeyValid)
     {
         // check node's IP address
         if(!Utils::isGoodIPPort(ip, port))
@@ -161,7 +166,7 @@ namespace dht
             string internalUdpPort;
             if(cmd.getParam("FW", 1, internalUdpPort))
             {
-                bool firewalled = (Util::toInt(internalUdpPort) != port);
+                bool firewalled = (internalUdpPort != port);
                 if(firewalled)
                     node->getUser()->setFlag(User::PASSIVE);
 
@@ -169,7 +174,7 @@ namespace dht
                 AdcCommand cmd(AdcCommand::SEV_SUCCESS, AdcCommand::SUCCESS, !firewalled ? "UDP port opened" : "UDP port closed", AdcCommand::TYPE_UDP);
                 cmd.addParam("FC", "FWCHECK");
                 cmd.addParam("I4", ip);
-                cmd.addParam("U4", Util::toString(port));
+                cmd.addParam("U4", port);
                 send(cmd, ip, port, node->getUser()->getCID(), node->getUdpKey());
             }
 
@@ -204,7 +209,7 @@ namespace dht
     /*
      * Sends command to ip and port
      */
-    void DHT::send(AdcCommand& cmd, const string& ip, uint16_t port, const CID& targetCID, const CID& udpKey)
+    void DHT::send(AdcCommand& cmd, const string& ip, const string& port, const CID& targetCID, const CID& udpKey)
     {
         {
             // FW check
@@ -214,7 +219,7 @@ namespace dht
                 if(firewalledWanted.count(ip) == 0) // only when not requested from this node yet
                 {
                     firewalledWanted.insert(ip);
-                    cmd.addParam("FW", Util::toString(getPort()));
+                    cmd.addParam("FW", getPort());
                 }
             }
         }
@@ -224,7 +229,7 @@ namespace dht
     /*
      * Creates new (or update existing) node which is NOT added to our routing table
      */
-    Node::Ptr DHT::createNode(const CID& cid, const string& ip, uint16_t port, bool update, bool isUdpKeyValid)
+    Node::Ptr DHT::createNode(const CID& cid, const string& ip, const string& port, bool update, bool isUdpKeyValid)
     {
         // create user as offline (only TCP connected users will be online)
         UserPtr u = ClientManager::getInstance()->getUser(cid);
@@ -296,19 +301,13 @@ namespace dht
     /*
      * Sends our info to specified ip:port
      */
-    void DHT::info(const string& ip, uint16_t port, uint32_t type, const CID& targetCID, const CID& udpKey)
+    void DHT::info(const string& ip, const string& port, uint32_t type, const CID& targetCID, const CID& udpKey)
     {
         // TODO: what info is needed?
         AdcCommand cmd(AdcCommand::CMD_INF, AdcCommand::TYPE_UDP);
 
-#ifdef SVNVERSION
-#define VER VERSIONSTRING SVNVERSION
-#else
-#define VER VERSIONSTRING
-#endif
-
         cmd.addParam("TY", Util::toString(type));
-        cmd.addParam("VE", ("EiskaltDC++ " VER));
+        cmd.addParam("VE", fullADCVersionString);
         cmd.addParam("NI", SETTING(NICK));
         cmd.addParam("SL", Util::toString(UploadManager::getInstance()->getSlots()));
 
@@ -375,7 +374,7 @@ namespace dht
             xml.stepIn();
 
             // load nodes; when file is older than 7 days, bootstrap from database later
-            if(f.getLastModified() > time(NULL) - 7 * 24 * 60 * 60)
+            if(f.getLastModified() > time(nullptr) - 7 * 24 * 60 * 60)
                 bucket->loadNodes(xml);
 
             // load indexes
@@ -433,7 +432,7 @@ namespace dht
     // user's info
     void DHT::handle(AdcCommand::INF, const Node::Ptr& node, AdcCommand& c) throw()
     {
-        string ip = node->getIdentity().getIp();
+        //string ip = node->getIdentity().getIp();
         string udpPort = node->getIdentity().getUdpPort();
 
         InfType it = NONE;
@@ -467,7 +466,7 @@ namespace dht
         if(it & PING)
         {
             // remove ping flag to avoid ping-pong-ping-pong-ping...
-            info(node->getIdentity().getIp(), static_cast<uint16_t>(Util::toInt(udpPort)), it & ~PING, node->getUser()->getCID(), node->getUdpKey());
+            info(node->getIdentity().getIp(), udpPort, it & ~PING, node->getUser()->getCID(), node->getUdpKey());
         }
     }
 
@@ -553,16 +552,16 @@ namespace dht
                 if(!c.getParam("I4", 1, externalIP) || !c.getParam("U4", 1, externalUdpPort))
                     return; // no IP and port in response
 
-                firewalledChecks.insert(std::make_pair(fromIP, std::make_pair(externalIP, static_cast<uint16_t>(Util::toInt(externalUdpPort)))));
+                firewalledChecks.insert(std::make_pair(fromIP, std::make_pair(externalIP, externalUdpPort)));
 
                 if(firewalledChecks.size() == FW_RESPONSES)
                 {
                     // when we received more firewalled statuses, we will be firewalled
                     int fw = 0; string lastIP;
-                    for(std::unordered_map< string, std::pair<string, uint16_t> >::const_iterator i = firewalledChecks.begin(); i != firewalledChecks.end(); ++i)
+                    for(const auto &i : firewalledChecks)
                     {
-                        string ip = i->second.first;
-                        uint16_t udpPort = i->second.second;
+                        const string ip = i.second.first;
+                        const string udpPort = i.second.second;
 
                         if(udpPort != getPort())
                             fw++;
@@ -662,13 +661,13 @@ namespace dht
             xml.stepOut();
 
             string nodesXML;
-            StringOutputStream sos(nodesXML);
+            StringRefOutputStream sos(nodesXML);
             //sos.write(SimpleXML::utf8Header);
             xml.toXML(&sos);
 
             cmd.addParam(Utils::compressXML(nodesXML));
 
-            send(cmd, node->getIdentity().getIp(), static_cast<uint16_t>(Util::toInt(node->getIdentity().getUdpPort())), node->getUser()->getCID(), node->getUdpKey());
+            send(cmd, node->getIdentity().getIp(), node->getIdentity().getUdpPort(), node->getUser()->getCID(), node->getUdpKey());
         }
     }
 
@@ -692,15 +691,15 @@ namespace dht
                 {
                     CID cid = CID(xml.getChildAttrib("CID"));
 
-                    if(cid.isZero())
+                    if(!cid)
                         continue;
 
                     // don't bother with myself
                     if(ClientManager::getInstance()->getMe()->getCID() == cid)
                         continue;
 
-                    const string& i4    = xml.getChildAttrib("I4");
-                    uint16_t u4         = static_cast<uint16_t>(xml.getIntChildAttrib("U4"));
+                    const string i4    = xml.getChildAttrib("I4");
+                    const string u4    = Util::toString(xml.getIntChildAttrib("U4"));
 
                     // don't bother with private IPs
                     if(!Utils::isGoodIPPort(i4, u4))

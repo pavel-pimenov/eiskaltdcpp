@@ -187,16 +187,15 @@ void AntiSpamFrame::clearTreeWidget(QTreeWidget *tree) {
     QTreeWidgetItemIterator it(tree, QTreeWidgetItemIterator::NotHidden);
 
     while (*it) {
-        if (*it)
-            delete *it;
+        delete *it;
         ++it;
     }
 
     tree->clear();
 }
 
-bool AntiSpamFrame::addToList(AntiSpamObjectState state, QString nick) {
-    if (nick == "")
+bool AntiSpamFrame::addToList(AntiSpamObjectState state, const QString &nick) {
+    if (nick.isEmpty())
         return false;
 
     if (!AntiSpam::getInstance())
@@ -217,7 +216,7 @@ bool AntiSpamFrame::addToList(AntiSpamObjectState state, QString nick) {
 
         AntiSpam::getInstance()->move(nick, state);
 
-        QTreeWidget *tree = NULL;
+        QTreeWidget *tree = nullptr;
 
         switch (e) {
             case eIN_BLACK:
@@ -232,7 +231,7 @@ bool AntiSpamFrame::addToList(AntiSpamObjectState state, QString nick) {
         }
         remItemFromTree(tree, nick);
 
-        tree = NULL;
+        tree = nullptr;
         switch (state) {
             case eIN_BLACK:
                 tree = treeWidget_BLACK;
@@ -249,7 +248,7 @@ bool AntiSpamFrame::addToList(AntiSpamObjectState state, QString nick) {
         return true;
     }
 
-    QTreeWidget *tree = NULL;
+    QTreeWidget *tree = nullptr;
 
     (*AntiSpam::getInstance()) << state << nick;
 
@@ -269,8 +268,8 @@ bool AntiSpamFrame::addToList(AntiSpamObjectState state, QString nick) {
     return true;
 }
 
-void AntiSpamFrame::addItemToTree(QTreeWidget *tree, QString text) {
-    if (!tree || text == "")
+void AntiSpamFrame::addItemToTree(QTreeWidget *tree, const QString &text) {
+    if (!tree || text.isEmpty())
         return;
 
     QTreeWidgetItem *it = new QTreeWidgetItem(tree);
@@ -278,8 +277,8 @@ void AntiSpamFrame::addItemToTree(QTreeWidget *tree, QString text) {
     it->setText(0, text);
 }
 
-void AntiSpamFrame::remItemFromTree(QTreeWidget *tree, QString text) {
-    if (!tree || text == "")
+void AntiSpamFrame::remItemFromTree(QTreeWidget *tree, const QString &text) {
+    if (!tree || text.isEmpty())
         return;
 
     QTreeWidgetItemIterator it(tree, QTreeWidgetItemIterator::NotHidden);
@@ -386,7 +385,7 @@ void AntiSpamFrame::slotAccept() {
     QList<QString> keys = lineEdit_KEY->text().split("|");
 
     for (int i = 0; i < keys.size(); i++){
-        if (keys.at(i) == ""){
+        if (keys.at(i).isEmpty()){
             keys.removeAt(i);
             i = 0;
         }
@@ -460,6 +459,7 @@ void AntiSpamFrame::slotGToW() {
 }
 
 void AntiSpamFrame::slotSettingsChanged(const QString &key, const QString &value){
+    Q_UNUSED(value)
     if (key == WS_TRANSLATION_FILE)
         retranslateUi(this);
 }

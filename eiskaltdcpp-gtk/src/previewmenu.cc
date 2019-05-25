@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -35,7 +34,7 @@ void PreviewMenu::cleanMenu_gui()
 bool PreviewMenu::buildMenu_gui(const string &target)
 {
     if (target == "none" || target.empty())
-        return FALSE;
+        return false;
 
     string file = Util::getFileName(target);
     string ext = Util::getFileExt(file);
@@ -53,7 +52,7 @@ bool PreviewMenu::buildMenu_gui(const string &target)
     }
 
     if (ext.empty() || ext == "." || file == ext)
-        return FALSE;
+        return false;
 
     ext.erase(0, 1);
 
@@ -93,11 +92,12 @@ bool PreviewMenu::buildMenu_gui(const string &target)
     g_object_set_data_full(G_OBJECT(itemApp), "application", g_strdup(""), g_free);
     g_object_set_data_full(G_OBJECT(itemApp), "target", g_strdup(target.c_str()), g_free);
 
-    return TRUE;
+    return true;
 }
 
 void PreviewMenu::onPreviewAppClicked_gui(GtkMenuItem *menuItem, gpointer data)
 {
+    (void)data;
     string command = (gchar *) g_object_get_data(G_OBJECT(menuItem), "command");
     string application = (gchar *) g_object_get_data(G_OBJECT(menuItem), "application");
     string target = (gchar *) g_object_get_data(G_OBJECT(menuItem), "target");

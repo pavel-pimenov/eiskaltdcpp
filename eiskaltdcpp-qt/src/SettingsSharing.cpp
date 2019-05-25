@@ -37,7 +37,7 @@ SettingsSharing::SettingsSharing(QWidget *parent):
 {
     setupUi(this);
 
-    model = NULL;
+    model = nullptr;
 
     init();
 }
@@ -152,13 +152,13 @@ void SettingsSharing::updateShareView(){
         treeWidget_SIMPLE_MODE->clear();
 
         StringPairList directories = ShareManager::getInstance()->getDirectories();
-        for (auto it = directories.begin(); it != directories.end(); ++it){
+        for (const auto &pair : directories){
             QTreeWidgetItem *item = new QTreeWidgetItem(treeWidget_SIMPLE_MODE);
 
-            item->setText(0, it->second.c_str());
-            item->setText(1, it->first.c_str());
-            item->setText(2, Util::formatBytes(ShareManager::getInstance()->getShareSize(it->second)).c_str());
-            item->setText(3, QString().setNum(ShareManager::getInstance()->getShareSize(it->second)));
+            item->setText(0, pair.second.c_str());
+            item->setText(1, pair.first.c_str());
+            item->setText(2, Util::formatBytes(ShareManager::getInstance()->getShareSize(pair.second)).c_str());
+            item->setText(3, QString().setNum(ShareManager::getInstance()->getShareSize(pair.second)));
         }
     }
 
@@ -284,7 +284,7 @@ void SettingsSharing::slotSimpleShareModeChanged(){
 void SettingsSharing::slotContextMenu(const QPoint &){
     QList<QTreeWidgetItem*> selected = treeWidget_SIMPLE_MODE->selectedItems();
     QMenu *menu = new QMenu();
-    QAction *add_new = NULL, *rem = NULL, *rename = NULL;
+    QAction *add_new = nullptr, *rem = nullptr, *rename = nullptr;
     WulforUtil *WU = WulforUtil::getInstance();
 
     add_new = new QAction(WU->getPixmap(WulforUtil::eiEDITADD), tr("Add"), menu);
@@ -392,8 +392,8 @@ ShareDirModel::ShareDirModel(QObject *parent){
     QDirModel::setFilter((QDir::AllDirs | QDir::NoDotAndDotDot));
 
     StringPairList directories = ShareManager::getInstance()->getDirectories();
-    for (auto it = directories.begin(); it != directories.end(); ++it){
-        QString path = it->second.c_str();
+    for (const auto &pair : directories){
+        QString path = pair.second.c_str();
 
         if (path.endsWith(QDir::separator()))
             path = path.left(path.lastIndexOf(QDir::separator()));

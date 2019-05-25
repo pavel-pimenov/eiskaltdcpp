@@ -37,13 +37,13 @@ using namespace dcpp;
 static void sortRecursive(int column, Qt::SortOrder order, FileBrowserItem *i);
 
 FileBrowserModel::FileBrowserModel(QObject *parent)
-    : QAbstractItemModel(parent), listing(NULL), iconsScaled(false), restrictionsLoaded(false), ownList(false)
+    : QAbstractItemModel(parent), listing(nullptr), iconsScaled(false), restrictionsLoaded(false), ownList(false)
 {
     QList<QVariant> rootItemCulumns;
     for (int k = 0; k < NUM_OF_COLUMNS; ++k)
         rootItemCulumns << QString();
 
-    rootItem = new FileBrowserItem(rootItemCulumns, NULL);
+    rootItem = new FileBrowserItem(rootItemCulumns, nullptr);
 
     sortColumn = COLUMN_FILEBROWSER_NAME;
     sortOrder = Qt::DescendingOrder;
@@ -60,8 +60,9 @@ FileBrowserModel::~FileBrowserModel()
         if (f.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)){
             QTextStream stream(&f);
 
-            for (auto it = restrict_map.begin(); it != restrict_map.end(); ++it)
+            for (auto it = restrict_map.begin(); it != restrict_map.end(); ++it) {
                 stream << it.value() << " " << it.key() << '\n';
+            }
 
             stream.flush();
 
@@ -263,14 +264,14 @@ struct Compare {
         template <int i>
         bool static AttrCmp(const FileBrowserItem * l, const FileBrowserItem * r) {
             if ((l->dir && !r->dir) || (!l->dir && r->dir)){
-                return (l->dir != NULL);
+                return (l->dir != nullptr);
             }
             return Cmp(QString::localeAwareCompare(l->data(i).toString(), r->data(i).toString()), 0);
         }
         template <int column>
         bool static NumCmp(const FileBrowserItem * l, const FileBrowserItem * r) {
             if ((l->dir && !r->dir) || (!l->dir && r->dir)){
-                return (l->dir != NULL);
+                return (l->dir != nullptr);
             }
             return Cmp(l->data(column).toULongLong(), r->data(column).toULongLong());
        }
@@ -308,7 +309,7 @@ QVariant FileBrowserModel::headerData(int section, Qt::Orientation orientation,
                                int role) const
 {
     QList<QVariant> rootData;
-    rootData << tr("Name") << tr("Size") << tr("Exact size") << tr("TTH")
+    rootData << tr("Name") << tr("Size") << tr("Exact size") << QString("TTH")
              << tr("Bitrate") << tr("Resolution") << tr("Video") << tr("Audio")
              << tr("Downloaded") << tr("Shared");
 
@@ -372,7 +373,7 @@ bool FileBrowserModel::canFetchMore(const QModelIndex &parent) const{
 
     FileBrowserItem *item = parent.isValid()? static_cast<FileBrowserItem*>(parent.internalPointer()) : rootItem;
 
-    return (item->dir && (item->dir->directories.size() != item->childCount()));
+    return (item->dir && (item->dir->directories.size() != static_cast<size_t>(item->childCount())));
 }
 
 void FileBrowserModel::fetchBranch(const QModelIndex &parent, dcpp::DirectoryListing::Directory *dir){
@@ -418,7 +419,6 @@ void FileBrowserModel::fetchMore(const QModelIndex &parent){
         fetchBranch(parent, listing->getRoot());
     else{
         FileBrowserItem *item = static_cast<FileBrowserItem*>(parent.internalPointer());
-        DirectoryListing::Directory::Iter it;
         QModelIndex i = createIndexForItem(item);
 
         for (const auto &dir : item->dir->directories) //loading child directories
@@ -467,7 +467,7 @@ void FileBrowserModel::setRootElem(FileBrowserItem *root, bool del_old, bool con
     if (del_old && root != rootItem){//prevent deleting own root element
         delete rootItem;
 
-        rootItem = NULL;
+        rootItem = nullptr;
     }
 
     rootItem = root;
@@ -527,7 +527,7 @@ QString FileBrowserModel::createRemotePath(FileBrowserItem *item) const{
 
 FileBrowserItem *FileBrowserModel::createRootForPath(const QString &path, FileBrowserItem *pathRoot){
     if (path.isEmpty() || path.isNull())
-        return NULL;
+        return nullptr;
 
     QString _path = path;
     _path.replace("\\", "/");
@@ -536,14 +536,14 @@ FileBrowserItem *FileBrowserModel::createRootForPath(const QString &path, FileBr
     FileBrowserItem *root = pathRoot?pathRoot:rootItem;
 
     if (list.empty() || !root)
-        return NULL;
+        return nullptr;
 
     for (const auto &s : list){
         if (s.isEmpty())
             continue;
 
         if (!root)
-            return NULL;
+            return nullptr;
 
         if (s == ".." && root->parent()){
             root = root->parent();
@@ -677,32 +677,38 @@ void FileBrowserModel::repaint(){
     emit layoutChanged();
 }
 
-FileBrowserItem::FileBrowserItem(const QList<QVariant> &data, FileBrowserItem *parent) :
-    dir(NULL), file(NULL), isDuplicate(false), itemData(data), parentItem(parent)
+FileBrowserItem::FileBrowserItem(const QList<QVariant> &data, FileBrowserItem *parent)
+    : dir(nullptr)
+    , file(nullptr)
+    , isDuplicate(false)
+    , itemData(data)
+    , parentItem(parent)
 {
 }
 
-FileBrowserItem::FileBrowserItem(const FileBrowserItem &item){
-    itemData = item.itemData;
-    dir = item.dir;
-    file = item.file;
-    isDuplicate = item.isDuplicate;
-    childItems = item.childItems;
-    parentItem = item.parentItem;
+FileBrowserItem::FileBrowserItem(const FileBrowserItem &in)
+    : childItems(in.childItems)
+    , dir(in.dir)
+    , file(in.file)
+    , isDuplicate(in.isDuplicate)
+    , itemData(in.itemData)
+    , parentItem(in.parentItem)
+{
 }
-void FileBrowserItem::operator=(const FileBrowserItem &item){
-    itemData = item.itemData;
-    dir = item.dir;
-    file = item.file;
-    isDuplicate = item.isDuplicate;
-    childItems = item.childItems;
-    parentItem = item.parentItem;
+
+void FileBrowserItem::operator=(const FileBrowserItem &in){
+    itemData = in.itemData;
+    dir = in.dir;
+    file = in.file;
+    isDuplicate = in.isDuplicate;
+    childItems = in.childItems;
+    parentItem = in.parentItem;
 }
 
 FileBrowserItem::~FileBrowserItem()
 {
-    if (!childItems.isEmpty())
-        qDeleteAll(childItems);
+    qDeleteAll(childItems);
+    childItems.clear();
 }
 
 void FileBrowserItem::appendChild(FileBrowserItem *item) {
@@ -745,10 +751,10 @@ void FileBrowserItem::updateColumn(int column, QVariant var){
 
 FileBrowserItem *FileBrowserItem::nextSibling(){
     if (!parent())
-        return NULL;
+        return nullptr;
 
     if (row() == (parent()->childCount()-1))
-        return NULL;
+        return nullptr;
 
     return parent()->child(row()+1);
 }

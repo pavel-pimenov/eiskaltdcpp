@@ -40,6 +40,7 @@
 #include <QTimer>
 #include <QAction>
 #include <QStatusBar>
+#include <QDate>
 
 #include "ArenaWidgetManager.h"
 #include "ArenaWidgetFactory.h"
@@ -68,7 +69,6 @@
 #include "SideBar.h"
 #include "ActionCustomizer.h"
 #include "MultiLineToolBar.h"
-#include "IPFilter.h"
 #include "SearchBlacklist.h"
 #include "QueuedUsers.h"
 #ifdef FREE_SPACE_BAR_C
@@ -86,6 +86,7 @@
 #include "dcpp/SettingsManager.h"
 #include "WulforSettings.h"
 #include "WulforUtil.h"
+#include "extra/ipfilter.h"
 
 using namespace std;
 
@@ -104,115 +105,120 @@ public:
         int yPos = 0;
 
         // Widgets
-        QDockWidget *arena;
-        QDockWidget *transfer_dock;
-        QDockWidget *sideDock;
+        QDockWidget *arena = nullptr;
+        QDockWidget *transfer_dock = nullptr;
+        QDockWidget *sideDock = nullptr;
 
-        ToolBar *fBar; //for actions
-        ToolBar *sBar; //for fast search
+        ToolBar *fBar = nullptr; //for actions
+        ToolBar *sBar = nullptr; //for fast search
 
         QStringList core_msg_history;
 
-        LineEdit   *searchLineEdit;
-        QLabel *statusLabel;
-        QLabel *statusSPLabel;
-        QLabel *statusDLabel;
-        QLabel *statusTRLabel;
-        QLabel *msgLabel;
-        QProgressBar *progressSpace;
-        QProgressBar *progressHashing;
-        HashProgress *_progress_dialog; // Hashing progress dialog
+        LineEdit *searchLineEdit = nullptr;
+        QLabel *statusLabel = nullptr;
+        QLabel *statusSPLabel = nullptr;
+        QLabel *statusDLabel = nullptr;
+        QLabel *statusTRLabel = nullptr;
+        QLabel *msgLabel = nullptr;
 
-        QMenu   *menuFile;
-        QAction *fileOpenMagnet;
-        QAction *fileFileListBrowser;
-        QAction *fileFileHasher;
-        QAction *fileFileListBrowserLocal;
-        QAction *fileFileListMatchAll;
-        QAction *fileRefreshShareHashProgress;
-        QAction *fileOpenLogFile;
-        QAction *fileOpenDownloadDirectory;
-        QAction *fileHideWindow;
-        QAction *fileQuit;
-
-        QMenu   *menuHubs;
-        QAction *hubsHubReconnect;
-        QAction *hubsQuickConnect;
-        QAction *hubsFavoriteHubs;
-        QAction *hubsPublicHubs;
-        QAction *hubsFavoriteUsers;
-
-        QMenu   *menuTools;
-        QAction *toolsSearch;
-        QAction *toolsADLS;
-        QAction *toolsCmdDebug;
-        QAction *toolsTransfers;
-        QAction *toolsDownloadQueue;
-        QAction *toolsQueuedUsers;
-        QAction *toolsFinishedDownloads;
-        QAction *toolsFinishedUploads;
-        QAction *toolsSpy;
-        QAction *toolsAntiSpam;
-        QAction *toolsIPFilter;
-        QAction *menuAwayAction;
-        QAction *toolsHubManager;
-        // submenu
-        QMenu   *menuAway;
-        QActionGroup *awayGroup;
-        QAction *toolsAwayOn;
-        QAction *toolsAwayOff;
-        QAction *toolsAutoAway;
-        // end
-        QAction *toolsHideProgressSpace;
-        QAction *toolsHideLastStatus;
-        QAction *toolsHideUsersStatisctics;
-        QAction *toolsCopyWindowTitle;
-        QAction *toolsOptions;
-#ifdef USE_JS
-        QAction *toolsJS;
-        QAction *toolsJSConsole;
-        ScriptConsole *scriptConsole;
+#if defined(USE_PROGRESS_BARS)
+        QProgressBar *progressFreeSpace = nullptr;
+#else
+        QLabel *progressFreeSpace = nullptr;
 #endif
-        QAction *toolsSwitchSpeedLimit;
+        QProgressBar *progressHashing = nullptr;
+        HashProgress *_progress_dialog = nullptr; // Hashing progress dialog
 
-        QMenu   *menuPanels;
+        QMenu   *menuFile = nullptr;
+        QAction *fileOpenMagnet = nullptr;
+        QAction *fileFileListBrowser = nullptr;
+        QAction *fileFileHasher = nullptr;
+        QAction *fileFileListBrowserLocal = nullptr;
+        QAction *fileFileListMatchAll = nullptr;
+        QAction *fileRefreshShareHashProgress = nullptr;
+        QAction *fileOpenLogFile = nullptr;
+        QAction *fileOpenDownloadDirectory = nullptr;
+        QAction *fileHideWindow = nullptr;
+        QAction *fileQuit = nullptr;
+
+        QMenu   *menuHubs = nullptr;
+        QAction *hubsHubReconnect = nullptr;
+        QAction *hubsQuickConnect = nullptr;
+        QAction *hubsFavoriteHubs = nullptr;
+        QAction *hubsPublicHubs = nullptr;
+        QAction *hubsFavoriteUsers = nullptr;
+
+        QMenu   *menuTools = nullptr;
+        QAction *toolsSearch = nullptr;
+        QAction *toolsADLS = nullptr;
+        QAction *toolsCmdDebug = nullptr;
+        QAction *toolsTransfers = nullptr;
+        QAction *toolsDownloadQueue = nullptr;
+        QAction *toolsQueuedUsers = nullptr;
+        QAction *toolsFinishedDownloads = nullptr;
+        QAction *toolsFinishedUploads = nullptr;
+        QAction *toolsSpy = nullptr;
+        QAction *toolsAntiSpam = nullptr;
+        QAction *toolsIPFilter = nullptr;
+        QAction *menuAwayAction = nullptr;
+        QAction *toolsHubManager = nullptr;
         // submenu
-        QMenu   *sh_menu;
+        QMenu   *menuAway = nullptr;
+        QActionGroup *awayGroup = nullptr;
+        QAction *toolsAwayOn = nullptr;
+        QAction *toolsAwayOff = nullptr;
+        QAction *toolsAutoAway = nullptr;
         // end
-        QAction *panelsWidgets;
-        QAction *panelsTools;
-        QAction *panelsSearch;
+        QAction *toolsHideProgressSpace = nullptr;
+        QAction *toolsHideLastStatus = nullptr;
+        QAction *toolsHideUsersStatisctics = nullptr;
+        QAction *toolsCopyWindowTitle = nullptr;
+        QAction *toolsOptions = nullptr;
+#ifdef USE_JS
+        QAction *toolsJS = nullptr;
+        QAction *toolsJSConsole = nullptr;
+        ScriptConsole *scriptConsole = nullptr;
+#endif
+        QAction *toolsSwitchSpeedLimit = nullptr;
+
+        QMenu   *menuPanels = nullptr;
+        // submenu
+        QMenu   *sh_menu = nullptr;
+        // end
+        QAction *panelsWidgets = nullptr;
+        QAction *panelsTools = nullptr;
+        QAction *panelsSearch = nullptr;
 
         // Standalone shortcuts
-        QAction *prevTabShortCut;
-        QAction *nextTabShortCut;
-        QAction *prevMsgShortCut;
-        QAction *nextMsgShortCut;
-        QAction *closeWidgetShortCut;
-        QAction *toggleMainMenuShortCut;
+        QAction *prevTabShortCut = nullptr;
+        QAction *nextTabShortCut = nullptr;
+        QAction *prevMsgShortCut = nullptr;
+        QAction *nextMsgShortCut = nullptr;
+        QAction *closeWidgetShortCut = nullptr;
+        QAction *toggleMainMenuShortCut = nullptr;
 
-        QAction *chatDisable;
-        QAction *findInWidget;
-        QAction *chatClear;
+        QAction *chatDisable = nullptr;
+        QAction *findInWidget = nullptr;
+        QAction *chatClear = nullptr;
 
-        QMenu *menuWidgets;
+        QMenu *menuWidgets = nullptr;
         QHash<QAction*, ArenaWidget*> menuWidgetsHash;
 
-        QMenu   *menuAbout;
-        QAction *aboutHomepage;
-        QAction *aboutSource;
-        QAction *aboutIssues;
-        QAction *aboutWiki;
-        QAction *aboutChangelog;
-        QAction *aboutClient;
-        QAction *aboutQt;
+        QMenu   *menuAbout = nullptr;
+        QAction *aboutHomepage = nullptr;
+        QAction *aboutSource = nullptr;
+        QAction *aboutIssues = nullptr;
+        QAction *aboutWiki = nullptr;
+        QAction *aboutChangelog = nullptr;
+        QAction *aboutClient = nullptr;
+        QAction *aboutQt = nullptr;
 
         ActionList toolBarActions;
         ActionList fileMenuActions;
         ActionList hubsMenuActions;
         ActionList toolsMenuActions;
 
-        QMenu *favHubMenu;
+        QMenu *favHubMenu = nullptr;
 };
 
 static const QString &TOOLBUTTON_STYLE = "mainwindow/toolbar-toolbutton-style";
@@ -225,16 +231,16 @@ MainWindow::MainWindow (QWidget *parent):
 {
     Q_D(MainWindow);
 
-    d->statusLabel = NULL;
-    d->fBar = NULL;
-    d->sBar = NULL;
-    d->_progress_dialog = NULL;
-    d->sideDock = NULL;
-    d->menuPanels = NULL;
+    d->statusLabel = nullptr;
+    d->fBar = nullptr;
+    d->sBar = nullptr;
+    d->_progress_dialog = nullptr;
+    d->sideDock = nullptr;
+    d->menuPanels = nullptr;
 #ifdef USE_JS
-    d->scriptConsole = NULL;
+    d->scriptConsole = nullptr;
 #endif
-    d->favHubMenu = NULL;
+    d->favHubMenu = nullptr;
 
     d->exitBegin = false;
 
@@ -349,8 +355,12 @@ void MainWindow::closeEvent(QCloseEvent *c_e){
     if (d->isUnload && WBGET(WB_EXIT_CONFIRM) && !d->exitBegin){
         QMessageBox::StandardButton ret;
 
-        ret = QMessageBox::question(this, tr("Exit confirm"),
-                                    tr("Exit program?"),
+        QString dlg_message = tr("Exit program?");
+        if (QDate::currentDate().day() == 1 && QDate::currentDate().month() == 4) {
+            dlg_message = tr("Kill all humans?");
+        }
+        ret = QMessageBox::question(this,  tr("Action confirm"),
+                                    dlg_message,
                                     QMessageBox::Yes | QMessageBox::No,
                                     QMessageBox::Yes);
 
@@ -396,7 +406,7 @@ void MainWindow::closeEvent(QCloseEvent *c_e){
     }
 
     d->arena->hide();
-    d->arena->setWidget(NULL);
+    d->arena->setWidget(nullptr);
 
     c_e->accept();
 }
@@ -514,7 +524,7 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *e){
 
         return true;
     }
-    else if (obj == d->progressSpace && e->type() == QEvent::MouseButtonDblClick ){
+    else if (obj == d->progressFreeSpace && e->type() == QEvent::MouseButtonDblClick ){
         slotFileOpenDownloadDirectory();
 
         return true;
@@ -533,7 +543,7 @@ void MainWindow::init(){
     connect(this, SIGNAL(coreUpdateStats(QMap<QString,QString>)), this, SLOT(updateStatus(QMap<QString,QString>)), Qt::QueuedConnection);
 
     d->arena = new QDockWidget();
-    d->arena->setWidget(NULL);
+    d->arena->setWidget(nullptr);
     d->arena->setFloating(false);
     d->arena->setContentsMargins(0, 0, 0, 0);
     d->arena->setAllowedAreas(Qt::RightDockWidgetArea);
@@ -543,7 +553,7 @@ void MainWindow::init(){
     d->arena->setMinimumSize( 10, 10 );
 
     d->transfer_dock = new QDockWidget(this);
-    d->transfer_dock->setWidget(NULL);
+    d->transfer_dock->setWidget(nullptr);
     d->transfer_dock->setFloating(false);
     d->transfer_dock->setObjectName("transfer_dock");
     d->transfer_dock->setAllowedAreas(Qt::BottomDockWidgetArea);
@@ -560,7 +570,7 @@ void MainWindow::init(){
 
     this->setWindowIcon(WICON(WulforUtil::eiICON_APPL));
 
-    setWindowTitle(QString("%1").arg(EISKALTDCPP_WND_TITLE));
+    setWindowTitle(QString::fromStdString(eiskaltdcppAppNameString));
 
     initActions();
 
@@ -694,13 +704,13 @@ void MainWindow::initActions(){
     {
         d->fileOpenMagnet = new QAction("", this);
         d->fileOpenMagnet->setObjectName("fileOpenMagnet");
-        SM->registerShortcut(d->fileOpenMagnet, tr("Ctrl+I"));
+        SM->registerShortcut(d->fileOpenMagnet, QString("Ctrl+I"));
         d->fileOpenMagnet->setIcon(WU->getPixmap(WulforUtil::eiDOWNLOAD));
         connect(d->fileOpenMagnet, SIGNAL(triggered()), this, SLOT(slotOpenMagnet()));
 
         d->fileFileListBrowserLocal = new QAction("", this);
         d->fileFileListBrowserLocal->setObjectName("fileFileListBrowserLocal");
-        SM->registerShortcut(d->fileFileListBrowserLocal, tr("Ctrl+L"));
+        SM->registerShortcut(d->fileFileListBrowserLocal, QString("Ctrl+L"));
         d->fileFileListBrowserLocal->setIcon(WU->getPixmap(WulforUtil::eiOWN_FILELIST));
         connect(d->fileFileListBrowserLocal, SIGNAL(triggered()), this, SLOT(slotFileBrowseOwnFilelist()));
 
@@ -731,50 +741,50 @@ void MainWindow::initActions(){
 
         d->fileRefreshShareHashProgress = new QAction("", this);
         d->fileRefreshShareHashProgress->setObjectName("fileRefreshShareHashProgress");
-        SM->registerShortcut(d->fileRefreshShareHashProgress, tr("Ctrl+E"));
+        SM->registerShortcut(d->fileRefreshShareHashProgress, QString("Ctrl+E"));
         d->fileRefreshShareHashProgress->setIcon(WU->getPixmap(WulforUtil::eiHASHING));
         connect(d->fileRefreshShareHashProgress, SIGNAL(triggered()), this, SLOT(slotFileRefreshShareHashProgress()));
 
         d->fileHideWindow = new QAction("", this);
         d->fileHideWindow->setObjectName("fileHideWindow");
-        SM->registerShortcut(d->fileHideWindow, tr("Ctrl+Alt+H"));
+        SM->registerShortcut(d->fileHideWindow, QString("Ctrl+Alt+H"));
         d->fileHideWindow->setIcon(WU->getPixmap(WulforUtil::eiHIDEWINDOW));
         connect(d->fileHideWindow, SIGNAL(triggered()), this, SLOT(slotHideWindow()));
 
         d->fileQuit = new QAction("", this);
         d->fileQuit->setObjectName("fileQuit");
-        SM->registerShortcut(d->fileQuit, tr("Ctrl+Q"));
+        SM->registerShortcut(d->fileQuit, QString("Ctrl+Q"));
         d->fileQuit->setMenuRole(QAction::QuitRole);
         d->fileQuit->setIcon(WU->getPixmap(WulforUtil::eiEXIT));
         connect(d->fileQuit, SIGNAL(triggered()), this, SLOT(slotExit()));
 
         d->hubsHubReconnect = new QAction("", this);
         d->hubsHubReconnect->setObjectName("hubsHubReconnect");
-        SM->registerShortcut(d->hubsHubReconnect, tr("Ctrl+R"));
+        SM->registerShortcut(d->hubsHubReconnect, QString("Ctrl+R"));
         d->hubsHubReconnect->setIcon(WU->getPixmap(WulforUtil::eiRECONNECT));
         connect(d->hubsHubReconnect, SIGNAL(triggered()), this, SLOT(slotHubsReconnect()));
 
         d->hubsQuickConnect = new QAction("", this);
         d->hubsQuickConnect->setObjectName("hubsQuickConnect");
-        SM->registerShortcut(d->hubsQuickConnect, tr("Ctrl+N"));
+        SM->registerShortcut(d->hubsQuickConnect, QString("Ctrl+N"));
         d->hubsQuickConnect->setIcon(WU->getPixmap(WulforUtil::eiCONNECT));
         connect(d->hubsQuickConnect, SIGNAL(triggered()), this, SLOT(slotQC()));
 
         d->hubsFavoriteHubs = new QAction("", this);
         d->hubsFavoriteHubs->setObjectName("hubsFavoriteHubs");
-        SM->registerShortcut(d->hubsFavoriteHubs, tr("Ctrl+H"));
+        SM->registerShortcut(d->hubsFavoriteHubs, QString("Ctrl+H"));
         d->hubsFavoriteHubs->setIcon(WU->getPixmap(WulforUtil::eiFAVSERVER));
         connect(d->hubsFavoriteHubs, SIGNAL(triggered()), this, SLOT(slotHubsFavoriteHubs()));
 
         d->hubsPublicHubs = new QAction("", this);
         d->hubsPublicHubs->setObjectName("hubsPublicHubs");
-        SM->registerShortcut(d->hubsPublicHubs, tr("Ctrl+P"));
+        SM->registerShortcut(d->hubsPublicHubs, QString("Ctrl+P"));
         d->hubsPublicHubs->setIcon(WU->getPixmap(WulforUtil::eiSERVER));
         connect(d->hubsPublicHubs, SIGNAL(triggered()), this, SLOT(slotHubsPublicHubs()));
 
         d->hubsFavoriteUsers = new QAction("", this);
         d->hubsFavoriteUsers->setObjectName("hubsFavoriteUsers");
-        SM->registerShortcut(d->hubsFavoriteUsers, tr("Ctrl+U"));
+        SM->registerShortcut(d->hubsFavoriteUsers, QString("Ctrl+U"));
         d->hubsFavoriteUsers->setIcon(WU->getPixmap(WulforUtil::eiFAVUSERS));
         connect(d->hubsFavoriteUsers, SIGNAL(triggered()), this, SLOT(slotHubsFavoriteUsers()));
 
@@ -790,7 +800,7 @@ void MainWindow::initActions(){
 
         d->toolsOptions = new QAction("", this);
         d->toolsOptions->setObjectName("toolsOptions");
-        SM->registerShortcut(d->toolsOptions, tr("Ctrl+O"));
+        SM->registerShortcut(d->toolsOptions, QString("Ctrl+O"));
         d->toolsOptions->setMenuRole(QAction::PreferencesRole);
         d->toolsOptions->setIcon(WU->getPixmap(WulforUtil::eiCONFIGURE));
         connect(d->toolsOptions, SIGNAL(triggered()), this, SLOT(slotToolsSettings()));
@@ -806,7 +816,7 @@ void MainWindow::initActions(){
 
         d->toolsTransfers = new QAction("", this);
         d->toolsTransfers->setObjectName("toolsTransfers");
-        SM->registerShortcut(d->toolsTransfers, tr("Ctrl+T"));
+        SM->registerShortcut(d->toolsTransfers, QString("Ctrl+T"));
         d->toolsTransfers->setIcon(WU->getPixmap(WulforUtil::eiTRANSFER));
         d->toolsTransfers->setCheckable(true);
         connect(d->toolsTransfers, SIGNAL(toggled(bool)), this, SLOT(slotToolsTransfer(bool)));
@@ -814,25 +824,25 @@ void MainWindow::initActions(){
 
         d->toolsDownloadQueue = new QAction("", this);
         d->toolsDownloadQueue->setObjectName("toolsDownloadQueue");
-        SM->registerShortcut(d->toolsDownloadQueue, tr("Ctrl+D"));
+        SM->registerShortcut(d->toolsDownloadQueue, QString("Ctrl+D"));
         d->toolsDownloadQueue->setIcon(WU->getPixmap(WulforUtil::eiDOWNLOAD));
         connect(d->toolsDownloadQueue, SIGNAL(triggered()), this, SLOT(slotToolsDownloadQueue()));
 
         d->toolsQueuedUsers = new QAction("", this);
         d->toolsQueuedUsers->setObjectName("toolsQueuedUsers");
-        SM->registerShortcut(d->toolsQueuedUsers, tr("Ctrl+Shift+U"));
+        SM->registerShortcut(d->toolsQueuedUsers, QString("Ctrl+Shift+U"));
         d->toolsQueuedUsers->setIcon(WU->getPixmap(WulforUtil::eiUSERS));
         connect(d->toolsQueuedUsers, SIGNAL(triggered()), this, SLOT(slotToolsQueuedUsers()));
 
         d->toolsFinishedDownloads = new QAction("", this);
         d->toolsFinishedDownloads->setObjectName("toolsFinishedDownloads");
-        SM->registerShortcut(d->toolsFinishedDownloads, tr("Ctrl+["));
+        SM->registerShortcut(d->toolsFinishedDownloads, QString("Ctrl+["));
         d->toolsFinishedDownloads->setIcon(WU->getPixmap(WulforUtil::eiDOWNLIST));
         connect(d->toolsFinishedDownloads, SIGNAL(triggered()), this, SLOT(slotToolsFinishedDownloads()));
 
         d->toolsFinishedUploads = new QAction("", this);
         d->toolsFinishedUploads->setObjectName("toolsFinishedUploads");
-        SM->registerShortcut(d->toolsFinishedUploads, tr("Ctrl+]"));
+        SM->registerShortcut(d->toolsFinishedUploads, QString("Ctrl+]"));
         d->toolsFinishedUploads->setIcon(WU->getPixmap(WulforUtil::eiUPLIST));
         connect(d->toolsFinishedUploads, SIGNAL(triggered()), this, SLOT(slotToolsFinishedUploads()));
 
@@ -845,14 +855,14 @@ void MainWindow::initActions(){
         d->toolsAntiSpam->setObjectName("toolsAntiSpam");
         d->toolsAntiSpam->setIcon(WU->getPixmap(WulforUtil::eiSPAM));
         d->toolsAntiSpam->setCheckable(true);
-        d->toolsAntiSpam->setChecked(AntiSpam::getInstance() != NULL);
+        d->toolsAntiSpam->setChecked(AntiSpam::getInstance() != nullptr);
         connect(d->toolsAntiSpam, SIGNAL(triggered()), this, SLOT(slotToolsAntiSpam()));
 
         d->toolsIPFilter = new QAction("", this);
         d->toolsIPFilter->setObjectName("toolsIPFilter");
         d->toolsIPFilter->setIcon(WU->getPixmap(WulforUtil::eiFILTER));
         d->toolsIPFilter->setCheckable(true);
-        d->toolsIPFilter->setChecked(IPFilter::getInstance() != NULL);
+        d->toolsIPFilter->setChecked(IPFilter::getInstance() != nullptr);
         connect(d->toolsIPFilter, SIGNAL(triggered()), this, SLOT(slotToolsIPFilter()));
 
         d->toolsAwayOn = new QAction("", this);
@@ -878,7 +888,7 @@ void MainWindow::initActions(){
 
         d->toolsJSConsole = new QAction("", this);
         d->toolsJSConsole->setObjectName("toolsJSConsole");
-        SM->registerShortcut(d->toolsJSConsole, tr("Ctrl+Alt+J"));
+        SM->registerShortcut(d->toolsJSConsole, QString("Ctrl+Alt+J"));
         d->toolsJSConsole->setIcon(WU->getPixmap(WulforUtil::eiCONSOLE));
         connect(d->toolsJSConsole, SIGNAL(triggered()), this, SLOT(slotToolsJSConsole()));
 #endif
@@ -904,7 +914,7 @@ void MainWindow::initActions(){
 
         d->toolsSearch = new QAction("", this);
         d->toolsSearch->setObjectName("toolsSearch");
-        SM->registerShortcut(d->toolsSearch, tr("Ctrl+S"));
+        SM->registerShortcut(d->toolsSearch, QString("Ctrl+S"));
         d->toolsSearch->setIcon(WU->getPixmap(WulforUtil::eiFILEFIND));
         connect(d->toolsSearch, SIGNAL(triggered()), this, SLOT(slotToolsSearch()));
 
@@ -929,7 +939,7 @@ void MainWindow::initActions(){
 
         d->toolsSwitchSpeedLimit = new QAction("", this);
         d->toolsSwitchSpeedLimit->setObjectName("toolsSwitchSpeedLimit");
-        SM->registerShortcut(d->toolsSwitchSpeedLimit, tr("Ctrl+K"));
+        SM->registerShortcut(d->toolsSwitchSpeedLimit, QString("Ctrl+K"));
         d->toolsSwitchSpeedLimit->setIcon(BOOLSETTING(THROTTLE_ENABLE)? WU->getPixmap(WulforUtil::eiSPEED_LIMIT_ON) : WU->getPixmap(WulforUtil::eiSPEED_LIMIT_OFF));
         d->toolsSwitchSpeedLimit->setCheckable(true);
         d->toolsSwitchSpeedLimit->setChecked(BOOLSETTING(THROTTLE_ENABLE));
@@ -942,7 +952,7 @@ void MainWindow::initActions(){
 
         d->findInWidget = new QAction("", this);
         d->findInWidget->setObjectName("findInWidget");
-        SM->registerShortcut(d->findInWidget, tr("Ctrl+F"));
+        SM->registerShortcut(d->findInWidget, QString("Ctrl+F"));
         d->findInWidget->setIcon(WU->getPixmap(WulforUtil::eiFIND));
         connect(d->findInWidget, SIGNAL(triggered()), this, SLOT(slotFind()));
 
@@ -1090,12 +1100,12 @@ void MainWindow::initActions(){
         d->closeWidgetShortCut->setShortcutContext(Qt::ApplicationShortcut);
         d->toggleMainMenuShortCut->setShortcutContext(Qt::ApplicationShortcut);
 
-        SM->registerShortcut(d->nextTabShortCut, tr("Ctrl+PgDown"));
-        SM->registerShortcut(d->prevTabShortCut, tr("Ctrl+PgUp"));
-        SM->registerShortcut(d->nextMsgShortCut, tr("Ctrl+Down"));
-        SM->registerShortcut(d->prevMsgShortCut, tr("Ctrl+Up"));
-        SM->registerShortcut(d->closeWidgetShortCut, tr("Ctrl+W"));
-        SM->registerShortcut(d->toggleMainMenuShortCut, tr("Ctrl+M"));
+        SM->registerShortcut(d->nextTabShortCut, QString("Ctrl+PgDown"));
+        SM->registerShortcut(d->prevTabShortCut, QString("Ctrl+PgUp"));
+        SM->registerShortcut(d->nextMsgShortCut, QString("Ctrl+Down"));
+        SM->registerShortcut(d->prevMsgShortCut, QString("Ctrl+Up"));
+        SM->registerShortcut(d->closeWidgetShortCut, QString("Ctrl+W"));
+        SM->registerShortcut(d->toggleMainMenuShortCut, QString("Ctrl+M"));
 
         connect(d->nextMsgShortCut,        SIGNAL(triggered()), this, SLOT(nextMsg()));
         connect(d->prevMsgShortCut,        SIGNAL(triggered()), this, SLOT(prevMsg()));
@@ -1156,7 +1166,7 @@ void MainWindow::initActions(){
 void MainWindow::initMenuBar(){
 #if defined(Q_OS_MAC)
     setMenuBar(new QMenuBar());
-    menuBar()->setParent(NULL);
+    menuBar()->setParent(nullptr);
     connect(this, SIGNAL(destroyed()), menuBar(), SLOT(deleteLater()));
 #endif
 
@@ -1246,18 +1256,26 @@ void MainWindow::initStatusBar(){
     d->msgLabel->setContentsMargins(0, 0, 0, 0);
 
 #if (defined FREE_SPACE_BAR_C)
-    d->progressSpace = new QProgressBar(this);
-    d->progressSpace->setMaximum(100);
-    d->progressSpace->setMinimum(0);
-    d->progressSpace->setAlignment( Qt::AlignHCenter );
-    d->progressSpace->setMinimumWidth(100);
-    d->progressSpace->setMaximumWidth(250);
-    d->progressSpace->setFixedHeight(18);
-    d->progressSpace->setToolTip(tr("Space free"));
-    d->progressSpace->installEventFilter(this);
+#if defined(USE_PROGRESS_BARS)
+    d->progressFreeSpace = new QProgressBar(this);
+    d->progressFreeSpace->setMaximum(100);
+    d->progressFreeSpace->setMinimum(0);
+    d->progressFreeSpace->setAlignment(Qt::AlignHCenter);
+#else
+    d->progressFreeSpace = new QLabel(this);
+    d->progressFreeSpace->setTextFormat(Qt::PlainText);
+    d->progressFreeSpace->setText(tr("Space free"));
+    d->progressFreeSpace->setAlignment(Qt::AlignRight);
+#endif
+
+    d->progressFreeSpace->setMinimumWidth(100);
+    d->progressFreeSpace->setMaximumWidth(250);
+    d->progressFreeSpace->setFixedHeight(18);
+    d->progressFreeSpace->setToolTip(tr("Space free"));
+    d->progressFreeSpace->installEventFilter(this);
 
     if (!WBGET(WB_SHOW_FREE_SPACE))
-        d->progressSpace->hide();
+        d->progressFreeSpace->hide();
 #else //FREE_SPACE_BAR_C
     WBSET(WB_SHOW_FREE_SPACE, false);
 #endif //FREE_SPACE_BAR_C
@@ -1277,7 +1295,7 @@ void MainWindow::initStatusBar(){
     statusBar()->addPermanentWidget(d->statusSPLabel);
     statusBar()->addPermanentWidget(d->statusLabel);
 #if (defined FREE_SPACE_BAR_C)
-    statusBar()->addPermanentWidget(d->progressSpace);
+    statusBar()->addPermanentWidget(d->progressFreeSpace);
 #endif //FREE_SPACE_BAR_C
 }
 
@@ -1382,7 +1400,7 @@ void MainWindow::retranslateUi(){
 
         d->toolsADLS->setText(tr("ADLSearch"));
 
-        d->toolsCmdDebug->setText(tr("CmdDebug"));
+        d->toolsCmdDebug->setText(tr("Debug Console"));
 
         d->toolsSwitchSpeedLimit->setText(tr("Speed limit On/Off"));
 
@@ -1548,13 +1566,13 @@ QObject *MainWindow::getToolBar(){
     Q_D(MainWindow);
 
     if (!d->fBar)
-        return NULL;
+        return nullptr;
 
     return qobject_cast<QObject*>(reinterpret_cast<QToolBar*>(d->fBar->qt_metacast("QToolBar")));
 }
 
 ArenaWidget *MainWindow::widgetForRole(ArenaWidget::Role r) const{
-    ArenaWidget *awgt = NULL;
+    ArenaWidget *awgt = nullptr;
     Q_D(const MainWindow);
 
     switch (r){
@@ -1693,19 +1711,28 @@ void MainWindow::updateStatus(const QMap<QString, QString> &map){
                 total = 0;
             }
         }
-        float percent = 100.0f*(total-available)/total;
-        QString format = tr("Free %1")
-                         .arg(WulforUtil::formatBytes(available));
+        const QString text = tr("Free %1")
+                .arg(WulforUtil::formatBytes(available));
 
-        QString tooltip = tr("Free %1 of %2")
-                          .arg(WulforUtil::formatBytes(available))
-                          .arg(WulforUtil::formatBytes(total));
+        const QString tooltip = tr("Free %1 of %2")
+                .arg(WulforUtil::formatBytes(available))
+                .arg(WulforUtil::formatBytes(total));
 
-        d->progressSpace->setFormat(format);
-        d->progressSpace->setToolTip(tooltip);
-        d->progressSpace->setValue(static_cast<unsigned>(percent));
+#if defined(USE_PROGRESS_BARS)
+        const float percent = 100.0f*(total-available)/total;
+        d->progressFreeSpace->setFormat(text);
+        d->progressFreeSpace->setValue(static_cast<unsigned>(percent));
+#else
+        d->progressFreeSpace->setText(text);
+#endif
+        d->progressFreeSpace->setToolTip(tooltip);
 
-        d->progressSpace->setFixedWidth(metrics.width(format) > d->progressSpace->width()? metrics.width(d->progressSpace->text()) + 40 : d->progressSpace->width());
+        if (metrics.width(text) > d->progressFreeSpace->width()) {
+            d->progressFreeSpace->setFixedWidth(metrics.width(d->progressFreeSpace->text()) + 40);
+        }
+        else {
+            d->progressFreeSpace->setFixedWidth(d->progressFreeSpace->width());
+        }
 #endif //FREE_SPACE_BAR_C
     }
 
@@ -1841,7 +1868,7 @@ void MainWindow::parseCmdLine(const QStringList &args){
             m.setLink(arg);
             m.exec();
         }
-        else if (arg.startsWith("dchub://")){
+        else if (arg.startsWith("dchub://") || arg.startsWith("nmdcs://")){
             newHubFrame(arg, "");
         }
         else if (arg.startsWith("adc://") || arg.startsWith("adcs://")){
@@ -1893,14 +1920,13 @@ void MainWindow::slotFileMatchAllList(){
 void MainWindow::redrawToolPanel(){
     Q_D(MainWindow);
 
-    auto it = d->menuWidgetsHash.begin();
-    auto end = d->menuWidgetsHash.end();
-
-    ArenaWidget *awgt = NULL;
-    PMWindow *pm = NULL;
+    ArenaWidget *awgt = nullptr;
+    PMWindow *pm = nullptr;
     bool has_unread = false;
 
-    for (; it != end; ++it){ //also redraw all widget menu items and change window title if needed
+    // Also redraw all widget menu items and change window title if needed:
+    auto end = d->menuWidgetsHash.end();
+    for (auto it = d->menuWidgetsHash.begin(); it != end; ++it){
         awgt = it.value();
         it.key()->setText(awgt->getArenaShortTitle());
         it.key()->setIcon(awgt->getPixmap());
@@ -1910,7 +1936,7 @@ void MainWindow::redrawToolPanel(){
             has_unread = true;
 
         if (awgt && d->arena->widget() && d->arena->widget() == awgt->getWidget())
-            setWindowTitle(awgt->getArenaTitle() + " :: " + QString("%1").arg(EISKALTDCPP_WND_TITLE));
+            setWindowTitle(awgt->getArenaTitle() + " :: " + QString::fromStdString(eiskaltdcppAppNameString));
     }
 
 #if !defined(Q_OS_MAC)
@@ -1931,7 +1957,7 @@ void MainWindow::mapWidgetOnArena(ArenaWidget *awgt){
     Q_D(MainWindow);
 
     if (!(awgt && awgt->getWidget())){
-        d->arena->setWidget(NULL);
+        d->arena->setWidget(nullptr);
 
         return;
     }
@@ -1939,7 +1965,7 @@ void MainWindow::mapWidgetOnArena(ArenaWidget *awgt){
     if (d->arena->widget() != awgt->getWidget())
         d->arena->setWidget(awgt->getWidget());
 
-    setWindowTitle(awgt->getArenaTitle() + " :: " + QString("%1").arg(EISKALTDCPP_WND_TITLE));
+    setWindowTitle(awgt->getArenaTitle() + " :: " + QString::fromStdString(eiskaltdcppAppNameString));
 
     if (awgt->toolButton())
         awgt->toolButton()->setChecked(true);
@@ -2034,7 +2060,7 @@ void MainWindow::toggleSingletonWidget(ArenaWidget *a){
 }
 
 void MainWindow::toggleMainMenu(bool showMenu){
-    static QAction *compactMenus = NULL;
+    static QAction *compactMenus = nullptr;
 
     menuBar()->setVisible(showMenu);
 
@@ -2053,7 +2079,7 @@ void MainWindow::toggleMainMenu(bool showMenu){
             }
             else {
                 compactMenus->menu()->deleteLater();
-                compactMenus->setMenu(NULL);
+                compactMenus->setMenu(nullptr);
             }
 
             QMenu *m = new QMenu(this);
@@ -2261,7 +2287,7 @@ void MainWindow::slotToolsAntiSpam(){
 
     Q_D(MainWindow);
 
-    d->toolsAntiSpam->setChecked(AntiSpam::getInstance() != NULL);
+    d->toolsAntiSpam->setChecked(AntiSpam::getInstance() != nullptr);
 }
 
 void MainWindow::slotToolsIPFilter(){
@@ -2271,7 +2297,7 @@ void MainWindow::slotToolsIPFilter(){
 
     Q_D(MainWindow);
 
-    d->toolsIPFilter->setChecked(IPFilter::getInstance() != NULL);
+    d->toolsIPFilter->setChecked(IPFilter::getInstance() != nullptr);
 }
 
 void MainWindow::slotToolsAutoAway(){
@@ -2341,14 +2367,16 @@ void MainWindow::slotJSFileChanged(const QString &script){
         break;
     }
     }
+#else
+    Q_UNUSED(script)
 #endif
 }
 
 
 void MainWindow::slotToolsJSConsole(){
+#ifdef USE_JS
     Q_D(MainWindow);
 
-#ifdef USE_JS
     if (!d->scriptConsole)
         d->scriptConsole = new ScriptConsole(this);
 
@@ -2401,7 +2429,7 @@ void MainWindow::slotToolsTransfer(bool toggled){
         d->transfer_dock->setWidget(TransferView::getInstance());
     }
     else {
-        d->transfer_dock->setWidget(NULL);
+        d->transfer_dock->setWidget(nullptr);
         d->transfer_dock->setVisible(false);
     }
 }
@@ -2516,12 +2544,12 @@ void MainWindow::slotHideProgressSpace() {
     Q_D(MainWindow);
 
     if (WBGET(WB_SHOW_FREE_SPACE)) {
-        d->progressSpace->hide();
+        d->progressFreeSpace->hide();
         d->toolsHideProgressSpace->setText(tr("Show free space bar"));
 
         WBSET(WB_SHOW_FREE_SPACE, false);
     } else {
-        d->progressSpace->show();
+        d->progressFreeSpace->show();
         d->toolsHideProgressSpace->setText(tr("Hide free space bar"));
 
         WBSET(WB_SHOW_FREE_SPACE, true);
@@ -2631,10 +2659,10 @@ void MainWindow::slotAboutOpenUrl(){
 
     QAction *act = qobject_cast<QAction *>(sender());
     if (act == d->aboutHomepage){
-        QDesktopServices::openUrl(QUrl("http://github.com/eiskaltdcpp/eiskaltdcpp/"));
+        QDesktopServices::openUrl(QUrl("https://github.com/eiskaltdcpp/eiskaltdcpp/"));
     }
     else if (act == d->aboutSource){
-        QDesktopServices::openUrl(QUrl("http://github.com/eiskaltdcpp/eiskaltdcpp/"));
+        QDesktopServices::openUrl(QUrl("https://github.com/eiskaltdcpp/eiskaltdcpp/"));
     }
     else if (act == d->aboutIssues){
         QDesktopServices::openUrl(QUrl("https://github.com/eiskaltdcpp/eiskaltdcpp/issues"));
@@ -2660,26 +2688,28 @@ void MainWindow::slotAboutClient() {
         ratio = 0;
 
     a.label->setText(QString("<b>%1</b> %2")
-                     .arg(EISKALTDCPP_WND_TITLE)
-                     .arg(EISKALTDCPP_VERSION));
+                     .arg(QString::fromStdString(eiskaltdcppAppNameString))
+                     .arg(QString::fromStdString(eiskaltdcppVersionString)));
 
     QString html_format = "a { text-decoration:none; }\n"
                           "a:hover { text-decoration: underline; }\n";
 
-    QString about_text = tr("EiskaltDC++ is a graphical client for Direct Connect and ADC protocols.<br/><br/>"
-                            ""
-                            "DC++ core version: %1 (modified)<br/><br/>"
-                            ""
-                            "Home page: <a href=\"https://github.com/eiskaltdcpp/eiskaltdcpp/\">"
-                            "https://github.com/eiskaltdcpp/eiskaltdcpp/</a><br/><br/>"
-                            ""
-                            "Total up: <b>%2</b><br/>"
-                            "Total down: <b>%3</b><br/>"
-                            "Ratio: <b>%4</b>"
-                         ).arg(DCVERSIONSTRING)
-                          .arg(WulforUtil::formatBytes(up))
-                          .arg(WulforUtil::formatBytes(down))
-                          .arg(ratio, 0, 'f', 3);
+    QString about_text = tr("EiskaltDC++ is a graphical client for Direct Connect and ADC protocols.")+
+                         QString("<br/>")+
+                         QString("<br/>")+
+                         tr("DC++ core version: %1 (modified)").arg(DCPP_VERSION)+
+                         QString("<br/>")+
+                         QString("<br/>")+
+                         tr("Home page: ")+
+                         QString("<a href=\"https://github.com/eiskaltdcpp/eiskaltdcpp/\">"
+                                 "https://github.com/eiskaltdcpp/eiskaltdcpp/</a>")+
+                         QString("<br/>")+
+                         QString("<br/>")+
+                         tr("Total up: <b>%1</b>").arg(WulforUtil::formatBytes(up))+
+                         QString("<br/>")+
+                         tr("Total down: <b>%1</b>").arg(WulforUtil::formatBytes(down))+
+                         QString("<br/>")+
+                         tr("Ratio: <b>%1</b>").arg(ratio, 0, 'f', 3);
 
     a.label_ABOUT->setText(about_text);
 
@@ -2692,41 +2722,83 @@ void MainWindow::slotAboutClient() {
         tr("<b>Developers</b><br/>")+
         QString("<br/>")+
         QString("&nbsp; 2009-2012 <a href=\"mailto:dein.negativ@gmail.com\">Andrey Karlov</a><br/>")+
-        tr("&nbsp;&nbsp;&nbsp; (main developer since version 0.4.10)<br/>")+
+        QString("&nbsp;&nbsp;&nbsp; * ")+
+        tr("lead developer")+QString(", 2009-2012")+
+        QString("<br/>")+
+        QString("&nbsp;&nbsp;&nbsp; * ")+
+        tr("release manager")+QString(", 2009-2010")+
+        QString("<br/>")+
         QString("<br/>")+
         QString("&nbsp; 2009-2015 <a href=\"mailto:dhamp@ya.ru\">Eugene Petrov</a><br/>")+
-        tr("&nbsp;&nbsp;&nbsp; (Arch Linux maintainer and developer since version 0.4.10)<br/>")+
+        QString("&nbsp;&nbsp;&nbsp; * ")+
+        tr("Arch Linux maintainer")+QString(", 2009-2015")+
         QString("<br/>")+
-        QString("&nbsp; 2010-2017 <a href=\"mailto:tehnick-8@yandex.ru\">Boris Pek</a> aka Tehnick<br/>")+
-        tr("&nbsp;&nbsp;&nbsp; (Debian/Ubuntu maintainer and developer since version 1.89.0)<br/>")+
-        tr("&nbsp;&nbsp;&nbsp; (translations coordinator since version 2.0.1)<br/>")+
-        tr("&nbsp;&nbsp;&nbsp; (release manager since version 2.0.3)<br/>")+
+        QString("&nbsp;&nbsp;&nbsp; * ")+
+        tr("developer")+QString(", 2009-2015")+
+        QString("<br/>")+
+        QString("<br/>")+
+        QString("&nbsp; 2010-2019 <a href=\"mailto:tehnick-8@yandex.ru\">Boris Pek</a><br/>")+
+        QString("&nbsp;&nbsp;&nbsp; * ")+
+        tr("Debian/Ubuntu maintainer")+QString(", 2010-2019")+
+        QString("<br/>")+
+        QString("&nbsp;&nbsp;&nbsp; * ")+
+        tr("developer")+QString(", 2010-2019")+
+        QString("<br/>")+
+        QString("&nbsp;&nbsp;&nbsp; * ")+
+        tr("translations coordinator")+QString(", 2010-2019")+
+        QString("<br/>")+
+        QString("&nbsp;&nbsp;&nbsp; * ")+
+        tr("release manager")+QString(", 2010-2019")+
+        QString("<br/>")+
+        QString("&nbsp;&nbsp;&nbsp; * ")+
+        tr("lead developer")+QString(", 2012-2019")+
+        QString("<br/>")+
+        QString("&nbsp;&nbsp;&nbsp; * ")+
+        tr("macOS maintainer")+QString(", 2018-2019")+
+        QString("<br/>")+
+        QString("&nbsp;&nbsp;&nbsp; * ")+
+        tr("MS Windows maintainer")+QString(", 2019")+
+        QString("<br/>")+
         QString("<br/>")+
         QString("&nbsp; 2010-2015 <a href=\"mailto:pavelvat@gmail.com\">Pavel Vatagin</a><br/>")+
-        tr("&nbsp;&nbsp;&nbsp; (MS Windows maintainer and developer since version 2.2.4)<br/>")+
+        QString("&nbsp;&nbsp;&nbsp; * ")+
+        tr("MS Windows maintainer")+QString(", 2010-2017")+
+        QString("<br/>")+
+        QString("&nbsp;&nbsp;&nbsp; * ")+
+        tr("developer")+QString(", 2010-2017")+
+        QString("<br/>")+
         QString("<br/>")+
         QString("&nbsp; 2010-2014 <a href=\"mailto:tka4ev@gmail.com\">Alexandr Tkachev</a><br/>")+
-        tr("&nbsp;&nbsp;&nbsp; (developer since version 2.0.3)<br/>")+
+        QString("&nbsp;&nbsp;&nbsp; * ")+
+        tr("developer")+QString(", 2010-2014")+
+        QString("<br/>")+
         QString("<br/>")+
         tr("<b>Graphic files</b><br/>")+
         QString("<br/>")+
         QString("&nbsp; 2009-2010 <a href=\"mailto:wiselord1983@gmail.com\">Uladzimir Bely</a><br/>")+
-        tr("&nbsp;&nbsp;&nbsp; (creator of the logo of the project)<br/>")+
-        QString("&nbsp; 2010-2015 <a href=\"mailto:tehnick-8@yandex.ru\">Boris Pek</a> aka Tehnick<br/>")+
-        tr("&nbsp;&nbsp;&nbsp; (tiny updates of the logo)<br/>")+
+        QString("&nbsp;&nbsp;&nbsp; * ")+
+        tr("creator of the logo of the project")+
+        QString("<br/>")+
+        QString("<br/>")+
+        QString("&nbsp; 2010-2015 <a href=\"mailto:tehnick-8@yandex.ru\">Boris Pek</a><br/>")+
+        QString("&nbsp;&nbsp;&nbsp; * ")+
+        tr("tiny updates of the logo")+
+        QString("<br/>")+
         QString("<br/>")
         );
 
     a.textBrowser_TRANSLATION->document()->setDefaultStyleSheet(html_format);
 
     a.textBrowser_TRANSLATION->setText(
-        tr("Participate in the translation. It is easy: "
-        "<a href=\"https://www.transifex.com/projects/p/eiskaltdcpp/\">"
-        "https://www.transifex.com/projects/p/eiskaltdcpp/</a><br/>")+
+        tr("Participate in the translation. It is easy:")+
+        QString("<br/>")+
+        QString("<a href=\"https://www.transifex.com/tehnick/eiskaltdcpp/\">https://www.transifex.com/tehnick/eiskaltdcpp/</a><br/>")+
         QString("<br/>")+
         tr("Russian translation<br/>")+
+        QString("&nbsp;&nbsp;&nbsp; 2010-2019 <a href=\"mailto:tehnick-8@yandex.ru\">Boris Pek</a> aka Tehnick<br/>")+
         QString("&nbsp;&nbsp;&nbsp; 2009-2010 <a href=\"mailto:wiselord1983@gmail.com\">Uladzimir Bely</a><br/>")+
-        QString("&nbsp;&nbsp;&nbsp; 2010-2017 <a href=\"mailto:tehnick-8@yandex.ru\">Boris Pek</a> aka Tehnick<br/>")+
+        QString("&nbsp;&nbsp;&nbsp; 2012 <a href=\"mailto:tret2003@gmail.com\">Vyacheslav Tretyakov</a><br/>")+
+        QString("&nbsp;&nbsp;&nbsp; 2018 <a href=\"https://www.transifex.com/user/profile/adem4ik/\">Andrei Stepanov</a><br/>")+
         QString("<br/>")+
         tr("Belarusian translation<br/>")+
         QString("&nbsp;&nbsp;&nbsp; 2009-2013 <a href=\"mailto:i.kliok@gmail.com\">Paval Shalamitski</a> aka Klyok<br/>")+
@@ -2737,7 +2809,7 @@ void MainWindow::slotAboutClient() {
         QString("&nbsp;&nbsp;&nbsp; 2011-2014 <a href=\"mailto:marcus@elitemail.hu\">Márk Lutring</a><br/>")+
         QString("<br/>")+
         tr("French translation<br/>")+
-        QString("&nbsp;&nbsp;&nbsp; 2010-2015 <a href=\"mailto:alexandre.wallimann@gmail.com\">Alexandre Wallimann</a> aka Jellyffs<br/>")+
+        QString("&nbsp;&nbsp;&nbsp; 2010-2019 <a href=\"mailto:alexandre.wallimann@gmail.com\">Alexandre Wallimann</a> aka Jellyffs<br/>")+
         QString("<br/>")+
         tr("Polish translation<br/>")+
         QString("&nbsp;&nbsp;&nbsp; 2010-2012 <a href=\"mailto:arahael@gmail.com\">Arahael</a><br/>")+
@@ -2755,7 +2827,7 @@ void MainWindow::slotAboutClient() {
         QString("&nbsp;&nbsp;&nbsp; 2014 <a href=\"mailto:trifunovic@openmailbox.org\">Marko Trifunović</a><br/>")+
         QString("<br/>")+
         tr("Spanish translation<br/>")+
-        QString("&nbsp;&nbsp;&nbsp; 2010-2015 <a href=\"mailto:sl1pkn07@gmail.com\">Gustavo Alvarez</a> aka sL1pKn07<br/>")+
+        QString("&nbsp;&nbsp;&nbsp; 2010-2019 <a href=\"mailto:sl1pkn07@gmail.com\">Gustavo Alvarez</a> aka sL1pKn07<br/>")+
         QString("&nbsp;&nbsp;&nbsp; 2012-2015 <a href=\"mailto:klondike at klondike.es\">Francisco Blas Izquierdo Riera</a> aka klondike<br/>")+
         QString("<br/>")+
         tr("Basque translation<br/>")+
@@ -2792,10 +2864,10 @@ void MainWindow::slotAboutClient() {
         QString("&nbsp;&nbsp;&nbsp; 2013 <a href=\"mailto:syaomingl@gmail.com\">Syaoming Lai</a><br/>")+
         QString("<br/>")+
         tr("Swedish (Sweden) translation<br/>")+
-        QString("&nbsp;&nbsp;&nbsp; 2014-2015 <a href=\"mailto:sopor@hotmail.com\">Sopor</a><br/>")+
+        QString("&nbsp;&nbsp;&nbsp; 2014-2019 <a href=\"mailto:sopor@hotmail.com\">Sopor</a><br/>")+
         QString("<br/>")+
         tr("Turkish translation<br/>")+
-        QString("&nbsp;&nbsp;&nbsp; 2015 <a href=\"https://www.transifex.com/user/profile/mauron/\">mauron</a><br/>")+
+        QString("&nbsp;&nbsp;&nbsp; 2015-2019 <a href=\"https://www.transifex.com/user/profile/mauron/\">mauron</a><br/>")+
         QString("<br/>")
         );
 
@@ -2811,7 +2883,7 @@ void MainWindow::slotAboutClient() {
                 "See the GNU General Public License for more details.<br/>"
                 "<br/>"
                 "You should have received a copy of the GNU General Public License along with this program. "
-                "If not, see &lt;<a href=\"http://www.gnu.org/licenses/\">http://www.gnu.org/licenses/</a>&gt;.<br/>")
+                "If not, see &lt;<a href=\"https://www.gnu.org/licenses/\">https://www.gnu.org/licenses/</a>&gt;.<br/>")
         );
 
     a.exec();
@@ -2942,6 +3014,7 @@ void MainWindow::prevMsg(){
 }
 
 void MainWindow::on(dcpp::LogManagerListener::Message, time_t t, const std::string& m) noexcept{
+    Q_UNUSED(t)
     emit coreLogMessage(_q(m.c_str()));
 }
 

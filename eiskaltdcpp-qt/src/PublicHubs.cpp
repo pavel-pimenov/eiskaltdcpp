@@ -21,7 +21,7 @@
 using namespace dcpp;
 
 PublicHubs::PublicHubs(QWidget *parent) :
-    QWidget(parent), proxy(NULL)
+    QWidget(parent), proxy(nullptr)
 {
     setupUi(this);
 
@@ -39,7 +39,7 @@ PublicHubs::PublicHubs(QWidget *parent) :
 
     QString hubs = _q(SettingsManager::getInstance()->get(SettingsManager::HUBLIST_SERVERS));
 
-    comboBox_HUBS->addItems(hubs.split(";"));
+    comboBox_HUBS->addItems(hubs.split(";", QString::SkipEmptyParts));
     comboBox_HUBS->setCurrentIndex(FavoriteManager::getInstance()->getSelectedHubList());
 
     for (int i = 0; i < model->columnCount(); i++)
@@ -121,8 +121,8 @@ void PublicHubs::updateList(){
     model->clearModel();
     QList<QVariant> data;
 
-    for (auto i = entries.begin(); i != entries.end(); ++i) {
-        HubEntry *entry = const_cast<HubEntry*>(&(*i));
+    for (auto &i : entries) {
+        HubEntry *entry = const_cast<HubEntry*>(&i);
         data.clear();
 
         data << _q(entry->getName())         << _q(entry->getDescription())  << entry->getUsers()
@@ -166,7 +166,7 @@ void PublicHubs::slotContextMenu(){
     m->deleteLater();
 
     if (ret == connect){
-        PublicHubItem * item = NULL;
+        PublicHubItem * item = nullptr;
         MainWindow *MW = MainWindow::getInstance();
 
         for (const auto &i : indexes){
@@ -175,11 +175,11 @@ void PublicHubs::slotContextMenu(){
             if (item)
                 MW->newHubFrame(item->data(COLUMN_PHUB_ADDRESS).toString(), "");
 
-            item = NULL;
+            item = nullptr;
         }
     }
     else if (ret == add_fav){
-        PublicHubItem * item = NULL;
+        PublicHubItem * item = nullptr;
 
         for (const auto &i : indexes){
             item = reinterpret_cast<PublicHubItem*>(i.internalPointer());
@@ -191,11 +191,11 @@ void PublicHubs::slotContextMenu(){
                 catch (const std::exception&){}
             }
 
-            item = NULL;
+            item = nullptr;
         }
     }
     else if (ret == copy){
-        PublicHubItem * item = NULL;
+        PublicHubItem * item = nullptr;
         QString out = "";
 
         for (const auto &i : indexes){
@@ -204,7 +204,7 @@ void PublicHubs::slotContextMenu(){
             if (item)
                 out += item->data(COLUMN_PHUB_ADDRESS).toString() + "\n";
 
-            item = NULL;
+            item = nullptr;
         }
 
         if (!out.isEmpty())
@@ -236,7 +236,7 @@ void PublicHubs::slotFilter(){
         disconnect(lineEdit_FILTER, SIGNAL(textChanged(QString)), proxy, SLOT(setFilterFixedString(QString)));
 
         delete proxy;
-        proxy = NULL;
+        proxy = nullptr;
     }
     else {
         proxy = new PublicHubProxyModel();
@@ -286,8 +286,8 @@ void PublicHubs::on(DownloadFailed, const std::string& l) noexcept{
     emit coreDownloadFailed(tr("Download failed: %1").arg(_q(l)));
 }
 
-void PublicHubs::on(DownloadFinished, const std::string& l, bool fromCoral) noexcept{
-    emit coreDownloadFinished(tr("Hub list downloaded... (%1 %2) ").arg(_q(l)).arg(fromCoral? tr("from Coral") : ""));
+void PublicHubs::on(DownloadFinished, const std::string& l) noexcept{
+    emit coreDownloadFinished(tr("Hub list downloaded... (%1)").arg(_q(l)));
 }
 
 void PublicHubs::on(LoadedFromCache, const std::string& l, const std::string& d) noexcept{

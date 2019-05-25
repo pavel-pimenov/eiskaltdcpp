@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,32 +12,22 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
 
 #include "TimerManager.h"
 
-#ifndef TIMER_OLD_BOOST
 #include <boost/date_time/posix_time/ptime.hpp>
-#endif
+
 namespace dcpp {
 
-#ifdef TIMER_OLD_BOOST
-timeval TimerManager::tv;
-#else
 using namespace boost::posix_time;
-#endif
 
 TimerManager::TimerManager() {
-#ifdef TIMER_OLD_BOOST
-    gettimeofday(&tv, NULL);
-#else
     // This mutex will be unlocked only upon shutdown
-    boostmtx.lock();
-#endif
+    mtx.lock();
 }
 
 TimerManager::~TimerManager() {
@@ -45,41 +35,22 @@ TimerManager::~TimerManager() {
 }
 
 void TimerManager::shutdown() {
-#ifdef TIMER_OLD_BOOST
-    s.signal();
-#else
-    boostmtx.unlock();
-#endif
+    mtx.unlock();
     join();
 }
 
 int TimerManager::run() {
-    setThreadName("TimerManager");
     int nextMin = 0;
-#ifdef TIMER_OLD_BOOST
-    uint64_t x = getTick();
-    uint64_t nextTick = x + 1000;
 
-    while(!s.wait(nextTick > x ? nextTick - x : 0)) {
-        uint64_t z = getTick();
-        nextTick = z + 1000;
-        fire(TimerManagerListener::Second(), z);
-        if(nextMin++ >= 60) {
-            fire(TimerManagerListener::Minute(), z);
-             nextMin = 0;
-         }
-        x = getTick();
-    }
-#else
     ptime now = microsec_clock::universal_time();
     ptime nextSecond = now + seconds(1);
 
-    while(!boostmtx.timed_lock(nextSecond)) {
+    while(!mtx.timed_lock(nextSecond)) {
         uint64_t t = getTick();
         now = microsec_clock::universal_time();
         nextSecond += seconds(1);
         if(nextSecond < now) {
-                nextSecond = now;
+            nextSecond = now;
         }
 
         fire(TimerManagerListener::Second(), t);
@@ -88,22 +59,15 @@ int TimerManager::run() {
             nextMin = 0;
         }
     }
-    boostmtx.unlock();
-#endif
+    mtx.unlock();
 
     dcdebug("TimerManager done\n");
     return 0;
 }
 
 uint64_t TimerManager::getTick() {
-#ifdef TIMER_OLD_BOOST
-    timeval tv2;
-    gettimeofday(&tv2, NULL);
-    return static_cast<uint64_t>(((tv2.tv_sec - tv.tv_sec) * 1000 ) + ( (tv2.tv_usec - tv.tv_usec) / 1000));
-#else
     static ptime start = microsec_clock::universal_time();
     return (microsec_clock::universal_time() - start).total_milliseconds();
-#endif
 }
 
 } // namespace dcpp

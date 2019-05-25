@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,48 +13,40 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
 #include "DCPlusPlus.h"
-#include "format.h"
 
-#include "ConnectionManager.h"
-#include "DownloadManager.h"
-#include "UploadManager.h"
-#include "CryptoManager.h"
-#include "ShareManager.h"
-#include "SearchManager.h"
-#include "QueueManager.h"
+#include "ADLSearch.h"
 #include "ClientManager.h"
+#include "ConnectionManager.h"
+#include "ConnectivityManager.h"
+#include "CryptoManager.h"
+#include "DebugManager.h"
+#include "DownloadManager.h"
+#include "FavoriteManager.h"
+#include "FinishedManager.h"
 #include "HashManager.h"
 #include "LogManager.h"
-#include "FavoriteManager.h"
-#include "SettingsManager.h"
-#include "FinishedManager.h"
+#include "MappingManager.h"
+#include "QueueManager.h"
 #include "ResourceManager.h"
-#include "ThrottleManager.h"
-#include "ADLSearch.h"
-//#include "WindowManager.h"
-#include "StringTokenizer.h"
+#include "SearchManager.h"
+#include "SettingsManager.h"
 #ifdef LUA_SCRIPT
 #include "ScriptManager.h"
 #endif
-#include "UPnPManager.h"
-#include "ConnectivityManager.h"
+#include "ShareManager.h"
+#include "StringTokenizer.h"
+#include "ThrottleManager.h"
+#include "UploadManager.h"
+
 #include "extra/ipfilter.h"
 #include "extra/dyndns.h"
 #ifdef WITH_DHT
 #include "dht/DHT.h"
-#endif
-#include "DebugManager.h"
-
-#ifdef _STLP_DEBUG
-void __stl_debug_terminate() {
-    int* x = 0;
-}
 #endif
 
 namespace dcpp {
@@ -93,30 +86,31 @@ void startup(void (*f)(void*, const string&), void* p) {
     FinishedManager::newInstance();
     ADLSearchManager::newInstance();
     ConnectivityManager::newInstance();
-    UPnPManager::newInstance();
-    //WindowManager::newInstance();
+    MappingManager::newInstance();
+    DynDNS::newInstance();
+    DebugManager::newInstance();
+    IPFilter::newInstance();
 #ifdef LUA_SCRIPT
     ScriptManager::newInstance();
 #endif
-    DebugManager::newInstance();
 
     SettingsManager::getInstance()->load();
-#ifdef USE_MINIUPNP
-    UPnPManager::getInstance()->runMiniUPnP();
-#endif
-    if (BOOLSETTING(IPFILTER)){
-        ipfilter::newInstance();
-        ipfilter::getInstance()->load();
-    }
-    DynDNS::newInstance();
 
     Util::setLang(SETTING(LANGUAGE));
+#ifdef USE_MINIUPNP
+    MappingManager::getInstance()->runMiniUPnP();
+#endif
+    DynDNS::getInstance()->load();
+    if (BOOLSETTING(IPFILTER)){
+        IPFilter::getInstance()->load();
+    }
 
     FavoriteManager::getInstance()->load();
     CryptoManager::getInstance()->loadCertificates();
 #ifdef WITH_DHT
     dht::DHT::newInstance();
 #endif
+
     if(f != NULL)
         (*f)(p, _("Hash database"));
     HashManager::getInstance()->startup();
@@ -151,18 +145,17 @@ void shutdown() {
     HashManager::getInstance()->shutdown();
 
     ConnectionManager::getInstance()->shutdown();
-    UPnPManager::getInstance()->close();
+    MappingManager::getInstance()->close();
 
     BufferedSocket::waitShutdown();
-    //WindowManager::getInstance()->prepareSave();
     QueueManager::getInstance()->saveQueue(true);
     ClientManager::getInstance()->saveUsers();
-    if (ipfilter::getInstance())
-        ipfilter::getInstance()->shutdown();
+    if (IPFilter::getInstance()) {
+        IPFilter::getInstance()->shutdown();
+    }
     SettingsManager::getInstance()->save();
 
-    //WindowManager::deleteInstance();
-    UPnPManager::deleteInstance();
+    MappingManager::deleteInstance();
     ConnectivityManager::deleteInstance();
     ADLSearchManager::deleteInstance();
     FinishedManager::deleteInstance();

@@ -44,10 +44,10 @@ protected:
     virtual void on(TTHDone, const dcpp::string& , const dcpp::TTHValue&) throw();
 
 private:
-    HashManagerScript(QObject *parent = 0);
-    HashManagerScript(const HashManagerScript&){}
+    HashManagerScript(QObject *parent = nullptr);
+    HashManagerScript(const HashManagerScript&);
     ~HashManagerScript();
-    HashManagerScript &operator=(const HashManagerScript&){ return *this; }
+    HashManagerScript &operator=(const HashManagerScript&);
 
     dcpp::HashManager *HM;
 };

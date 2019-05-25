@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2009-2010 Big Muscle, http://strongdc.sf.net
+ * Copyright (C) 2019 Boris Pek <tehnick-8@yandex.ru>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +13,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
@@ -36,7 +36,7 @@ namespace dht
         public Singleton<DHT>, public Speaker<ClientListener>, public ClientBase
     {
     public:
-        DHT(void);
+        explicit DHT(void);
         ~DHT(void) throw();
 
         enum InfType { NONE = 0, PING = 1, MAKE_ONLINE = 2 };
@@ -50,16 +50,16 @@ namespace dht
         void start();
         void stop(bool exiting = false);
 
-        uint16_t getPort() const { return BOOLSETTING(USE_DHT) ? socket.getPort() : 0; }
+        const string& getPort() const { return BOOLSETTING(USE_DHT) ? socket.getPort() : Util::emptyString; }
 
         /** Process incoming command */
-        void dispatch(const string& aLine, const string& ip, uint16_t port, bool isUdpKeyValid);
+        void dispatch(const string& aLine, const string& ip, const string &port, bool isUdpKeyValid);
 
         /** Sends command to ip and port */
-        void send(AdcCommand& cmd, const string& ip, uint16_t port, const CID& targetCID, const CID& udpKey);
+        void send(AdcCommand& cmd, const string& ip, const string &port, const CID& targetCID, const CID& udpKey);
 
         /** Creates new (or update existing) node which is NOT added to our routing table */
-        Node::Ptr createNode(const CID& cid, const string& ip, uint16_t port, bool update, bool isUdpKeyValid);
+        Node::Ptr createNode(const CID& cid, const string& ip, const string &port, bool update, bool isUdpKeyValid);
 
         /** Adds node to routing table */
         bool addNode(const Node::Ptr& node, bool makeOnline);
@@ -74,7 +74,7 @@ namespace dht
         void findFile(const string& tth, const string& token = Util::toString(Util::rand()));
 
         /** Sends our info to specified ip:port */
-        void info(const string& ip, uint16_t port, uint32_t type, const CID& targetCID, const CID& udpKey);
+        void info(const string& ip, const string &port, uint32_t type, const CID& targetCID, const CID& udpKey);
 
         /** Sends Connect To Me request to online node */
         void connect(const OnlineUser& ou, const string& token);
@@ -117,7 +117,7 @@ namespace dht
         void handle(AdcCommand::SND, const Node::Ptr& node, AdcCommand& c) throw();
 
         /** Unsupported command */
-        template<typename T> void handle(T, const Node::Ptr&user, AdcCommand&) { }
+        template<typename T> void handle(T, const Node::Ptr&, AdcCommand&) { }
 
         /** UDP socket */
         UDPSocket   socket;
@@ -137,7 +137,7 @@ namespace dht
 
         /** IPs who we received firewalled status from */
         std::unordered_set<string> firewalledWanted;
-        std::unordered_map< string, std::pair< string, uint16_t > > firewalledChecks;
+        std::unordered_map< string, std::pair< string, string > > firewalledChecks;
         bool firewalled;
         bool requestFWCheck;
 

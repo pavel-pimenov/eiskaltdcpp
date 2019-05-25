@@ -12,13 +12,14 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
 
 #include "UploadManager.h"
+
+#include <cmath>
 
 #include "ConnectionManager.h"
 #include "LogManager.h"
@@ -34,8 +35,8 @@
 #include "UserConnection.h"
 #include "QueueManager.h"
 #include "FinishedManager.h"
+#include "File.h"
 #include "extra/ipfilter.h"
-#include <functional>
 
 namespace dcpp {
 
@@ -71,9 +72,9 @@ bool UploadManager::hasUpload ( UserConnection& aSource ) {
         const int64_t l_share = ClientManager::getInstance()->getBytesShared(aSource.getUser());
 
         if (u && u->getUserConnection().getSocket() &&
-            l_srcip == u->getUserConnection().getSocket()->getIp() &&
-            u->getUser() && l_share == ClientManager::getInstance()->getBytesShared(u->getUser())
-           )
+                l_srcip == u->getUserConnection().getSocket()->getIp() &&
+                u->getUser() && l_share == ClientManager::getInstance()->getBytesShared(u->getUser())
+                )
         {
             return true;
         }
@@ -122,13 +123,13 @@ bool UploadManager::prepareFile(UserConnection& aSource, const string& aType, co
                     string msg;
                     if ( aFile != Transfer::USER_LIST_NAME_BZ && aFile != Transfer::USER_LIST_NAME &&
                          !limits.IsUserAllowed(SM->toVirtual(SM->getTTH(aFile)), aSource.getUser(), &msg)
-                       )
+                         )
                     {
                         throw ShareException(msg);
                     }
                     else if ( aFile != Transfer::USER_LIST_NAME_BZ && aFile != Transfer::USER_LIST_NAME &&
                               hasUpload(aSource)
-                            )
+                              )
                     {
                         msg = _("Connection already exists.");
 
@@ -206,16 +207,16 @@ bool UploadManager::prepareFile(UserConnection& aSource, const string& aType, co
                     size = (aBytes == -1) ? fileSize - start : aBytes;
 
                     if((start + size) > fileSize) {
-                            aSource.fileNotAvail();
-                            delete f;
-                            return false;
+                        aSource.fileNotAvail();
+                        delete f;
+                        return false;
                     }
 
                     f->setPos(start);
                     is = f;
 
                     if((start + size) < fileSize) {
-                            is = new LimitedInputStream<true>(is, size);
+                        is = new LimitedInputStream<true>(is, size);
                     }
 
                     type = Transfer::TYPE_FILE;
@@ -295,7 +296,7 @@ ok:
                     tFile = ShareManager::getInstance()->toVirtual(TTHValue(aFile.substr(4)));
 
                 addFailedUpload(aSource, tFile +
-                    " (" +  Util::formatBytes(aStartPos) + " - " + Util::formatBytes(aStartPos + aBytes) + ")");
+                                " (" +  Util::formatBytes(aStartPos) + " - " + Util::formatBytes(aStartPos + aBytes) + ")");
                 aSource.disconnect();
                 return false;
             }
@@ -338,8 +339,7 @@ ok:
 int64_t UploadManager::getRunningAverage() {
     Lock l(cs);
     int64_t avg = 0;
-    for(auto i = uploads.begin(); i != uploads.end(); ++i) {
-        Upload* u = *i;
+    for(auto u: uploads) {
         avg += u->getAverageSpeed();
     }
     return avg;
@@ -411,35 +411,29 @@ void UploadManager::on(AdcCommand::GET, UserConnection* aSource, const AdcComman
     int64_t aStartPos = Util::toInt64(c.getParam(2));
     int64_t aBytes = Util::toInt64(c.getParam(3));
 
-    try {
-        if(prepareFile(*aSource, type, fname, aStartPos, aBytes, c.hasFlag("RE", 4))) {
-            Upload* u = aSource->getUpload();
-            dcassert(u != NULL);
+    if(prepareFile(*aSource, type, fname, aStartPos, aBytes, c.hasFlag("RE", 4))) {
+        Upload* u = aSource->getUpload();
+        dcassert(u != NULL);
 
-            AdcCommand cmd(AdcCommand::CMD_SND);
-            cmd.addParam(type).addParam(fname)
-                    .addParam(Util::toString(u->getStartPos()))
-                    .addParam(Util::toString(u->getSize()));
+        AdcCommand cmd(AdcCommand::CMD_SND);
+        cmd.addParam(type).addParam(fname)
+                .addParam(Util::toString(u->getStartPos()))
+                .addParam(Util::toString(u->getSize()));
 
-            if(c.hasFlag("ZL", 4)) {
-                u->setStream(new FilteredInputStream<ZFilter, true>(u->getStream()));
-                u->setFlag(Upload::FLAG_ZUPLOAD);
-                cmd.addParam("ZL1");
-            }
-
-            aSource->send(cmd);
-
-            u->setStart(GET_TICK());
-            u->tick();
-            aSource->setState(UserConnection::STATE_RUNNING);
-            aSource->transmitFile(u->getStream());
-            fire(UploadManagerListener::Starting(), u);
+        if(c.hasFlag("ZL", 4)) {
+            u->setStream(new FilteredInputStream<ZFilter, true>(u->getStream()));
+            u->setFlag(Upload::FLAG_ZUPLOAD);
+            cmd.addParam("ZL1");
         }
+
+        aSource->send(cmd);
+
+        u->setStart(GET_TICK());
+        u->tick();
+        aSource->setState(UserConnection::STATE_RUNNING);
+        aSource->transmitFile(u->getStream());
+        fire(UploadManagerListener::Starting(), u);
     }
-    catch (const ShareException &e){
-        dcdebug("UploadManager thrown: %s\n", e.what());
-    }
-    catch ( ... ) {}
 }
 
 void UploadManager::on(UserConnectionListener::BytesSent, UserConnection* aSource, size_t aBytes, size_t aActual) noexcept {
@@ -501,9 +495,9 @@ void UploadManager::notifyQueuedUsers() {
 void UploadManager::addFailedUpload(const UserConnection& source, string filename) {
     {
         Lock l(cs);
-        WaitingUserList::iterator it = find_if(waitingUsers.begin(), waitingUsers.end(), CompareFirst<UserPtr, uint32_t>(source.getUser()));
+        auto it = find_if(waitingUsers.begin(), waitingUsers.end(), CompareFirst<UserPtr, uint32_t>(source.getUser()));
         if (it==waitingUsers.end()) {
-            waitingUsers.push_back(WaitingUser(source.getHintedUser(), GET_TICK()));
+            waitingUsers.emplace_back(source.getHintedUser(), GET_TICK());
         } else {
             it->second = GET_TICK();
         }
@@ -516,7 +510,7 @@ void UploadManager::addFailedUpload(const UserConnection& source, string filenam
 void UploadManager::clearUserFiles(const UserPtr& source) {
     Lock l(cs);
     //run this when a user's got a slot or goes offline.
-    WaitingUserList::iterator sit = find_if(waitingUsers.begin(), waitingUsers.end(), CompareFirst<UserPtr, uint32_t>(source));
+    auto sit = find_if(waitingUsers.begin(), waitingUsers.end(), CompareFirst<UserPtr, uint32_t>(source));
     if (sit == waitingUsers.end()) return;
 
     FilesMap::iterator fit = waitingFiles.find(sit->first);
@@ -543,14 +537,14 @@ const UploadManager::FileSet& UploadManager::getWaitingUserFiles(const UserPtr& 
 void UploadManager::addConnection(UserConnectionPtr conn) {
     Lock l(cs);
     if (!BOOLSETTING(ALLOW_UPLOAD_MULTI_HUB)) {
-        for(auto i = uploads.begin(); i != uploads.end(); ++i) {
-            if ((*i)->getUserConnection().getRemoteIp() == conn->getRemoteIp()) {
+        for(auto u: uploads) {
+            if (u->getUserConnection().getRemoteIp() == conn->getRemoteIp()) {
                 conn->disconnect();
                 return;
             }
         }
     }
-    if (BOOLSETTING(IPFILTER) && !ipfilter::getInstance()->OK(conn->getRemoteIp(),eDIRECTION_OUT)) {
+    if (BOOLSETTING(IPFILTER) && !IPFilter::getInstance()->OK(conn->getRemoteIp(),eDIRECTION_OUT)) {
         conn->error("Your IP is Blocked!");// TODO translate
         LogManager::getInstance()->message(_("IPFilter: Blocked incoming connection to ") + conn->getRemoteIp()); // TODO translate
         //QueueManager::getInstance()->removeSource(conn->getUser(), QueueItem::Source::FLAG_REMOVED);
@@ -569,7 +563,6 @@ void UploadManager::addConnection(UserConnectionPtr conn) {
 }
 
 void UploadManager::removeConnection(UserConnection* aSource) {
-    dcassert(aSource->getUpload() == NULL);
     aSource->removeListener(this);
     if(aSource->isSet(UserConnection::FLAG_HASSLOT)) {
         running--;
@@ -600,8 +593,7 @@ void UploadManager::on(TimerManagerListener::Minute, uint64_t /* aTick */) noexc
         waitingUsers.erase(i, waitingUsers.end());
 
         if( BOOLSETTING(AUTO_KICK) ) {
-            for(auto i = uploads.begin(); i != uploads.end(); ++i) {
-                Upload* u = *i;
+            for(auto u: uploads) {
                 if(u->getUser()->isOnline()) {
                     u->unsetFlag(Upload::FLAG_PENDING_KICK);
                     continue;
@@ -623,7 +615,7 @@ void UploadManager::on(TimerManagerListener::Minute, uint64_t /* aTick */) noexc
 
     for(auto i = disconnects.begin(); i != disconnects.end(); ++i) {
         LogManager::getInstance()->message(str(F_("Disconnected user leaving the hub: %1%") %
-        Util::toString(ClientManager::getInstance()->getNicks((*i)->getCID(), Util::emptyString))));
+                                               Util::toString(ClientManager::getInstance()->getNicks((*i)->getCID(), Util::emptyString))));
         ConnectionManager::getInstance()->disconnect(*i, false);
     }
 
@@ -669,17 +661,17 @@ void UploadManager::on(TimerManagerListener::Second, uint64_t) noexcept {
     Lock l(cs);
     UploadList ticks;
 
-    for(auto i = uploads.begin(); i != uploads.end(); ++i) {
-        if((*i)->getPos() > 0) {
-            ticks.push_back(*i);
-            (*i)->tick();
+    for(auto u: uploads) {
+        if(u->getPos() > 0) {
+            ticks.push_back(u);
+            u->tick();
         }
     }
 
     if(!uploads.empty())
         fire(UploadManagerListener::Tick(), UploadList(uploads));
 
-        //notifyQueuedUsers();
+    //notifyQueuedUsers();
 }
 
 void UploadManager::on(ClientManagerListener::UserDisconnected, const UserPtr& aUser) noexcept {

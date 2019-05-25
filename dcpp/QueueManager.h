@@ -12,26 +12,29 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
-#include "TimerManager.h"
+#include <deque>
+
+#include "ClientManagerListener.h"
 #include "CriticalSection.h"
-#include "Exception.h"
-#include "User.h"
-#include "File.h"
-#include "QueueItem.h"
-#include "Singleton.h"
 #include "DirectoryListing.h"
+#include "Exception.h"
+#include "File.h"
 #include "MerkleTree.h"
+#include "QueueItem.h"
 #include "QueueManagerListener.h"
 #include "SearchManagerListener.h"
-#include "ClientManagerListener.h"
+#include "Singleton.h"
+#include "TimerManager.h"
+#include "User.h"
 
 namespace dcpp {
+
+using std::deque;
 
 STANDARD_EXCEPTION(QueueException);
 
@@ -49,7 +52,7 @@ public:
 
     DirectoryItem() : priority(QueueItem::DEFAULT) { }
     DirectoryItem(const UserPtr& aUser, const string& aName, const string& aTarget,
-        QueueItem::Priority p) : name(aName), target(aTarget), priority(p), user(aUser) { }
+                  QueueItem::Priority p) : name(aName), target(aTarget), priority(p), user(aUser) { }
     ~DirectoryItem() { }
 
     UserPtr& getUser() { return user; }
@@ -66,22 +69,23 @@ class ConnectionQueueItem;
 class QueueLoader;
 
 class QueueManager : public Singleton<QueueManager>, public Speaker<QueueManagerListener>, private TimerManagerListener,
-    private SearchManagerListener, private ClientManagerListener
+        private SearchManagerListener, private ClientManagerListener
 {
 public:
-    //NOTE: freedcpp
-    void add(const string& aTarget, int64_t aSize, const TTHValue& root);
+    typedef deque<QueueItemPtr> QueueItemList;
+
+    void add(const string& aTarget, int64_t aSize, const TTHValue& root); // NOTE: freedcpp
 
     /** Add a file to the queue. */
     void add(const string& aTarget, int64_t aSize, const TTHValue& root, const HintedUser& aUser,
-    int aFlags = 0, bool addBad = true);
+             int aFlags = 0, bool addBad = true);
     /** Add a user's filelist to the queue. */
     void addList(const HintedUser& HintedUser, int aFlags, const string& aInitialDir = Util::emptyString);
     /** Readd a source that was removed */
     void readd(const string& target, const HintedUser& aUser);
     /** Add a directory to the queue (downloads filelist and matches the directory). */
     void addDirectory(const string& aDir, const HintedUser& aUser, const string& aTarget,
-            QueueItem::Priority p = QueueItem::DEFAULT) noexcept;
+                      QueueItem::Priority p = QueueItem::DEFAULT) noexcept;
 
     int matchListing(const DirectoryListing& dl) noexcept;
     void matchAllListings();
@@ -90,6 +94,7 @@ public:
 
     int64_t getSize(const string& target) noexcept;
     int64_t getPos(const string& target) noexcept;
+    void getSizeInfo(int64_t& size, int64_t& pos, const string& target) noexcept;
 
     /** Move the target location of a queued item. Running items are silently ignored */
     void move(const string& aSource, const string& aTarget) noexcept;
@@ -102,7 +107,7 @@ public:
 
     void setPriority(const string& aTarget, QueueItem::Priority p) noexcept;
 
-    void getTargets(const TTHValue& tth, StringList& sl);
+    StringList getTargets(const TTHValue& tth);
     QueueItem::StringMap& lockQueue() noexcept { cs.lock(); return fileQueue.getQueue(); }
     void unlockQueue() noexcept { cs.unlock(); }
 
@@ -129,8 +134,7 @@ public:
 
     bool isChunkDownloaded(const TTHValue& tth, int64_t startPos, int64_t& bytes, string& tempTarget, int64_t& size) {
         Lock l(cs);
-        QueueItem::List ql;
-        fileQueue.find(ql, tth);
+        auto ql = fileQueue.find(tth);
 
         if(ql.empty()) return false;
 
@@ -145,7 +149,8 @@ public:
     GETSET(uint64_t, lastSave, LastSave);
     GETSET(string, queueFile, QueueFile);
 private:
-    enum { MOVER_LIMIT = 10*1024*1024 };
+    static const int64_t MOVER_LIMIT = 10*1024*1024;
+
     class FileMover : public Thread {
     public:
         FileMover() : active(false) { }
@@ -155,13 +160,11 @@ private:
         virtual int run();
     private:
         typedef pair<string, string> FilePair;
-        typedef vector<FilePair> FileList;
-        typedef FileList::iterator FileIter;
 
         bool active;
-
-        FileList files;
         CriticalSection cs;
+
+        vector<FilePair> files;
     } mover;
 
     typedef vector<pair<QueueItem::SourceConstIter, const QueueItem*> > PFSSourceList;
@@ -192,19 +195,17 @@ private:
     public:
         FileQueue() : lastInsert(queue.end()) { }
         ~FileQueue() {
-            for(QueueItem::StringIter i = queue.begin(); i != queue.end(); ++i)
-                delete i->second;
+            for(auto& i : queue)
+                delete i.second;
         }
         void add(QueueItem* qi);
         QueueItem* add(const string& aTarget, int64_t aSize, int aFlags, QueueItem::Priority p,
-            const string& aTempTarget, time_t aAdded, const TTHValue& root);
+                       const string& aTempTarget, time_t aAdded, const TTHValue& root);
 
         QueueItem* find(const string& target);
-        void find(QueueItem::List& sl, int64_t aSize, const string& ext);
-        void find(QueueItem::List& ql, const TTHValue& tth);
+        QueueManager::QueueItemList find(const TTHValue& tth);
         // find some PFS sources to exchange parts info
         void findPFSSources(PFSSourceList&);
-        bool exists(const TTHValue& tth) const;
 
 #ifdef WITH_DHT
         // return a PFS tth to DHT publish
@@ -290,7 +291,7 @@ private:
     bool checkSfv(QueueItem* qi, Download* d);
     uint32_t calcCrc32(const string& file);
 
-    void logFinishedDownload(QueueItem* qi, Download* d, bool crcError);
+    void logFinishedDownload(QueueItem* qi, Download* d, bool crcChecked);
 
     // TimerManagerListener
     virtual void on(TimerManagerListener::Second, uint64_t aTick) noexcept;

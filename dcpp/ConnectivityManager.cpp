@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2019 Boris Pek <tehnick-8@yandex.ru>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,19 +13,21 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
-
 #include "ConnectivityManager.h"
-#include "SettingsManager.h"
+
 #include "ClientManager.h"
 #include "ConnectionManager.h"
-#include "SearchManager.h"
+#include "debug.h"
+#include "format.h"
 #include "LogManager.h"
-#include "UPnPManager.h"
+#include "MappingManager.h"
+#include "SearchManager.h"
+#include "SettingsManager.h"
+#include "version.h"
 #ifdef WITH_DHT
 #include "dht/DHT.h"
 #endif
@@ -32,23 +35,23 @@
 namespace dcpp {
 
 ConnectivityManager::ConnectivityManager() :
-autoDetected(false),
-running(false)
+    autoDetected(false),
+    running(false)
 {
     updateLast();
 }
 
 void ConnectivityManager::startSocket() {
-   autoDetected = false;
+    autoDetected = false;
 
-   disconnect();
+    disconnect();
 
-   if(ClientManager::getInstance()->isActive()) {
-       listen();
+    if(ClientManager::getInstance()->isActive()) {
+        listen();
 
-    // must be done after listen calls; otherwise ports won't be set
-    if(SETTING(INCOMING_CONNECTIONS) == SettingsManager::INCOMING_FIREWALL_UPNP)
-       UPnPManager::getInstance()->open();
+        // must be done after listen calls; otherwise ports won't be set
+        if(SETTING(INCOMING_CONNECTIONS) == SettingsManager::INCOMING_FIREWALL_UPNP)
+            MappingManager::getInstance()->open();
     }
 
     updateLast();
@@ -71,55 +74,55 @@ void ConnectivityManager::detectConnection() {
     //SettingsManager::getInstance()->unset(SettingsManager::MAPPER);
     SettingsManager::getInstance()->unset(SettingsManager::BIND_ADDRESS);
 
-   if (UPnPManager::getInstance()->getOpened()) {
-       UPnPManager::getInstance()->close();
-   }
+    if (MappingManager::getInstance()->getOpened()) {
+        MappingManager::getInstance()->close();
+    }
 
-   disconnect();
+    disconnect();
 
-   log(_("Determining the best connectivity settings..."));
-   try {
+    log(_("Determining the best connectivity settings..."));
+    try {
         listen();
-   } catch(const Exception& e) {
+    } catch(const Exception& e) {
         SettingsManager::getInstance()->set(SettingsManager::INCOMING_CONNECTIONS, SettingsManager::INCOMING_FIREWALL_PASSIVE);
         log(str(F_("Unable to open %1% port(s); connectivity settings must be configured manually") % e.getError()));
         fire(ConnectivityManagerListener::Finished());
         running = false;
         return;
-   }
+    }
 
-   autoDetected = true;
+    autoDetected = true;
 
-   if (!Util::isPrivateIp(Util::getLocalIp(AF_INET))) {
-       SettingsManager::getInstance()->set(SettingsManager::INCOMING_CONNECTIONS, SettingsManager::INCOMING_DIRECT);
-       log(_("Public IP address detected, selecting active mode with direct connection"));
-       fire(ConnectivityManagerListener::Finished());
+    if (!Util::isPrivateIp(Util::getLocalIp(AF_INET))) {
+        SettingsManager::getInstance()->set(SettingsManager::INCOMING_CONNECTIONS, SettingsManager::INCOMING_DIRECT);
+        log(_("Public IP address detected, selecting active mode with direct connection"));
+        fire(ConnectivityManagerListener::Finished());
         running = false;
         return;
-   }
+    }
 
-   SettingsManager::getInstance()->set(SettingsManager::INCOMING_CONNECTIONS, SettingsManager::INCOMING_FIREWALL_UPNP);
-   log(_("Local network with possible NAT detected, trying to map the ports using UPnP..."));
+    SettingsManager::getInstance()->set(SettingsManager::INCOMING_CONNECTIONS, SettingsManager::INCOMING_FIREWALL_UPNP);
+    log(_("Local network with possible NAT detected, trying to map the ports using UPnP..."));
 
-    if (!UPnPManager::getInstance()->open()) {
+    if (!MappingManager::getInstance()->open()) {
         running = false;
     }
 }
 
 void ConnectivityManager::setup(bool settingsChanged) {
-   if(BOOLSETTING(AUTO_DETECT_CONNECTION)) {
-       if (!autoDetected) detectConnection();
-   } else {
-        if(autoDetected || (settingsChanged && (SearchManager::getInstance()->getPort() != SETTING(UDP_PORT) || ConnectionManager::getInstance()->getPort() != SETTING(TCP_PORT) || ConnectionManager::getInstance()->getSecurePort() != SETTING(TLS_PORT) || SETTING(BIND_ADDRESS) != lastBind))) {
-           if(settingsChanged || SETTING(INCOMING_CONNECTIONS) != SettingsManager::INCOMING_FIREWALL_UPNP) {
-               UPnPManager::getInstance()->close();
-           }
-           startSocket();
-       } else if(SETTING(INCOMING_CONNECTIONS) == SettingsManager::INCOMING_FIREWALL_UPNP && !UPnPManager::getInstance()->getOpened()) {
-           // previous UPnP mappings had failed; try again
-           UPnPManager::getInstance()->open();
-       }
-   }
+    if(BOOLSETTING(AUTO_DETECT_CONNECTION)) {
+        if (!autoDetected) detectConnection();
+    } else {
+        if(autoDetected || (settingsChanged && (SearchManager::getInstance()->getPort() != Util::toString(SETTING(UDP_PORT)) || ConnectionManager::getInstance()->getPort() != Util::toString(SETTING(TCP_PORT)) || ConnectionManager::getInstance()->getSecurePort() != Util::toString(SETTING(TLS_PORT)) || SETTING(BIND_ADDRESS) != lastBind))) {
+            if(settingsChanged || SETTING(INCOMING_CONNECTIONS) != SettingsManager::INCOMING_FIREWALL_UPNP) {
+                MappingManager::getInstance()->close();
+            }
+            startSocket();
+        } else if(SETTING(INCOMING_CONNECTIONS) == SettingsManager::INCOMING_FIREWALL_UPNP && !MappingManager::getInstance()->getOpened()) {
+            // previous UPnP mappings had failed; try again
+            MappingManager::getInstance()->open();
+        }
+    }
 }
 
 void ConnectivityManager::mappingFinished(bool success) {
@@ -165,21 +168,16 @@ void ConnectivityManager::disconnect() {
 }
 
 void ConnectivityManager::log(const string& message) {
-   if(BOOLSETTING(AUTO_DETECT_CONNECTION)) {
-       LogManager::getInstance()->message(_("Connectivity: ") + message);
-       fire(ConnectivityManagerListener::Message(), message);
-   } else {
-       LogManager::getInstance()->message(message);
-   }
+    if(BOOLSETTING(AUTO_DETECT_CONNECTION)) {
+        LogManager::getInstance()->message(_("Connectivity: ") + message);
+        fire(ConnectivityManagerListener::Message(), message);
+    } else {
+        LogManager::getInstance()->message(message);
+    }
 }
 
 void ConnectivityManager::updateLast() {
-    lastTcp = (unsigned short)SETTING(TCP_PORT);
-    lastUdp = (unsigned short)SETTING(UDP_PORT);
-    lastTls = (unsigned short)SETTING(TLS_PORT);
-    lastConn = SETTING(INCOMING_CONNECTIONS);
     lastBind = SETTING(BIND_ADDRESS);
-    //lastMapper = SETTING(MAPPER);
 }
 
 } // namespace dcpp

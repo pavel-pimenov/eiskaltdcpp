@@ -30,7 +30,6 @@
 #include "dcpp/ClientListener.h"
 #include "dcpp/ClientManager.h"
 #include "dcpp/ClientManagerListener.h"
-#include "dcpp/TaskQueue.h"
 #include "dcpp/User.h"
 #include "dcpp/Client.h"
 #include "dcpp/FavoriteManagerListener.h"
@@ -211,9 +210,9 @@ protected:
     virtual void showEvent(QShowEvent *);
     virtual void hideEvent(QHideEvent *);
 
-    virtual void sendChat(QString, bool, bool);
-    virtual void save();
-    virtual void load();
+    void sendChat(QString, bool, bool);
+    void save();
+    void load();
 
 private Q_SLOTS:
     void slotUsersUpdated();
@@ -227,7 +226,7 @@ private Q_SLOTS:
     void slotShowWnd();
     void slotShellFinished(bool, QString);
     void slotFilterTextChanged();
-    void slotFindForward() { findText(0); }
+    void slotFindForward() { findText(nullptr); }
     void slotFindBackward(){ findText(QTextDocument::FindBackward); }
     void slotFindTextEdited(const QString & text);
     void slotInputTextChanged();
@@ -269,8 +268,8 @@ private:
 
     QString getUserInfo(UserListItem *item);
 
-    void pmUserOffline(QString);
-    void pmUserEvent(QString, QString);
+    void pmUserOffline(const QString &);
+    void pmUserEvent(const QString &, const QString &);
 
     void findText(QTextDocument::FindFlags );
 
@@ -298,7 +297,7 @@ private:
     virtual void on(ClientListener::NickTaken, Client*) noexcept;
     virtual void on(ClientListener::SearchFlood, Client*, const string&) noexcept;
 
-    Q_DECLARE_PRIVATE(HubFrame);
+    Q_DECLARE_PRIVATE(HubFrame)
 
     HubFramePrivate *d_ptr;
 };

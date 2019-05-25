@@ -12,30 +12,25 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
-
 #include "FavoriteManager.h"
 
+#include "BZUtils.h"
 #include "ClientManager.h"
 #include "CryptoManager.h"
-//#include "WindowManager.h"
-
-#include "HttpConnection.h"
-#include "StringTokenizer.h"
-#include "SimpleXML.h"
-#include "UserCommand.h"
-//#include "WindowInfo.h"
 #include "File.h"
-#include "BZUtils.h"
 #include "FilteredFile.h"
+#include "HttpConnection.h"
+#include "SimpleXML.h"
+#include "StringTokenizer.h"
+#include "UserCommand.h"
 
 namespace dcpp {
 
-FavoriteManager::FavoriteManager() : lastId(0), useHttp(false), running(false), c(NULL), lastServer(0), listType(TYPE_NORMAL), dontSave(false) {
+FavoriteManager::FavoriteManager() : lastId(0), useHttp(false), running(false), c(nullptr), lastServer(0), listType(TYPE_NORMAL), dontSave(false) {
     SettingsManager::getInstance()->addListener(this);
     ClientManager::getInstance()->addListener(this);
 
@@ -66,9 +61,9 @@ UserCommand FavoriteManager::addUserCommand(int type, int ctx, int flags, const 
 
 bool FavoriteManager::getUserCommand(int cid, UserCommand& uc) {
     Lock l(cs);
-    for(auto i = userCommands.begin(); i != userCommands.end(); ++i) {
-        if(i->getId() == cid) {
-            uc = *i;
+    for(auto& i: userCommands) {
+        if(i.getId() == cid) {
+            uc = i;
             return true;
         }
     }
@@ -90,9 +85,9 @@ bool FavoriteManager::moveUserCommand(int cid, int pos) {
 void FavoriteManager::updateUserCommand(const UserCommand& uc) {
     bool nosave = true;
     Lock l(cs);
-    for(auto i = userCommands.begin(); i != userCommands.end(); ++i) {
-        if(i->getId() == uc.getId()) {
-            *i = uc;
+    for(auto& i: userCommands) {
+        if(i.getId() == uc.getId()) {
+            i = uc;
             nosave = uc.isSet(UserCommand::FLAG_NOSAVE);
             break;
         }
@@ -103,9 +98,9 @@ void FavoriteManager::updateUserCommand(const UserCommand& uc) {
 
 int FavoriteManager::findUserCommand(const string& aName, const string& aUrl) {
     Lock l(cs);
-    for(auto i = userCommands.begin(); i != userCommands.end(); ++i) {
-        if(i->getName() == aName && i->getHub() == aUrl) {
-            return i->getId();
+    for(auto& i: userCommands) {
+        if(i.getName() == aName && i.getHub() == aUrl) {
+            return i.getId();
         }
     }
     return -1;
@@ -126,24 +121,16 @@ void FavoriteManager::removeUserCommand(int cid) {
 }
 void FavoriteManager::removeUserCommand(const string& srv) {
     Lock l(cs);
-    for(auto i = userCommands.begin(); i != userCommands.end(); ) {
-        if((i->getHub() == srv) && i->isSet(UserCommand::FLAG_NOSAVE)) {
-            i = userCommands.erase(i);
-        } else {
-            ++i;
-        }
-    }
+    userCommands.erase(std::remove_if(userCommands.begin(), userCommands.end(), [&](const UserCommand& uc) {
+        return uc.getHub() == srv && uc.isSet(UserCommand::FLAG_NOSAVE);
+    }), userCommands.end());
 }
 
 void FavoriteManager::removeHubUserCommands(int ctx, const string& hub) {
     Lock l(cs);
-    for(auto i = userCommands.begin(); i != userCommands.end(); ) {
-        if(i->getHub() == hub && i->isSet(UserCommand::FLAG_NOSAVE) && i->getCtx() & ctx) {
-            i = userCommands.erase(i);
-        } else {
-            ++i;
-        }
-    }
+    userCommands.erase(std::remove_if(userCommands.begin(), userCommands.end(), [&](const UserCommand& uc) {
+        return uc.getHub() == hub && uc.isSet(UserCommand::FLAG_NOSAVE) && uc.getCtx() & ctx;
+    }), userCommands.end());
 }
 
 void FavoriteManager::addFavoriteUser(const UserPtr& aUser) {
@@ -158,7 +145,7 @@ void FavoriteManager::addFavoriteUser(const UserPtr& aUser) {
         if(nicks.empty())
             nicks.push_back(Util::emptyString);
 
-        auto i = users.insert(make_pair(aUser->getCID(), FavoriteUser(aUser, nicks[0], urls[0]))).first;
+        auto i = users.emplace(aUser->getCID(), FavoriteUser(aUser, nicks[0], urls[0])).first;
         fire(FavoriteManagerListener::UserAdded(), i->second);
         save();
     }
@@ -185,20 +172,17 @@ std::string FavoriteManager::getUserURL(const UserPtr& aUser) const {
 }
 
 void FavoriteManager::addFavorite(const FavoriteHubEntry& aEntry) {
-    FavoriteHubEntry* f;
-
-    FavoriteHubEntryList::iterator i = getFavoriteHub(aEntry.getServer());
-    if(i != favoriteHubs.end()) {
+    if(getFavoriteHub(aEntry.getServer()) != favoriteHubs.end()) {
         return;
     }
-    f = new FavoriteHubEntry(aEntry);
+    auto f = new FavoriteHubEntry(aEntry);
     favoriteHubs.push_back(f);
     fire(FavoriteManagerListener::FavoriteAdded(), f);
     save();
 }
 
 void FavoriteManager::removeFavorite(FavoriteHubEntry* entry) {
-    FavoriteHubEntryList::iterator i = find(favoriteHubs.begin(), favoriteHubs.end(), entry);
+    auto i = find(favoriteHubs.begin(), favoriteHubs.end(), entry);
     if(i == favoriteHubs.end()) {
         return;
     }
@@ -210,8 +194,7 @@ void FavoriteManager::removeFavorite(FavoriteHubEntry* entry) {
 }
 
 bool FavoriteManager::isFavoriteHub(const std::string& url) {
-    FavoriteHubEntryList::iterator i = getFavoriteHub(url);
-    if(i != favoriteHubs.end()) {
+    if(getFavoriteHub(url) != favoriteHubs.end()) {
         return true;
     }
     return false;
@@ -223,15 +206,15 @@ bool FavoriteManager::addFavoriteDir(const string& aDirectory, const string & aN
     if( path[ path.length() -1 ] != PATH_SEPARATOR )
         path += PATH_SEPARATOR;
 
-    for(auto i = favoriteDirs.begin(); i != favoriteDirs.end(); ++i) {
-        if((Util::strnicmp(path, i->first, i->first.length()) == 0) && (Util::strnicmp(path, i->first, path.length()) == 0)) {
+    for(auto& i: favoriteDirs) {
+        if((Util::strnicmp(path, i.first, i.first.size()) == 0) && (Util::strnicmp(path, i.first, path.size()) == 0)) {
             return false;
         }
-        if(Util::stricmp(aName, i->second) == 0) {
+        if(Util::stricmp(aName, i.second) == 0) {
             return false;
         }
     }
-    favoriteDirs.push_back(make_pair(aDirectory, aName));
+    favoriteDirs.emplace_back(aDirectory, aName);
     save();
     return true;
 }
@@ -254,9 +237,9 @@ bool FavoriteManager::removeFavoriteDir(const string& aName) {
 
 bool FavoriteManager::renameFavoriteDir(const string& aName, const string& anotherName) {
 
-    for(auto j = favoriteDirs.begin(); j != favoriteDirs.end(); ++j) {
-        if(Util::stricmp(j->second.c_str(), aName.c_str()) == 0) {
-            j->second = anotherName;
+    for(auto& j: favoriteDirs) {
+        if(Util::stricmp(j.second.c_str(), aName.c_str()) == 0) {
+            j.second = anotherName;
             save();
             return true;
         }
@@ -267,8 +250,7 @@ bool FavoriteManager::renameFavoriteDir(const string& aName, const string& anoth
 class XmlListLoader : public SimpleXMLReader::CallBack {
 public:
     XmlListLoader(HubEntryList& lst) : publicHubs(lst) { }
-    virtual ~XmlListLoader() { }
-    virtual void startTag(const string& name, StringPairList& attribs, bool) {
+    void startTag(const string& name, StringPairList& attribs, bool) {
         if(name == "Hub") {
             const string& name = getAttrib(attribs, "Name", 0);
             const string& server = getAttrib(attribs, "Address", 1);
@@ -282,12 +264,10 @@ public:
             const string& maxUsers = getAttrib(attribs, "Maxusers", 5);
             const string& reliability = getAttrib(attribs, "Reliability", 5);
             const string& rating = getAttrib(attribs, "Rating", 5);
-            publicHubs.push_back(HubEntry(name, server, description, users, country, shared, minShare, minSlots, maxHubs, maxUsers, reliability, rating));
+            publicHubs.emplace_back(name, server, description, users, country, shared, minShare, minSlots, maxHubs, maxUsers, reliability, rating);
         }
     }
-    virtual void endTag(const string&, const string&) {
 
-    }
 private:
     HubEntryList& publicHubs;
 };
@@ -352,7 +332,7 @@ void FavoriteManager::save() {
             xml.addTag("Hub");
             xml.addChildAttrib("Name", (*i)->getName());
             xml.addChildAttrib("Connect", (*i)->getConnect());
-            xml.addChildAttrib("Description", (*i)->getDescription());
+            xml.addChildAttrib("Description", (*i)->getHubDescription());
             xml.addChildAttrib("Nick", (*i)->getNick(false));
             xml.addChildAttrib("Password", (*i)->getPassword());
             xml.addChildAttrib("Server", (*i)->getServer());
@@ -424,13 +404,13 @@ void FavoriteManager::load() {
 
     // Add NMDC standard op commands
     static const char kickstr[] =
-        "$To: %[userNI] From: %[myNI] $<%[myNI]> You are being kicked because: %[line:Reason]|<%[myNI]> is kicking %[userNI] because: %[line:Reason]|$Kick %[userNI]|";
+            "$To: %[userNI] From: %[myNI] $<%[myNI]> You are being kicked because: %[line:Reason]|<%[myNI]> is kicking %[userNI] because: %[line:Reason]|$Kick %[userNI]|";
     addUserCommand(UserCommand::TYPE_RAW_ONCE, UserCommand::CONTEXT_USER | UserCommand::CONTEXT_SEARCH, UserCommand::FLAG_NOSAVE,
-        _("Kick user(s)"), kickstr, "", "op");
+                   _("Kick user(s)"), kickstr, "", "op");
     static const char redirstr[] =
-        "$OpForceMove $Who:%[userNI]$Where:%[line:Target Server]$Msg:%[line:Message]|";
+            "$OpForceMove $Who:%[userNI]$Where:%[line:Target Server]$Msg:%[line:Message]|";
     addUserCommand(UserCommand::TYPE_RAW_ONCE, UserCommand::CONTEXT_USER | UserCommand::CONTEXT_SEARCH, UserCommand::FLAG_NOSAVE,
-        _("Redirect user(s)"), redirstr, "", "op");
+                   _("Redirect user(s)"), redirstr, "", "op");
 
     try {
         SimpleXML xml;
@@ -455,20 +435,20 @@ void FavoriteManager::load(SimpleXML& aXml) {
     if(aXml.findChild("Hubs")) {
         aXml.stepIn();
 
-    while(aXml.findChild("Group")) {
-        string name = aXml.getChildAttrib("Name");
-        if(name.empty())
-            continue;
-        FavHubGroupProperties props = { aXml.getBoolChildAttrib("Private"), aXml.getBoolChildAttrib("Connect") };
-        favHubGroups[name] = props;
-    }
+        while(aXml.findChild("Group")) {
+            string name = aXml.getChildAttrib("Name");
+            if(name.empty())
+                continue;
+            FavHubGroupProperties props = { aXml.getBoolChildAttrib("Private"), aXml.getBoolChildAttrib("Connect") };
+            favHubGroups[name] = props;
+        }
 
-    aXml.resetCurrentChild();
+        aXml.resetCurrentChild();
         while(aXml.findChild("Hub")) {
             FavoriteHubEntry* e = new FavoriteHubEntry();
             e->setName(aXml.getChildAttrib("Name"));
             e->setConnect(aXml.getBoolChildAttrib("Connect"));
-            e->setDescription(aXml.getChildAttrib("Description"));
+            e->setHubDescription(aXml.getChildAttrib("Description"));
             e->setNick(aXml.getChildAttrib("Nick"));
             e->setPassword(aXml.getChildAttrib("Password"));
             e->setServer(aXml.getChildAttrib("Server"));
@@ -485,28 +465,31 @@ void FavoriteManager::load(SimpleXML& aXml) {
             favoriteHubs.push_back(e);
 
             if(aXml.getBoolChildAttrib("Connect")) {
-            // this entry dates from before the window manager & fav hub groups; convert it.
-            const string name = _("Auto-connect group (converted)");
-            if(favHubGroups.find(name) == favHubGroups.end()) {
-                FavHubGroupProperties props = { false, true };
-                favHubGroups[name] = props;
-            }
-            e->setGroup(name);
-            needSave = true;
+                // this entry dates from before the window manager & fav hub groups; convert it.
+                const string name = _("Auto-connect group (converted)");
+                if(favHubGroups.find(name) == favHubGroups.end()) {
+                    FavHubGroupProperties props = { false, true };
+                    favHubGroups[name] = props;
+                }
+                e->setGroup(name);
+                needSave = true;
             }
         }
-        aXml.stepOut();
+        try {
+            aXml.stepOut();
+        }
+        catch(const Exception&) { }
     }
     // parse groups that have the "Connect" param and send their hubs to WindowManager
     //for(auto i = favHubGroups.begin(), iend = favHubGroups.end(); i != iend; ++i) {
-        //if(i->second.connect) {
-            //FavoriteHubEntryList hubs = getFavoriteHubs(i->first);
-            //for(auto hub = hubs.begin(), hub_end = hubs.end(); hub != hub_end; ++hub) {
-                //StringMap map;
-                //map[WindowInfo::address] = (*hub)->getServer();
-                //WindowManager::getInstance()->add(WindowManager::hub(), map);
-            //}
-        //}
+    //if(i->second.connect) {
+    //FavoriteHubEntryList hubs = getFavoriteHubs(i->first);
+    //for(auto hub = hubs.begin(), hub_end = hubs.end(); hub != hub_end; ++hub) {
+    //StringMap map;
+    //map[WindowInfo::address] = (*hub)->getServer();
+    //WindowManager::getInstance()->add(WindowManager::hub(), map);
+    //}
+    //}
     //}
 
     aXml.resetCurrentChild();
@@ -525,7 +508,7 @@ void FavoriteManager::load(SimpleXML& aXml) {
             } else {
                 u = ClientManager::getInstance()->getUser(CID(cid));
             }
-            auto i = users.insert(make_pair(u->getCID(), FavoriteUser(u, nick, hubUrl))).first;
+            auto i = users.emplace(u->getCID(), FavoriteUser(u, nick, hubUrl)).first;
 
             if(aXml.getBoolChildAttrib("GrantSlot"))
                 i->second.setFlag(FavoriteUser::FLAG_GRANTSLOT);
@@ -534,16 +517,22 @@ void FavoriteManager::load(SimpleXML& aXml) {
             i->second.setDescription(aXml.getChildAttrib("UserDescription"));
 
         }
-        aXml.stepOut();
+        try {
+            aXml.stepOut();
+        }
+        catch(const Exception&) { }
     }
     aXml.resetCurrentChild();
     if(aXml.findChild("UserCommands")) {
         aXml.stepIn();
         while(aXml.findChild("UserCommand")) {
             addUserCommand(aXml.getIntChildAttrib("Type"), aXml.getIntChildAttrib("Context"), 0, aXml.getChildAttrib("Name"),
-            aXml.getChildAttrib("Command"), aXml.getChildAttrib("To"), aXml.getChildAttrib("Hub"));
+                           aXml.getChildAttrib("Command"), aXml.getChildAttrib("To"), aXml.getChildAttrib("Hub"));
         }
-        aXml.stepOut();
+        try {
+            aXml.stepOut();
+        }
+        catch(const Exception&) { }
     }
     //Favorite download to dirs
     aXml.resetCurrentChild();
@@ -554,7 +543,10 @@ void FavoriteManager::load(SimpleXML& aXml) {
             string d(aXml.getChildData());
             FavoriteManager::getInstance()->addFavoriteDir(d, virt);
         }
-        aXml.stepOut();
+        try {
+            aXml.stepOut();
+        }
+        catch(const Exception&) { }
     }
 
     dontSave = false;
@@ -664,16 +656,20 @@ void FavoriteManager::setHubList(int aHubList) {
 
 void FavoriteManager::refresh(bool forceDownload /* = false */) {
     StringList sl = getHubLists();
-    if(sl.empty())
+    if(sl.empty()) {
+        fire(FavoriteManagerListener::DownloadFailed(), Util::emptyString);
         return;
+    }
+
     publicListServer = sl[(lastServer) % sl.size()];
-    if(Util::strnicmp(publicListServer.c_str(), "http://", 7) != 0) {
+    if(Util::findSubString(publicListServer, "http://") != 0 && Util::findSubString(publicListServer, "https://") != 0) {
         lastServer++;
+        fire(FavoriteManagerListener::DownloadFailed(), str(F_("Invalid URL: %1%") % Util::addBrackets(publicListServer)));
         return;
     }
 
     if(!forceDownload) {
-        string path = Util::getHubListsPath() + Util::validateFileName(publicListServer, "/");
+        string path = Util::getHubListsPath() + Util::validateFileName(publicListServer);
         if(File::getSize(path) > 0) {
             useHttp = false;
             string fileDate;
@@ -685,10 +681,10 @@ void FavoriteManager::refresh(bool forceDownload /* = false */) {
             try {
                 File cached(path, File::READ, File::OPEN);
                 downloadBuf = cached.read();
-                char buf[20];
+                char dateBuf[20];
                 time_t fd = cached.getLastModified();
-                if (strftime(buf, 20, "%x", localtime(&fd))) {
-                    fileDate = string(buf);
+                if (strftime(dateBuf, 20, "%x", localtime(&fd))) {
+                    fileDate = string(dateBuf);
                 }
             } catch(const FileException&) {
                 downloadBuf = Util::emptyString;
@@ -741,8 +737,8 @@ UserCommand::List FavoriteManager::getUserCommands(int ctx, const StringList& hu
             bool commandAdc = uc.getHub().compare(0, 6, "adc://") == 0 || uc.getHub().compare(0, 7, "adcs://") == 0;
             if(hubAdc && commandAdc) {
                 if((uc.getHub() == "adc://" || uc.getHub() == "adcs://") ||
-                   ((uc.getHub() == "adc://op" || uc.getHub() == "adcs://op") && isOp[j]) ||
-                   (uc.getHub() == hub) )
+                        ((uc.getHub() == "adc://op" || uc.getHub() == "adcs://op") && isOp[j]) ||
+                        (uc.getHub() == hub) )
                 {
                     //printf("Found ADC command for ADC hub.\n");
                     lst.push_back(*i);
@@ -750,8 +746,8 @@ UserCommand::List FavoriteManager::getUserCommands(int ctx, const StringList& hu
                 }
             } else if((!hubAdc && !commandAdc) || uc.isChat()) {
                 if((uc.getHub().length() == 0) ||
-                   (uc.getHub() == "op" && isOp[j]) ||
-                   (uc.getHub() == hub) )
+                        (uc.getHub() == "op" && isOp[j]) ||
+                        (uc.getHub() == hub) )
                 {
                     //printf("Found non-ADC command for non-ADC hub.\n");
                     lst.push_back(*i);
@@ -778,7 +774,7 @@ void FavoriteManager::on(Failed, HttpConnection*, const string& aLine) noexcept 
         fire(FavoriteManagerListener::DownloadFailed(), aLine);
     }
 }
-void FavoriteManager::on(Complete, HttpConnection*, const string& aLine, bool fromCoral) noexcept {
+void FavoriteManager::on(Complete, HttpConnection*, const string& aLine) noexcept {
     bool parseSuccess = false;
 
     c->removeListener(this);
@@ -787,7 +783,7 @@ void FavoriteManager::on(Complete, HttpConnection*, const string& aLine, bool fr
     }
     running = false;
     if(parseSuccess) {
-        fire(FavoriteManagerListener::DownloadFinished(), aLine, fromCoral);
+        fire(FavoriteManagerListener::DownloadFinished(), aLine);
     }
 }
 
@@ -800,10 +796,12 @@ void FavoriteManager::on(Redirected, HttpConnection*, const string& aLine) noexc
     if(useHttp)
         fire(FavoriteManagerListener::DownloadStarting(), aLine);
 }
+
 void FavoriteManager::on(TypeNormal, HttpConnection*) noexcept {
     if(useHttp)
         listType = TYPE_NORMAL;
 }
+
 void FavoriteManager::on(TypeBZ2, HttpConnection*) noexcept {
     if(useHttp)
         listType = TYPE_BZIP2;

@@ -83,7 +83,7 @@ public:
     QWidget *getWidget() { return this;}
     QString getArenaTitle(){ return (isUpload? uploadTitle() : downloadTitle()); }
     QString getArenaShortTitle(){ return getArenaTitle(); }
-    QMenu *getMenu() { return NULL; }
+    QMenu *getMenu() { return nullptr; }
     ArenaWidget::Role role() const;
 
     const QPixmap &getPixmap(){
@@ -99,7 +99,7 @@ protected:
     }
 
 private:
-    FinishedTransfers(QWidget *parent = NULL) :
+    FinishedTransfers(QWidget *parent = nullptr) :
         FinishedTransferProxy(parent), db_opened(false)
     {
         setupUi(this);
@@ -178,15 +178,11 @@ private:
     void loadList(){
         VarMap params;
 
-#ifdef DO_NOT_USE_MUTEX
-        FinishedManager::getInstance()->lockLists();
-#else // DO_NOT_USE_MUTEX
         auto lock = FinishedManager::getInstance()->lockLists();
-#endif // DO_NOT_USE_MUTEX
         const FinishedManager::MapByFile &list = FinishedManager::getInstance()->getMapByFile(isUpload);
         const FinishedManager::MapByUser &user = FinishedManager::getInstance()->getMapByUser(isUpload);
 
-        for (auto it = list.begin(); it != list.end(); ++it){
+        for (auto it = list.begin(); it != list.end(); ++it) {
             params.clear();
 
             getParams(it->second, it->first, params);
@@ -194,17 +190,13 @@ private:
             model->addFile(params);
         }
 
-        for (auto uit = user.begin(); uit != user.end(); ++uit){
+        for (auto uit = user.begin(); uit != user.end(); ++uit) {
             params.clear();
 
             getParams(uit->second, uit->first, params);
 
-            model->addUser(params);;
+            model->addUser(params);
         }
-
-#ifdef DO_NOT_USE_MUTEX
-        FinishedManager::getInstance()->unlockLists();
-#endif // DO_NOT_USE_MUTEX
 
         AsyncRunner *runner = new AsyncRunner(this);
 
@@ -277,8 +269,9 @@ private:
         params["TIME"]  = _q(Util::formatTime("%Y-%m-%d %H:%M:%S", item->getTime()));
         params["PATH"]  = _q(Util::getFilePath(file));
 
-        for (auto it = item->getUsers().begin(); it != item->getUsers().end(); ++it)
-                nicks += WulforUtil::getInstance()->getNicks(it->user->getCID()) + " ";
+        for (const auto &user : item->getUsers()) {
+            nicks += WulforUtil::getInstance()->getNicks(user.user->getCID()) + " ";
+        }
 
         params["USERS"] = nicks;
         params["TR"]    = (qlonglong)item->getTransferred();
@@ -317,8 +310,9 @@ private:
         params["TIME"]  = _q(Util::formatTime("%Y-%m-%d %H:%M:%S", item->getTime()));
         params["NICK"]  = WulforUtil::getInstance()->getNicks(user->getCID());
 
-        for (auto it = item->getFiles().begin(); it != item->getFiles().end(); ++it)
-                files += _q(*it) + " ";
+        for (const auto &file: item->getFiles()) {
+                files += _q(file) + " ";
+        }
 
         params["FILES"] = files;
         params["TR"]    = (qlonglong)item->getTransferred();
@@ -387,7 +381,7 @@ private:
     }
 
     void openFile(QString file){
-        if (!file.startsWith("/"))
+        if (!file.startsWith(QChar('/')))
             file.prepend("/");
 
         int sep = file.lastIndexOf(QDir::separator());
@@ -402,7 +396,7 @@ private:
                 file = path + QDir::separator() + files.first();
         }
 
-        if (file.startsWith("/"))
+        if (file.startsWith(QChar('/')))
             file.prepend("file://");
         else
             file.prepend("file:///");
@@ -427,7 +421,7 @@ private:
             return;
 
         QStringList files;
-        FinishedTransfersItem *item = NULL;
+        FinishedTransfersItem *item = nullptr;
         QString file;
         bool full;
 
@@ -460,7 +454,7 @@ private:
         QStringList files;
 
         if (comboBox->currentIndex() == 0){
-            FinishedTransfersItem *item = NULL;
+            FinishedTransfersItem *item = nullptr;
             QString file;
 
             for (const auto &i : indexes){
@@ -472,7 +466,7 @@ private:
             }
         }
         else {
-            FinishedTransfersItem *item = NULL;
+            FinishedTransfersItem *item = nullptr;
             QString file_list;
 
             for (const auto &i : indexes){
@@ -505,7 +499,7 @@ private:
             for (auto &f : files){
                 f = f.left(f.lastIndexOf(QDir::separator())) + QDir::separator();
 
-                if (f.startsWith("/"))
+                if (f.startsWith(QChar('/')))
                     f.prepend("file://");
                 else
                     f.prepend("file:///");

@@ -12,9 +12,7 @@
 #include <QList>
 #include <QStringList>
 
-//#define _DEBUG_MODEL_
-
-#ifdef _DEBUG_MODEL_
+#ifdef _DEBUG_QT_UI
 #include <QtDebug>
 #endif
 
@@ -24,7 +22,7 @@ IPFilterModel::IPFilterModel(QObject *parent)
     QList<QVariant> rootData;
     rootData << tr("IP/Mask") << tr("Direction");
 
-    rootItem = new IPFilterModelItem(rootData, NULL);
+    rootItem = new IPFilterModelItem(rootData, nullptr);
 }
 
 IPFilterModel::~IPFilterModel()
@@ -66,7 +64,7 @@ QVariant IPFilterModel::data(const QModelIndex &index, int role) const
 Qt::ItemFlags IPFilterModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
-        return 0;
+        return nullptr;
 
     return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
@@ -129,6 +127,8 @@ int IPFilterModel::rowCount(const QModelIndex &parent) const
 }
 
 void IPFilterModel::sort(int column, Qt::SortOrder order) {
+    Q_UNUSED(column)
+    Q_UNUSED(order)
     return;
 }
 
@@ -213,8 +213,8 @@ IPFilterModelItem::IPFilterModelItem(const QList<QVariant> &data, IPFilterModelI
 
 IPFilterModelItem::~IPFilterModelItem()
 {
-    if (!childItems.isEmpty())
-        qDeleteAll(childItems);
+    qDeleteAll(childItems);
+    childItems.clear();
 }
 
 void IPFilterModelItem::appendChild(IPFilterModelItem *item) {

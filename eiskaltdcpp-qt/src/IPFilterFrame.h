@@ -15,8 +15,8 @@
 #include <QRadioButton>
 #include <QList>
 
-#include "IPFilter.h"
-#include "IPFilterModel.h"
+#include "extra/ipfilter.h"
+#include <IPFilterModel.h>
 
 #include "ui_UIIPFilter.h"
 
@@ -25,7 +25,7 @@ class IPFilterFrame : public QDialog, private Ui::UIIPFilter {
 
 public:
     /** */
-    IPFilterFrame(QWidget *parent = 0);
+    IPFilterFrame(QWidget *parent = nullptr);
     /** */
     virtual ~IPFilterFrame();
 

@@ -12,35 +12,33 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
+
+#include <string>
+
+#include "GetSet.h"
 
 namespace dcpp {
 
 class HubEntry {
 public:
-    HubEntry(const string& aName, const string& aServer, const string& aDescription, const string& aUsers) noexcept :
-    name(aName), server(aServer), description(aDescription), country(Util::emptyString),
-    rating(Util::emptyString), reliability(0.0), shared(0), minShare(0), users(Util::toInt(aUsers)), minSlots(0), maxHubs(0), maxUsers(0) { }
+    HubEntry(const string& aName, const string& aServer, const string& aDescription, const string& aUsers) :
+        name(aName), server(aServer), description(aDescription), country(Util::emptyString),
+        rating(Util::emptyString), reliability(0.0), shared(0), minShare(0), users(Util::toInt(aUsers)), minSlots(0), maxHubs(0), maxUsers(0) { }
 
     HubEntry(const string& aName, const string& aServer, const string& aDescription, const string& aUsers, const string& aCountry,
-        const string& aShared, const string& aMinShare, const string& aMinSlots, const string& aMaxHubs, const string& aMaxUsers,
-        const string& aReliability, const string& aRating) : name(aName), server(aServer), description(aDescription), country(aCountry),
+             const string& aShared, const string& aMinShare, const string& aMinSlots, const string& aMaxHubs, const string& aMaxUsers,
+             const string& aReliability, const string& aRating) : name(aName), server(aServer), description(aDescription), country(aCountry),
         rating(aRating), reliability((float)(Util::toFloat(aReliability) / 100.0)), shared(Util::toInt64(aShared)), minShare(Util::toInt64(aMinShare)),
         users(Util::toInt(aUsers)), minSlots(Util::toInt(aMinSlots)), maxHubs(Util::toInt(aMaxHubs)), maxUsers(Util::toInt(aMaxUsers))
     {
 
     }
 
-    HubEntry() noexcept { }
-    HubEntry(const HubEntry& rhs) noexcept : name(rhs.name), server(rhs.server), description(rhs.description), country(rhs.country),
-        rating(rhs.rating), reliability(rhs.reliability), shared(rhs.shared), minShare(rhs.minShare), users(rhs.users), minSlots(rhs.minSlots),
-        maxHubs(rhs.maxHubs), maxUsers(rhs.maxUsers) { }
-
-    ~HubEntry() noexcept { }
+    HubEntry() = default;
 
     GETSET(string, name, Name);
     GETSET(string, server, Server);
@@ -59,23 +57,29 @@ const string DEF_FAKE_ID = "";
 
 class FavoriteHubEntry {
 public:
-    FavoriteHubEntry() noexcept : connect(false), encoding(Text::systemCharset),
-    mode(0), overrideId(0), clientId(DEF_FAKE_ID), searchInterval(SETTING(MINIMUM_SEARCH_INTERVAL)) { }
-    FavoriteHubEntry(const HubEntry& rhs) noexcept : name(rhs.getName()),
-    server(rhs.getServer()),
-    description(rhs.getDescription()), connect(false),
-    encoding(Text::systemCharset), mode(0), overrideId(0),
-    clientId(DEF_FAKE_ID), searchInterval(SETTING(MINIMUM_SEARCH_INTERVAL)) { }
-    FavoriteHubEntry(const FavoriteHubEntry& rhs) noexcept :
-    userdescription(rhs.userdescription), name(rhs.getName()),
-    server(rhs.getServer()), description(rhs.getDescription()),
-    password(rhs.getPassword()), connect(rhs.getConnect()),
-    encoding(rhs.getEncoding()), mode(rhs.mode),
-    overrideId(rhs.overrideId), clientId(rhs.clientId),
-    externalIP(""), useInternetIp(false), disableChat(false),
-    searchInterval(rhs.searchInterval), nick(rhs.nick)
+    FavoriteHubEntry() : encoding(Text::systemCharset), connect(false),
+        mode(0), overrideId(false), clientId(DEF_FAKE_ID),
+        useInternetIp(false), disableChat(false),
+        searchInterval(SETTING(MINIMUM_SEARCH_INTERVAL))
     { }
-    ~FavoriteHubEntry() noexcept { }
+
+    FavoriteHubEntry(const HubEntry& rhs) : name(rhs.getName()),
+        server(rhs.getServer()),
+        hubDescription(rhs.getDescription()), encoding(Text::systemCharset),
+        connect(false), mode(0), overrideId(false),
+        clientId(DEF_FAKE_ID), useInternetIp(false), disableChat(false),
+        searchInterval(SETTING(MINIMUM_SEARCH_INTERVAL))
+    { }
+
+    FavoriteHubEntry(const FavoriteHubEntry& rhs) :
+        userDescription(rhs.userDescription), name(rhs.getName()),
+        server(rhs.getServer()), hubDescription(rhs.getHubDescription()),
+        password(rhs.getPassword()), encoding(rhs.getEncoding()),
+        connect(rhs.getConnect()), mode(rhs.mode),
+        overrideId(rhs.overrideId), clientId(rhs.clientId),
+        externalIP(""), useInternetIp(false), disableChat(false),
+        searchInterval(rhs.searchInterval), nick(rhs.nick)
+    { }
 
     const string& getNick(bool useDefault = true) const {
         return (!nick.empty() || !useDefault) ? nick : SETTING(NICK);
@@ -83,13 +87,13 @@ public:
 
     void setNick(const string& aNick) { nick = aNick; }
 
-    GETSET(string, userdescription, UserDescription);
+    GETSET(string, userDescription, UserDescription);
     GETSET(string, name, Name);
     GETSET(string, server, Server);
-    GETSET(string, description, Description);
+    GETSET(string, hubDescription, HubDescription);
     GETSET(string, password, Password);
-    GETSET(bool, connect, Connect);
     GETSET(string, encoding, Encoding);
+    GETSET(bool, connect, Connect);
     GETSET(int, mode, Mode); // 0 = default, 1 = active, 2 = passive
     GETSET(bool, overrideId, OverrideId);
     GETSET(string, clientId, ClientId);
@@ -98,6 +102,7 @@ public:
     GETSET(bool, disableChat, DisableChat);
     GETSET(string, group, Group);
     GETSET(uint32_t, searchInterval, SearchInterval);
+
 private:
     string nick;
 };

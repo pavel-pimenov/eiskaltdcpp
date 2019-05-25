@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,13 +12,15 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
 #include <algorithm>
+
+#include "NonCopyable.h"
+
 #include "typedefs.h"
 #include "format.h"
 #include "SettingsManager.h"
@@ -33,7 +35,7 @@ STANDARD_EXCEPTION(FileException);
 /**
  * A simple output stream. Intended to be used for nesting streams one inside the other.
  */
-class OutputStream {
+class OutputStream : private NonCopyable {
 public:
     OutputStream() { }
     virtual ~OutputStream() { }
@@ -58,12 +60,9 @@ public:
     virtual bool eof() { return false; }
 
     size_t write(const string& str) { return write(str.c_str(), str.size()); }
-private:
-    OutputStream(const OutputStream&);
-    OutputStream& operator=(const OutputStream&);
 };
 
-class InputStream {
+class InputStream : private NonCopyable {
 public:
     InputStream() { }
     virtual ~InputStream() { }
@@ -73,9 +72,6 @@ public:
      *         actually read from the stream source in this call.
      */
     virtual size_t read(void* buf, size_t& len) = 0;
-private:
-    InputStream(const InputStream&);
-    InputStream& operator=(const InputStream&);
 };
 
 class MemoryInputStream : public InputStream {
@@ -87,7 +83,7 @@ public:
         memcpy(buf, src.data(), src.size());
     }
 
-        virtual ~MemoryInputStream() {
+    virtual ~MemoryInputStream() {
         delete[] buf;
     }
 
@@ -107,6 +103,26 @@ private:
 };
 
 class IOStream : public InputStream, public OutputStream {
+};
+
+/** Count how many bytes have been read. */
+template<bool managed>
+class CountedInputStream : public InputStream {
+public:
+    CountedInputStream(InputStream* is) : s(is), readBytes(0) { }
+    virtual ~CountedInputStream() { if(managed) delete s; }
+
+    size_t read(void* buf, size_t& len) {
+        auto ret = s->read(buf, len);
+        readBytes += len;
+        return ret;
+    }
+
+    uint64_t getReadBytes() const { return readBytes; }
+
+private:
+    InputStream* s;
+    uint64_t readBytes;
 };
 
 template<bool managed>
@@ -165,7 +181,8 @@ public:
             // We must do this in order not to lose bytes when a download
             // is disconnected prematurely
             flush();
-        } catch(const Exception&) { }
+        } catch(const Exception&) {
+        }
         if(managed) delete s;
     }
 
@@ -207,17 +224,38 @@ private:
 
 class StringOutputStream : public OutputStream {
 public:
-    StringOutputStream(string& out) : str(out) { }
+    StringOutputStream() { }
     virtual ~StringOutputStream() { }
     using OutputStream::write;
 
     virtual size_t flush() { return 0; }
     virtual size_t write(const void* buf, size_t len) {
-        str.append((char*)buf, len);
+        str.append(reinterpret_cast<const char*>(buf), len);
         return len;
     }
+
+    string getString() { return move(str); }
+    string& stringRef() { return str; }
+
+private:
+    string str;
+};
+
+class StringRefOutputStream : public OutputStream {
+public:
+    StringRefOutputStream(string& out) : str(out) { }
+    virtual ~StringRefOutputStream() { }
+    using OutputStream::write;
+
+    virtual size_t flush() { return 0; }
+    virtual size_t write(const void* buf, size_t len) {
+        str.append(reinterpret_cast<const char*>(buf), len);
+        return len;
+    }
+
 private:
     string& str;
 };
+
 
 } // namespace dcpp

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,19 +13,22 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
 
 #include "HashManager.h"
+
+#include <memory>
+
+#include "File.h"
+#include "LogManager.h"
+#include "ScopedFunctor.h"
 #include "ShareManager.h"
 #include "SimpleXML.h"
-#include "LogManager.h"
-#include "File.h"
-#include "ZUtils.h"
 #include "SFVReader.h"
+#include "ZUtils.h"
 
 #ifndef _WIN32
 #include <sys/mman.h> // mmap, munmap, madvise
@@ -32,13 +36,11 @@
 #include <setjmp.h>
 #endif
 
-#include <memory>
-
 #ifdef USE_XATTR
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include "attr/attributes.h"
+#include <sys/xattr.h>
 #endif
 
 namespace dcpp {
@@ -94,18 +96,20 @@ bool HashManager::StreamStore::loadTree(const string& p_filePath, TigerTree &tre
     const int64_t fileSize  = (p_aFileSize == -1) ? File::getSize(p_filePath) : p_aFileSize;
     const size_t hdrSz      = sizeof(TTHStreamHeader);
     const size_t totalSz    = ATTR_MAX_VALUELEN;
-    int blockSize           = totalSz;
-    TTHStreamHeader h;
+    const size_t blockSize  = totalSz;
 
-    std::unique_ptr<uint8_t[]> buf(new uint8_t[totalSz]);
+    std::unique_ptr<uint8_t[]> buf(new uint8_t[blockSize]);
 
-    if (attr_get(p_filePath.c_str(), g_streamName.c_str(), (char*)(void*)buf.get(), &blockSize, 0) == 0){
-        memcpy(&h, buf.get(), hdrSz);
+    if (getxattr(p_filePath.c_str(), g_streamName.c_str(), (char*)(void*)buf.get(), blockSize) == 0) {
+        const TTHStreamHeader& h = reinterpret_cast<const TTHStreamHeader&>(*buf.get());
 
-        printf("%s: timestamps header=0x%llx, current=0x%llx, difference(should be zero)=%lld\n",
-               p_filePath.c_str(), h.timeStamp, getTimeStamp(p_filePath), h.timeStamp - getTimeStamp(p_filePath));
+        printf("%s: timestamps header=0x%llx, current=0x%llx, difference(should be zero)=%llx\n",
+               p_filePath.c_str(),
+               (long long unsigned int)h.timeStamp,
+               (long long unsigned int)getTimeStamp(p_filePath),
+               (long long unsigned int)(h.timeStamp - getTimeStamp(p_filePath)));
 
-        if (!(h.timeStamp == getTimeStamp(p_filePath) && validateCheckSum(h))){ // File was modified and we should reset attr.
+        if (!(h.timeStamp == getTimeStamp(p_filePath) && validateCheckSum(h))) { // File was modified and we should reset attr.
             deleteStream(p_filePath);
 
             return false;
@@ -126,6 +130,10 @@ bool HashManager::StreamStore::loadTree(const string& p_filePath, TigerTree &tre
         else
             return false;
     }
+#else
+    (void)p_filePath;
+    (void)tree;
+    (void)p_aFileSize;
 #endif //USE_XATTR
     return false;
 }
@@ -148,9 +156,12 @@ bool HashManager::StreamStore::saveTree(const string& p_filePath, const TigerTre
         memcpy(buf.get(), &h, sizeof(TTHStreamHeader));
         memcpy(buf.get() + sizeof(TTHStreamHeader), p_Tree.getLeaves()[0].data, p_Tree.getLeaves().size() * TTHValue::BYTES);
 
-        return (attr_set(p_filePath.c_str(), g_streamName.c_str(), (char*)(void*)buf.get(), sz, 0) == 0);
+        return (setxattr(p_filePath.c_str(), g_streamName.c_str(), (char*)(void*)buf.get(), sz, 0) == 0);
     }
-#endif //USE_XATTR
+#else // USE_XATTR
+    (void)p_filePath;
+    (void)p_Tree;
+#endif // USE_XATTR
     return false;
 }
 
@@ -158,10 +169,11 @@ void HashManager::StreamStore::deleteStream(const string& p_filePath)
 {
 #ifdef USE_XATTR
     printf("Resetting Xattr for %s\n", p_filePath.c_str());
-    attr_remove(p_filePath.c_str(), g_streamName.c_str(), 0);
+    removexattr(p_filePath.c_str(), g_streamName.c_str());
+#else
+    (void)p_filePath;
 #endif //USE_XATTR
 }
-
 
 bool HashManager::checkTTH(const string& aFileName, int64_t aSize, uint32_t aTimeStamp) {
     Lock l(cs);
@@ -204,7 +216,7 @@ bool HashManager::getTree(const TTHValue& root, TigerTree& tt) {
     return store.getTree(root, tt);
 }
 
-size_t HashManager::getBlockSize(const TTHValue& root) {
+int64_t HashManager::getBlockSize(const TTHValue& root) {
     Lock l(cs);
     return store.getBlockSize(root);
 }
@@ -223,10 +235,10 @@ void HashManager::hashDone(const string& aFileName, uint32_t aTimeStamp, const T
 
     if (speed > 0) {
         LogManager::getInstance()->message(str(F_("Finished hashing: %1% (%2% at %3%/s)") % Util::addBrackets(aFileName) %
-            Util::formatBytes(size) % Util::formatBytes(speed)));
+                                               Util::formatBytes(size) % Util::formatBytes(speed)));
     } else if(size >= 0) {
         LogManager::getInstance()->message(str(F_("Finished hashing: %1% (%2%)") % Util::addBrackets(aFileName) %
-            Util::formatBytes(size)));
+                                               Util::formatBytes(size)));
     } else {
         LogManager::getInstance()->message(str(F_("Finished hashing: %1%") % Util::addBrackets(aFileName)));
     }
@@ -235,17 +247,16 @@ void HashManager::hashDone(const string& aFileName, uint32_t aTimeStamp, const T
 void HashManager::HashStore::addFile(const string& aFileName, uint32_t aTimeStamp, const TigerTree& tth, bool aUsed) {
     addTree(tth);
 
-    string fname = Util::getFileName(aFileName);
-    string fpath = Util::getFilePath(aFileName);
+    auto fname = Util::getFileName(aFileName), fpath = Util::getFilePath(aFileName);
 
-    FileInfoList& fileList = fileIndex[fpath];
+    auto& fileList = fileIndex[fpath];
 
-    FileInfoIter j = find(fileList.begin(), fileList.end(), fname);
+    auto j = find(fileList.begin(), fileList.end(), fname);
     if (j != fileList.end()) {
         fileList.erase(j);
     }
 
-    fileList.push_back(FileInfo(fname, tth.getRoot(), aTimeStamp, aUsed));
+    fileList.emplace_back(fname, tth.getRoot(), aTimeStamp, aUsed);
     dirty = true;
 }
 
@@ -254,7 +265,7 @@ void HashManager::HashStore::addTree(const TigerTree& tt) noexcept {
         try {
             File f(getDataFile(), File::READ | File::WRITE, File::OPEN);
             int64_t index = saveTree(f, tt);
-            treeIndex.insert(make_pair(tt.getRoot(), TreeInfo(tt.getFileSize(), index, tt.getBlockSize())));
+            treeIndex.emplace(tt.getRoot(), TreeInfo(tt.getFileSize(), index, tt.getBlockSize()));
             dirty = true;
         } catch (const FileException& e) {
             LogManager::getInstance()->message(str(F_("Error saving hash data: %1%") % e.getError()));
@@ -295,8 +306,8 @@ bool HashManager::HashStore::loadTree(File& f, const TreeInfo& ti, const TTHValu
         f.setPos(ti.getIndex());
         size_t datalen = TigerTree::calcBlocks(ti.getSize(), ti.getBlockSize()) * TTHValue::BYTES;
         std::unique_ptr<uint8_t[]> buf(new uint8_t[datalen]);
-        f.read((void*)buf.get(), datalen);
-        tt = TigerTree(ti.getSize(), ti.getBlockSize(), buf.get());
+        f.read(&buf[0], datalen);
+        tt = TigerTree(ti.getSize(), ti.getBlockSize(), &buf[0]);
         if (!(tt.getRoot() == root))
             return false;
     } catch (const Exception&) {
@@ -307,7 +318,7 @@ bool HashManager::HashStore::loadTree(File& f, const TreeInfo& ti, const TTHValu
 }
 
 bool HashManager::HashStore::getTree(const TTHValue& root, TigerTree& tt) {
-    TreeIter i = treeIndex.find(root);
+    auto i = treeIndex.find(root);
     if (i == treeIndex.end())
         return false;
     try {
@@ -318,20 +329,19 @@ bool HashManager::HashStore::getTree(const TTHValue& root, TigerTree& tt) {
     }
 }
 
-size_t HashManager::HashStore::getBlockSize(const TTHValue& root) const {
-    TreeMap::const_iterator i = treeIndex.find(root);
+int64_t HashManager::HashStore::getBlockSize(const TTHValue& root) const {
+    auto i = treeIndex.find(root);
     return i == treeIndex.end() ? 0 : i->second.getBlockSize();
 }
 
 bool HashManager::HashStore::checkTTH(const string& aFileName, int64_t aSize, uint32_t aTimeStamp) {
-    string fname = Util::getFileName(aFileName);
-    string fpath = Util::getFilePath(aFileName);
-    DirIter i = fileIndex.find(fpath);
+    auto fname = Util::getFileName(aFileName), fpath = Util::getFilePath(aFileName);
+    auto i = fileIndex.find(fpath);
     if (i != fileIndex.end()) {
-        FileInfoIter j = find(i->second.begin(), i->second.end(), fname);
+        auto j = find(i->second.begin(), i->second.end(), fname);
         if (j != i->second.end()) {
             FileInfo& fi = *j;
-            TreeIter ti = treeIndex.find(fi.getRoot());
+            auto ti = treeIndex.find(fi.getRoot());
             if (ti == treeIndex.end() || ti->second.getSize() != aSize || fi.getTimeStamp() != aTimeStamp) {
                 i->second.erase(j);
                 dirty = true;
@@ -347,9 +357,9 @@ const TTHValue* HashManager::HashStore::getTTH(const string& aFileName) {
     string fname = Util::getFileName(aFileName);
     string fpath = Util::getFilePath(aFileName);
 
-    DirIter i = fileIndex.find(fpath);
+    auto i = fileIndex.find(fpath);
     if (i != fileIndex.end()) {
-        FileInfoIter j = find(i->second.begin(), i->second.end(), fname);
+        auto j = find(i->second.begin(), i->second.end(), fname);
         if (j != i->second.end()) {
             j->setUsed(true);
             return &(j->getRoot());
@@ -360,23 +370,23 @@ const TTHValue* HashManager::HashStore::getTTH(const string& aFileName) {
 
 void HashManager::HashStore::rebuild() {
     try {
-        DirMap newFileIndex;
-        TreeMap newTreeIndex;
+        decltype(fileIndex) newFileIndex;
+        decltype(treeIndex) newTreeIndex;
 
-        for (DirIter i = fileIndex.begin(); i != fileIndex.end(); ++i) {
-            for (FileInfoIter j = i->second.begin(); j != i->second.end(); ++j) {
-                if (!j->getUsed())
+        for (auto& i: fileIndex) {
+            for (auto& j : i.second) {
+                if (!j.getUsed())
                     continue;
 
-                TreeIter k = treeIndex.find(j->getRoot());
+                auto k = treeIndex.find(j.getRoot());
                 if (k != treeIndex.end()) {
-                    newTreeIndex[j->getRoot()] = k->second;
+                    newTreeIndex[j.getRoot()] = k->second;
                 }
             }
         }
 
-        string tmpName = getDataFile() + ".tmp";
-        string origName = getDataFile();
+        auto tmpName = getDataFile() + ".tmp";
+        auto origName = getDataFile();
 
         createDataFile(tmpName);
 
@@ -384,7 +394,7 @@ void HashManager::HashStore::rebuild() {
             File in(origName, File::READ, File::OPEN);
             File out(tmpName, File::READ | File::WRITE, File::OPEN);
 
-            for (TreeIter i = newTreeIndex.begin(); i != newTreeIndex.end();) {
+            for (auto i = newTreeIndex.begin(); i != newTreeIndex.end();) {
                 TigerTree tree;
                 if (loadTree(in, i->second, i->first, tree)) {
                     i->second.setIndex(saveTree(out, tree));
@@ -395,12 +405,12 @@ void HashManager::HashStore::rebuild() {
             }
         }
 
-        for (DirIter i = fileIndex.begin(); i != fileIndex.end(); ++i) {
-            DirIter fi = newFileIndex.insert(make_pair(i->first, FileInfoList())).first;
+        for (auto& i: fileIndex) {
+            auto fi = newFileIndex.emplace(i.first, vector<FileInfo>()).first;
 
-            for (FileInfoIter j = i->second.begin(); j != i->second.end(); ++j) {
-                if (newTreeIndex.find(j->getRoot()) != newTreeIndex.end()) {
-                    fi->second.push_back(*j);
+            for (auto& j: i.second) {
+                if (newTreeIndex.find(j.getRoot()) != newTreeIndex.end()) {
+                    fi->second.push_back(j);
                 }
             }
 
@@ -433,8 +443,8 @@ void HashManager::HashStore::save() {
 
             f.write(LIT("\t<Trees>\r\n"));
 
-            for (TreeIter i = treeIndex.begin(); i != treeIndex.end(); ++i) {
-                const TreeInfo& ti = i->second;
+            for (auto& i: treeIndex) {
+                const TreeInfo& ti = i.second;
                 f.write(LIT("\t\t<Hash Type=\"TTH\" Index=\""));
                 f.write(Util::toString(ti.getIndex()));
                 f.write(LIT("\" BlockSize=\""));
@@ -443,16 +453,15 @@ void HashManager::HashStore::save() {
                 f.write(Util::toString(ti.getSize()));
                 f.write(LIT("\" Root=\""));
                 b32tmp.clear();
-                f.write(i->first.toBase32(b32tmp));
+                f.write(i.first.toBase32(b32tmp));
                 f.write(LIT("\"/>\r\n"));
             }
 
             f.write(LIT("\t</Trees>\r\n\t<Files>\r\n"));
 
-            for (DirIter i = fileIndex.begin(); i != fileIndex.end(); ++i) {
-                const string& dir = i->first;
-                for (FileInfoIter j = i->second.begin(); j != i->second.end(); ++j) {
-                    const FileInfo& fi = *j;
+            for (auto& i: fileIndex) {
+                const string& dir = i.first;
+                for (auto& fi: i.second) {
                     f.write(LIT("\t\t<File Name=\""));
                     f.write(SimpleXML::escape(dir + fi.getFileName(), tmp, true));
                     f.write(LIT("\" TimeStamp=\""));
@@ -476,13 +485,21 @@ void HashManager::HashStore::save() {
     }
 }
 
+string HashManager::HashStore::getIndexFile() { return Util::getPath(Util::PATH_USER_CONFIG) + "HashIndex.xml"; }
+string HashManager::HashStore::getDataFile() { return Util::getPath(Util::PATH_USER_CONFIG) + "HashData.dat"; }
+
 class HashLoader: public SimpleXMLReader::CallBack {
 public:
     HashLoader(HashManager::HashStore& s) :
-        store(s), size(0), timeStamp(0), version(HASH_FILE_VERSION), inTrees(false), inFiles(false), inHashStore(false) {
-    }
-    virtual void startTag(const string& name, StringPairList& attribs, bool simple);
-    virtual void endTag(const string& name, const string& data);
+        store(s),
+        size(0),
+        timeStamp(0),
+        version(HASH_FILE_VERSION),
+        inTrees(false),
+        inFiles(false),
+        inHashStore(false)
+    { }
+    void startTag(const string& name, StringPairList& attribs, bool simple);
 
 private:
     HashManager::HashStore& store;
@@ -552,20 +569,13 @@ void HashLoader::startTag(const string& name, StringPairList& attribs, bool simp
                 string fname = Util::getFileName(file);
                 string fpath = Util::getFilePath(file);
 
-                store.fileIndex[fpath].push_back(HashManager::HashStore::FileInfo(fname, TTHValue(root), timeStamp,
-                    false));
+                store.fileIndex[fpath].emplace_back(fname, TTHValue(root), timeStamp, false);
             }
         } else if (name == sTrees) {
             inTrees = !simple;
         } else if (name == sFiles) {
             inFiles = !simple;
         }
-    }
-}
-
-void HashLoader::endTag(const string& name, const string&) {
-    if (name == sFile) {
-        file.clear();
     }
 }
 
@@ -607,9 +617,9 @@ void HashManager::HashStore::createDataFile(const string& name) {
     }
 }
 
-void HashManager::Hasher::hashFile(const string& fileName, int64_t size) {
+void HashManager::Hasher::hashFile(const string& fileName, int64_t size) noexcept {
     Lock l(cs);
-    if (w.insert(make_pair(fileName, size)).second) {
+    if(w.emplace(fileName, size).second) {
         if(paused > 0)
             paused = 1 ;
         else
@@ -617,30 +627,30 @@ void HashManager::Hasher::hashFile(const string& fileName, int64_t size) {
     }
 }
 
-bool HashManager::Hasher::pause() {
+bool HashManager::Hasher::pause() noexcept {
     Lock l(cs);
     paused = 1;
-//    printf("pause::paused: %d\n", paused);fflush(stdout);
+    //    printf("pause::paused: %d\n", paused);fflush(stdout);
     return true;
 }
 
-void HashManager::Hasher::resume() {
+void HashManager::Hasher::resume() noexcept {
     Lock l(cs);
     while(paused > 0) {
         paused = 0;
-//        printf("resume::paused: %d\n", paused);fflush(stdout);
+        //        printf("resume::paused: %d\n", paused);fflush(stdout);
         s.signal();
     }
 }
 
-bool HashManager::Hasher::isPaused() const {
+bool HashManager::Hasher::isPaused() const noexcept {
     Lock l(cs);
     return paused > 0;
 }
 
 void HashManager::Hasher::stopHashing(const string& baseDir) {
     Lock l(cs);
-    for (WorkIter i = w.begin(); i != w.end();) {
+    for (auto i = w.begin(); i != w.end();) {
         if (Util::strnicmp(baseDir, i->first, baseDir.length()) == 0) {
             w.erase(i++);
         } else {
@@ -649,15 +659,15 @@ void HashManager::Hasher::stopHashing(const string& baseDir) {
     }
 }
 
-void HashManager::Hasher::getStats(string& curFile, int64_t& bytesLeft, size_t& filesLeft) {
+void HashManager::Hasher::getStats(string& curFile, uint64_t& bytesLeft, size_t& filesLeft) const {
     Lock l(cs);
     curFile = currentFile;
     filesLeft = w.size();
     if (running)
         filesLeft++;
     bytesLeft = 0;
-    for (WorkMap::const_iterator i = w.begin(); i != w.end(); ++i) {
-        bytesLeft += i->second;
+    for (auto& i: w) {
+        bytesLeft += i.second;
     }
     bytesLeft += currentSize;
 }
@@ -670,10 +680,8 @@ void HashManager::Hasher::instantPause() {
             wait = true;
         }
     }
-    if(wait) {
-//        printf("wait2: %d\n", wait); fflush(stdout);
+    if(wait)
         s.wait();
-    }
 }
 
 #ifdef _WIN32
@@ -689,7 +697,7 @@ bool HashManager::Hasher::fastHash(const string& fname, uint8_t* buf, TigerTree&
             return false;
         } else {
             h = ::CreateFileW(Text::utf8ToWide(fname).c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING,
-                FILE_FLAG_NO_BUFFERING | FILE_FLAG_OVERLAPPED, NULL);
+                              FILE_FLAG_NO_BUFFERING | FILE_FLAG_OVERLAPPED, NULL);
             if (h == INVALID_HANDLE_VALUE)
                 return false;
         }
@@ -767,7 +775,7 @@ bool HashManager::Hasher::fastHash(const string& fname, uint8_t* buf, TigerTree&
                     goto cleanup;
                 }
                 break;
-                default:
+            default:
                 dcdebug("Error 0x%x: %s\n", GetLastError(), Util::translateError(GetLastError()).c_str());
                 goto cleanup;
             }
@@ -782,7 +790,7 @@ bool HashManager::Hasher::fastHash(const string& fname, uint8_t* buf, TigerTree&
         swap(rn, hn);
     }
 
-    cleanup:
+cleanup:
     ::CloseHandle(over.hEvent);
     ::CloseHandle(h);
     return ok;
@@ -792,15 +800,17 @@ bool HashManager::Hasher::fastHash(const string& fname, uint8_t* buf, TigerTree&
 
 static sigjmp_buf sb_env;
 
-static void sigbus_handler(int signum
 #ifndef __HAIKU__
-, siginfo_t* info, void* context
+static void sigbus_handler(int signum, siginfo_t* info, void* context)
+#else // __HAIKU__
+static void sigbus_handler(int signum)
 #endif
-) {
+{
     // Jump back to the fastHash which will return error. Apparently truncating
     // a file in Solaris sets si_code to BUS_OBJERR
 #ifndef __HAIKU__
-       if (signum == SIGBUS && (info->si_code == BUS_ADRERR || info->si_code == BUS_OBJERR))
+    (void)context;
+    if (signum == SIGBUS && (info->si_code == BUS_ADRERR || info->si_code == BUS_OBJERR))
         siglongjmp(sb_env, 1);
 #endif
 }
@@ -867,8 +877,8 @@ bool HashManager::Hasher::fastHash(const string& filename, uint8_t* , TigerTree&
         size_read = std::min(size - pos, BUF_SIZE);
         buf = mmap(0, size_read, PROT_READ, mmap_flags, fd, pos);
         if(buf == MAP_FAILED) {
-        dcdebug("Error calling mmap for file %s: %s\n", filename.c_str(), Util::translateError(errno).c_str());
-        break;
+            dcdebug("Error calling mmap for file %s: %s\n", filename.c_str(), Util::translateError(errno).c_str());
+            break;
         }
 
         if (sigsetjmp(sb_env, 1)) {
@@ -938,7 +948,6 @@ bool HashManager::Hasher::fastHash(const string& filename, uint8_t* , TigerTree&
 #endif // !_WIN32
 int HashManager::Hasher::run() {
     setThreadPriority(Thread::IDLE);
-    setThreadName("Hasher");
     uint8_t* buf = NULL;
     bool virtualBuf = true;
     string fname;
@@ -1001,7 +1010,7 @@ int HashManager::Hasher::run() {
                 SFVReader sfv(fname);
                 CRC32Filter* xcrc32 = 0;
                 if(sfv.hasCRC())
-                xcrc32 = &crc32;
+                    xcrc32 = &crc32;
 
                 TigerTree fastTTH(bs);
                 tth = &fastTTH;
@@ -1037,7 +1046,7 @@ int HashManager::Hasher::run() {
                             currentSize = max(static_cast<uint64_t>(currentSize - n), static_cast<uint64_t>(0));
                         }
 
-                    instantPause();
+                        instantPause();
                     } while (n> 0 && !stop);
                 }
 
@@ -1053,29 +1062,29 @@ int HashManager::Hasher::run() {
                 } else {
                     HashManager::getInstance()->hashDone(fname, timestamp, *tth, speed, size);
                 }
-                } catch(const FileException& e) {
-                    LogManager::getInstance()->message(str(F_("Error hashing %1%: %2%") % Util::addBrackets(fname) % e.getError()));
-                }
-            }
-            {
-                Lock l(cs);
-                currentFile.clear();
-                currentSize = 0;
-            }
-            running = false;
-            if(buf != NULL && (last || stop)) {
-                if(virtualBuf) {
-#ifdef _WIN32
-                    VirtualFree(buf, 0, MEM_RELEASE);
-#endif
-                } else {
-                    delete [] buf;
-                }
-                buf = NULL;
+            } catch(const FileException& e) {
+                LogManager::getInstance()->message(str(F_("Error hashing %1%: %2%") % Util::addBrackets(fname) % e.getError()));
             }
         }
-        return 0;
+        {
+            Lock l(cs);
+            currentFile.clear();
+            currentSize = 0;
+        }
+        running = false;
+        if(buf != NULL && (last || stop)) {
+            if(virtualBuf) {
+#ifdef _WIN32
+                VirtualFree(buf, 0, MEM_RELEASE);
+#endif
+            } else {
+                delete [] buf;
+            }
+            buf = NULL;
+        }
     }
+    return 0;
+}
 
 HashManager::HashPauser::HashPauser() {
     resume = !HashManager::getInstance()->isHashingPaused();
@@ -1086,22 +1095,23 @@ HashManager::HashPauser::~HashPauser() {
         HashManager::getInstance()->resumeHashing();
 }
 
-bool HashManager::pauseHashing() {
+bool HashManager::pauseHashing() noexcept {
     Lock l(cs);
     return hasher.pause();
 }
 
-void HashManager::resumeHashing() {
+void HashManager::resumeHashing() noexcept {
     Lock l(cs);
     hasher.resume();
 }
 
-bool HashManager::isHashingPaused() const {
+bool HashManager::isHashingPaused() const noexcept {
     Lock l(cs);
     return hasher.isPaused();
 }
 
 void HashManager::on(TimerManagerListener::Second, uint64_t tick) noexcept {
+    (void)tick;
     //fprintf(stdout,"%lld\n", tick); fflush(stdout);
     static bool firstcycle = true;
     if (firstcycle){
@@ -1114,7 +1124,7 @@ void HashManager::on(TimerManagerListener::Second, uint64_t tick) noexcept {
 
         if (!ShareManager::getInstance()->isRefreshing()){
             string  curFile;
-            int64_t bytesLeft;
+            uint64_t bytesLeft;
             size_t  filesLeft = -1;
             getStats(curFile, bytesLeft, filesLeft);
             //fprintf(stdout,"filesLeft %d\n", filesLeft); fflush(stdout);

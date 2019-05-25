@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -23,7 +22,7 @@
 #include <glib/gi18n.h>
 #include <dcpp/stdinc.h>
 #include <dcpp/DCPlusPlus.h>
-#include "bacon-message-connection.h"
+#include "bacon-message-connection.hh"
 #include "settingsmanager.hh"
 #include "wulformanager.hh"
 #include "WulforUtil.hh"
@@ -43,21 +42,21 @@
 void printHelp()
 {
     printf(_(
-            "Using:\n"
-            "  eiskaltdcpp-gtk <magnet link> <dchub://link> <adc(s)://link>\n"
-            "  eiskaltdcpp-gtk <Key>\n"
-            "EiskaltDC++ is a cross-platform program that uses the Direct Connect and ADC protocol.\n"
-            "\n"
-            "Keys:\n"
-            "  -h, --help\t Show this message\n"
-            "  -V, --version\t Show version string\n"
-            )
+               "Using:\n"
+               "  eiskaltdcpp-gtk <magnet link> <dchub://link> <adc(s)://link>\n"
+               "  eiskaltdcpp-gtk <Key>\n"
+               "EiskaltDC++ is a cross-platform program that uses the Direct Connect and ADC protocol.\n"
+               "\n"
+               "Keys:\n"
+               "  -h, --help\t Show this message\n"
+               "  -V, --version\t Show version string\n"
+               )
            );
 }
 
 void printVersion()
 {
-    printf("%s version: %s\n", APPNAME, EISKALTDCPP_VERSION);
+    printf("%s version: %s\n", eiskaltdcppAppNameString.c_str(), eiskaltdcppVersionString.c_str());
     printf("GTK+ version: %d.%d.%d\n", gtk_major_version, gtk_minor_version, gtk_micro_version);
     printf("Glib version: %d.%d.%d\n", glib_major_version, glib_minor_version, glib_micro_version);
 }
@@ -66,11 +65,12 @@ BaconMessageConnection *connection = NULL;
 
 void receiver(const char *link, gpointer data)
 {
+    (void)data;
     g_return_if_fail(link != NULL);
     WulforManager::get()->onReceived_gui(link);
 }
 
-void callBack(void* x, const std::string& a)
+void callBack(void *, const std::string &a)
 {
     std::cout << _("Loading: ") << a << std::endl;
 }
@@ -125,11 +125,11 @@ int main(int argc, char *argv[])
         if (!strcmp(argv[i],"--help") || !strcmp(argv[i],"-h")){
             printHelp();
             exit(0);
-    }
-            else if (!strcmp(argv[i],"--version") || !strcmp(argv[i],"-V")){
-                printVersion();
-                exit(0);
-            }
+        }
+        else if (!strcmp(argv[i],"--version") || !strcmp(argv[i],"-V")){
+            printVersion();
+            exit(0);
+        }
     }
 
     // Initialize i18n support
@@ -189,7 +189,7 @@ int main(int argc, char *argv[])
     WulforManager::stop();
     WulforSettingsManager::deleteInstance();
 
-    std::cout << _("Shutting down libdcpp...") << std::endl;
+    std::cout << _("Shutting down libeiskaltdcpp...") << std::endl;
     dcpp::shutdown();
     std::cout << _("Quit...") << std::endl;
     return 0;

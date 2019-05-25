@@ -31,19 +31,17 @@
 #include <QSize>
 #include <QStyleOptionProgressBar>
 #include <QHash>
-//#include <QColorGroup>
 
 #include "dcpp/stdinc.h"
 #include "dcpp/ShareManager.h"
 #include "dcpp/Util.h"
 
-#define _DEBUG_ 1
+#include <set>
 
-#if _DEBUG_
+#if _DEBUG_QT_UI
 #include <QtDebug>
 #endif
 
-#include <set>
 
 TransferViewModel::TransferViewModel(QObject *parent)
     : QAbstractItemModel(parent), iconsScaled(false), showTranferedFilesOnly(false)
@@ -53,7 +51,7 @@ TransferViewModel::TransferViewModel(QObject *parent)
              << tr("Time left") << tr("File name") << tr("Host") << tr("IP")
              << tr("Encryption");
 
-    rootItem = new TransferViewItem(rootData, NULL);
+    rootItem = new TransferViewItem(rootData, nullptr);
 
     column_map.insert("USER", COLUMN_TRANSFER_USERS);
     column_map.insert("SPEED", COLUMN_TRANSFER_SPEED);
@@ -336,7 +334,7 @@ void TransferViewModel::addConnection(const VarMap &params){
 
     bool bGroup = false;
     TransferViewItem *i;
-    TransferViewItem *to = NULL;
+    TransferViewItem *to = nullptr;
     bool bDownload = vbol(params["DOWN"]);
 
     if (findTransfer(vstr(params["CID"]), vbol(params["DOWN"]), &i)) {
@@ -384,11 +382,10 @@ void TransferViewModel::updateTransfer(const VarMap &params){
     if (!findTransfer(vstr(params["CID"]), vbol(params["DOWN"]), &item))
         return;
 
-    auto i = column_map.constBegin();
-
-    for (; i != column_map.constEnd(); ++i){
-        if (params.contains(i.key()))
+    for (auto i = column_map.constBegin(); i != column_map.constEnd(); ++i) {
+        if (params.contains(i.key())) {
             item->updateColumn(i.value(), params[i.key()]);
+        }
     }
 
     qlonglong dpos = vdbl(params["DPOS"]);
@@ -586,14 +583,14 @@ void TransferViewModel::updateParent(TransferViewItem *p){
     for (const QString &s : hubs)
         hubs_str += s + " ";
 
-    if (vstr(p->data(COLUMN_TRANSFER_FNAME)).startsWith(tr("TTH: "))){
+    if (vstr(p->data(COLUMN_TRANSFER_FNAME)).startsWith(QString("TTH: "))){
         QString name = vstr(p->data(COLUMN_TRANSFER_FNAME));
-        name.remove(0, tr("TTH: ").length());
+        name.remove(0, QString("TTH: ").length());
 
         p->updateColumn(COLUMN_TRANSFER_FNAME, name);
     }
 
-    p->updateColumn(COLUMN_TRANSFER_USERS, tr("%1/%2").arg(active).arg(p->childCount()));
+    p->updateColumn(COLUMN_TRANSFER_USERS, QString("%1/%2").arg(active).arg(p->childCount()));
     p->updateColumn(COLUMN_TRANSFER_FLAGS, "");
     p->updateColumn(COLUMN_TRANSFER_TLEFT, timeLeft);
     p->updateColumn(COLUMN_TRANSFER_HOST, hubs_str);
@@ -700,10 +697,10 @@ TransferViewItem::TransferViewItem(const QList<QVariant> &data, TransferViewItem
 
 TransferViewItem::~TransferViewItem()
 {
-    if (!childItems.isEmpty())
-        qDeleteAll(childItems);
+    qDeleteAll(childItems);
+    childItems.clear();
 
-    parentItem = NULL;
+    parentItem = nullptr;
 }
 
 void TransferViewItem::appendChild(TransferViewItem *item) {
@@ -760,13 +757,23 @@ TransferViewDelegate::~TransferViewDelegate(){
 void TransferViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const{
     TransferViewItem *item = reinterpret_cast<TransferViewItem*>(index.internalPointer());
 
-    if (index.column() != COLUMN_TRANSFER_STATS || !item){
+    if (index.column() != COLUMN_TRANSFER_STATS || !item) {
         QStyledItemDelegate::paint(painter, option, index);
 
         return;
     }
 
-    QStyleOptionProgressBarV2 progressBarOption;
+#if defined(USE_PROGRESS_BARS)
+    QPalette pal = option.palette;
+    if (item->download && download_bar_color.isValid())
+        pal.setColor(QPalette::Highlight, download_bar_color);
+    else if (!item->download && upload_bar_color.isValid())
+        pal.setColor(QPalette::Highlight, upload_bar_color);
+
+    const double percent = item->percent;
+    const QString status = item->data(COLUMN_TRANSFER_STATS).toString();
+
+    QStyleOptionProgressBar progressBarOption;
     progressBarOption.state = QStyle::State_Enabled;
     progressBarOption.direction = QApplication::layoutDirection();
     progressBarOption.rect = option.rect;
@@ -775,19 +782,7 @@ void TransferViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
     progressBarOption.maximum = 100;
     progressBarOption.textAlignment = Qt::AlignCenter;
     progressBarOption.textVisible = true;
-
-    QPalette pal = option.palette;
-
-    if (item->download && download_bar_color.isValid())
-        pal.setColor(QPalette::Highlight, download_bar_color);
-    else if (!item->download && upload_bar_color.isValid())
-        pal.setColor(QPalette::Highlight, upload_bar_color);
-
     progressBarOption.palette = pal;
-
-    double percent = item->percent;
-    QString status = item->data(COLUMN_TRANSFER_STATS).toString();
-
     progressBarOption.text = status;
     progressBarOption.progress = static_cast<int>(percent);
 
@@ -795,6 +790,15 @@ void TransferViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
         painter->fillRect(option.rect, option.palette.highlight());
 
     QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBarOption, painter);
+#else
+    const QString status = item->data(COLUMN_TRANSFER_STATS).toString();
+
+    QStyleOptionViewItem plainTextOption = option;
+    plainTextOption.text = status;
+    plainTextOption.displayAlignment = Qt::AlignCenter;
+
+    QApplication::style()->drawControl(QStyle::CE_ItemViewItem, &plainTextOption, painter);
+#endif
 }
 
 void TransferViewDelegate::wsVarValueChanged(const QString &key, const QVariant &val){

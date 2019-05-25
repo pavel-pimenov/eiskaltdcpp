@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +13,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
@@ -36,9 +36,9 @@ struct AdcScriptInstance : public ScriptInstance {
 };
 #endif
 class AdcHub : public Client, public CommandHandler<AdcHub>
-#ifdef LUA_SCRIPT
-, public AdcScriptInstance
-#endif
+        #ifdef LUA_SCRIPT
+        , public AdcScriptInstance
+        #endif
 {
 public:
     using Client::send;
@@ -47,18 +47,19 @@ public:
     void connect(const OnlineUser& user, const string& token);
     void connect(const OnlineUser& user, string const& token, bool secure);
 
-    void hubMessage(const string& aMessage, bool thirdPerson = false);
-    void privateMessage(const OnlineUser& user, const string& aMessage, bool thirdPerson = false);
-    void sendUserCmd(const UserCommand& command, const StringMap& params);
-    void search(int aSizeMode, int64_t aSize, int aFileType, const string& aString, const string& aToken, const StringList& aExtList);
-    void password(const string& pwd);
-    void info(bool alwaysSend);
+    virtual void hubMessage(const string& aMessage, bool thirdPerson = false);
+    virtual void privateMessage(const OnlineUser& user, const string& aMessage, bool thirdPerson = false);
+    virtual void sendUserCmd(const UserCommand& command, const StringMap& params);
+    virtual void search(int aSizeMode, int64_t aSize, int aFileType, const string& aString, const string& aToken, const StringList& aExtList);
+    virtual void password(const string& pwd);
+    virtual void info(bool alwaysSend);
 
-    size_t getUserCount() const { Lock l(cs); return users.size(); }
-    int64_t getAvailable() const;
+    virtual size_t getUserCount() const { Lock l(cs); return users.size(); }
+    virtual int64_t getAvailable() const;
 
-    string escape(string const& str) const { return AdcCommand::escape(str, false); }
-    void send(const AdcCommand& cmd);
+    static string escape(const string& str) { return AdcCommand::escape(str, false); }
+    void emulateCommand(const string& cmd) { dispatch(cmd); }
+    virtual void send(const AdcCommand& cmd);
 
     string getMySID() { return AdcCommand::fromSID(sid); }
 

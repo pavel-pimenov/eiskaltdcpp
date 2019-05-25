@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdafx.h"
@@ -46,7 +45,7 @@ namespace dht
         Source source;
         source.setCID(node->getUser()->getCID());
         source.setIp(node->getIdentity().getIp());
-        source.setUdpPort(static_cast<uint16_t>(Util::toInt(node->getIdentity().getUdpPort())));
+        source.setUdpPort(node->getIdentity().getUdpPort());
         source.setSize(size);
         source.setExpires(GET_TICK() + (partial ? PFS_REPUBLISH_TIME : REPUBLISH_TIME));
         source.setPartial(partial);
@@ -141,7 +140,7 @@ namespace dht
                     Source source;
                     source.setCID(CID(xml.getChildAttrib("CID")));
                     source.setIp(xml.getChildAttrib("I4"));
-                    source.setUdpPort(static_cast<uint16_t>(xml.getIntChildAttrib("U4")));
+                    source.setUdpPort(xml.getChildAttrib("U4"));
                     source.setSize(xml.getLongLongChildAttrib("SI"));
                     source.setExpires(xml.getLongLongChildAttrib("EX"));
                     source.setPartial(false);
@@ -213,7 +212,7 @@ namespace dht
         AdcCommand res(AdcCommand::SEV_SUCCESS, AdcCommand::SUCCESS, "File published", AdcCommand::TYPE_UDP);
         res.addParam("FC", "PUB");
         res.addParam("TR", tth);
-        DHT::getInstance()->send(res, node->getIdentity().getIp(), static_cast<uint16_t>(Util::toInt(node->getIdentity().getUdpPort())), node->getUser()->getCID(), node->getUdpKey());
+        DHT::getInstance()->send(res, node->getIdentity().getIp(), node->getIdentity().getUdpPort(), node->getUser()->getCID(), node->getUdpKey());
     }
 
     /*

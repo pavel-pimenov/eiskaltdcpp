@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,21 +13,22 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
-#include "typedefs.h"
+#include <string>
+
+#include "forward.h"
 #include "Exception.h"
-#include "Util.h"
+#include "typedefs.h"
 
 namespace dcpp {
 
-STANDARD_EXCEPTION(ParseException);
+using std::string;
 
-class CID;
+STANDARD_EXCEPTION(ParseException);
 
 class AdcCommand {
 public:
@@ -55,7 +57,7 @@ public:
         ERROR_PROTOCOL_GENERIC = 40,
         ERROR_PROTOCOL_UNSUPPORTED = 41,
         ERROR_CONNECT_FAILED = 42,
-        ERROR_INF_MISSING = 43,
+        ERROR_INF_FIELD = 43,
         ERROR_BAD_STATE = 44,
         ERROR_FEATURE_MISSING = 45,
         ERROR_BAD_IP = 46,
@@ -180,33 +182,38 @@ private:
 template<class T>
 class CommandHandler {
 public:
-    void dispatch(const string& aLine, bool nmdc = false) {
+    inline void dispatch(const string& aLine) noexcept {
+        dispatch(aLine, false);
+    }
+
+    template<typename... ArgT>
+    void dispatch(const string& aLine, bool nmdc, ArgT&&... args) noexcept {
         try {
             AdcCommand c(aLine, nmdc);
 
-#define C(n) case AdcCommand::CMD_##n: ((T*)this)->handle(AdcCommand::n(), c); break;
+#define C(n) case AdcCommand::CMD_##n: ((T*)this)->handle(AdcCommand::n(), c, std::forward<ArgT>(args)...); break;
             switch(c.getCommand()) {
-                C(SUP);
-                C(STA);
-                C(INF);
-                C(MSG);
-                C(SCH);
-                C(RES);
-                C(CTM);
-                C(RCM);
-                C(GPA);
-                C(PAS);
-                C(QUI);
-                C(GET);
-                C(GFI);
-                C(SND);
-                C(SID);
-                C(CMD);
-                C(PSR);
-                C(NAT);
-                C(RNT);
-                C(ZON);
-                C(ZOF);
+            C(SUP);
+            C(STA);
+            C(INF);
+            C(MSG);
+            C(SCH);
+            C(RES);
+            C(CTM);
+            C(RCM);
+            C(GPA);
+            C(PAS);
+            C(QUI);
+            C(GET);
+            C(GFI);
+            C(SND);
+            C(SID);
+            C(CMD);
+            C(PSR);
+            C(NAT);
+            C(RNT);
+            C(ZON);
+            C(ZOF);
             default:
                 dcdebug("Unknown ADC command: %.50s\n", aLine.c_str());
                 break;

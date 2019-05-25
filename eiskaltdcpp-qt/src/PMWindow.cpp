@@ -38,23 +38,21 @@ static inline void clearLayout(QLayout *l){
     if (!l)
         return;
 
-    QLayoutItem *item = NULL;
-    while (item = l->takeAt(0)){
+    for (QLayoutItem *item = l->takeAt(0); item; item = l->takeAt(0)) {
         l->removeWidget(item->widget());
         item->widget()->deleteLater();
-
         delete item;
     }
 
     l->invalidate();
 }
 
-PMWindow::PMWindow(QString cid, QString hubUrl):
+PMWindow::PMWindow(const QString &cid_, const QString &hubUrl_):
         hasMessages(false),
         hasHighlightMessages(false),
-        cid(cid),
-        hubUrl(hubUrl),
-        arena_menu(NULL)
+        cid(cid_),
+        hubUrl(hubUrl_),
+        arena_menu(nullptr)
 {
     setupUi(this);
 
@@ -172,28 +170,36 @@ bool PMWindow::eventFilter(QObject *obj, QEvent *e){
     else if (e->type() == QEvent::KeyPress){
         QKeyEvent *k_e = reinterpret_cast<QKeyEvent*>(e);
 
-        if ((static_cast<QTextEdit*>(obj) == plainTextEdit_INPUT) &&
-            (!WBGET(WB_USE_CTRL_ENTER) || k_e->modifiers() == Qt::ControlModifier) &&
-            ((k_e->key() == Qt::Key_Enter || k_e->key() == Qt::Key_Return) && k_e->modifiers() != Qt::ShiftModifier) ||
-            (k_e->key() == Qt::Key_Enter && k_e->modifiers() == Qt::KeypadModifier))
+        const bool controlModifier = (k_e->modifiers() == Qt::ControlModifier);
+
+        if (static_cast<QTextEdit*>(obj) == plainTextEdit_INPUT)
         {
-            QString msg = plainTextEdit_INPUT->toPlainText();
+            const bool useCtrlEnter = WBGET(WB_USE_CTRL_ENTER);
+            const bool keyEnter = (k_e->key() == Qt::Key_Enter || k_e->key() == Qt::Key_Return);
+            const bool shiftModifier = (k_e->modifiers() == Qt::ShiftModifier);
 
-            HubFrame *fr = qobject_cast<HubFrame*>(HubManager::getInstance()->getHub(hubUrl));
+            if ((useCtrlEnter && keyEnter && controlModifier) ||
+                (!useCtrlEnter && keyEnter && !controlModifier && !shiftModifier))
+            {
+                const QString msg = plainTextEdit_INPUT->toPlainText();
 
-            if (fr){
-                if (!fr->parseForCmd(msg, this))
+                HubFrame *fr = qobject_cast<HubFrame*>(HubManager::getInstance()->getHub(hubUrl));
+
+                if (fr) {
+                    if (!fr->parseForCmd(msg, this))
+                        sendMessage(msg, false, false);
+                }
+                else {
                     sendMessage(msg, false, false);
+                }
+
+                plainTextEdit_INPUT->setPlainText("");
+
+                return true;
             }
-            else
-                sendMessage(msg, false, false);
-
-            plainTextEdit_INPUT->setPlainText("");
-
-            return true;
         }
 
-        if (k_e->modifiers() == Qt::ControlModifier){
+        if (controlModifier){
             if (k_e->key() == Qt::Key_Equal || k_e->key() == Qt::Key_Plus){
                 textEdit_CHAT->zoomIn();
 
@@ -333,6 +339,18 @@ const QPixmap &PMWindow::getPixmap(){
         return WICON(WulforUtil::eiUSERS);
 }
 
+ArenaWidget::Role PMWindow::role() const {
+    return ArenaWidget::PrivateMessage;
+}
+
+void PMWindow::requestFilter() {
+    slotHideFindFrame();
+}
+
+void PMWindow::requestFocus() {
+    plainTextEdit_INPUT->setFocus();
+}
+
 void PMWindow::clearChat(){
     textEdit_CHAT->setHtml("");
     addStatus(tr("Chat cleared."));
@@ -361,7 +379,7 @@ void PMWindow::updateStyles(){
     }
 }
 
-void PMWindow::addStatusMessage(QString msg){
+void PMWindow::addStatusMessage(const QString &msg){
     QString status = " * ";
 
     QString nick = "";
@@ -403,13 +421,13 @@ void PMWindow::addOutput(QString msg){
     msg = "<pre>" + msg + "</pre>";
     textEdit_CHAT->append(msg);
 
-    if (!isVisible()){
+    if (!isVisible()) {
         hasMessages = true;
         MainWindow::getInstance()->redrawToolPanel();
     }
 }
 
-void PMWindow::sendMessage(QString msg, bool thirdPerson, bool stripNewLines){
+void PMWindow::sendMessage(QString msg, const bool thirdPerson, const bool stripNewLines){
     UserPtr user = ClientManager::getInstance()->findUser(CID(cid.toStdString()));
 
     if (user && user->isOnline()){
@@ -437,6 +455,18 @@ void PMWindow::sendMessage(QString msg, bool thirdPerson, bool stripNewLines){
         out_messages.removeFirst();
 
     out_messages_index = out_messages.size()-1;
+}
+
+QWidget *PMWindow::inputWidget() const {
+    return plainTextEdit_INPUT;
+}
+
+void PMWindow::setHasHighlightMessages(bool h) {
+    hasHighlightMessages = (h && !isVisible());
+}
+
+bool PMWindow::hasNewMessages() {
+    return (hasMessages || hasHighlightMessages);
 }
 
 void PMWindow::nextMsg(){
@@ -573,16 +603,11 @@ void PMWindow::slotSmileClicked(){
 
 
 void PMWindow::slotSmileContextMenu(){
-#if !defined(Q_OS_WIN)
-    QString emot = CLIENT_DATA_DIR "/emoticons/";
-#else
-    QString emot = qApp->applicationDirPath()+QDir::separator()+CLIENT_DATA_DIR "/emoticons/";
-#endif
-
     QMenu *m = new QMenu(this);
-    QAction * a = NULL;
+    QAction * a = nullptr;
 
-    for (const auto &f : QDir(emot).entryList(QDir::Dirs | QDir::NoSymLinks | QDir::NoDotAndDotDot)){
+    for (const auto &f : QDir(WulforUtil::getInstance()->getEmoticonsPath())
+                              .entryList(QDir::Dirs | QDir::NoSymLinks | QDir::NoDotAndDotDot)){
         if (!f.isEmpty()){
             QAction * act = m->addAction(f);
             act->setCheckable(true);
@@ -673,7 +698,7 @@ void PMWindow::slotFindTextEdited(const QString & text){
     QTextCursor c = textEdit_CHAT->textCursor();
 
     c.movePosition(QTextCursor::StartOfLine,QTextCursor::MoveAnchor,1);
-    c = textEdit_CHAT->document()->find(lineEdit_FIND->text(), c, 0);
+    c = textEdit_CHAT->document()->find(lineEdit_FIND->text(), c, nullptr);
     if (!c.isNull()) {
         textEdit_CHAT->setExtraSelections(QList<QTextEdit::ExtraSelection>());
         textEdit_CHAT->setTextCursor(c);
@@ -699,13 +724,13 @@ void PMWindow::slotFindAll(){
 
         selection.format.setBackground(color);
 
-        QTextCursor c = textEdit_CHAT->document()->find(lineEdit_FIND->text(), 0, 0);
+        QTextCursor c = textEdit_CHAT->document()->find(lineEdit_FIND->text(), 0, nullptr);
 
         while (!c.isNull()){
             selection.cursor = c;
             extraSelections.append(selection);
 
-            c = textEdit_CHAT->document()->find(lineEdit_FIND->text(), c, 0);
+            c = textEdit_CHAT->document()->find(lineEdit_FIND->text(), c, nullptr);
         }
     }
 

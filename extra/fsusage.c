@@ -14,7 +14,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
      /* POSIX 1003.1-2001 (and later) with XSI */
 #include "fsusage.h"
 
@@ -59,6 +59,8 @@
    ERRNO is either a system error value, or zero if DISK is NULL
    on a system that requires a non-NULL value.  */
 int get_fs_usage (char const *file, char const *disk, struct fs_usage *fsp) {
+
+  (void)disk;
 
   struct statvfs fsd;
 

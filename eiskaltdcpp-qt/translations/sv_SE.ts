@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="sv_SE" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="sv_SE">
 <context>
     <name>ADLS</name>
     <message>
@@ -7,53 +9,53 @@
         <translation>ADL-sök</translation>
     </message>
     <message>
-        <location filename="../src/ADLS.cpp" line="139"/>
-        <location filename="../src/ADLS.cpp" line="156"/>
+        <location filename="../src/ADLS.cpp" line="138"/>
+        <location filename="../src/ADLS.cpp" line="155"/>
         <source>Add new</source>
         <translation>Lägg till nytt</translation>
     </message>
     <message>
-        <location filename="../src/ADLS.cpp" line="157"/>
+        <location filename="../src/ADLS.cpp" line="156"/>
         <source>Change</source>
         <translation>Ändra</translation>
     </message>
     <message>
-        <location filename="../src/ADLS.cpp" line="158"/>
+        <location filename="../src/ADLS.cpp" line="157"/>
         <source>Delete</source>
-        <translation>Radera</translation>
+        <translation>Ta bort</translation>
     </message>
     <message>
-        <location filename="../src/ADLS.cpp" line="381"/>
+        <location filename="../src/ADLS.cpp" line="383"/>
         <source>Filename</source>
         <translation>Filnamn</translation>
     </message>
     <message>
-        <location filename="../src/ADLS.cpp" line="382"/>
+        <location filename="../src/ADLS.cpp" line="384"/>
         <source>Directory</source>
         <translation>Katalog</translation>
     </message>
     <message>
-        <location filename="../src/ADLS.cpp" line="383"/>
+        <location filename="../src/ADLS.cpp" line="385"/>
         <source>Full Path</source>
         <translation>Hela sökvägen</translation>
     </message>
     <message>
-        <location filename="../src/ADLS.cpp" line="389"/>
+        <location filename="../src/ADLS.cpp" line="391"/>
         <source>B</source>
         <translation>B</translation>
     </message>
     <message>
-        <location filename="../src/ADLS.cpp" line="390"/>
+        <location filename="../src/ADLS.cpp" line="392"/>
         <source>KiB</source>
         <translation>KiB</translation>
     </message>
     <message>
-        <location filename="../src/ADLS.cpp" line="391"/>
+        <location filename="../src/ADLS.cpp" line="393"/>
         <source>MiB</source>
         <translation>MiB</translation>
     </message>
     <message>
-        <location filename="../src/ADLS.cpp" line="392"/>
+        <location filename="../src/ADLS.cpp" line="394"/>
         <source>GiB</source>
         <translation>GiB</translation>
     </message>
@@ -99,7 +101,7 @@
 <context>
     <name>About</name>
     <message>
-        <location filename="../src/MainWindow.h" line="71"/>
+        <location filename="../src/MainWindow.h" line="67"/>
         <source>Using:
   eiskaltdcpp-qt &lt;magnet link&gt; &lt;dchub://link&gt; &lt;adc(s)://link&gt;
   eiskaltdcpp-qt &lt;Key&gt;
@@ -164,8 +166,8 @@ Nycklar:
     <name>CmdDebug</name>
     <message>
         <location filename="../src/CmdDebug.cpp" line="39"/>
-        <source>CmdDebug</source>
-        <translation>CmdDebug</translation>
+        <source>Debug Console</source>
+        <translation>Felsökningskonsol</translation>
     </message>
 </context>
 <context>
@@ -206,11 +208,6 @@ Nycklar:
 <context>
     <name>DialogScriptConsole</name>
     <message>
-        <location filename="../ui/UIDialogScriptConsole.ui" line="17"/>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
         <location filename="../ui/UIDialogScriptConsole.ui" line="30"/>
         <source>Output</source>
         <translation>Utsignal</translation>
@@ -239,157 +236,157 @@ Nycklar:
 <context>
     <name>DownloadQueue</name>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="60"/>
+        <location filename="../src/DownloadQueue.cpp" line="58"/>
         <source>Magnet</source>
         <translation>Magnet</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="62"/>
+        <location filename="../src/DownloadQueue.cpp" line="60"/>
         <source>Search for alternates</source>
         <translation>Sök efter nya källor</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="63"/>
+        <location filename="../src/DownloadQueue.cpp" line="61"/>
         <source>Copy magnet</source>
         <translation>Kopiera magnet</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="64"/>
+        <location filename="../src/DownloadQueue.cpp" line="62"/>
         <source>Copy web-magnet</source>
         <translation>Kopiera webb-magnet</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="65"/>
+        <location filename="../src/DownloadQueue.cpp" line="63"/>
         <source>Properties of magnet</source>
         <translation>Egenskaper för magnet</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="66"/>
+        <location filename="../src/DownloadQueue.cpp" line="64"/>
         <source>Rename/Move</source>
         <translation>Döp om/Flytta</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="71"/>
+        <location filename="../src/DownloadQueue.cpp" line="69"/>
         <source>Set priority</source>
         <translation>Ställ in prioritet</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="73"/>
+        <location filename="../src/DownloadQueue.cpp" line="71"/>
         <source>Paused</source>
         <translation>Pausad</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="76"/>
+        <location filename="../src/DownloadQueue.cpp" line="74"/>
         <source>Lowest</source>
         <translation>Lägsta</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="79"/>
+        <location filename="../src/DownloadQueue.cpp" line="77"/>
         <source>Low</source>
         <translation>Låg</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="82"/>
+        <location filename="../src/DownloadQueue.cpp" line="80"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="85"/>
+        <location filename="../src/DownloadQueue.cpp" line="83"/>
         <source>High</source>
         <translation>Hög</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="88"/>
+        <location filename="../src/DownloadQueue.cpp" line="86"/>
         <source>Highest</source>
         <translation>Högsta</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="94"/>
+        <location filename="../src/DownloadQueue.cpp" line="92"/>
         <source>Browse files</source>
         <translation>Bläddra bland filer</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="95"/>
+        <location filename="../src/DownloadQueue.cpp" line="93"/>
         <source>Send private message</source>
         <translation>Skicka privata meddelande</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="100"/>
+        <location filename="../src/DownloadQueue.cpp" line="98"/>
         <source>Remove source</source>
         <translation>Ta bort källa</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="101"/>
+        <location filename="../src/DownloadQueue.cpp" line="99"/>
         <source>Remove user</source>
         <translation>Ta bort användare</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="103"/>
+        <location filename="../src/DownloadQueue.cpp" line="101"/>
         <source>Remove</source>
         <translation>Ta bort</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="360"/>
+        <location filename="../src/DownloadQueue.cpp" line="356"/>
         <source>No users...</source>
         <translation>Inga användare...</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="367"/>
+        <location filename="../src/DownloadQueue.cpp" line="363"/>
         <source>%1 of %2 user(s) online</source>
         <translation>%1 av %2 användare anslutna</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="369"/>
+        <location filename="../src/DownloadQueue.cpp" line="365"/>
         <source>Running...</source>
         <translation>Laddar ned...</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="395"/>
+        <location filename="../src/DownloadQueue.cpp" line="389"/>
         <source>File not available</source>
         <translation>Filen är inte tillgänglig</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="397"/>
+        <location filename="../src/DownloadQueue.cpp" line="391"/>
         <source>Passive user</source>
         <translation>Passiv användare</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="399"/>
+        <location filename="../src/DownloadQueue.cpp" line="393"/>
         <source>Checksum mismatch</source>
         <translation>Felaktig kontrollsumma</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="401"/>
+        <location filename="../src/DownloadQueue.cpp" line="395"/>
         <source>Full tree does not match TTH root</source>
         <translation>Felaktigt TTH-värde nedladdat för filen eller så är indexdatabasen trasig</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="403"/>
+        <location filename="../src/DownloadQueue.cpp" line="397"/>
         <source>Source too slow</source>
         <translation>Källan är för långsam</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="405"/>
+        <location filename="../src/DownloadQueue.cpp" line="399"/>
         <source>Remote client does not fully support TTH - cannot download</source>
         <translation>Den andra klienten har inte fullt stöd för TTH-värden - kan inte ladda ned</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="412"/>
+        <location filename="../src/DownloadQueue.cpp" line="406"/>
         <source>No errors</source>
         <translation>Inga fel</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="653"/>
+        <location filename="../src/DownloadQueue.cpp" line="644"/>
         <source>Choose filename</source>
         <translation>Välj filnamn</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="653"/>
+        <location filename="../src/DownloadQueue.cpp" line="644"/>
         <source>All files (*.*)</source>
         <translation>Alla filer (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueue.cpp" line="793"/>
+        <location filename="../src/DownloadQueue.cpp" line="784"/>
         <source>Total files: &lt;b&gt;%1&lt;/b&gt; Total size: &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Totalt antal files: &lt;b&gt;%1&lt;/b&gt; Sammanlagd storlek: &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
@@ -402,109 +399,103 @@ Nycklar:
 <context>
     <name>DownloadQueueModel</name>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="81"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="283"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="79"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="281"/>
         <source>Name</source>
         <translation>Namn</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="81"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="283"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="79"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="281"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="81"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="283"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="79"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="281"/>
         <source>Size</source>
         <translation>Storlek</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="81"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="283"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="79"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="281"/>
         <source>Downloaded</source>
         <translation>Nedladdat</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="82"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="284"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="80"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="282"/>
         <source>Priority</source>
         <translation>Prioritet</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="82"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="284"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="80"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="282"/>
         <source>User</source>
         <translation>Användare</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="82"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="284"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="80"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="282"/>
         <source>Path</source>
         <translation>Sökväg</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="82"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="284"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="80"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="282"/>
         <source>Exact size</source>
         <translation>Exakt storlek</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="83"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="285"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="81"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="283"/>
         <source>Errors</source>
         <translation>Fel</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="83"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="285"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="81"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="283"/>
         <source>Added</source>
         <translation>Tillagd</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="83"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="285"/>
-        <source>TTH</source>
-        <translation>TTH</translation>
-    </message>
-    <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="139"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="137"/>
         <source>Paused</source>
         <translation>Pausad</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="142"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="140"/>
         <source>Lowest</source>
         <translation>Lägsta</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="145"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="143"/>
         <source>Low</source>
         <translation>Låg</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="148"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="146"/>
         <source>High</source>
         <translation>Hög</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="151"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="149"/>
         <source>Highest</source>
         <translation>Högsta</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="154"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="152"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="175"/>
-        <location filename="../src/DownloadQueueModel.cpp" line="192"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="173"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="190"/>
         <source>No errors</source>
         <translation>Inga fel</translation>
     </message>
     <message>
-        <location filename="../src/DownloadQueueModel.cpp" line="194"/>
+        <location filename="../src/DownloadQueueModel.cpp" line="192"/>
         <source>&lt;b&gt;Added: &lt;/b&gt; %1
 &lt;b&gt;Path: &lt;/b&gt; %2
 &lt;b&gt;Errors: &lt;/b&gt; %3
@@ -565,11 +556,6 @@ Nycklar:
         <source>Remote encoding</source>
         <translation>Mottagarklientens teckenkodning</translation>
     </message>
-    <message>
-        <location filename="../src/FavoriteHubModel.cpp" line="58"/>
-        <source>******</source>
-        <translation>******</translation>
-    </message>
 </context>
 <context>
     <name>FavoriteHubs</name>
@@ -579,30 +565,30 @@ Nycklar:
         <translation>Favorithubbar</translation>
     </message>
     <message>
-        <location filename="../src/FavoriteHubs.cpp" line="170"/>
-        <location filename="../src/FavoriteHubs.cpp" line="200"/>
-        <location filename="../src/FavoriteHubs.cpp" line="312"/>
+        <location filename="../src/FavoriteHubs.cpp" line="179"/>
+        <location filename="../src/FavoriteHubs.cpp" line="209"/>
+        <location filename="../src/FavoriteHubs.cpp" line="321"/>
         <source>System default</source>
         <translation>Systemstandard</translation>
     </message>
     <message>
-        <location filename="../src/FavoriteHubs.cpp" line="372"/>
-        <location filename="../src/FavoriteHubs.cpp" line="402"/>
+        <location filename="../src/FavoriteHubs.cpp" line="381"/>
+        <location filename="../src/FavoriteHubs.cpp" line="411"/>
         <source>Add new</source>
         <translation>Lägg till ny</translation>
     </message>
     <message>
-        <location filename="../src/FavoriteHubs.cpp" line="403"/>
+        <location filename="../src/FavoriteHubs.cpp" line="412"/>
         <source>Change</source>
         <translation>Ändra</translation>
     </message>
     <message>
-        <location filename="../src/FavoriteHubs.cpp" line="404"/>
+        <location filename="../src/FavoriteHubs.cpp" line="413"/>
         <source>Delete</source>
         <translation>Radera</translation>
     </message>
     <message>
-        <location filename="../src/FavoriteHubs.cpp" line="405"/>
+        <location filename="../src/FavoriteHubs.cpp" line="414"/>
         <source>Connect</source>
         <translation>Anslut</translation>
     </message>
@@ -668,92 +654,87 @@ Nycklar:
 <context>
     <name>FileBrowserModel</name>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="111"/>
+        <location filename="../src/FileBrowserModel.cpp" line="112"/>
         <source>%1 [%2 Gb]</source>
         <translation>%1 [%2 Gb]</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="175"/>
+        <location filename="../src/FileBrowserModel.cpp" line="176"/>
         <source>File marked as a duplicate of another file: %1</source>
         <translation>Fil markerad som kopia av en annan fil: %1</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="190"/>
+        <location filename="../src/FileBrowserModel.cpp" line="191"/>
         <source>&lt;b&gt;Media Info:&lt;/b&gt;&lt;br/&gt;</source>
         <translation>&lt;b&gt;Mediainformation:&lt;/b&gt;&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="192"/>
+        <location filename="../src/FileBrowserModel.cpp" line="193"/>
         <source>&amp;nbsp;&amp;nbsp;&lt;b&gt;Video:&lt;/b&gt; %1&lt;br/&gt;</source>
         <translation>&amp;nbsp;&amp;nbsp;&lt;b&gt;Video:&lt;/b&gt; %1&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="194"/>
+        <location filename="../src/FileBrowserModel.cpp" line="195"/>
         <source>&amp;nbsp;&amp;nbsp;&lt;b&gt;Audio:&lt;/b&gt; %1&lt;br/&gt;</source>
         <translation>&amp;nbsp;&amp;nbsp;&lt;b&gt;Ljud:&lt;/b&gt; %1&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="196"/>
+        <location filename="../src/FileBrowserModel.cpp" line="197"/>
         <source>&amp;nbsp;&amp;nbsp;&lt;b&gt;Bitrate:&lt;/b&gt; %1&lt;br/&gt;</source>
         <translation>&amp;nbsp;&amp;nbsp;&lt;b&gt;Bithastighet:&lt;/b&gt; %1&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="198"/>
+        <location filename="../src/FileBrowserModel.cpp" line="199"/>
         <source>&amp;nbsp;&amp;nbsp;&lt;b&gt;Resolution:&lt;/b&gt; %1&lt;br/&gt;&lt;br/&gt;</source>
         <translation>&amp;nbsp;&amp;nbsp;&lt;b&gt;Upplösning:&lt;/b&gt; %1&lt;br/&gt;&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="209"/>
+        <location filename="../src/FileBrowserModel.cpp" line="210"/>
         <source>File already exists: %1</source>
         <translation>Filen finns redan: %1</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="311"/>
+        <location filename="../src/FileBrowserModel.cpp" line="312"/>
         <source>Name</source>
         <translation>Namn</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="311"/>
+        <location filename="../src/FileBrowserModel.cpp" line="312"/>
         <source>Size</source>
         <translation>Storlek</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="311"/>
+        <location filename="../src/FileBrowserModel.cpp" line="312"/>
         <source>Exact size</source>
         <translation>Exakt storlek</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="311"/>
-        <source>TTH</source>
-        <translation>TTH</translation>
-    </message>
-    <message>
-        <location filename="../src/FileBrowserModel.cpp" line="312"/>
+        <location filename="../src/FileBrowserModel.cpp" line="313"/>
         <source>Bitrate</source>
         <translation>Bithastighet</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="312"/>
+        <location filename="../src/FileBrowserModel.cpp" line="313"/>
         <source>Resolution</source>
         <translation>Upplösning</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="312"/>
+        <location filename="../src/FileBrowserModel.cpp" line="313"/>
         <source>Video</source>
         <translation>Video</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="312"/>
+        <location filename="../src/FileBrowserModel.cpp" line="313"/>
         <source>Audio</source>
         <translation>Ljud</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="313"/>
+        <location filename="../src/FileBrowserModel.cpp" line="314"/>
         <source>Downloaded</source>
         <translation>Nedladdad</translation>
     </message>
     <message>
-        <location filename="../src/FileBrowserModel.cpp" line="313"/>
+        <location filename="../src/FileBrowserModel.cpp" line="314"/>
         <source>Shared</source>
         <translation>Utdelad</translation>
     </message>
@@ -787,12 +768,12 @@ Nycklar:
 <context>
     <name>FinishedTransfers</name>
     <message>
-        <location filename="../src/FinishedTransfers.h" line="490"/>
+        <location filename="../src/FinishedTransfers.h" line="484"/>
         <source>Open file</source>
         <translation>Öppna fil</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfers.h" line="491"/>
+        <location filename="../src/FinishedTransfers.h" line="485"/>
         <source>Open directory</source>
         <translation>Öppna katalog</translation>
     </message>
@@ -800,69 +781,69 @@ Nycklar:
 <context>
     <name>FinishedTransfersModel</name>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="50"/>
-        <location filename="../src/FinishedTransfersModel.cpp" line="56"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="45"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="51"/>
         <source>User</source>
         <translation>Användare</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="50"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="45"/>
         <source>Files</source>
         <translation>Filer</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="50"/>
-        <location filename="../src/FinishedTransfersModel.cpp" line="56"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="45"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="51"/>
         <source>Time</source>
         <translation>Tid</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="50"/>
-        <location filename="../src/FinishedTransfersModel.cpp" line="57"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="45"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="52"/>
         <source>Transferred</source>
         <translation>Överfört</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="51"/>
-        <location filename="../src/FinishedTransfersModel.cpp" line="57"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="46"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="52"/>
         <source>Speed</source>
         <translation>Hastighet</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="51"/>
-        <location filename="../src/FinishedTransfersModel.cpp" line="58"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="46"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="53"/>
         <source>Elapsed time</source>
         <translation>Förfluten tid</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="51"/>
-        <location filename="../src/FinishedTransfersModel.cpp" line="58"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="46"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="53"/>
         <source>Full</source>
         <translation>Full</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="56"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="51"/>
         <source>Filename</source>
         <translation>Filnamn</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="56"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="51"/>
         <source>Path</source>
         <translation>Sökväg</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="57"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="52"/>
         <source>Check sum</source>
         <translation>Kontrollsumma</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="58"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="53"/>
         <source>Target</source>
         <translation>Mål</translation>
     </message>
     <message>
-        <location filename="../src/FinishedTransfersModel.cpp" line="121"/>
-        <location filename="../src/FinishedTransfersModel.cpp" line="131"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="116"/>
+        <location filename="../src/FinishedTransfersModel.cpp" line="126"/>
         <source>%1/s</source>
         <translation>%1/s</translation>
     </message>
@@ -870,58 +851,64 @@ Nycklar:
 <context>
     <name>HashProgress</name>
     <message>
-        <location filename="../src/HashProgress.cpp" line="95"/>
+        <location filename="../src/HashProgress.cpp" line="102"/>
         <source>Refreshing file list</source>
         <translation>Uppdaterar fillistan</translation>
     </message>
     <message>
-        <location filename="../src/HashProgress.cpp" line="125"/>
+        <location filename="../src/HashProgress.cpp" line="134"/>
         <source>-.-- files/h, %1 files left</source>
         <translation>-.-- filer/h, %1 filer kvar</translation>
     </message>
     <message>
-        <location filename="../src/HashProgress.cpp" line="126"/>
+        <location filename="../src/HashProgress.cpp" line="135"/>
         <source>-.-- B/s, %1 left</source>
         <translation>-.-- B/s, %1 kvar</translation>
     </message>
     <message>
-        <location filename="../src/HashProgress.cpp" line="127"/>
-        <location filename="../src/HashProgress.cpp" line="138"/>
+        <location filename="../src/HashProgress.cpp" line="136"/>
+        <location filename="../src/HashProgress.cpp" line="154"/>
         <source>-:--:--</source>
         <translation>-:--:--</translation>
     </message>
     <message>
-        <location filename="../src/HashProgress.cpp" line="132"/>
+        <location filename="../src/HashProgress.cpp" line="139"/>
+        <location filename="../src/HashProgress.cpp" line="165"/>
+        <source>%1% %2 left</source>
+        <translation>%1% %2 kvar</translation>
+    </message>
+    <message>
+        <location filename="../src/HashProgress.cpp" line="148"/>
         <source>%1 files/h, %2 files left</source>
         <translation>%1 filer/h, %2 filer kvar</translation>
     </message>
     <message>
-        <location filename="../src/HashProgress.cpp" line="133"/>
+        <location filename="../src/HashProgress.cpp" line="149"/>
         <source>%1/s, %2 left, %3 shared</source>
         <translation>%1/s, %2 kvar, %3 utdelat</translation>
     </message>
     <message>
-        <location filename="../src/HashProgress.cpp" line="146"/>
+        <location filename="../src/HashProgress.cpp" line="163"/>
         <source>%p% %1 left</source>
         <translation>%p% %1 kvar</translation>
     </message>
     <message>
-        <location filename="../src/HashProgress.cpp" line="150"/>
+        <location filename="../src/HashProgress.cpp" line="173"/>
         <source>Done</source>
         <translation>Klar</translation>
     </message>
     <message>
-        <location filename="../src/HashProgress.cpp" line="218"/>
+        <location filename="../src/HashProgress.cpp" line="241"/>
         <source>Start</source>
         <translation>Starta</translation>
     </message>
     <message>
-        <location filename="../src/HashProgress.cpp" line="222"/>
+        <location filename="../src/HashProgress.cpp" line="245"/>
         <source>Pause</source>
         <translation>Pausa</translation>
     </message>
     <message>
-        <location filename="../src/HashProgress.cpp" line="226"/>
+        <location filename="../src/HashProgress.cpp" line="249"/>
         <source>Resume</source>
         <translation>Återuppta</translation>
     </message>
@@ -930,7 +917,7 @@ Nycklar:
     <name>HubFrame</name>
     <message>
         <location filename="../src/HubFrame.cpp" line="177"/>
-        <location filename="../src/HubFrame.cpp" line="1269"/>
+        <location filename="../src/HubFrame.cpp" line="1278"/>
         <source>Copy</source>
         <translation>Kopiera</translation>
     </message>
@@ -966,7 +953,7 @@ Nycklar:
     </message>
     <message>
         <location filename="../src/HubFrame.cpp" line="184"/>
-        <location filename="../src/HubFrame.cpp" line="1268"/>
+        <location filename="../src/HubFrame.cpp" line="1277"/>
         <source>Add to Favorites</source>
         <translation>Lägg till favoriter</translation>
     </message>
@@ -1056,579 +1043,556 @@ Nycklar:
         <translation>Kopiera data</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="305"/>
-        <location filename="../src/HubFrame.cpp" line="385"/>
+        <location filename="../src/HubFrame.cpp" line="307"/>
+        <location filename="../src/HubFrame.cpp" line="387"/>
         <source>[User went offline]</source>
         <translation>[Användaren kopplade från sig]</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="322"/>
-        <location filename="../src/HubFrame.cpp" line="411"/>
+        <location filename="../src/HubFrame.cpp" line="324"/>
+        <location filename="../src/HubFrame.cpp" line="413"/>
         <source>AntiSpam</source>
         <translation>AntiSpam</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="326"/>
-        <location filename="../src/HubFrame.cpp" line="413"/>
+        <location filename="../src/HubFrame.cpp" line="328"/>
+        <location filename="../src/HubFrame.cpp" line="415"/>
         <source>Add to Black</source>
         <translation>Lägg till Svart</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="327"/>
-        <location filename="../src/HubFrame.cpp" line="414"/>
+        <location filename="../src/HubFrame.cpp" line="329"/>
+        <location filename="../src/HubFrame.cpp" line="416"/>
         <source>Add to White</source>
         <translation>Lägg till Vit</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="538"/>
+        <location filename="../src/HubFrame.cpp" line="541"/>
         <source>Invalid keywords</source>
         <translation>Ogiltiga nyckelord</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="750"/>
+        <location filename="../src/HubFrame.cpp" line="749"/>
         <source>%1 (%2)</source>
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="789"/>
+        <location filename="../src/HubFrame.cpp" line="788"/>
         <source>not shared</source>
         <translation>inte utdelad</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1264"/>
+        <location filename="../src/HubFrame.cpp" line="1273"/>
         <source>Hub menu</source>
         <translation>Hubbmeny</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1266"/>
+        <location filename="../src/HubFrame.cpp" line="1275"/>
         <source>Reconnect</source>
         <translation>Återanslut</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1267"/>
+        <location filename="../src/HubFrame.cpp" line="1276"/>
         <source>Show widget</source>
         <translation>Visa widget</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1270"/>
+        <location filename="../src/HubFrame.cpp" line="1279"/>
         <source>Hub IP</source>
         <translation>Hubbens IP-adress</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1271"/>
+        <location filename="../src/HubFrame.cpp" line="1280"/>
         <source>Hub URL</source>
         <translation>Hubb-URL</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1272"/>
+        <location filename="../src/HubFrame.cpp" line="1281"/>
         <source>Hub Title</source>
         <translation>Hubbnamn</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1276"/>
+        <location filename="../src/HubFrame.cpp" line="1285"/>
         <source>Close</source>
         <translation>Stäng</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1290"/>
+        <location filename="../src/HubFrame.cpp" line="1299"/>
         <source>Hub Menu</source>
         <translation>Hubbmeny</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1368"/>
-        <location filename="../src/HubFrame.cpp" line="1393"/>
+        <location filename="../src/HubFrame.cpp" line="1377"/>
+        <location filename="../src/HubFrame.cpp" line="1402"/>
         <source>Not connected</source>
         <translation>Inte ansluten</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1426"/>
+        <location filename="../src/HubFrame.cpp" line="1435"/>
         <source>Chat cleared.</source>
         <translation>Chatten tömd.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1438"/>
+        <location filename="../src/HubFrame.cpp" line="1447"/>
         <source>Chat disabled.</source>
         <translation>Chatten inaktiverad.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1445"/>
+        <location filename="../src/HubFrame.cpp" line="1454"/>
         <source>Chat enabled.</source>
         <translation>Chatten påslagen.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1481"/>
+        <location filename="../src/HubFrame.cpp" line="1490"/>
         <source>Hub role: Operator</source>
         <translation>Hubbroll: Operatör</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1483"/>
+        <location filename="../src/HubFrame.cpp" line="1492"/>
         <source>Hub role: User</source>
         <translation>Hubbroll: Användare</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1486"/>
+        <location filename="../src/HubFrame.cpp" line="1495"/>
         <source>
 Favorite user</source>
         <translation>
 Favoritanvändare</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1561"/>
-        <location filename="../src/HubFrame.cpp" line="1563"/>
-        <location filename="../src/HubFrame.cpp" line="1784"/>
-        <location filename="../src/HubFrame.cpp" line="1786"/>
+        <location filename="../src/HubFrame.cpp" line="1570"/>
+        <location filename="../src/HubFrame.cpp" line="1572"/>
+        <location filename="../src/HubFrame.cpp" line="1793"/>
+        <location filename="../src/HubFrame.cpp" line="1795"/>
         <source>Away mode off</source>
         <translation>IVD-läge av</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1575"/>
-        <location filename="../src/HubFrame.cpp" line="1577"/>
+        <location filename="../src/HubFrame.cpp" line="1584"/>
+        <location filename="../src/HubFrame.cpp" line="1586"/>
         <source>Away mode on: </source>
         <translation>IVD-läge på:</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1595"/>
-        <location filename="../src/HubFrame.cpp" line="1597"/>
+        <location filename="../src/HubFrame.cpp" line="1604"/>
+        <location filename="../src/HubFrame.cpp" line="1606"/>
         <source>Aliases not found.</source>
         <translation>Kunde inte hitta alias.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1617"/>
-        <location filename="../src/HubFrame.cpp" line="1619"/>
+        <location filename="../src/HubFrame.cpp" line="1626"/>
+        <location filename="../src/HubFrame.cpp" line="1628"/>
         <source>Alias removed.</source>
         <translation>Alias borttagen.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1630"/>
-        <location filename="../src/HubFrame.cpp" line="1632"/>
         <location filename="../src/HubFrame.cpp" line="1639"/>
         <location filename="../src/HubFrame.cpp" line="1641"/>
+        <location filename="../src/HubFrame.cpp" line="1648"/>
+        <location filename="../src/HubFrame.cpp" line="1650"/>
         <source>Invalid alias syntax.</source>
         <translation>Ogiltigt alias syntax.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1649"/>
-        <location filename="../src/HubFrame.cpp" line="1651"/>
+        <location filename="../src/HubFrame.cpp" line="1658"/>
+        <location filename="../src/HubFrame.cpp" line="1660"/>
         <source>Alias %1 =&gt; %2 has been added</source>
         <translation>Alias %1 =&gt; %2 har blivit tillagt</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1673"/>
-        <location filename="../src/HubFrame.cpp" line="1675"/>
         <location filename="../src/HubFrame.cpp" line="1682"/>
         <location filename="../src/HubFrame.cpp" line="1684"/>
+        <location filename="../src/HubFrame.cpp" line="1691"/>
+        <location filename="../src/HubFrame.cpp" line="1693"/>
         <source>Invalid command syntax.</source>
         <translation>Ogiltigt kommandosyntax.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1694"/>
+        <location filename="../src/HubFrame.cpp" line="1703"/>
         <source>List of keywords:
 </source>
         <translation>Lista över nyckelord:
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1741"/>
+        <location filename="../src/HubFrame.cpp" line="1750"/>
         <source>ratio: %1 (uploads: %2, downloads: %3)</source>
         <translation>förhållande: %1 (uppladdningar: %2, nedladdningar: %3)</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1775"/>
-        <location filename="../src/HubFrame.cpp" line="1777"/>
+        <location filename="../src/HubFrame.cpp" line="1784"/>
+        <location filename="../src/HubFrame.cpp" line="1786"/>
         <source>Aspell switched %1</source>
         <translation>Stavningskontrollen ändrades till %1</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1775"/>
-        <location filename="../src/HubFrame.cpp" line="1777"/>
+        <location filename="../src/HubFrame.cpp" line="1784"/>
+        <location filename="../src/HubFrame.cpp" line="1786"/>
         <source>on</source>
         <translation>på</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1775"/>
-        <location filename="../src/HubFrame.cpp" line="1777"/>
+        <location filename="../src/HubFrame.cpp" line="1784"/>
+        <location filename="../src/HubFrame.cpp" line="1786"/>
         <source>off</source>
         <translation>av</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1792"/>
-        <location filename="../src/HubFrame.cpp" line="1794"/>
+        <location filename="../src/HubFrame.cpp" line="1801"/>
+        <location filename="../src/HubFrame.cpp" line="1803"/>
         <source>Chat has been cleared</source>
         <translation>Chatten tömd</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1844"/>
+        <location filename="../src/HubFrame.cpp" line="1853"/>
         <source>/aspell on/off - enable/disable spell checking
 </source>
         <translation>/aspell på/av - aktivera/inaktivera stavningskontroll
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1846"/>
+        <location filename="../src/HubFrame.cpp" line="1855"/>
         <source>/alias &lt;ALIAS_NAME&gt;::&lt;COMMAND&gt; - make alias /ALIAS_NAME to /COMMAND
 </source>
         <translation>/alias &lt;ALIAS_NAMN&gt;::&lt;KOMMANDO&gt; - gör alias /ALIAS_NAMN till /KOMMANDO
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1847"/>
+        <location filename="../src/HubFrame.cpp" line="1856"/>
         <source>/alias purge &lt;ALIAS_NAME&gt; - remove alias
 </source>
         <translation>/alias purge &lt;ALIAS_NAMN&gt; - ta bort alias
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1848"/>
+        <location filename="../src/HubFrame.cpp" line="1857"/>
         <source>/alias list - list all aliases
 </source>
         <translation>/alias list - lista alla alias
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1849"/>
+        <location filename="../src/HubFrame.cpp" line="1858"/>
         <source>/away &lt;message&gt; - set away-mode on/off
 </source>
         <translation>/away &lt;meddelande&gt; - ändra IVD-läge på/av
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1850"/>
+        <location filename="../src/HubFrame.cpp" line="1859"/>
         <source>/back - set away-mode off
 </source>
         <translation>/back - stäng av IVD-läge
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1851"/>
+        <location filename="../src/HubFrame.cpp" line="1860"/>
         <source>/browse &lt;nick&gt; - browse user files
 </source>
         <translation>/browse &lt;användarnamn&gt; - bläddra i användarens filer
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1852"/>
+        <location filename="../src/HubFrame.cpp" line="1861"/>
         <source>/clear - clear chat window
 </source>
         <translation>/clear - rensa chattfönstret
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1853"/>
+        <location filename="../src/HubFrame.cpp" line="1862"/>
         <source>/kword add &lt;keyword&gt; - add user-defined keyword which will be highlighted in the chat
 </source>
         <translation>/kword add &lt;ord&gt; - lägg till dina egna ord som blir markerade i chatten
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1854"/>
+        <location filename="../src/HubFrame.cpp" line="1863"/>
         <source>/kword purge &lt;keyword&gt; - remove user-defined keyword
 </source>
         <translation>/kword purge &lt;nyckelord&gt; - ta bort användardefinierad nyckelord
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1855"/>
+        <location filename="../src/HubFrame.cpp" line="1864"/>
         <source>/kword list - full list of keywords which will be highlighted in the chat
 </source>
         <translation>/kword list - komplett lista över ord som blir markerade i chatten
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1856"/>
+        <location filename="../src/HubFrame.cpp" line="1865"/>
         <source>/magnet - default action with magnet (0-ask, 1-search, 2-download)
 </source>
         <translation>/magnet - standardutförande med magnet (0-fråga, 1-sök, 2-ladda ned)
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1857"/>
+        <location filename="../src/HubFrame.cpp" line="1866"/>
         <source>/close - close this hub
 </source>
         <translation>/close - stäng hubben
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1858"/>
+        <location filename="../src/HubFrame.cpp" line="1867"/>
         <source>/fav - add this hub to favorites
 </source>
         <translation>/fav - lägg till favorithubbar
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1859"/>
+        <location filename="../src/HubFrame.cpp" line="1868"/>
         <source>/grant &lt;nick&gt; - grant extra slot to user
 </source>
         <translation>/grant &lt;nick&gt; - bevilja extra slott till användaren
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1860"/>
+        <location filename="../src/HubFrame.cpp" line="1869"/>
         <source>/help, /?, /h - show this help
 </source>
         <translation>/help, /?, /h - visa denna hjälp
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1861"/>
+        <location filename="../src/HubFrame.cpp" line="1870"/>
         <source>/info &lt;nick&gt; - show info about user
 </source>
         <translation>/info &lt;nick&gt; - visa information om användaren
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1862"/>
+        <location filename="../src/HubFrame.cpp" line="1871"/>
         <source>/ratio [show] - show ratio [send in chat]
 </source>
         <translation>/ratio [show] - visa förhållande [skicka i chatt]
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1863"/>
+        <location filename="../src/HubFrame.cpp" line="1872"/>
         <source>/rebuild - rebuild hash
 </source>
         <translation>/rebuild - återskapa index
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1864"/>
+        <location filename="../src/HubFrame.cpp" line="1873"/>
         <source>/refresh - update own file list
 </source>
         <translation>/refresh - uppdatera din fillista
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1865"/>
+        <location filename="../src/HubFrame.cpp" line="1874"/>
         <source>/me - say a third person
 </source>
         <translation>/me - säg som tredje person
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1866"/>
+        <location filename="../src/HubFrame.cpp" line="1875"/>
         <source>/pm &lt;nick&gt; - begin private chat with user
 </source>
         <translation>/pm &lt;nick&gt; - börja chatta privat med en användare
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1867"/>
+        <location filename="../src/HubFrame.cpp" line="1876"/>
         <source>/ws param value - set gui option param in value (without value return current value of option)
 </source>
         <translation>/ws parametervärde - ställer in det grafiska parametervärdet (utan värde visas det nuvarande värdet)
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1868"/>
+        <location filename="../src/HubFrame.cpp" line="1877"/>
         <source>/dcpps param value - set core option param in value (without value return current value of option)
 </source>
         <translation>/dcpps parametervärde - ställer in kärnans parametervärde (utan värde visas det nuvarande värdet)
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1870"/>
+        <location filename="../src/HubFrame.cpp" line="1879"/>
         <source>/luafile &lt;file&gt; - load Lua file
 </source>
         <translation>/luafile &lt;file&gt; - ladda Lua-fil
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="1871"/>
+        <location filename="../src/HubFrame.cpp" line="1880"/>
         <source>/lua &lt;chunk&gt; - execute Lua chunk
 </source>
         <translation>/lua &lt;chunk&gt; - starta Lua-chunk
 </translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2121"/>
+        <location filename="../src/HubFrame.cpp" line="2130"/>
         <source> joins the chat</source>
         <translation>ansluter i chatten</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2126"/>
-        <location filename="../src/HubFrame.cpp" line="2183"/>
+        <location filename="../src/HubFrame.cpp" line="2135"/>
+        <location filename="../src/HubFrame.cpp" line="2193"/>
         <source>Favorites</source>
         <translation>Favoriter</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2126"/>
+        <location filename="../src/HubFrame.cpp" line="2135"/>
         <source>%1 is now online</source>
         <translation>%1 är nu ansluten</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2139"/>
+        <location filename="../src/HubFrame.cpp" line="2148"/>
         <source>User online.</source>
         <translation>Användaren ansluten.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2178"/>
+        <location filename="../src/HubFrame.cpp" line="2188"/>
         <source> left the chat</source>
         <translation>lämnade chatten</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2183"/>
+        <location filename="../src/HubFrame.cpp" line="2193"/>
         <source>%1 is now offline</source>
         <translation>%1 är nu frånkopplad</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2222"/>
-        <location filename="../src/HubFrame.cpp" line="2236"/>
+        <location filename="../src/HubFrame.cpp" line="2232"/>
+        <location filename="../src/HubFrame.cpp" line="2246"/>
         <source>User not found</source>
         <translation>Kunde inte hitta användaren</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2243"/>
+        <location filename="../src/HubFrame.cpp" line="2253"/>
         <source>Slot granted to </source>
         <translation>Slott beviljad till</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2302"/>
+        <location filename="../src/HubFrame.cpp" line="2312"/>
         <source> has been added to favorites.</source>
         <translation> har lagts till favoriter.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2302"/>
+        <location filename="../src/HubFrame.cpp" line="2312"/>
         <source> has been removed from favorites.</source>
         <translation>har tagits bort från favoriter.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2334"/>
+        <location filename="../src/HubFrame.cpp" line="2344"/>
         <source>Favorite hub added.</source>
         <translation>Favorithubb har lagts till.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2337"/>
+        <location filename="../src/HubFrame.cpp" line="2347"/>
         <source>Favorite hub already exists.</source>
         <translation>Favorithubben finns redan.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2572"/>
+        <location filename="../src/HubFrame.cpp" line="2582"/>
         <source>User offline.</source>
         <translation>Användaren frånkopplad.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2611"/>
+        <location filename="../src/HubFrame.cpp" line="2621"/>
         <source>Stored password sent...</source>
         <translation>Skickar lösenord...</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2614"/>
+        <location filename="../src/HubFrame.cpp" line="2624"/>
         <source>Password</source>
         <translation>Lösenord</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2628"/>
-        <location filename="../src/HubFrame.cpp" line="3776"/>
+        <location filename="../src/HubFrame.cpp" line="2638"/>
+        <location filename="../src/HubFrame.cpp" line="3783"/>
         <source>Redirect request received to a hub that&apos;s already connected</source>
         <translation>Omdirigering begärd för en redan ansluten hubb</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2700"/>
+        <location filename="../src/HubFrame.cpp" line="2710"/>
         <source>Users count: %3/%1 | Total share: %2</source>
         <translation>Användare: %3/%1 | Totalt utdelat: %2</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="2706"/>
+        <location filename="../src/HubFrame.cpp" line="2716"/>
         <source>Users count: %1 | Total share: %2</source>
         <translation>Användare: %1 | Utdelat: %2</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="3564"/>
+        <location filename="../src/HubFrame.cpp" line="3569"/>
         <source>Add to dictionary</source>
         <translation>Lägg till ordbok</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="3570"/>
+        <location filename="../src/HubFrame.cpp" line="3575"/>
         <source>Suggestions</source>
         <translation>Förslag</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="3735"/>
+        <location filename="../src/HubFrame.cpp" line="3741"/>
         <source>Connecting to %1</source>
         <translation>Ansluter till %1</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="3743"/>
+        <location filename="../src/HubFrame.cpp" line="3749"/>
         <source>Connected to %1</source>
         <translation>Ansluten till %1</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="3786"/>
+        <location filename="../src/HubFrame.cpp" line="3793"/>
         <source>Fail: %1...</source>
         <translation>Fel: %1...</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="3980"/>
+        <location filename="../src/HubFrame.cpp" line="3987"/>
         <source>Sorry, but nick &quot;%1&quot; is already taken by another user.</source>
         <translation>Användarnamnet &quot;%1&quot; används redan.</translation>
     </message>
     <message>
-        <location filename="../src/HubFrame.cpp" line="3986"/>
+        <location filename="../src/HubFrame.cpp" line="3993"/>
         <source>Search flood detected: %1</source>
         <translation>Massökning upptäckt: %1</translation>
     </message>
 </context>
 <context>
-    <name>IPFilter</name>
-    <message>
-        <location filename="../src/IPFilter.cpp" line="453"/>
-        <source>Nothing to export.</source>
-        <translation>Inget att exportera</translation>
-    </message>
-    <message>
-        <location filename="../src/IPFilter.cpp" line="465"/>
-        <source>Unable to export settings.</source>
-        <translation>Kunde inte exportera inställningar.</translation>
-    </message>
-    <message>
-        <location filename="../src/IPFilter.cpp" line="481"/>
-        <source>Nothing to import.</source>
-        <translation>Inget att importera</translation>
-    </message>
-    <message>
-        <location filename="../src/IPFilter.cpp" line="505"/>
-        <source>Invalid signature.</source>
-        <translation>Ogiltig signatur</translation>
-    </message>
-</context>
-<context>
     <name>IPFilterFrame</name>
     <message>
-        <location filename="../src/IPFilterFrame.cpp" line="189"/>
+        <location filename="../src/IPFilterFrame.cpp" line="183"/>
         <source>Change rule direction</source>
         <translation>Ändra riktning på regeln</translation>
     </message>
     <message>
-        <location filename="../src/IPFilterFrame.cpp" line="197"/>
+        <location filename="../src/IPFilterFrame.cpp" line="191"/>
         <source>Change IP/Mask</source>
         <translation>Ändra IP/Mask</translation>
     </message>
     <message>
-        <location filename="../src/IPFilterFrame.cpp" line="198"/>
+        <location filename="../src/IPFilterFrame.cpp" line="192"/>
         <source>Delete rule</source>
         <translation>Radera regel</translation>
     </message>
     <message>
-        <location filename="../src/IPFilterFrame.cpp" line="230"/>
+        <location filename="../src/IPFilterFrame.cpp" line="224"/>
         <source>Enter new rule</source>
         <translation>Ange ny regel</translation>
     </message>
     <message>
-        <location filename="../src/IPFilterFrame.cpp" line="230"/>
+        <location filename="../src/IPFilterFrame.cpp" line="224"/>
         <source>Rule:</source>
         <translation>Regel:</translation>
     </message>
     <message>
-        <location filename="../src/IPFilterFrame.cpp" line="320"/>
+        <location filename="../src/IPFilterFrame.cpp" line="317"/>
         <source>Import list</source>
         <translation>Importera lista</translation>
     </message>
     <message>
-        <location filename="../src/IPFilterFrame.cpp" line="373"/>
+        <location filename="../src/IPFilterFrame.cpp" line="371"/>
         <source>Export list</source>
         <translation>Exportera lista</translation>
     </message>
     <message>
-        <location filename="../src/IPFilterFrame.cpp" line="374"/>
+        <location filename="../src/IPFilterFrame.cpp" line="372"/>
         <source>All Files (*)</source>
         <translation>Alla filer (*.*)</translation>
     </message>
@@ -1636,12 +1600,12 @@ Favoritanvändare</translation>
 <context>
     <name>IPFilterModel</name>
     <message>
-        <location filename="../src/IPFilterModel.cpp" line="25"/>
+        <location filename="../src/IPFilterModel.cpp" line="23"/>
         <source>IP/Mask</source>
         <translation>IP/Mask</translation>
     </message>
     <message>
-        <location filename="../src/IPFilterModel.cpp" line="25"/>
+        <location filename="../src/IPFilterModel.cpp" line="23"/>
         <source>Direction</source>
         <translation>Riktning</translation>
     </message>
@@ -1659,22 +1623,22 @@ Favoritanvändare</translation>
         <translation>Ladda ned filen via den automatiska sökalternativet</translation>
     </message>
     <message>
-        <location filename="../src/Magnet.cpp" line="168"/>
+        <location filename="../src/Magnet.cpp" line="184"/>
         <source>Browse</source>
         <translation>Bläddra</translation>
     </message>
     <message>
-        <location filename="../src/Magnet.cpp" line="188"/>
+        <location filename="../src/Magnet.cpp" line="204"/>
         <source>Select directory</source>
         <translation>Välj kalalog</translation>
     </message>
     <message>
-        <location filename="../src/Magnet.cpp" line="205"/>
+        <location filename="../src/Magnet.cpp" line="221"/>
         <source>Error</source>
         <translation>Fel</translation>
     </message>
     <message>
-        <location filename="../src/Magnet.cpp" line="205"/>
+        <location filename="../src/Magnet.cpp" line="221"/>
         <source>Some error ocurred when starting download:
  %1</source>
         <translation>Några fel upptäcktes vid start av nedladdningen:
@@ -1684,924 +1648,828 @@ Favoritanvändare</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/MainWindow.cpp" line="265"/>
+        <location filename="../src/MainWindow.cpp" line="272"/>
         <source>Ready</source>
         <translation>Klar</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="351"/>
         <source>Exit confirm</source>
-        <translation>Bekräfta avstängning</translation>
+        <translation type="vanished">Bekräfta avstängning</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="352"/>
+        <location filename="../src/MainWindow.cpp" line="358"/>
         <source>Exit program?</source>
         <translation>Avsluta program?</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="456"/>
+        <location filename="../src/MainWindow.cpp" line="360"/>
+        <source>Kill all humans?</source>
+        <translation>Döda alla människor?</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="362"/>
+        <source>Action confirm</source>
+        <translation>Åtgärd bekräftad</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="471"/>
         <source>Enter user nick</source>
         <translation>Ange användarnamn</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="456"/>
+        <location filename="../src/MainWindow.cpp" line="471"/>
         <source>Nick</source>
         <translation>Användarnamn</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="456"/>
+        <location filename="../src/MainWindow.cpp" line="471"/>
         <source>User</source>
         <translation>Användare</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="461"/>
+        <location filename="../src/MainWindow.cpp" line="476"/>
         <source>Would you like to change other settings?</source>
         <translation>Vill du ändra fler inställningar?</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="692"/>
-        <source>Ctrl+I</source>
-        <translation>Ctrl+I</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="698"/>
-        <source>Ctrl+L</source>
-        <translation>Ctrl+L</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="729"/>
-        <source>Ctrl+E</source>
-        <translation>Ctrl+E</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="735"/>
-        <source>Ctrl+Alt+H</source>
-        <translation>Ctrl+Alt+H</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="741"/>
-        <source>Ctrl+Q</source>
-        <translation>Ctrl+Q</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="748"/>
-        <source>Ctrl+R</source>
-        <translation>Ctrl+R</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="754"/>
-        <source>Ctrl+N</source>
-        <translation>Ctrl+N</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="760"/>
-        <source>Ctrl+H</source>
-        <translation>Ctrl+H</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="766"/>
-        <source>Ctrl+P</source>
-        <translation>Ctrl+P</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="772"/>
-        <source>Ctrl+U</source>
-        <translation>Ctrl+U</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="788"/>
-        <source>Ctrl+O</source>
-        <translation>Ctrl+O</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="804"/>
-        <source>Ctrl+T</source>
-        <translation>Ctrl+T</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="812"/>
-        <source>Ctrl+D</source>
-        <translation>Ctrl+D</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="818"/>
-        <source>Ctrl+Shift+U</source>
-        <translation>Ctrl+Shift+U</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="824"/>
-        <source>Ctrl+[</source>
-        <translation>Ctrl+[</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="830"/>
-        <source>Ctrl+]</source>
-        <translation>Ctrl+]</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="876"/>
-        <source>Ctrl+Alt+J</source>
-        <translation>Ctrl+Alt+J</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="902"/>
-        <source>Ctrl+S</source>
-        <translation>Ctrl+S</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="927"/>
-        <source>Ctrl+K</source>
-        <translation>Ctrl+K</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="940"/>
-        <source>Ctrl+F</source>
-        <translation>Ctrl+F</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="1074"/>
+        <location filename="../src/MainWindow.cpp" line="1089"/>
         <source>Next widget</source>
         <translation>Nästa widget</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1075"/>
+        <location filename="../src/MainWindow.cpp" line="1090"/>
         <source>Previous widget</source>
         <translation>Föregående widget</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1076"/>
+        <location filename="../src/MainWindow.cpp" line="1091"/>
         <source>Next message</source>
         <translation>Nästa meddelande</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1077"/>
+        <location filename="../src/MainWindow.cpp" line="1092"/>
         <source>Previous message</source>
         <translation>Föregående meddelande</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1078"/>
+        <location filename="../src/MainWindow.cpp" line="1093"/>
         <source>Close current widget</source>
         <translation>Stäng nuvarande widget</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1079"/>
+        <location filename="../src/MainWindow.cpp" line="1094"/>
         <source>Toggle main menu</source>
         <translation>Växla huvudmenyn</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1088"/>
-        <source>Ctrl+PgDown</source>
-        <translation>Ctrl+PgDown</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="1089"/>
-        <source>Ctrl+PgUp</source>
-        <translation>Ctrl+PgUp</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="1090"/>
-        <source>Ctrl+Down</source>
-        <translation>Ctrl+Down</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="1091"/>
-        <source>Ctrl+Up</source>
-        <translation>Ctrl+Up</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="1092"/>
-        <source>Ctrl+W</source>
-        <translation>Ctrl+W</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="1093"/>
-        <source>Ctrl+M</source>
-        <translation>Ctrl+M</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="1221"/>
+        <location filename="../src/MainWindow.cpp" line="1236"/>
         <source>Counts</source>
         <translation>Antal</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1227"/>
+        <location filename="../src/MainWindow.cpp" line="1242"/>
         <source>Download/Upload speed</source>
         <translation>Ned-/Upp-laddningshastighet</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1233"/>
+        <location filename="../src/MainWindow.cpp" line="1248"/>
         <source>Downloaded/Uploaded</source>
         <translation>Nedladdat/Uppladdat</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1251"/>
+        <location filename="../src/MainWindow.cpp" line="1267"/>
+        <location filename="../src/MainWindow.cpp" line="1274"/>
         <source>Space free</source>
         <translation>Ledigt utrymme</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1265"/>
+        <location filename="../src/MainWindow.cpp" line="1288"/>
         <source>Hashing progress</source>
         <translation>Indexeringsförlopp</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1292"/>
+        <location filename="../src/MainWindow.cpp" line="1315"/>
         <source>&amp;File</source>
         <translation>&amp;Arkiv</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1294"/>
-        <location filename="../src/MainWindow.cpp" line="2176"/>
+        <location filename="../src/MainWindow.cpp" line="1317"/>
+        <location filename="../src/MainWindow.cpp" line="2205"/>
         <source>Open magnet link</source>
         <translation>Öppna magnet-länk</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1296"/>
-        <location filename="../src/MainWindow.cpp" line="2105"/>
+        <location filename="../src/MainWindow.cpp" line="1319"/>
+        <location filename="../src/MainWindow.cpp" line="2134"/>
         <source>Open log file</source>
         <translation>Öppna loggfil</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1298"/>
+        <location filename="../src/MainWindow.cpp" line="1321"/>
         <source>Open download directory</source>
         <translation>Öppna nedladdningskatalog</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1300"/>
+        <location filename="../src/MainWindow.cpp" line="1323"/>
         <source>Open filelist...</source>
         <translation>Öppna fillista...</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1302"/>
+        <location filename="../src/MainWindow.cpp" line="1325"/>
         <source>Calculate file TTH</source>
         <translation>Beräkna filens TTH-värde</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1304"/>
+        <location filename="../src/MainWindow.cpp" line="1327"/>
         <source>Open own filelist</source>
         <translation>Öppna din fillista</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1306"/>
+        <location filename="../src/MainWindow.cpp" line="1329"/>
         <source>Match all listings</source>
         <translation>Matcha alla listningar</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1308"/>
-        <location filename="../src/MainWindow.cpp" line="1723"/>
+        <location filename="../src/MainWindow.cpp" line="1331"/>
+        <location filename="../src/MainWindow.cpp" line="1755"/>
         <source>Refresh share</source>
         <translation>Uppdatera utdelningen</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1310"/>
-        <location filename="../src/MainWindow.cpp" line="2392"/>
+        <location filename="../src/MainWindow.cpp" line="1333"/>
+        <location filename="../src/MainWindow.cpp" line="2421"/>
         <source>Hide window</source>
         <translation>Göm fönstret</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1313"/>
-        <location filename="../src/MainWindow.cpp" line="2390"/>
+        <location filename="../src/MainWindow.cpp" line="1336"/>
+        <location filename="../src/MainWindow.cpp" line="2419"/>
         <source>Show/hide find frame</source>
         <translation>Visa/Göm sökpanelen</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1315"/>
+        <location filename="../src/MainWindow.cpp" line="1338"/>
         <source>Quit</source>
         <translation>Avsluta</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1317"/>
+        <location filename="../src/MainWindow.cpp" line="1340"/>
         <source>&amp;Hubs</source>
         <translation>&amp;Hubbar</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1319"/>
+        <location filename="../src/MainWindow.cpp" line="1342"/>
         <source>Reconnect to hub</source>
         <translation>Återanslut till hubben</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1321"/>
+        <location filename="../src/MainWindow.cpp" line="1344"/>
         <source>Favourite hubs</source>
         <translation>Favorithubbar</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1323"/>
+        <location filename="../src/MainWindow.cpp" line="1346"/>
         <source>Public hubs</source>
         <translation>Publika hubbar</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1325"/>
+        <location filename="../src/MainWindow.cpp" line="1348"/>
         <source>Favourite users</source>
         <translation>Favoritanvändare</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1327"/>
+        <location filename="../src/MainWindow.cpp" line="1350"/>
         <source>Quick connect</source>
         <translation>Snabbanslutning</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1329"/>
+        <location filename="../src/MainWindow.cpp" line="1352"/>
         <source>&amp;Tools</source>
         <translation>Verk&amp;tyg</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1331"/>
+        <location filename="../src/MainWindow.cpp" line="1354"/>
         <source>Transfers</source>
         <translation>Överföringar</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1333"/>
+        <location filename="../src/MainWindow.cpp" line="1356"/>
         <source>Download queue</source>
         <translation>Nedladdningskö</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1335"/>
+        <location filename="../src/MainWindow.cpp" line="1358"/>
         <source>Queued Users</source>
         <translation>Köade användare</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1337"/>
+        <location filename="../src/MainWindow.cpp" line="1360"/>
         <source>Hub Manager</source>
         <translation>Hubbhanterare</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1339"/>
+        <location filename="../src/MainWindow.cpp" line="1362"/>
         <source>Finished downloads</source>
         <translation>Färdiga nedladdningar</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1341"/>
+        <location filename="../src/MainWindow.cpp" line="1364"/>
         <source>Finished uploads</source>
         <translation>Färdiga uppladdningar</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1343"/>
+        <location filename="../src/MainWindow.cpp" line="1366"/>
         <source>Search Spy</source>
         <translation>Sökspion</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1345"/>
+        <location filename="../src/MainWindow.cpp" line="1368"/>
         <source>AntiSpam module</source>
         <translation>AntiSpam</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1347"/>
+        <location filename="../src/MainWindow.cpp" line="1370"/>
         <source>IPFilter module</source>
         <translation>IP-filter</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1349"/>
-        <location filename="../src/MainWindow.cpp" line="2524"/>
+        <location filename="../src/MainWindow.cpp" line="1372"/>
+        <location filename="../src/MainWindow.cpp" line="2553"/>
         <source>Hide free space bar</source>
         <translation>Göm fältet ledigt utrymme</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1352"/>
-        <location filename="../src/MainWindow.cpp" line="2519"/>
+        <location filename="../src/MainWindow.cpp" line="1375"/>
+        <location filename="../src/MainWindow.cpp" line="2548"/>
         <source>Show free space bar</source>
         <translation>Visa fältet ledigt utrymme</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1354"/>
-        <location filename="../src/MainWindow.cpp" line="2540"/>
+        <location filename="../src/MainWindow.cpp" line="1377"/>
+        <location filename="../src/MainWindow.cpp" line="2569"/>
         <source>Hide last status message</source>
         <translation>Göm senaste statusmeddelandet</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1357"/>
-        <location filename="../src/MainWindow.cpp" line="2538"/>
+        <location filename="../src/MainWindow.cpp" line="1380"/>
+        <location filename="../src/MainWindow.cpp" line="2567"/>
         <source>Show last status message</source>
         <translation>Visa senaste statusmeddelandent</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1359"/>
-        <location filename="../src/MainWindow.cpp" line="2557"/>
+        <location filename="../src/MainWindow.cpp" line="1382"/>
+        <location filename="../src/MainWindow.cpp" line="2586"/>
         <source>Hide users statistics</source>
         <translation>Göm användarstatistiken</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1362"/>
-        <location filename="../src/MainWindow.cpp" line="2555"/>
+        <location filename="../src/MainWindow.cpp" line="1385"/>
+        <location filename="../src/MainWindow.cpp" line="2584"/>
         <source>Show users statistics</source>
         <translation>Visa användarstatistiken</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1364"/>
+        <location filename="../src/MainWindow.cpp" line="1387"/>
         <source>Away message</source>
         <translation>Inte Vid Datorn-meddelande</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1366"/>
+        <location filename="../src/MainWindow.cpp" line="1389"/>
         <source>On</source>
         <translation>På</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1368"/>
+        <location filename="../src/MainWindow.cpp" line="1391"/>
         <source>Off</source>
         <translation>Av</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1370"/>
+        <location filename="../src/MainWindow.cpp" line="1393"/>
         <source>Away when not visible</source>
         <translation>IVD när du inte är synlig</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1372"/>
+        <location filename="../src/MainWindow.cpp" line="1395"/>
         <source>Copy window title</source>
         <translation>Kopiera fönstrets titel</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1374"/>
+        <location filename="../src/MainWindow.cpp" line="1397"/>
         <source>Preferences</source>
         <translation>Inställningar</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1376"/>
+        <location filename="../src/MainWindow.cpp" line="1399"/>
         <source>Search</source>
         <translation>Sök</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1378"/>
+        <location filename="../src/MainWindow.cpp" line="1401"/>
         <source>ADLSearch</source>
         <translation>ADL-sök</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1380"/>
-        <source>CmdDebug</source>
-        <translation>CmdDebug</translation>
+        <location filename="../src/MainWindow.cpp" line="1403"/>
+        <source>Debug Console</source>
+        <translation>Felsökningskonsol</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1382"/>
+        <location filename="../src/MainWindow.cpp" line="1405"/>
         <source>Speed limit On/Off</source>
         <translation>Hastighetsbegränsning På/Av</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1385"/>
+        <location filename="../src/MainWindow.cpp" line="1408"/>
         <source>Scripts Manager</source>
         <translation>Skripthanterare</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1387"/>
+        <location filename="../src/MainWindow.cpp" line="1410"/>
         <source>Script Console</source>
         <translation>Skriptkonsol</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1390"/>
+        <location filename="../src/MainWindow.cpp" line="1413"/>
         <source>Clear chat</source>
         <translation>Rensa chatt</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1392"/>
+        <location filename="../src/MainWindow.cpp" line="1415"/>
         <source>Find/Filter</source>
         <translation>Sök/Filter</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1394"/>
+        <location filename="../src/MainWindow.cpp" line="1417"/>
         <source>Disable/enable chat</source>
         <translation>Inaktivera/Aktivera chatt</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1396"/>
+        <location filename="../src/MainWindow.cpp" line="1419"/>
         <source>&amp;Widgets</source>
         <translation>&amp;Widgetar</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1398"/>
+        <location filename="../src/MainWindow.cpp" line="1421"/>
         <source>&amp;Panels</source>
         <translation>&amp;Paneler</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1401"/>
+        <location filename="../src/MainWindow.cpp" line="1424"/>
         <source>Widgets panel</source>
         <translation>Widget-panel</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1403"/>
+        <location filename="../src/MainWindow.cpp" line="1426"/>
         <source>Widgets side dock</source>
         <translation>Widgetens sidopanel</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1405"/>
+        <location filename="../src/MainWindow.cpp" line="1428"/>
         <source>Tools panel</source>
         <translation>Verktygspanel</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1407"/>
+        <location filename="../src/MainWindow.cpp" line="1430"/>
         <source>Fast search panel</source>
         <translation>Snabbsökspanel</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1409"/>
+        <location filename="../src/MainWindow.cpp" line="1432"/>
         <source>&amp;Help</source>
         <translation>&amp;Hjälp</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1411"/>
+        <location filename="../src/MainWindow.cpp" line="1434"/>
         <source>Homepage</source>
         <translation>Hemsida</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1413"/>
+        <location filename="../src/MainWindow.cpp" line="1436"/>
         <source>Source (git)</source>
         <translation>Källa (git)</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1415"/>
+        <location filename="../src/MainWindow.cpp" line="1438"/>
         <source>Report a Bug</source>
         <translation>Rapportera ett fel</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1417"/>
+        <location filename="../src/MainWindow.cpp" line="1440"/>
         <source>Wiki of project</source>
         <translation>Projektets Wiki-sida</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1419"/>
+        <location filename="../src/MainWindow.cpp" line="1442"/>
         <source>Changelog (git)</source>
         <translation>Ändringslogg (git)</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1421"/>
+        <location filename="../src/MainWindow.cpp" line="1444"/>
         <source>About EiskaltDC++</source>
         <translation>Om EiskaltDC++</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1423"/>
+        <location filename="../src/MainWindow.cpp" line="1446"/>
         <source>About Qt</source>
         <translation>Om Qt</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1426"/>
-        <location filename="../src/MainWindow.cpp" line="1458"/>
+        <location filename="../src/MainWindow.cpp" line="1449"/>
+        <location filename="../src/MainWindow.cpp" line="1481"/>
         <source>Actions</source>
         <translation>Åtgärder</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1429"/>
+        <location filename="../src/MainWindow.cpp" line="1452"/>
         <source>Main layout</source>
         <translation>Huvudlayout</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1663"/>
+        <location filename="../src/MainWindow.cpp" line="1686"/>
         <source>%1/s / %2/s</source>
         <translation>%1/s / %2/s</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1664"/>
+        <location filename="../src/MainWindow.cpp" line="1687"/>
         <source>%1 / %2</source>
         <translation>%1 / %2</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1671"/>
+        <location filename="../src/MainWindow.cpp" line="1694"/>
         <source>/s</source>
         <translation>/s</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1692"/>
+        <location filename="../src/MainWindow.cpp" line="1714"/>
         <source>Free %1</source>
         <translation>Ledigt %1</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1695"/>
+        <location filename="../src/MainWindow.cpp" line="1717"/>
         <source>Free %1 of %2</source>
         <translation>Ledigt %1 av %2</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1732"/>
-        <location filename="../src/MainWindow.cpp" line="1742"/>
-        <location filename="../src/MainWindow.cpp" line="1758"/>
-        <location filename="../src/MainWindow.cpp" line="1773"/>
+        <location filename="../src/MainWindow.cpp" line="1764"/>
+        <location filename="../src/MainWindow.cpp" line="1774"/>
+        <location filename="../src/MainWindow.cpp" line="1790"/>
+        <location filename="../src/MainWindow.cpp" line="1805"/>
         <source>Hash progress</source>
         <translation>Indexeringsförlopp</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1735"/>
+        <location filename="../src/MainWindow.cpp" line="1767"/>
         <source>List update</source>
         <translation>Lista uppdatering</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1747"/>
+        <location filename="../src/MainWindow.cpp" line="1779"/>
         <source>Delayed</source>
         <translation>Fördröjning</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1762"/>
+        <location filename="../src/MainWindow.cpp" line="1794"/>
         <source>Paused</source>
         <translation>Pausad</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1776"/>
+        <location filename="../src/MainWindow.cpp" line="1808"/>
         <source>%p%</source>
         <translation>%p%</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1867"/>
+        <location filename="../src/MainWindow.cpp" line="1897"/>
         <source>Choose file to open</source>
         <translation>Välj fil att öppna</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1869"/>
+        <location filename="../src/MainWindow.cpp" line="1899"/>
         <source>Modern XML Filelists</source>
         <translation>Modern XML-fillista</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1870"/>
+        <location filename="../src/MainWindow.cpp" line="1900"/>
         <source>Modern XML Filelists uncompressed</source>
         <translation>Modern XML-fillista okomprimmerad</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1871"/>
+        <location filename="../src/MainWindow.cpp" line="1901"/>
         <source>All files</source>
         <translation>Alla filer</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="1882"/>
+        <location filename="../src/MainWindow.cpp" line="1912"/>
         <source>Unable to load file list: Invalid file list name</source>
         <translation>Kunde inte ladda fillistan: Ogiltigt namn på fillistan</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2047"/>
+        <location filename="../src/MainWindow.cpp" line="2076"/>
         <source>Menu</source>
         <translation>Meny</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2084"/>
+        <location filename="../src/MainWindow.cpp" line="2113"/>
         <source>Unable to open %1 port. Searching or file transfers will not work correctly until you change settings or turn off any application that might be using that port.</source>
         <translation>Kunde inte öppna %1 port. Sökning eller filöverföring kommer inte att fungera fullt ut förrän du ändrar inställningarna eller stänger ner programmet som använder den porten.</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2085"/>
+        <location filename="../src/MainWindow.cpp" line="2114"/>
         <source>Connectivity Manager: Warning</source>
         <translation>Anslutningshanterare: Varning</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2105"/>
+        <location filename="../src/MainWindow.cpp" line="2134"/>
         <source>Log files (*.log);;All files (*.*)</source>
         <translation>Logga filer (*.log);;Alla filer (*.*)</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2176"/>
+        <location filename="../src/MainWindow.cpp" line="2205"/>
         <source>Enter magnet link:</source>
         <translation>Ange magnet-länk:</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2332"/>
+        <location filename="../src/MainWindow.cpp" line="2359"/>
         <source>Script Engine</source>
         <translation>Skriptmotor</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2575"/>
+        <location filename="../src/MainWindow.cpp" line="2604"/>
         <source>Button style</source>
         <translation>Knappstil</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2576"/>
+        <location filename="../src/MainWindow.cpp" line="2605"/>
         <source>Icons only</source>
         <translation>Endast ikoner</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2577"/>
+        <location filename="../src/MainWindow.cpp" line="2606"/>
         <source>Text only</source>
         <translation>Endast text</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2578"/>
+        <location filename="../src/MainWindow.cpp" line="2607"/>
         <source>Text beside icons</source>
         <translation>Text vid sidan av ikonerna</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2579"/>
+        <location filename="../src/MainWindow.cpp" line="2608"/>
         <source>Text under icons</source>
         <translation>Text under ikonerna</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2589"/>
+        <location filename="../src/MainWindow.cpp" line="2618"/>
         <source>Customize</source>
         <translation>Egen</translation>
     </message>
     <message>
-        <source>http://github.com/eiskaltdcpp/eiskaltdcpp/raw/master/ChangeLog.txt</source>
-        <translation type="unfinished"/>
+        <location filename="../src/MainWindow.cpp" line="2697"/>
+        <source>EiskaltDC++ is a graphical client for Direct Connect and ADC protocols.</source>
+        <translation>EiskaltDC++ är en grafisk klient för Direct Connect och ADC-protokollet.</translation>
     </message>
     <message>
-        <source>EiskaltDC++ is a graphical client for Direct Connect and ADC protocols.&lt;br/&gt;&lt;br/&gt;DC++ core version: %1 (modified)&lt;br/&gt;&lt;br/&gt;Home page: &lt;a href=&quot;http://code.google.com/p/eiskaltdc/&quot;&gt;http://code.google.com/p/eiskaltdc/&lt;/a&gt;&lt;br/&gt;&lt;br/&gt;Total up: &lt;b&gt;%2&lt;/b&gt;&lt;br/&gt;Total down: &lt;b&gt;%3&lt;/b&gt;&lt;br/&gt;Ratio: &lt;b&gt;%4&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <location filename="../src/MainWindow.cpp" line="2700"/>
+        <source>DC++ core version: %1 (modified)</source>
+        <translation>DC++ kärnversion: %1 (ändrad)</translation>
     </message>
     <message>
-        <source>Please use &lt;a href=&quot;http://code.google.com/p/eiskaltdc/issues/list&quot;&gt;http://code.google.com/p/eiskaltdc/issues/list&lt;/a&gt; to report bugs.&lt;br/&gt;</source>
-        <translation type="unfinished"/>
+        <location filename="../src/MainWindow.cpp" line="2703"/>
+        <source>Home page: </source>
+        <translation>Hemsida: </translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2691"/>
+        <location filename="../src/MainWindow.cpp" line="2708"/>
+        <source>Total up: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation>Sammanlagt upp: &lt;b&gt;%1&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2710"/>
+        <source>Total down: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation>Sammanlagt ner: &lt;b&gt;%1&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2712"/>
+        <source>Ratio: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation>Ratio: &lt;b&gt;%1&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2722"/>
         <source>&lt;b&gt;Developers&lt;/b&gt;&lt;br/&gt;</source>
         <translation>&lt;b&gt;Utvecklare&lt;/b&gt;&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2694"/>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp; (main developer since version 0.4.10)&lt;br/&gt;</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; (huvudutvecklare sen version 0.4.10)&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2697"/>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp; (Arch Linux maintainer and developer since version 0.4.10)&lt;br/&gt;</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; (Arch Linux underhållare och utvecklare sen version 0.4.10)&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2700"/>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp; (Debian/Ubuntu maintainer and developer since version 1.89.0)&lt;br/&gt;</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; (Debian/Ubuntu underhållare och utvecklare sen version 1.89.0)&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2701"/>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp; (translations coordinator since version 2.0.1)&lt;br/&gt;</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; (översättningskoordinator sedan version 2.0.1)&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2702"/>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp; (release manager since version 2.0.3)&lt;br/&gt;</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; (leveranshanterare sedan version 2.0.3)&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2705"/>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp; (MS Windows maintainer and developer since version 2.2.4)&lt;br/&gt;</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; (MS Windows underhållare och utvecklare sen version 2.2.4)&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2708"/>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp; (developer since version 2.0.3)&lt;br/&gt;</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; (utvecklare sen version 2.0.3)&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2710"/>
+        <location filename="../src/MainWindow.cpp" line="2776"/>
         <source>&lt;b&gt;Graphic files&lt;/b&gt;&lt;br/&gt;</source>
         <translation>&lt;b&gt;Grafikfiler&lt;/b&gt;&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2713"/>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp; (creator of the logo of the project)&lt;br/&gt;</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; (skaparen av logotypen för projektet)&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2715"/>
-        <source>&amp;nbsp;&amp;nbsp;&amp;nbsp; (tiny updates of the logo)&lt;br/&gt;</source>
-        <translation>&amp;nbsp;&amp;nbsp;&amp;nbsp; (tiny updates of the logo)&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2722"/>
-        <source>Participate in the translation. It is easy: &lt;a href=&quot;https://www.transifex.com/projects/p/eiskaltdcpp/&quot;&gt;https://www.transifex.com/projects/p/eiskaltdcpp/&lt;/a&gt;&lt;br/&gt;</source>
-        <translation>Medverka i översättningen. Det är lätt: &lt;a href=&quot;https://www.transifex.com/projects/p/eiskaltdcpp/&quot;&gt;https://www.transifex.com/projects/p/eiskaltdcpp/&lt;/a&gt;&lt;br/&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2726"/>
+        <location filename="../src/MainWindow.cpp" line="2797"/>
         <source>Russian translation&lt;br/&gt;</source>
         <translation>Rysk översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2730"/>
+        <location filename="../src/MainWindow.cpp" line="2803"/>
         <source>Belarusian translation&lt;br/&gt;</source>
         <translation>Vitrysk översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2734"/>
+        <location filename="../src/MainWindow.cpp" line="2807"/>
         <source>Hungarian translation&lt;br/&gt;</source>
         <translation>Ungersk översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2738"/>
+        <location filename="../src/MainWindow.cpp" line="2811"/>
         <source>French translation&lt;br/&gt;</source>
         <translation>Fransk översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2741"/>
+        <location filename="../src/MainWindow.cpp" line="2814"/>
         <source>Polish translation&lt;br/&gt;</source>
         <translation>Polsk översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2744"/>
+        <location filename="../src/MainWindow.cpp" line="2817"/>
         <source>Ukrainian translation&lt;br/&gt;</source>
         <translation>Ukrainsk översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2748"/>
+        <location filename="../src/MainWindow.cpp" line="2821"/>
         <source>Serbian (Cyrillic) translation&lt;br/&gt;</source>
         <translation>Serbiska (Kyrilliska) översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2752"/>
+        <location filename="../src/MainWindow.cpp" line="2825"/>
         <source>Serbian (Latin) translation&lt;br/&gt;</source>
         <translation>Serbisk (Latin) översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2756"/>
+        <location filename="../src/MainWindow.cpp" line="2829"/>
         <source>Spanish translation&lt;br/&gt;</source>
         <translation>Spansk översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2760"/>
+        <location filename="../src/MainWindow.cpp" line="2833"/>
         <source>Basque translation&lt;br/&gt;</source>
         <translation>Baskisk översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2763"/>
+        <location filename="../src/MainWindow.cpp" line="2836"/>
         <source>Bulgarian translation&lt;br/&gt;</source>
         <translation>Bulgarisk översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2766"/>
+        <location filename="../src/MainWindow.cpp" line="2839"/>
         <source>Slovak translation&lt;br/&gt;</source>
         <translation>Slovakisk översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2769"/>
+        <location filename="../src/MainWindow.cpp" line="2842"/>
         <source>Czech translation&lt;br/&gt;</source>
         <translation>Tjeckisk översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2772"/>
+        <location filename="../src/MainWindow.cpp" line="2845"/>
         <source>German translation&lt;br/&gt;</source>
         <translation>Tysk översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2777"/>
+        <location filename="../src/MainWindow.cpp" line="2850"/>
         <source>Greek translation&lt;br/&gt;</source>
         <translation>Grekisk översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2780"/>
+        <location filename="../src/MainWindow.cpp" line="2853"/>
         <source>Italian translation&lt;br/&gt;</source>
         <translation>Italiensk översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2784"/>
+        <location filename="../src/MainWindow.cpp" line="2857"/>
         <source>Portuguese (Brazil) translation&lt;br/&gt;</source>
         <translation>Portugisisk (Brasilien) översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2787"/>
+        <location filename="../src/MainWindow.cpp" line="2860"/>
         <source>Vietnamese translation&lt;br/&gt;</source>
         <translation>Vietnamesiskt översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2790"/>
+        <location filename="../src/MainWindow.cpp" line="2863"/>
         <source>Chinese (China) translation&lt;br/&gt;</source>
         <translation>Kinesiska (Kina) översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2793"/>
+        <location filename="../src/MainWindow.cpp" line="2866"/>
         <source>Swedish (Sweden) translation&lt;br/&gt;</source>
         <translation>Svensk (Sverige) översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2796"/>
+        <location filename="../src/MainWindow.cpp" line="2869"/>
         <source>Turkish translation&lt;br/&gt;</source>
         <translation>Turkisk översättning&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="3029"/>
+        <location filename="../src/MainWindow.cpp" line="3103"/>
         <source>Additional</source>
         <translation>Extra</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="3030"/>
+        <location filename="../src/MainWindow.cpp" line="3104"/>
         <source>Suppress sound notifications</source>
         <translation>Ignorera ljudmeddelanden</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="3031"/>
+        <location filename="../src/MainWindow.cpp" line="3105"/>
         <source>Suppress text notifications</source>
         <translation>Ignorera textmeddelande</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="3025"/>
+        <location filename="../src/MainWindow.cpp" line="3099"/>
         <source>Setup speed limits</source>
         <translation>Inställning för hastighetsbegränsning</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2668"/>
-        <source>EiskaltDC++ is a graphical client for Direct Connect and ADC protocols.&lt;br/&gt;&lt;br/&gt;DC++ core version: %1 (modified)&lt;br/&gt;&lt;br/&gt;Home page: &lt;a href=&quot;https://github.com/eiskaltdcpp/eiskaltdcpp/&quot;&gt;https://github.com/eiskaltdcpp/eiskaltdcpp/&lt;/a&gt;&lt;br/&gt;&lt;br/&gt;Total up: &lt;b&gt;%2&lt;/b&gt;&lt;br/&gt;Total down: &lt;b&gt;%3&lt;/b&gt;&lt;br/&gt;Ratio: &lt;b&gt;%4&lt;/b&gt;</source>
-        <translation>EiskaltDC++ är en grafisk klient för Direct Connect och ADC-protokollet.&lt;br/&gt;&lt;br/&gt;DC++ core version: %1 (modifierad)&lt;br/&gt;&lt;br/&gt;Hemsida: &lt;a href=&quot;https://github.com/eiskaltdcpp/eiskaltdcpp/&quot;&gt;https://github.com/eiskaltdcpp/eiskaltdcpp/&lt;/a&gt;&lt;br/&gt;&lt;br/&gt;Totalt upp: &lt;b&gt;%2&lt;/b&gt;&lt;br/&gt;Totalt ned: &lt;b&gt;%3&lt;/b&gt;&lt;br/&gt;Förhållande: &lt;b&gt;%4&lt;/b&gt;</translation>
-    </message>
-    <message>
-        <location filename="../src/MainWindow.cpp" line="2688"/>
+        <location filename="../src/MainWindow.cpp" line="2719"/>
         <source>Please use &lt;a href=&quot;https://github.com/eiskaltdcpp/eiskaltdcpp/issues&quot;&gt;https://github.com/eiskaltdcpp/eiskaltdcpp/issues&lt;/a&gt; to report bugs.&lt;br/&gt;</source>
         <translation>Använd &lt;a href=&quot;https://github.com/eiskaltdcpp/eiskaltdcpp/issues&quot;&gt;https://github.com/eiskaltdcpp/eiskaltdcpp/issues&lt;/a&gt; för att rapportera fel.&lt;br/&gt;</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2836"/>
+        <location filename="../src/MainWindow.cpp" line="2726"/>
+        <location filename="../src/MainWindow.cpp" line="2754"/>
+        <source>lead developer</source>
+        <translation>utvecklingsansvarig</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2729"/>
+        <location filename="../src/MainWindow.cpp" line="2751"/>
+        <source>release manager</source>
+        <translation>leveransversionschef</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2734"/>
+        <source>Arch Linux maintainer</source>
+        <translation>Arch Linux ansvarig</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2737"/>
+        <location filename="../src/MainWindow.cpp" line="2745"/>
+        <location filename="../src/MainWindow.cpp" line="2768"/>
+        <location filename="../src/MainWindow.cpp" line="2773"/>
+        <source>developer</source>
+        <translation>utvecklare</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2742"/>
+        <source>Debian/Ubuntu maintainer</source>
+        <translation>Debian/Ubuntu ansvarig</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2748"/>
+        <source>translations coordinator</source>
+        <translation>översättningskoordinator</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2757"/>
+        <source>macOS maintainer</source>
+        <translation>macOS ansvarig</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2760"/>
+        <location filename="../src/MainWindow.cpp" line="2765"/>
+        <source>MS Windows maintainer</source>
+        <translation>MS Windows ansvarig</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2780"/>
+        <source>creator of the logo of the project</source>
+        <translation>skapare av logotypen för projektet</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2785"/>
+        <source>tiny updates of the logo</source>
+        <translation>små ändringar av logotypen</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2793"/>
+        <source>Participate in the translation. It is easy:</source>
+        <translation>Medverka i översättningen. Det är enkelt:</translation>
+    </message>
+    <message>
+        <location filename="../src/MainWindow.cpp" line="2909"/>
         <source>Show close buttons</source>
         <translation>Visa stäng-knapparna</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2871"/>
+        <location filename="../src/MainWindow.cpp" line="2944"/>
         <source>[No name]</source>
         <translation>[Namnlös]</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2959"/>
+        <location filename="../src/MainWindow.cpp" line="3033"/>
         <source>Download Queue</source>
         <translation>Nedladdningskö</translation>
     </message>
     <message>
-        <location filename="../src/MainWindow.cpp" line="2959"/>
+        <location filename="../src/MainWindow.cpp" line="3033"/>
         <source>All downloads complete</source>
         <translation>Alla nedladdningar är klara</translation>
     </message>
@@ -2666,27 +2534,27 @@ Nedladdat: %3 Uppladdat: %4</translation>
 <context>
     <name>PMWindow</name>
     <message>
-        <location filename="../src/PMWindow.cpp" line="105"/>
+        <location filename="../src/PMWindow.cpp" line="103"/>
         <source>Private message</source>
         <translation>Privata meddelande</translation>
     </message>
     <message>
-        <location filename="../src/PMWindow.cpp" line="106"/>
+        <location filename="../src/PMWindow.cpp" line="104"/>
         <source>Close</source>
         <translation>Stäng</translation>
     </message>
     <message>
-        <location filename="../src/PMWindow.cpp" line="308"/>
+        <location filename="../src/PMWindow.cpp" line="314"/>
         <source>%1 on hub %2</source>
         <translation>%1 på hubb %2</translation>
     </message>
     <message>
-        <location filename="../src/PMWindow.cpp" line="338"/>
+        <location filename="../src/PMWindow.cpp" line="356"/>
         <source>Chat cleared.</source>
         <translation>Chatten tömd.</translation>
     </message>
     <message>
-        <location filename="../src/PMWindow.cpp" line="426"/>
+        <location filename="../src/PMWindow.cpp" line="444"/>
         <source>User went offline</source>
         <translation>Användaren frånkopplad.</translation>
     </message>
@@ -2788,13 +2656,16 @@ Nedladdat: %3 Uppladdat: %4</translation>
     </message>
     <message>
         <location filename="../src/PublicHubs.cpp" line="290"/>
-        <source>Hub list downloaded... (%1 %2) </source>
-        <translation>Hubblistan nedladdad... (%1 %2)</translation>
+        <source>Hub list downloaded... (%1)</source>
+        <translation>Hubblista nedladdad... (%1)</translation>
     </message>
     <message>
-        <location filename="../src/PublicHubs.cpp" line="290"/>
+        <source>Hub list downloaded... (%1 %2) </source>
+        <translation type="vanished">Hubblistan nedladdad... (%1 %2)</translation>
+    </message>
+    <message>
         <source>from Coral</source>
-        <translation>från Coral</translation>
+        <translation type="vanished">från Coral</translation>
     </message>
     <message>
         <location filename="../src/PublicHubs.cpp" line="294"/>
@@ -2835,27 +2706,27 @@ Nedladdat: %3 Uppladdat: %4</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="67"/>
+        <location filename="../src/main.cpp" line="76"/>
         <source>Loading: </source>
         <translation>Laddar: </translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="165"/>
+        <location filename="../src/main.cpp" line="174"/>
         <source>UserList icons has been loaded</source>
         <translation>Ikoner laddade för användarlistan</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="168"/>
+        <location filename="../src/main.cpp" line="177"/>
         <source>Application icons has been loaded</source>
         <translation>Ikoner laddade för programmet</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="216"/>
-        <source>Shutting down libdcpp...</source>
-        <translation>Stänger ned libdcpp...</translation>
+        <location filename="../src/main.cpp" line="230"/>
+        <source>Shutting down libeiskaltdcpp...</source>
+        <translation>Stänger ner libeiskaltdcpp...</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="251"/>
+        <location filename="../src/main.cpp" line="265"/>
         <source>Quit...</source>
         <translation>Avsluta...</translation>
     </message>
@@ -2863,7 +2734,7 @@ Nedladdat: %3 Uppladdat: %4</translation>
 <context>
     <name>QueuedUsers</name>
     <message>
-        <location filename="../src/QueuedUsers.cpp" line="68"/>
+        <location filename="../src/QueuedUsers.cpp" line="72"/>
         <source>Grant slot</source>
         <translation>Bevilja slott</translation>
     </message>
@@ -2876,12 +2747,12 @@ Nedladdat: %3 Uppladdat: %4</translation>
 <context>
     <name>QueuedUsersModel</name>
     <message>
-        <location filename="../src/QueuedUsers.cpp" line="116"/>
+        <location filename="../src/QueuedUsers.cpp" line="120"/>
         <source>User</source>
         <translation>Användare</translation>
     </message>
     <message>
-        <location filename="../src/QueuedUsers.cpp" line="116"/>
+        <location filename="../src/QueuedUsers.cpp" line="120"/>
         <source>File</source>
         <translation>Fil</translation>
     </message>
@@ -2905,14 +2776,9 @@ Nedladdat: %3 Uppladdat: %4</translation>
 <context>
     <name>SearchBlackListDelegate</name>
     <message>
-        <location filename="../src/SearchBlacklistDialog.cpp" line="344"/>
+        <location filename="../src/SearchBlacklistDialog.cpp" line="346"/>
         <source>Filename</source>
         <translation>Filnamn</translation>
-    </message>
-    <message>
-        <location filename="../src/SearchBlacklistDialog.cpp" line="345"/>
-        <source>TTH</source>
-        <translation>TTH</translation>
     </message>
 </context>
 <context>
@@ -2936,11 +2802,6 @@ Nedladdat: %3 Uppladdat: %4</translation>
         <translation>Filnamn</translation>
     </message>
     <message>
-        <location filename="../src/SearchBlacklistDialog.cpp" line="164"/>
-        <source>TTH</source>
-        <translation>TTH</translation>
-    </message>
-    <message>
         <location filename="../src/SearchBlacklistDialog.cpp" line="179"/>
         <source>Key</source>
         <translation>Nyckel</translation>
@@ -2959,13 +2820,8 @@ Nedladdat: %3 Uppladdat: %4</translation>
 <context>
     <name>SearchFrame</name>
     <message>
-        <location filename="../ui/UISearchFrame.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
         <location filename="../ui/UISearchFrame.ui" line="44"/>
-        <location filename="../src/SearchFrame.cpp" line="362"/>
+        <location filename="../src/SearchFrame.cpp" line="363"/>
         <source>Search</source>
         <translation>Sök</translation>
     </message>
@@ -3160,39 +3016,44 @@ Nedladdat: %3 Uppladdat: %4</translation>
         <translation>Lägg till svartlista</translation>
     </message>
     <message>
-        <location filename="../src/SearchFrame.cpp" line="291"/>
-        <location filename="../src/SearchFrame.cpp" line="294"/>
+        <location filename="../src/SearchFrame.cpp" line="292"/>
+        <location filename="../src/SearchFrame.cpp" line="295"/>
         <source>Browse</source>
         <translation>Bläddra</translation>
     </message>
     <message>
-        <location filename="../src/SearchFrame.cpp" line="481"/>
+        <location filename="../src/SearchFrame.cpp" line="477"/>
         <source>Close</source>
         <translation>Stäng</translation>
     </message>
     <message>
-        <location filename="../src/SearchFrame.cpp" line="1084"/>
+        <location filename="../src/SearchFrame.cpp" line="1080"/>
         <source>Search - %1</source>
         <translation>Sök - %1</translation>
     </message>
     <message>
-        <location filename="../src/SearchFrame.cpp" line="1192"/>
-        <location filename="../src/SearchFrame.cpp" line="1250"/>
+        <location filename="../src/SearchFrame.cpp" line="1188"/>
+        <location filename="../src/SearchFrame.cpp" line="1246"/>
         <source>Select directory</source>
         <translation>Välj kalalog</translation>
     </message>
     <message>
-        <location filename="../src/SearchFrame.cpp" line="1557"/>
+        <location filename="../src/SearchFrame.cpp" line="1554"/>
         <source>Searching for %1 ...</source>
         <translation>Söker efter %1 ...</translation>
     </message>
     <message>
-        <location filename="../src/SearchFrame.cpp" line="1574"/>
+        <location filename="../src/SearchFrame.cpp" line="1558"/>
+        <source>Search progress of &quot;%1&quot; is %2%</source>
+        <translation>Sökresultat av &quot;%1&quot; är %2%</translation>
+    </message>
+    <message>
+        <location filename="../src/SearchFrame.cpp" line="1581"/>
         <source>&lt;b&gt;No results&lt;/b&gt;</source>
         <translation>&lt;b&gt;Inget resultat&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/SearchFrame.cpp" line="1583"/>
+        <location filename="../src/SearchFrame.cpp" line="1590"/>
         <source>Found: &lt;b&gt;%1&lt;/b&gt;  Dropped: &lt;b&gt;%2&lt;/b&gt;</source>
         <translation>Funna: &lt;b&gt;%1&lt;/b&gt; Bortkopplade: &lt;b&gt;%2&lt;/b&gt;</translation>
     </message>
@@ -3200,72 +3061,67 @@ Nedladdat: %3 Uppladdat: %4</translation>
 <context>
     <name>SearchModel</name>
     <message>
-        <location filename="../src/SearchModel.cpp" line="55"/>
+        <location filename="../src/SearchModel.cpp" line="50"/>
         <source>Count</source>
         <translation>Antal</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="55"/>
+        <location filename="../src/SearchModel.cpp" line="50"/>
         <source>File</source>
         <translation>Fil</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="55"/>
+        <location filename="../src/SearchModel.cpp" line="50"/>
         <source>Ext</source>
         <translation>Ext</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="55"/>
+        <location filename="../src/SearchModel.cpp" line="50"/>
         <source>Size</source>
         <translation>Storlek</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="56"/>
+        <location filename="../src/SearchModel.cpp" line="51"/>
         <source>Exact size</source>
         <translation>Exakt storlek</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="56"/>
-        <source>TTH</source>
-        <translation>TTH</translation>
-    </message>
-    <message>
-        <location filename="../src/SearchModel.cpp" line="56"/>
+        <location filename="../src/SearchModel.cpp" line="51"/>
         <source>Path</source>
         <translation>Sökväg</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="56"/>
+        <location filename="../src/SearchModel.cpp" line="51"/>
         <source>Nick</source>
         <translation>Användarnamn</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="57"/>
+        <location filename="../src/SearchModel.cpp" line="52"/>
         <source>Free slots</source>
         <translation>Lediga slotts</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="57"/>
+        <location filename="../src/SearchModel.cpp" line="52"/>
         <source>Total slots</source>
         <translation>Sammanlagda slottar</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="58"/>
+        <location filename="../src/SearchModel.cpp" line="53"/>
         <source>IP</source>
         <translation>IP-adress</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="58"/>
+        <location filename="../src/SearchModel.cpp" line="53"/>
         <source>Hub</source>
         <translation>Hubb</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="58"/>
+        <location filename="../src/SearchModel.cpp" line="53"/>
         <source>Host</source>
         <translation>Värd</translation>
     </message>
     <message>
-        <location filename="../src/SearchModel.cpp" line="137"/>
+        <location filename="../src/SearchModel.cpp" line="132"/>
         <source>File already exists: %1</source>
         <translation>Filen finns redan: %1</translation>
     </message>
@@ -3344,18 +3200,18 @@ Nedladdat: %3 Uppladdat: %4</translation>
 <context>
     <name>SettingsConnection</name>
     <message>
-        <location filename="../src/SettingsConnection.cpp" line="112"/>
+        <location filename="../src/SettingsConnection.cpp" line="109"/>
         <source>No valid SOCKS5 server IP found!</source>
         <translation>Ingen giltig SOCKS5-server IP-adress funnen!</translation>
     </message>
     <message>
-        <location filename="../src/SettingsConnection.cpp" line="157"/>
-        <location filename="../src/SettingsConnection.cpp" line="170"/>
+        <location filename="../src/SettingsConnection.cpp" line="154"/>
+        <location filename="../src/SettingsConnection.cpp" line="167"/>
         <source>Program need root privileges to open ports less than 1024</source>
         <translation>Programmet behöver root-rättigheter for att öppna portar lägre än 1024</translation>
     </message>
     <message>
-        <location filename="../src/SettingsConnection.cpp" line="368"/>
+        <location filename="../src/SettingsConnection.cpp" line="365"/>
         <source>Warning</source>
         <translation>Varning</translation>
     </message>
@@ -3363,28 +3219,28 @@ Nedladdat: %3 Uppladdat: %4</translation>
 <context>
     <name>SettingsDownloads</name>
     <message>
-        <location filename="../src/SettingsDownloads.cpp" line="160"/>
-        <location filename="../src/SettingsDownloads.cpp" line="195"/>
+        <location filename="../src/SettingsDownloads.cpp" line="158"/>
+        <location filename="../src/SettingsDownloads.cpp" line="193"/>
         <source>Select directory</source>
         <translation>Välj kalalog</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDownloads.cpp" line="177"/>
+        <location filename="../src/SettingsDownloads.cpp" line="175"/>
         <source>New</source>
         <translation>Ny</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDownloads.cpp" line="183"/>
+        <location filename="../src/SettingsDownloads.cpp" line="181"/>
         <source>Delete</source>
         <translation>Radera</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDownloads.cpp" line="190"/>
+        <location filename="../src/SettingsDownloads.cpp" line="188"/>
         <source>Enter alias for directory</source>
         <translation>Ange ett alias för katalogen</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDownloads.cpp" line="190"/>
+        <location filename="../src/SettingsDownloads.cpp" line="188"/>
         <source>Alias</source>
         <translation>Alias</translation>
     </message>
@@ -3397,177 +3253,177 @@ Nedladdat: %3 Uppladdat: %4</translation>
         <translation>Standard (omstart krävs)</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="76"/>
+        <location filename="../src/SettingsGUI.cpp" line="74"/>
         <source>English</source>
         <translation>Engelska</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="77"/>
+        <location filename="../src/SettingsGUI.cpp" line="75"/>
         <source>Russian</source>
         <translation>Ryska</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="78"/>
+        <location filename="../src/SettingsGUI.cpp" line="76"/>
         <source>Belarusian</source>
         <translation>Vitryska</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="79"/>
+        <location filename="../src/SettingsGUI.cpp" line="77"/>
         <source>Hungarian</source>
         <translation>Ungerska</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="80"/>
+        <location filename="../src/SettingsGUI.cpp" line="78"/>
         <source>French</source>
         <translation>Franska</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="81"/>
+        <location filename="../src/SettingsGUI.cpp" line="79"/>
         <source>Polish</source>
         <translation>Polska</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="82"/>
+        <location filename="../src/SettingsGUI.cpp" line="80"/>
         <source>Portuguese (Brazil)</source>
         <translation>Portugal (Brasilien)</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="83"/>
+        <location filename="../src/SettingsGUI.cpp" line="81"/>
         <source>Serbian (Cyrillic)</source>
         <translation>Serbiska (Kyrilliska)</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="84"/>
+        <location filename="../src/SettingsGUI.cpp" line="82"/>
         <source>Serbian (Latin)</source>
         <translation>Serbiska (Latin)</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="85"/>
+        <location filename="../src/SettingsGUI.cpp" line="83"/>
         <source>Ukrainian</source>
         <translation>Ukrainska</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="86"/>
+        <location filename="../src/SettingsGUI.cpp" line="84"/>
         <source>Spanish</source>
         <translation>Spanska</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="87"/>
+        <location filename="../src/SettingsGUI.cpp" line="85"/>
         <source>Basque</source>
         <translation>Baskien</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="88"/>
+        <location filename="../src/SettingsGUI.cpp" line="86"/>
         <source>Bulgarian</source>
         <translation>Bulgariska</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="89"/>
+        <location filename="../src/SettingsGUI.cpp" line="87"/>
         <source>Slovak</source>
         <translation>Slovakien</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="90"/>
+        <location filename="../src/SettingsGUI.cpp" line="88"/>
         <source>Czech</source>
         <translation>Tjeckiska</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="91"/>
+        <location filename="../src/SettingsGUI.cpp" line="89"/>
         <source>German</source>
         <translation>Tyska</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="92"/>
+        <location filename="../src/SettingsGUI.cpp" line="90"/>
         <source>Greek</source>
         <translation>Grekiska</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="93"/>
+        <location filename="../src/SettingsGUI.cpp" line="91"/>
         <source>Italian</source>
         <translation>Italien</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="94"/>
+        <location filename="../src/SettingsGUI.cpp" line="92"/>
         <source>Vietnamese</source>
         <translation>Vietnamesisk</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="95"/>
+        <location filename="../src/SettingsGUI.cpp" line="93"/>
         <source>Chinese (China)</source>
         <translation>Kinesiska (Kina)</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="96"/>
+        <location filename="../src/SettingsGUI.cpp" line="94"/>
         <source>Swedish (Sweden)</source>
         <translation>Svenska (Sverige)</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="97"/>
+        <location filename="../src/SettingsGUI.cpp" line="95"/>
         <source>Turkish</source>
         <translation>Turkiska</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="246"/>
+        <location filename="../src/SettingsGUI.cpp" line="233"/>
         <source>Local user</source>
         <translation>Lokal användare</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="250"/>
+        <location filename="../src/SettingsGUI.cpp" line="237"/>
         <source>Operator</source>
         <translation>Operatör</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="254"/>
+        <location filename="../src/SettingsGUI.cpp" line="241"/>
         <source>Bot</source>
         <translation>Bot</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="258"/>
+        <location filename="../src/SettingsGUI.cpp" line="245"/>
         <source>Private: local user</source>
         <translation>Privat: lokal användare</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="262"/>
+        <location filename="../src/SettingsGUI.cpp" line="249"/>
         <source>Private: user</source>
         <translation>Privat: användare</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="266"/>
+        <location filename="../src/SettingsGUI.cpp" line="253"/>
         <source>Chat: Say nick</source>
         <translation>Chatt: Säg användarnamn</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="270"/>
+        <location filename="../src/SettingsGUI.cpp" line="257"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="274"/>
+        <location filename="../src/SettingsGUI.cpp" line="261"/>
         <source>User</source>
         <translation>Användare</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="278"/>
+        <location filename="../src/SettingsGUI.cpp" line="265"/>
         <source>Favorite User</source>
         <translation>Favoritanvändare</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="282"/>
+        <location filename="../src/SettingsGUI.cpp" line="269"/>
         <source>Time stamp</source>
         <translation>Tidsstämpel</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="286"/>
+        <location filename="../src/SettingsGUI.cpp" line="273"/>
         <source>Message</source>
         <translation>Meddelande</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="603"/>
+        <location filename="../src/SettingsGUI.cpp" line="590"/>
         <source>Select translation</source>
         <translation>Välj översättning</translation>
     </message>
     <message>
-        <location filename="../src/SettingsGUI.cpp" line="603"/>
+        <location filename="../src/SettingsGUI.cpp" line="592"/>
         <source>Translation (*.qm)</source>
         <translation>Översättning (*.qm)</translation>
     </message>
@@ -3765,38 +3621,38 @@ Nedladdat: %3 Uppladdat: %4</translation>
         <translation>Share browser error: %1</translation>
     </message>
     <message>
-        <location filename="../src/ShareBrowser.cpp" line="622"/>
-        <location filename="../src/ShareBrowser.cpp" line="644"/>
+        <location filename="../src/ShareBrowser.cpp" line="620"/>
+        <location filename="../src/ShareBrowser.cpp" line="642"/>
         <source>Total size: %1</source>
         <translation>Sammanlagd storlek: %1</translation>
     </message>
     <message>
-        <location filename="../src/ShareBrowser.cpp" line="642"/>
+        <location filename="../src/ShareBrowser.cpp" line="640"/>
         <source>Selected %1 from %2 items; </source>
         <translation>Valda %1 från %2 objekt; </translation>
     </message>
     <message>
-        <location filename="../src/ShareBrowser.cpp" line="647"/>
+        <location filename="../src/ShareBrowser.cpp" line="645"/>
         <source>; Selected: %1</source>
         <translation>; Valda: %1</translation>
     </message>
     <message>
-        <location filename="../src/ShareBrowser.cpp" line="848"/>
+        <location filename="../src/ShareBrowser.cpp" line="846"/>
         <source>Select directory</source>
         <translation>Välj kalalog</translation>
     </message>
     <message>
-        <location filename="../src/ShareBrowser.cpp" line="978"/>
+        <location filename="../src/ShareBrowser.cpp" line="976"/>
         <source>Enter restriction size (in GB)</source>
         <translation>Ange begränsningens storlek (i GB)</translation>
     </message>
     <message>
-        <location filename="../src/ShareBrowser.cpp" line="1116"/>
+        <location filename="../src/ShareBrowser.cpp" line="1114"/>
         <source>Share browser</source>
         <translation>Utdelningsbläddrare</translation>
     </message>
     <message>
-        <location filename="../src/ShareBrowser.cpp" line="1123"/>
+        <location filename="../src/ShareBrowser.cpp" line="1121"/>
         <source>Matched %1 files</source>
         <translation>Matchade %1 filer</translation>
     </message>
@@ -3853,12 +3709,12 @@ Nedladdat: %3 Uppladdat: %4</translation>
 <context>
     <name>ShortcutsModel</name>
     <message>
-        <location filename="../src/SettingsShortcuts.cpp" line="175"/>
+        <location filename="../src/SettingsShortcuts.cpp" line="172"/>
         <source>Action</source>
         <translation>Åtgärd</translation>
     </message>
     <message>
-        <location filename="../src/SettingsShortcuts.cpp" line="176"/>
+        <location filename="../src/SettingsShortcuts.cpp" line="173"/>
         <source>Hotkey</source>
         <translation>Snabbtangent</translation>
     </message>
@@ -3866,97 +3722,97 @@ Nedladdat: %3 Uppladdat: %4</translation>
 <context>
     <name>SideBarModel</name>
     <message>
-        <location filename="../src/SideBar.cpp" line="56"/>
-        <location filename="../src/SideBar.cpp" line="405"/>
+        <location filename="../src/SideBar.cpp" line="68"/>
+        <location filename="../src/SideBar.cpp" line="422"/>
         <source>Hubs</source>
         <translation>Hubbar</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="57"/>
-        <location filename="../src/SideBar.cpp" line="406"/>
+        <location filename="../src/SideBar.cpp" line="69"/>
+        <location filename="../src/SideBar.cpp" line="423"/>
         <source>Private Messages</source>
         <translation>Privata meddelande</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="58"/>
-        <location filename="../src/SideBar.cpp" line="407"/>
+        <location filename="../src/SideBar.cpp" line="70"/>
+        <location filename="../src/SideBar.cpp" line="424"/>
         <source>Search</source>
         <translation>Sök</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="59"/>
-        <location filename="../src/SideBar.cpp" line="408"/>
+        <location filename="../src/SideBar.cpp" line="71"/>
+        <location filename="../src/SideBar.cpp" line="425"/>
         <source>Share Browsers</source>
         <translation>Utdelningsbläddrarna</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="60"/>
-        <location filename="../src/SideBar.cpp" line="409"/>
+        <location filename="../src/SideBar.cpp" line="72"/>
+        <location filename="../src/SideBar.cpp" line="426"/>
         <source>ADLSearch</source>
         <translation>ADL-sök</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="61"/>
-        <location filename="../src/SideBar.cpp" line="410"/>
+        <location filename="../src/SideBar.cpp" line="73"/>
+        <location filename="../src/SideBar.cpp" line="427"/>
         <source>Download Queue</source>
         <translation>Nedladdningskö</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="62"/>
-        <location filename="../src/SideBar.cpp" line="418"/>
+        <location filename="../src/SideBar.cpp" line="74"/>
+        <location filename="../src/SideBar.cpp" line="435"/>
         <source>Queued Users</source>
         <translation>Köade användare</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="63"/>
-        <location filename="../src/SideBar.cpp" line="411"/>
+        <location filename="../src/SideBar.cpp" line="75"/>
+        <location filename="../src/SideBar.cpp" line="428"/>
         <source>Finished Uploads</source>
         <translation>Färdiga uppladdningar</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="64"/>
-        <location filename="../src/SideBar.cpp" line="412"/>
+        <location filename="../src/SideBar.cpp" line="76"/>
+        <location filename="../src/SideBar.cpp" line="429"/>
         <source>Finished Downloads</source>
         <translation>Färdiga nedladdningar</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="65"/>
-        <location filename="../src/SideBar.cpp" line="413"/>
+        <location filename="../src/SideBar.cpp" line="77"/>
+        <location filename="../src/SideBar.cpp" line="430"/>
         <source>Favorite Hubs</source>
         <translation>Favorithubbar</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="66"/>
-        <location filename="../src/SideBar.cpp" line="414"/>
+        <location filename="../src/SideBar.cpp" line="78"/>
+        <location filename="../src/SideBar.cpp" line="431"/>
         <source>Favorite Users</source>
         <translation>Favoritanvändare</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="67"/>
-        <location filename="../src/SideBar.cpp" line="415"/>
+        <location filename="../src/SideBar.cpp" line="79"/>
+        <location filename="../src/SideBar.cpp" line="432"/>
         <source>Public Hubs</source>
         <translation>Publika hubbar</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="68"/>
-        <location filename="../src/SideBar.cpp" line="416"/>
+        <location filename="../src/SideBar.cpp" line="80"/>
+        <location filename="../src/SideBar.cpp" line="433"/>
         <source>Spy</source>
         <translation>Spion</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="69"/>
-        <location filename="../src/SideBar.cpp" line="419"/>
-        <source>CmdDebug</source>
-        <translation>CmdDebug</translation>
+        <location filename="../src/SideBar.cpp" line="81"/>
+        <location filename="../src/SideBar.cpp" line="436"/>
+        <source>Debug Console</source>
+        <translation>Felsökningskonsol</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="71"/>
-        <location filename="../src/SideBar.cpp" line="417"/>
+        <location filename="../src/SideBar.cpp" line="83"/>
+        <location filename="../src/SideBar.cpp" line="434"/>
         <source>Other Widgets</source>
         <translation>Andra widgetar</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="137"/>
+        <location filename="../src/SideBar.cpp" line="153"/>
         <source>Widgets</source>
         <translation>Widgetar</translation>
     </message>
@@ -3964,42 +3820,42 @@ Nedladdat: %3 Uppladdat: %4</translation>
 <context>
     <name>SideBarView</name>
     <message>
-        <location filename="../src/SideBar.cpp" line="556"/>
+        <location filename="../src/SideBar.cpp" line="573"/>
         <source>Close all</source>
         <translation>Stäng alla</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="577"/>
+        <location filename="../src/SideBar.cpp" line="594"/>
         <source>Close</source>
         <translation>Stäng</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="636"/>
+        <location filename="../src/SideBar.cpp" line="653"/>
         <source>Choose file to open</source>
         <translation>Välj fil att öppna</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="638"/>
+        <location filename="../src/SideBar.cpp" line="655"/>
         <source>Modern XML Filelists</source>
         <translation>Moderna XML-fillistor</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="639"/>
+        <location filename="../src/SideBar.cpp" line="656"/>
         <source>Modern XML Filelists uncompressed</source>
         <translation>Moderna okomprimmerad XML-fillistor</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="640"/>
+        <location filename="../src/SideBar.cpp" line="657"/>
         <source>All files</source>
         <translation>Alla filer</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="655"/>
+        <location filename="../src/SideBar.cpp" line="672"/>
         <source>Open log file</source>
         <translation>Öppna loggfil</translation>
     </message>
     <message>
-        <location filename="../src/SideBar.cpp" line="655"/>
+        <location filename="../src/SideBar.cpp" line="672"/>
         <source>Log files (*.log);;All files (*.*)</source>
         <translation>Loggfiler (*.log);;Alla filer (*.*)</translation>
     </message>
@@ -4056,7 +3912,7 @@ Vill du stoppa den?
 <context>
     <name>TabFrame</name>
     <message>
-        <location filename="../src/TabFrame.cpp" line="363"/>
+        <location filename="../src/TabFrame.cpp" line="359"/>
         <source>Close</source>
         <translation>Stäng</translation>
     </message>
@@ -4064,7 +3920,7 @@ Vill du stoppa den?
 <context>
     <name>ToolBar</name>
     <message>
-        <location filename="../src/ToolBar.cpp" line="249"/>
+        <location filename="../src/ToolBar.cpp" line="247"/>
         <source>Show close buttons</source>
         <translation>Visa stäng-knapparna</translation>
     </message>
@@ -4072,216 +3928,183 @@ Vill du stoppa den?
 <context>
     <name>TransferView</name>
     <message>
-        <location filename="../src/TransferView.cpp" line="48"/>
+        <location filename="../src/TransferView.cpp" line="49"/>
         <source>Browse files</source>
         <translation>Bläddra bland filer</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="51"/>
+        <location filename="../src/TransferView.cpp" line="52"/>
         <source>Search Alternates</source>
         <translation>Sök efter nya källor</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="54"/>
+        <location filename="../src/TransferView.cpp" line="55"/>
         <source>Match Queue</source>
         <translation>Matcha kön</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="57"/>
+        <location filename="../src/TransferView.cpp" line="58"/>
         <source>Send Private Message</source>
         <translation>Skicka privat meddelande</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="60"/>
+        <location filename="../src/TransferView.cpp" line="61"/>
         <source>Add to favorites</source>
         <translation>Lägg till favoriter</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="63"/>
+        <location filename="../src/TransferView.cpp" line="64"/>
         <source>Grant extra slot</source>
         <translation>Bevilja extra slott</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="66"/>
+        <location filename="../src/TransferView.cpp" line="67"/>
         <source>Copy</source>
         <translation>Kopiera</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="69"/>
+        <location filename="../src/TransferView.cpp" line="70"/>
         <source>Users</source>
         <translation>Användare</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="70"/>
+        <location filename="../src/TransferView.cpp" line="71"/>
         <source>Speed</source>
         <translation>Hastighet</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="71"/>
+        <location filename="../src/TransferView.cpp" line="72"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="72"/>
+        <location filename="../src/TransferView.cpp" line="73"/>
         <source>Flags</source>
         <translation>Flaggor</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="73"/>
+        <location filename="../src/TransferView.cpp" line="74"/>
         <source>Size</source>
         <translation>Storlek</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="74"/>
+        <location filename="../src/TransferView.cpp" line="75"/>
         <source>Time left</source>
         <translation>Tid kvar</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="75"/>
+        <location filename="../src/TransferView.cpp" line="76"/>
         <source>Filename</source>
         <translation>Filnamn</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="76"/>
+        <location filename="../src/TransferView.cpp" line="77"/>
         <source>Hub</source>
         <translation>Hubb</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="77"/>
+        <location filename="../src/TransferView.cpp" line="78"/>
         <source>IP</source>
         <translation>IP</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="78"/>
+        <location filename="../src/TransferView.cpp" line="79"/>
         <source>Encryption</source>
         <translation>Kryptering</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="79"/>
+        <location filename="../src/TransferView.cpp" line="80"/>
         <source>Magnet</source>
         <translation>Magnet</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="84"/>
+        <location filename="../src/TransferView.cpp" line="85"/>
         <source>Remove Source</source>
         <translation>Ta bort källa</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="90"/>
+        <location filename="../src/TransferView.cpp" line="91"/>
         <source>Force attempt</source>
         <translation>Tvingande försök</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="93"/>
+        <location filename="../src/TransferView.cpp" line="94"/>
         <source>Close connection(s)</source>
         <translation>Stäng anslutning(ar)</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="96"/>
+        <location filename="../src/TransferView.cpp" line="97"/>
         <source>Show only transferred files</source>
         <translation>Visa endast överförda filer</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="349"/>
-        <location filename="../src/TransferView.cpp" line="661"/>
+        <location filename="../src/TransferView.cpp" line="350"/>
+        <location filename="../src/TransferView.cpp" line="662"/>
         <source>Download complete</source>
         <translation>Nedladdningen är klar</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="387"/>
+        <location filename="../src/TransferView.cpp" line="388"/>
         <source>File list</source>
         <translation>Fillista</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="389"/>
-        <source>TTH: </source>
-        <translation>TTH: </translation>
-    </message>
-    <message>
-        <location filename="../src/TransferView.cpp" line="604"/>
+        <location filename="../src/TransferView.cpp" line="605"/>
         <source>Requesting</source>
         <translation>Begär</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="615"/>
+        <location filename="../src/TransferView.cpp" line="616"/>
         <source>Download starting...</source>
         <translation>Nedladdningen startar...</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="633"/>
-        <location filename="../src/TransferView.cpp" line="811"/>
-        <source>[S]</source>
-        <translation>[S]</translation>
-    </message>
-    <message>
-        <location filename="../src/TransferView.cpp" line="635"/>
-        <location filename="../src/TransferView.cpp" line="813"/>
-        <source>[U]</source>
-        <translation>[U]</translation>
-    </message>
-    <message>
-        <location filename="../src/TransferView.cpp" line="639"/>
-        <source>[T]</source>
-        <translation>[T]</translation>
-    </message>
-    <message>
-        <location filename="../src/TransferView.cpp" line="641"/>
-        <location filename="../src/TransferView.cpp" line="816"/>
-        <source>[Z]</source>
-        <translation>[Z]</translation>
-    </message>
-    <message>
-        <location filename="../src/TransferView.cpp" line="645"/>
+        <location filename="../src/TransferView.cpp" line="646"/>
         <source>Downloaded %1</source>
         <translation>Nedladdat %1</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="646"/>
-        <source> (%1%)</source>
-        <translation> (%1%)</translation>
-    </message>
-    <message>
-        <location filename="../src/TransferView.cpp" line="700"/>
+        <location filename="../src/TransferView.cpp" line="701"/>
         <source>Connecting...</source>
         <translation>Ansluter...</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="724"/>
+        <location filename="../src/TransferView.cpp" line="725"/>
         <source>Connected</source>
         <translation>Ansluten</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="755"/>
+        <location filename="../src/TransferView.cpp" line="756"/>
         <source>Connecting</source>
         <translation>Ansluter</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="757"/>
+        <location filename="../src/TransferView.cpp" line="758"/>
         <source>No download slots</source>
         <translation>Inga lediga nedladdningsslottar</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="759"/>
+        <location filename="../src/TransferView.cpp" line="760"/>
         <source>Waiting to retry</source>
         <translation>Väntar på att försöka igen</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="793"/>
+        <location filename="../src/TransferView.cpp" line="794"/>
         <source>Upload starting...</source>
         <translation>Uppladdningen startar...</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="820"/>
+        <location filename="../src/TransferView.cpp" line="821"/>
         <source>Uploaded %1 (%2%) </source>
         <translation>Uppladdat %1 (%2%) </translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="837"/>
+        <location filename="../src/TransferView.cpp" line="838"/>
         <source>Upload complete</source>
         <translation>Uppladdning är klar...</translation>
     </message>
     <message>
-        <location filename="../src/TransferView.cpp" line="849"/>
+        <location filename="../src/TransferView.cpp" line="852"/>
         <source>Upload failed</source>
         <translation>Uppladdningen misslyckades</translation>
     </message>
@@ -4289,91 +4112,80 @@ Vill du stoppa den?
 <context>
     <name>TransferViewModel</name>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="52"/>
+        <location filename="../src/TransferViewModel.cpp" line="50"/>
         <source>Users</source>
         <translation>Användare</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="52"/>
+        <location filename="../src/TransferViewModel.cpp" line="50"/>
         <source>Speed</source>
         <translation>Hastighet</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="52"/>
+        <location filename="../src/TransferViewModel.cpp" line="50"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="52"/>
+        <location filename="../src/TransferViewModel.cpp" line="50"/>
         <source>Flags</source>
         <translation>Flaggor</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="52"/>
+        <location filename="../src/TransferViewModel.cpp" line="50"/>
         <source>Size</source>
         <translation>Storlek</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="53"/>
+        <location filename="../src/TransferViewModel.cpp" line="51"/>
         <source>Time left</source>
         <translation>Tid kvar</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="53"/>
+        <location filename="../src/TransferViewModel.cpp" line="51"/>
         <source>File name</source>
         <translation>Filnamn</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="53"/>
+        <location filename="../src/TransferViewModel.cpp" line="51"/>
         <source>Host</source>
         <translation>Värd</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="53"/>
+        <location filename="../src/TransferViewModel.cpp" line="51"/>
         <source>IP</source>
         <translation>IP</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="54"/>
+        <location filename="../src/TransferViewModel.cpp" line="52"/>
         <source>Encryption</source>
         <translation>Kryptering</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="113"/>
+        <location filename="../src/TransferViewModel.cpp" line="111"/>
         <source>/s</source>
         <translation>/s</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="306"/>
-        <location filename="../src/TransferViewModel.cpp" line="364"/>
-        <location filename="../src/TransferViewModel.cpp" line="406"/>
+        <location filename="../src/TransferViewModel.cpp" line="304"/>
+        <location filename="../src/TransferViewModel.cpp" line="362"/>
+        <location filename="../src/TransferViewModel.cpp" line="403"/>
         <source>File list</source>
         <translation>Fillista</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="578"/>
+        <location filename="../src/TransferViewModel.cpp" line="575"/>
         <source>Downloaded </source>
         <translation>Nedladdat</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="580"/>
+        <location filename="../src/TransferViewModel.cpp" line="577"/>
         <source>Waiting for slot </source>
         <translation>Väntar på slott</translation>
     </message>
     <message>
-        <location filename="../src/TransferViewModel.cpp" line="589"/>
-        <location filename="../src/TransferViewModel.cpp" line="591"/>
-        <source>TTH: </source>
-        <translation>TTH: </translation>
-    </message>
-    <message>
-        <location filename="../src/TransferViewModel.cpp" line="596"/>
-        <source>%1/%2</source>
-        <translation>%1/%2</translation>
-    </message>
-    <message>
-        <location filename="../src/TransferViewModel.cpp" line="634"/>
-        <location filename="../src/TransferViewModel.cpp" line="640"/>
+        <location filename="../src/TransferViewModel.cpp" line="631"/>
+        <location filename="../src/TransferViewModel.cpp" line="637"/>
         <source>Finished</source>
         <translation>Färdiga</translation>
     </message>
@@ -4381,34 +4193,29 @@ Vill du stoppa den?
 <context>
     <name>UCModel</name>
     <message>
-        <location filename="../src/UCModel.cpp" line="83"/>
+        <location filename="../src/UCModel.cpp" line="84"/>
         <source>Name</source>
         <translation>Namn</translation>
     </message>
     <message>
-        <location filename="../src/UCModel.cpp" line="84"/>
+        <location filename="../src/UCModel.cpp" line="85"/>
         <source>Command</source>
         <translation>Kommando</translation>
     </message>
     <message>
-        <location filename="../src/UCModel.cpp" line="85"/>
+        <location filename="../src/UCModel.cpp" line="86"/>
         <source>Hub</source>
         <translation>Hubb</translation>
     </message>
     <message>
-        <location filename="../src/UCModel.cpp" line="151"/>
-        <location filename="../src/UCModel.cpp" line="204"/>
+        <location filename="../src/UCModel.cpp" line="152"/>
+        <location filename="../src/UCModel.cpp" line="205"/>
         <source>Separator</source>
         <translation>Avgränsare</translation>
     </message>
 </context>
 <context>
     <name>UIADLS</name>
-    <message>
-        <location filename="../ui/UIADLSearch.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <location filename="../ui/UIADLSearch.ui" line="56"/>
         <source>Add new</source>
@@ -4438,73 +4245,68 @@ Vill du stoppa den?
 <context>
     <name>UIADLSEditor</name>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="20"/>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="29"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="38"/>
         <source>Favorite hub name.</source>
         <translation>Favorithubbnamn.</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="42"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="51"/>
         <source>Search string</source>
         <translation>Söksträng</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="65"/>
-        <location filename="../ui/UIADLSearchEditor.ui" line="99"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="74"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="117"/>
         <source>Directory</source>
         <translation>Katalog</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="78"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="87"/>
         <source>Type source</source>
         <translation>Källtyp</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="94"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="112"/>
         <source>Filename</source>
         <translation>Filnamn</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="104"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="122"/>
         <source>Full path</source>
         <translation>Full sökväg</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="115"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="133"/>
         <source>Min/Max Size</source>
         <translation>Minsta/Högsta storlek</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="166"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="193"/>
         <source>B</source>
         <translation>B</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="171"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="198"/>
         <source>KiB</source>
         <translation>KiB</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="176"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="203"/>
         <source>MiB</source>
         <translation>MiB</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="181"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="208"/>
         <source>GiB</source>
         <translation>GiB</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="229"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="265"/>
         <source>Download</source>
         <translation>Nedladdning</translation>
     </message>
     <message>
-        <location filename="../ui/UIADLSearchEditor.ui" line="242"/>
+        <location filename="../ui/UIADLSearchEditor.ui" line="278"/>
         <source>On</source>
         <translation>På</translation>
     </message>
@@ -4517,19 +4319,6 @@ Vill du stoppa den?
         <translation>Om EiskaltDC++</translation>
     </message>
     <message>
-        <location filename="../ui/UIAbout.ui" line="20"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EiskaltDC++&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EiskaltDC++&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <location filename="../ui/UIAbout.ui" line="41"/>
         <source>About program</source>
         <translation>Om program</translation>
@@ -4538,21 +4327,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../ui/UIAbout.ui" line="67"/>
         <source>Authors</source>
         <translation>Utvecklare</translation>
-    </message>
-    <message>
-        <location filename="../ui/UIAbout.ui" line="73"/>
-        <location filename="../ui/UIAbout.ui" line="97"/>
-        <location filename="../ui/UIAbout.ui" line="118"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../ui/UIAbout.ui" line="91"/>
@@ -4567,21 +4341,6 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>UIActionCustomizer</name>
-    <message>
-        <location filename="../ui/UIActionCustomizer.ui" line="14"/>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
-        <location filename="../ui/UIActionCustomizer.ui" line="29"/>
-        <source>&gt;&gt;</source>
-        <translation>&gt;&gt;</translation>
-    </message>
-    <message>
-        <location filename="../ui/UIActionCustomizer.ui" line="45"/>
-        <source>&lt;&lt;</source>
-        <translation>&lt;&lt;</translation>
-    </message>
     <message>
         <location filename="../ui/UIActionCustomizer.ui" line="88"/>
         <source>Up</source>
@@ -4641,20 +4400,6 @@ p, li { white-space: pre-wrap; }
         <translation>Svartlista</translation>
     </message>
     <message>
-        <location filename="../ui/UIAntiSpam.ui" line="131"/>
-        <location filename="../ui/UIAntiSpam.ui" line="197"/>
-        <location filename="../ui/UIAntiSpam.ui" line="263"/>
-        <source>+</source>
-        <translation>+</translation>
-    </message>
-    <message>
-        <location filename="../ui/UIAntiSpam.ui" line="144"/>
-        <location filename="../ui/UIAntiSpam.ui" line="210"/>
-        <location filename="../ui/UIAntiSpam.ui" line="276"/>
-        <source>-</source>
-        <translation>-</translation>
-    </message>
-    <message>
         <location filename="../ui/UIAntiSpam.ui" line="157"/>
         <location filename="../ui/UIAntiSpam.ui" line="223"/>
         <location filename="../ui/UIAntiSpam.ui" line="289"/>
@@ -4685,24 +4430,10 @@ p, li { white-space: pre-wrap; }
         <translation>Flytta användaren till vitlistan</translation>
     </message>
     <message>
-        <location filename="../ui/UIAntiSpam.ui" line="317"/>
-        <location filename="../ui/UIAntiSpam.ui" line="330"/>
-        <location filename="../ui/UIAntiSpam.ui" line="385"/>
-        <source>&gt;&gt;&gt;</source>
-        <translation>&gt;&gt;&gt;</translation>
-    </message>
-    <message>
         <location filename="../ui/UIAntiSpam.ui" line="327"/>
         <location filename="../ui/UIAntiSpam.ui" line="340"/>
         <source>Move user to &quot;Gray&quot; list</source>
         <translation>Flytta användaren till grålistan</translation>
-    </message>
-    <message>
-        <location filename="../ui/UIAntiSpam.ui" line="343"/>
-        <location filename="../ui/UIAntiSpam.ui" line="356"/>
-        <location filename="../ui/UIAntiSpam.ui" line="372"/>
-        <source>&lt;&lt;&lt;</source>
-        <translation>&lt;&lt;&lt;</translation>
     </message>
     <message>
         <location filename="../ui/UIAntiSpam.ui" line="353"/>
@@ -4719,58 +4450,18 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>UICmdDebug</name>
     <message>
-        <location filename="../ui/UICmdDebug.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
-        <location filename="../ui/UICmdDebug.ui" line="29"/>
-        <source>CL_IN</source>
-        <translation>CL_IN</translation>
-    </message>
-    <message>
-        <location filename="../ui/UICmdDebug.ui" line="36"/>
-        <source>CL_OUT</source>
-        <translation>CL_OUT</translation>
-    </message>
-    <message>
-        <location filename="../ui/UICmdDebug.ui" line="43"/>
-        <source>HUB_IN</source>
-        <translation>HUB_IN</translation>
-    </message>
-    <message>
-        <location filename="../ui/UICmdDebug.ui" line="50"/>
-        <source>HUB_OUT</source>
-        <translation>HUB_OUT</translation>
-    </message>
-    <message>
-        <location filename="../ui/UICmdDebug.ui" line="57"/>
-        <source>DHT_IN</source>
-        <translation>DHT_IN</translation>
-    </message>
-    <message>
-        <location filename="../ui/UICmdDebug.ui" line="64"/>
-        <source>DHT_OUT</source>
-        <translation>DHT_OUT</translation>
-    </message>
-    <message>
-        <location filename="../ui/UICmdDebug.ui" line="71"/>
+        <location filename="../ui/UICmdDebug.ui" line="52"/>
         <source>Filter by IP</source>
         <translation>Filtrera efter IP</translation>
     </message>
     <message>
-        <location filename="../ui/UICmdDebug.ui" line="81"/>
+        <location filename="../ui/UICmdDebug.ui" line="100"/>
         <source>Lines:</source>
         <translation>Rader:</translation>
     </message>
 </context>
 <context>
     <name>UIDownloadQueue</name>
-    <message>
-        <location filename="../ui/UIDownloadQueue.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <location filename="../ui/UIDownloadQueue.ui" line="41"/>
         <source>Expand all</source>
@@ -4784,11 +4475,6 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>UIFavoriteHubEditor</name>
-    <message>
-        <location filename="../ui/UIFavoriteHubEditor.ui" line="14"/>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
     <message>
         <location filename="../ui/UIFavoriteHubEditor.ui" line="20"/>
         <source>Hub</source>
@@ -4828,10 +4514,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../ui/UIFavoriteHubEditor.ui" line="78"/>
         <source>Description</source>
         <translation>Beskrivning</translation>
-    </message>
-    <message>
-        <source>This description will show in the user list.</source>
-        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../ui/UIFavoriteHubEditor.ui" line="85"/>
@@ -4874,11 +4556,6 @@ p, li { white-space: pre-wrap; }
         <translation>Extern IP</translation>
     </message>
     <message>
-        <location filename="../ui/UIFavoriteHubEditor.ui" line="152"/>
-        <source>000.000.000.000; </source>
-        <translation>000.000.000.000; </translation>
-    </message>
-    <message>
         <location filename="../ui/UIFavoriteHubEditor.ui" line="162"/>
         <source>Auto update from Internet</source>
         <translation>Uppdatera automatiskt från internet</translation>
@@ -4894,43 +4571,38 @@ p, li { white-space: pre-wrap; }
         <translation>Identifiering</translation>
     </message>
     <message>
-        <location filename="../ui/UIFavoriteHubEditor.ui" line="214"/>
+        <location filename="../ui/UIFavoriteHubEditor.ui" line="223"/>
         <source>This nickname, or handle, will identify you when you join a hub.</source>
         <translation>Detta användarnamn används när du ansluter till en hubb.</translation>
     </message>
     <message>
-        <location filename="../ui/UIFavoriteHubEditor.ui" line="221"/>
+        <location filename="../ui/UIFavoriteHubEditor.ui" line="230"/>
         <source>If hub requires password, define it here.</source>
         <translation>Om hubben kräver lösenord, ange det här.</translation>
     </message>
     <message>
-        <location filename="../ui/UIFavoriteHubEditor.ui" line="234"/>
+        <location filename="../ui/UIFavoriteHubEditor.ui" line="243"/>
         <source>This description will be shown in the user list.</source>
         <translation>Denna beskrivning kommer att synas i användarlistan.</translation>
     </message>
     <message>
-        <location filename="../ui/UIFavoriteHubEditor.ui" line="241"/>
+        <location filename="../ui/UIFavoriteHubEditor.ui" line="250"/>
         <source>Nick</source>
         <translation>Användarnamn</translation>
     </message>
     <message>
-        <location filename="../ui/UIFavoriteHubEditor.ui" line="248"/>
+        <location filename="../ui/UIFavoriteHubEditor.ui" line="257"/>
         <source>User description</source>
         <translation>Användarbeskrivning</translation>
     </message>
     <message>
-        <location filename="../ui/UIFavoriteHubEditor.ui" line="255"/>
+        <location filename="../ui/UIFavoriteHubEditor.ui" line="264"/>
         <source>Password</source>
         <translation>Lösenord</translation>
     </message>
 </context>
 <context>
     <name>UIFavoriteHubs</name>
-    <message>
-        <location filename="../ui/UIFavoriteHubs.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <location filename="../ui/UIFavoriteHubs.ui" line="56"/>
         <source>Add new</source>
@@ -4955,11 +4627,6 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>UIFavoriteUsers</name>
     <message>
-        <location filename="../ui/UIFavoriteUsers.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
         <location filename="../ui/UIFavoriteUsers.ui" line="41"/>
         <source>Auto grant slot to all users</source>
         <translation>Bevilja slott automatiskt till alla användare</translation>
@@ -4973,33 +4640,23 @@ p, li { white-space: pre-wrap; }
         <translation>TTH-uträknare</translation>
     </message>
     <message>
-        <location filename="../ui/UIFileHasher.ui" line="54"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="../ui/UIFileHasher.ui" line="73"/>
+        <location filename="../ui/UIFileHasher.ui" line="82"/>
         <source>Compute</source>
         <translation>Beräkna</translation>
     </message>
     <message>
-        <location filename="../ui/UIFileHasher.ui" line="80"/>
+        <location filename="../ui/UIFileHasher.ui" line="89"/>
         <source>Get magnet</source>
         <translation>Hämta magnet</translation>
     </message>
     <message>
-        <location filename="../ui/UIFileHasher.ui" line="100"/>
+        <location filename="../ui/UIFileHasher.ui" line="109"/>
         <source>Close</source>
         <translation>Stäng</translation>
     </message>
 </context>
 <context>
     <name>UIFinishedTransfers</name>
-    <message>
-        <location filename="../ui/UIFinishedTransfers.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <location filename="../ui/UIFinishedTransfers.ui" line="22"/>
         <source>Show</source>
@@ -5039,17 +4696,17 @@ p, li { white-space: pre-wrap; }
         <translation>Indexeringsförlopp</translation>
     </message>
     <message>
-        <location filename="../ui/UIHashProgressDialog.ui" line="109"/>
+        <location filename="../ui/UIHashProgressDialog.ui" line="125"/>
         <source>Close on finish</source>
         <translation>Stäng när den är klar</translation>
     </message>
     <message>
-        <location filename="../ui/UIHashProgressDialog.ui" line="129"/>
+        <location filename="../ui/UIHashProgressDialog.ui" line="145"/>
         <source>Start</source>
         <translation>Starta</translation>
     </message>
     <message>
-        <location filename="../ui/UIHashProgressDialog.ui" line="136"/>
+        <location filename="../ui/UIHashProgressDialog.ui" line="152"/>
         <source>Hide</source>
         <translation>Göm</translation>
     </message>
@@ -5057,73 +4714,48 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>UIHubFrame</name>
     <message>
-        <location filename="../ui/HubFrame.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
-        <location filename="../ui/HubFrame.ui" line="81"/>
+        <location filename="../ui/HubFrame.ui" line="97"/>
         <source>Find: </source>
         <translation>Sök: </translation>
     </message>
     <message>
-        <location filename="../ui/HubFrame.ui" line="95"/>
+        <location filename="../ui/HubFrame.ui" line="111"/>
         <source>Previous (Shift+F3)</source>
         <translation>Föregående (Shift+F3)</translation>
     </message>
     <message>
-        <location filename="../ui/HubFrame.ui" line="98"/>
-        <source>&lt;</source>
-        <translation>&lt;</translation>
-    </message>
-    <message>
-        <location filename="../ui/HubFrame.ui" line="101"/>
+        <location filename="../ui/HubFrame.ui" line="117"/>
         <source>Shift+F3</source>
         <translation>Skift+F3</translation>
     </message>
     <message>
-        <location filename="../ui/HubFrame.ui" line="108"/>
+        <location filename="../ui/HubFrame.ui" line="124"/>
         <source>Next (F3)</source>
         <translation>Nästa (F3)</translation>
     </message>
     <message>
-        <location filename="../ui/HubFrame.ui" line="111"/>
-        <source>&gt;</source>
-        <translation>&gt;</translation>
-    </message>
-    <message>
-        <location filename="../ui/HubFrame.ui" line="114"/>
+        <location filename="../ui/HubFrame.ui" line="130"/>
         <source>F3</source>
         <translation>F3</translation>
     </message>
     <message>
-        <location filename="../ui/HubFrame.ui" line="121"/>
+        <location filename="../ui/HubFrame.ui" line="137"/>
         <source>Highlight all</source>
         <translation>Markera alla</translation>
     </message>
     <message>
-        <location filename="../ui/HubFrame.ui" line="124"/>
-        <source>A</source>
-        <translation>A</translation>
-    </message>
-    <message>
-        <location filename="../ui/HubFrame.ui" line="137"/>
+        <location filename="../ui/HubFrame.ui" line="153"/>
         <source>Hide find frame (Ctrl+F)</source>
         <translation>Göm sökpanelen (CTRL+F)</translation>
     </message>
     <message>
-        <location filename="../ui/HubFrame.ui" line="281"/>
+        <location filename="../ui/HubFrame.ui" line="306"/>
         <source>Last status message on hub</source>
         <translation>Sista statusmeddelandet i hubben</translation>
     </message>
 </context>
 <context>
     <name>UIHubManager</name>
-    <message>
-        <location filename="../ui/UIHubManager.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <location filename="../ui/UIHubManager.ui" line="33"/>
         <source>Hub</source>
@@ -5168,42 +4800,42 @@ p, li { white-space: pre-wrap; }
         <translation>Importera</translation>
     </message>
     <message>
-        <location filename="../ui/UIIPFilter.ui" line="108"/>
+        <location filename="../ui/UIIPFilter.ui" line="99"/>
         <source>Direction</source>
         <translation>Riktning</translation>
     </message>
     <message>
-        <location filename="../ui/UIIPFilter.ui" line="114"/>
+        <location filename="../ui/UIIPFilter.ui" line="105"/>
         <source>BOTH</source>
         <translation>BÅDA</translation>
     </message>
     <message>
-        <location filename="../ui/UIIPFilter.ui" line="121"/>
+        <location filename="../ui/UIIPFilter.ui" line="112"/>
         <source>IN</source>
         <translation>IN</translation>
     </message>
     <message>
-        <location filename="../ui/UIIPFilter.ui" line="128"/>
+        <location filename="../ui/UIIPFilter.ui" line="119"/>
         <source>OUT</source>
         <translation>UT</translation>
     </message>
     <message>
-        <location filename="../ui/UIIPFilter.ui" line="141"/>
+        <location filename="../ui/UIIPFilter.ui" line="132"/>
         <source>UP</source>
         <translation>UPP</translation>
     </message>
     <message>
-        <location filename="../ui/UIIPFilter.ui" line="148"/>
+        <location filename="../ui/UIIPFilter.ui" line="139"/>
         <source>DOWN</source>
         <translation>NER</translation>
     </message>
     <message>
-        <location filename="../ui/UIIPFilter.ui" line="158"/>
+        <location filename="../ui/UIIPFilter.ui" line="149"/>
         <source>Add</source>
         <translation>Lägg till</translation>
     </message>
     <message>
-        <location filename="../ui/UIIPFilter.ui" line="165"/>
+        <location filename="../ui/UIIPFilter.ui" line="156"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -5211,42 +4843,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>UIMagnet</name>
     <message>
-        <location filename="../ui/UIMagnet.ui" line="20"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
-        <location filename="../ui/UIMagnet.ui" line="58"/>
-        <source>TTH</source>
-        <translation>TTH</translation>
-    </message>
-    <message>
-        <location filename="../ui/UIMagnet.ui" line="65"/>
+        <location filename="../ui/UIMagnet.ui" line="74"/>
         <source>Filename</source>
         <translation>Filnamn</translation>
     </message>
     <message>
-        <location filename="../ui/UIMagnet.ui" line="75"/>
+        <location filename="../ui/UIMagnet.ui" line="84"/>
         <source>Filepath</source>
         <translation>Filsökvög</translation>
     </message>
     <message>
-        <location filename="../ui/UIMagnet.ui" line="89"/>
+        <location filename="../ui/UIMagnet.ui" line="98"/>
         <source>Size</source>
         <translation>Storlek</translation>
     </message>
     <message>
-        <location filename="../ui/UIMagnet.ui" line="127"/>
+        <location filename="../ui/UIMagnet.ui" line="136"/>
         <source>Opens search dialog and searches file.</source>
         <translation>Öppnar sökfönster och söker efter fil.</translation>
     </message>
     <message>
-        <location filename="../ui/UIMagnet.ui" line="130"/>
+        <location filename="../ui/UIMagnet.ui" line="139"/>
         <source>Search</source>
         <translation>Sök</translation>
     </message>
     <message>
-        <location filename="../ui/UIMagnet.ui" line="137"/>
+        <location filename="../ui/UIMagnet.ui" line="146"/>
         <source>Adds magnet to download queue. If autosearch for alternatives is enabled
 in options, file will be downloaded without opening search dialog.</source>
         <translation>Lägger till MAGNET-länkar i nedladdningskön. Om automatisk sökning är
@@ -5254,17 +4876,17 @@ aktiverad i inställningarna, kommer filen att laddas ned utan att sökfönstret
 öppnas.</translation>
     </message>
     <message>
-        <location filename="../ui/UIMagnet.ui" line="141"/>
+        <location filename="../ui/UIMagnet.ui" line="150"/>
         <source>Add to queue</source>
         <translation>Lägg i kön</translation>
     </message>
     <message>
-        <location filename="../ui/UIMagnet.ui" line="161"/>
+        <location filename="../ui/UIMagnet.ui" line="170"/>
         <source>Cancel</source>
         <translation>Avbryt</translation>
     </message>
     <message>
-        <location filename="../ui/UIMagnet.ui" line="170"/>
+        <location filename="../ui/UIMagnet.ui" line="179"/>
         <source>Remember my choice</source>
         <translation>Kom ihåg mitt val</translation>
     </message>
@@ -5272,86 +4894,53 @@ aktiverad i inställningarna, kommer filen att laddas ned utan att sökfönstret
 <context>
     <name>UIPrivateMessage</name>
     <message>
-        <location filename="../ui/PrivateMessage.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
-        <location filename="../ui/PrivateMessage.ui" line="74"/>
+        <location filename="../ui/PrivateMessage.ui" line="81"/>
         <source>Find:</source>
         <translation>Sök:</translation>
     </message>
     <message>
-        <location filename="../ui/PrivateMessage.ui" line="81"/>
+        <location filename="../ui/PrivateMessage.ui" line="88"/>
         <source>Previous (Shift+F3)</source>
         <translation>Föregående (Skift+F3)</translation>
     </message>
     <message>
-        <location filename="../ui/PrivateMessage.ui" line="84"/>
-        <source>&lt;</source>
-        <translation>&lt;</translation>
-    </message>
-    <message>
-        <location filename="../ui/PrivateMessage.ui" line="87"/>
+        <location filename="../ui/PrivateMessage.ui" line="94"/>
         <source>Shift+F3</source>
         <translation>Skift+F3</translation>
     </message>
     <message>
-        <location filename="../ui/PrivateMessage.ui" line="94"/>
+        <location filename="../ui/PrivateMessage.ui" line="101"/>
         <source>Next (F3)</source>
         <translation>Nästa (F3)</translation>
     </message>
     <message>
-        <location filename="../ui/PrivateMessage.ui" line="97"/>
-        <source>&gt;</source>
-        <translation>&gt;</translation>
-    </message>
-    <message>
-        <location filename="../ui/PrivateMessage.ui" line="100"/>
+        <location filename="../ui/PrivateMessage.ui" line="107"/>
         <source>F3</source>
         <translation>F3</translation>
     </message>
     <message>
-        <location filename="../ui/PrivateMessage.ui" line="107"/>
+        <location filename="../ui/PrivateMessage.ui" line="114"/>
         <source>Hide find frame (Ctrl+F)</source>
         <translation>Göm sökpanelen (CTRL+F)</translation>
     </message>
     <message>
-        <location filename="../ui/PrivateMessage.ui" line="117"/>
+        <location filename="../ui/PrivateMessage.ui" line="124"/>
         <source>Highlight all</source>
         <translation>Markera alla</translation>
     </message>
     <message>
-        <location filename="../ui/PrivateMessage.ui" line="120"/>
-        <source>A</source>
-        <translation>A</translation>
-    </message>
-    <message>
-        <location filename="../ui/PrivateMessage.ui" line="222"/>
+        <location filename="../ui/PrivateMessage.ui" line="229"/>
         <source>Go to hub</source>
         <translation>Gå till hubben</translation>
     </message>
     <message>
-        <location filename="../ui/PrivateMessage.ui" line="229"/>
+        <location filename="../ui/PrivateMessage.ui" line="236"/>
         <source>User share</source>
         <translation>Utdelat</translation>
     </message>
 </context>
 <context>
-    <name>UIPublicHubs</name>
-    <message>
-        <location filename="../ui/UIPublicHubs.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-</context>
-<context>
     <name>UIPublicHubsList</name>
-    <message>
-        <location filename="../ui/UIPublicHubsList.ui" line="14"/>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
     <message>
         <location filename="../ui/UIPublicHubsList.ui" line="23"/>
         <source>Up</source>
@@ -5379,14 +4968,6 @@ aktiverad i inställningarna, kommer filen att laddas ned utan att sökfönstret
     </message>
 </context>
 <context>
-    <name>UIQueuedUsers</name>
-    <message>
-        <location filename="../ui/UIQueuedUsers.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-</context>
-<context>
     <name>UIQuickConnect</name>
     <message>
         <location filename="../ui/UIQuickConnect.ui" line="32"/>
@@ -5401,11 +4982,6 @@ aktiverad i inställningarna, kommer filen att laddas ned utan att sökfönstret
 </context>
 <context>
     <name>UIScriptManager</name>
-    <message>
-        <location filename="../ui/UIScriptManager.ui" line="14"/>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
     <message>
         <location filename="../ui/UIScriptManager.ui" line="21"/>
         <source>Do nothing</source>
@@ -5456,11 +5032,6 @@ aktiverad i inställningarna, kommer filen att laddas ned utan att sökfönstret
 <context>
     <name>UISettingsAdvanced</name>
     <message>
-        <location filename="../ui/UISettingsAdvanced.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
         <location filename="../ui/UISettingsAdvanced.ui" line="36"/>
         <source>Mime Handler</source>
         <translation>Mime-hanterare</translation>
@@ -5468,11 +5039,6 @@ aktiverad i inställningarna, kommer filen att laddas ned utan att sökfönstret
 </context>
 <context>
     <name>UISettingsConnection</name>
-    <message>
-        <location filename="../ui/UISettingsConnection.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <location filename="../ui/UISettingsConnection.ui" line="27"/>
         <source>Connection</source>
@@ -5489,11 +5055,11 @@ aktiverad i inställningarna, kommer filen att laddas ned utan att sökfönstret
         <translation>Inkommande anslutningar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="55"/>
+        <location filename="../ui/UISettingsConnection.ui" line="73"/>
         <source>Select this mode if your computer is connected directly to the internet.
 Do not select this mode if you have a router or any external firewall.
 If your computer is not behind a router all you have to do is to choose
-this option and usually you don't need to alter anything more in the
+this option and usually you don&apos;t need to alter anything more in the
 connection settings.
 However, if you have a software firewall installed, you may need further configuration in the firewall to allow Internet access for EiskaltDC++.</source>
         <translation>Välj detta läge om din dator är ansluten direkt till internet.
@@ -5505,12 +5071,12 @@ Däremot om du har en mjukvarubrandvägg kan du få behöva göra
 tillgång till internet.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="63"/>
+        <location filename="../ui/UISettingsConnection.ui" line="81"/>
         <source>Active mode</source>
         <translation>Aktivt läge</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="73"/>
+        <location filename="../ui/UISettingsConnection.ui" line="91"/>
         <source>Select this mode if you are behind a firewall (router), and will set up
 the TCP, UDP and TLS port forwarding on your own.
 You will need to specify the external IP address of your router using
@@ -5521,12 +5087,12 @@ Du kommer att behöva ange extern IP-adress på din router med hjälp av instäl
 Använd detta alternativ bara om föregånde alternativ inte var rätt för dig.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="80"/>
+        <location filename="../ui/UISettingsConnection.ui" line="98"/>
         <source>Firewall with port forwarding</source>
         <translation>Brandvägg med manuell portmappning</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="90"/>
+        <location filename="../ui/UISettingsConnection.ui" line="108"/>
         <source>Select this mode if none of the previous modes apply. In this mode,
 EiskaltDC++ will not try to make inbound connections, only outbound ones.
 This mode carries some serious limitations:
@@ -5541,16 +5107,16 @@ Detta läge medför en del allvarliga begränsningar:
   * du kommer inte att kunna söka och/eller ladda ned i en del hubbar.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="98"/>
+        <location filename="../ui/UISettingsConnection.ui" line="116"/>
         <source>Passive mode</source>
         <translation>Passivt läge</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="105"/>
+        <location filename="../ui/UISettingsConnection.ui" line="123"/>
         <source>Select this mode if you are behind a firewall/router that supports
 the UPnP standard for program auto-configuration.
 Most routers do support UPnP but you may need to enable it
-in the router's configuration page.
+in the router&apos;s configuration page.
 This way EiskaltDC++ will automatically open the ports it needs
 and obtain your external IP address as well.</source>
         <translation>Välj detta läge om du är bakom en brandvägg/router som har stöd
@@ -5561,52 +5127,52 @@ Då kommer EiskaltDC++ att automatiskt öppna de portar som behövs och
 även att erhålla din externa IP-adress.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="113"/>
+        <location filename="../ui/UISettingsConnection.ui" line="131"/>
         <source>Firewall with UPnP</source>
         <translation>Brandvägg med UPnP</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="138"/>
+        <location filename="../ui/UISettingsConnection.ui" line="165"/>
         <source>External/WAN IP:</source>
         <translation>Externt/WAN-IP:</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="152"/>
+        <location filename="../ui/UISettingsConnection.ui" line="179"/>
         <source>Don&apos;t allow Hub/UPnP/DHT to override</source>
         <translation>Tillåt inte Hubb/UPnP/DHT att skriva över</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="161"/>
+        <location filename="../ui/UISettingsConnection.ui" line="188"/>
         <source>TCP port</source>
         <translation>TCP-port</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="168"/>
+        <location filename="../ui/UISettingsConnection.ui" line="195"/>
         <source>UDP port</source>
         <translation>UDP-port</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="175"/>
+        <location filename="../ui/UISettingsConnection.ui" line="202"/>
         <source>TLS port</source>
         <translation>TLS-port</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="235"/>
+        <location filename="../ui/UISettingsConnection.ui" line="262"/>
         <source>Bind to address</source>
         <translation>Lås till nätverksadress</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="245"/>
+        <location filename="../ui/UISettingsConnection.ui" line="272"/>
         <source>Bind to interface</source>
         <translation>Lås till nätverkskort</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="261"/>
+        <location filename="../ui/UISettingsConnection.ui" line="288"/>
         <source>Outgoing connections</source>
         <translation>Utgående anslutningar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="276"/>
+        <location filename="../ui/UISettingsConnection.ui" line="321"/>
         <source>Select this mode if you can make unrestricted outbound connections.
 This includes connecting to any IP address on any port.
 Choose this option if unsure.</source>
@@ -5615,12 +5181,12 @@ Det inkluderar att ansluta till alla IP-adresser på alla portar.
 Välj detta läge om du är osäker på vad du ska välja.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="281"/>
+        <location filename="../ui/UISettingsConnection.ui" line="326"/>
         <source>Direct connection</source>
         <translation>Direktanslutning</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="291"/>
+        <location filename="../ui/UISettingsConnection.ui" line="336"/>
         <source>Select this mode if you want to make outbound connections through
 a SOCKS proxy. The caveats for Passive mode also apply here.
 SOCKS5 proxies are not the same as HTTP proxies.
@@ -5631,145 +5197,135 @@ SOCKS5-proxyservrar är inte detsamma som HTTP-proxyservrar.
 DC++ SOCKS5-stöd omfattar inte GSSAPI.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="297"/>
+        <location filename="../ui/UISettingsConnection.ui" line="342"/>
         <source>SOCKS5</source>
         <translation>SOCKS5</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="319"/>
-        <source>000.000.000.000; </source>
-        <translation>000.000.000.000; </translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsConnection.ui" line="332"/>
+        <location filename="../ui/UISettingsConnection.ui" line="386"/>
         <source>IP</source>
         <translation>IP</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="339"/>
+        <location filename="../ui/UISettingsConnection.ui" line="393"/>
         <source>User</source>
         <translation>Användare</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="346"/>
+        <location filename="../ui/UISettingsConnection.ui" line="400"/>
         <source>Password</source>
         <translation>Lösenord</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="353"/>
+        <location filename="../ui/UISettingsConnection.ui" line="407"/>
         <source>Port</source>
         <translation>Port</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="366"/>
-        <source>00000; </source>
-        <translation>00000; </translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsConnection.ui" line="373"/>
+        <location filename="../ui/UISettingsConnection.ui" line="427"/>
         <source>Use to resolve hostnames</source>
         <translation>Använd för att ta reda på värdnamnet</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="401"/>
+        <location filename="../ui/UISettingsConnection.ui" line="455"/>
         <source>DynDNS Address:</source>
         <translation>DynDNS-adress:</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="427"/>
+        <location filename="../ui/UISettingsConnection.ui" line="481"/>
         <source>When enabled can hang program on exit.</source>
         <translation>Aktiverad kan detta hänga programmet vid avslut.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="430"/>
+        <location filename="../ui/UISettingsConnection.ui" line="484"/>
         <source>Automatically update external IP (restart required)</source>
         <translation>Automatisk uppdatera den externa IP-adressen (omstart krävs)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="454"/>
-        <location filename="../ui/UISettingsConnection.ui" line="469"/>
+        <location filename="../ui/UISettingsConnection.ui" line="508"/>
+        <location filename="../ui/UISettingsConnection.ui" line="523"/>
         <source>Limits</source>
         <translation>Begränsningar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="475"/>
+        <location filename="../ui/UISettingsConnection.ui" line="529"/>
         <source>Enable Throttle</source>
         <translation>Aktivera fartbegränsning</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="506"/>
-        <location filename="../ui/UISettingsConnection.ui" line="658"/>
+        <location filename="../ui/UISettingsConnection.ui" line="569"/>
+        <location filename="../ui/UISettingsConnection.ui" line="721"/>
         <source>Download</source>
         <translation>Ladda ned</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="520"/>
-        <location filename="../ui/UISettingsConnection.ui" line="554"/>
-        <location filename="../ui/UISettingsConnection.ui" line="699"/>
-        <location filename="../ui/UISettingsConnection.ui" line="732"/>
+        <location filename="../ui/UISettingsConnection.ui" line="583"/>
+        <location filename="../ui/UISettingsConnection.ui" line="617"/>
+        <location filename="../ui/UISettingsConnection.ui" line="762"/>
+        <location filename="../ui/UISettingsConnection.ui" line="795"/>
         <source>KiB/s</source>
         <translation>KiB/s</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="540"/>
-        <location filename="../ui/UISettingsConnection.ui" line="685"/>
+        <location filename="../ui/UISettingsConnection.ui" line="603"/>
+        <location filename="../ui/UISettingsConnection.ui" line="748"/>
         <source>Upload</source>
         <translation>Laddar upp</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="583"/>
+        <location filename="../ui/UISettingsConnection.ui" line="646"/>
         <source>Alternate speed limit at time from </source>
         <translation>Alternativ hastighetsbegränsning efter tiden</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="609"/>
+        <location filename="../ui/UISettingsConnection.ui" line="672"/>
         <source>to</source>
         <translation>till</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="623"/>
+        <location filename="../ui/UISettingsConnection.ui" line="686"/>
         <source>hour(s)</source>
         <translation>timmar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="722"/>
+        <location filename="../ui/UISettingsConnection.ui" line="785"/>
         <source>Slots</source>
         <translation>Slottar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="765"/>
+        <location filename="../ui/UISettingsConnection.ui" line="828"/>
         <source>Advanced</source>
         <translation>Avancerat</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="792"/>
+        <location filename="../ui/UISettingsConnection.ui" line="855"/>
         <source>Reconnect to hub (seconds)</source>
         <translation>Återanslut till hubben (sekunder)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="815"/>
+        <location filename="../ui/UISettingsConnection.ui" line="878"/>
         <source>Type-of-Service (ToS)</source>
         <translation>Type-of-Service (ToS)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="831"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <location filename="../ui/UISettingsConnection.ui" line="894"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;https://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Set the Type-Of-Service (TOS) field that is sent with every &lt;a href=&quot;http://en.wikipedia.org/wiki/IP_packet&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;IP packet&lt;/span&gt;&lt;/a&gt; originating from this socket. It is used to prioritize packets on the network. TOS is a byte. There are some standard TOS flags defined: &lt;/p&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Set the Type-Of-Service (TOS) field that is sent with every &lt;a href=&quot;https://en.wikipedia.org/wiki/IP_packet&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;IP packet&lt;/span&gt;&lt;/a&gt; originating from this socket. It is used to prioritize packets on the network. TOS is a byte. There are some standard TOS flags defined: &lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt; - &amp;quot;Low delay&amp;quot;&lt;/span&gt; to minimize delays for interactive traffic&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt; - &amp;quot;Throughput&amp;quot;&lt;/span&gt; to optimize throughput&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt; - &amp;quot;Reliability&amp;quot;&lt;/span&gt; to optimize for reliability&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt; - &amp;quot;Minimal cost&amp;quot;&lt;/span&gt; should be used for &amp;quot;filler data&amp;quot; where slow transmission doesn't matter&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt; - &amp;quot;Minimal cost&amp;quot;&lt;/span&gt; should be used for &amp;quot;filler data&amp;quot; where slow transmission doesn&apos;t matter&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;At most one of these TOS values can be specified. Linux sends &lt;span style=&quot; font-weight:600;&quot;&gt;&amp;quot;Low delay&amp;quot;&lt;/span&gt; datagrams first by default, but the exact behaviour depends on the configured queueing discipline.&lt;span style=&quot; font-weight:600;&quot;&gt; Warning! This option needs superuser privileges!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;https://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Ange Type-Of-Service (TOS) fält som skickas med varje &lt;a href=&quot;http://en.wikipedia.org/wiki/IP_packet&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;IP-paket&lt;/span&gt;&lt;/a&gt; originating from this socket. Den används till att prioritera paket i nätverket. TOS är en byte. Det finns några standard TOS-flaggor flags definierade: &lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Ange Type-Of-Service (TOS) fält som skickas med varje &lt;a href=&quot;https://en.wikipedia.org/wiki/IP_packet&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;IP-paket&lt;/span&gt;&lt;/a&gt; originating from this socket. Den används till att prioritera paket i nätverket. TOS är en byte. Det finns några standard TOS-flaggor flags definierade: &lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt; - &amp;quot;Low delay&amp;quot;&lt;/span&gt; minimera väntetiden för interaktiv trafik&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt; - &amp;quot;Throughput&amp;quot;&lt;/span&gt; optimerad genomströmning&lt;/p&gt;
@@ -5779,78 +5335,73 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Endast en av dessa TOS-värden kan anges. Linux sänder &lt;span style=&quot; font-weight:600;&quot;&gt;&amp;quot;Low delay&amp;quot;&lt;/span&gt; datagram första som standard, men det exakta beteendet beror på den konfigurerade kö-disciplinen.&lt;span style=&quot; font-weight:600;&quot;&gt; Varning! Detta alternativ kräver superuser-rättigheter!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="846"/>
+        <location filename="../ui/UISettingsConnection.ui" line="909"/>
         <source>No</source>
         <translation>Nej</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="851"/>
+        <location filename="../ui/UISettingsConnection.ui" line="914"/>
         <source>Low delay</source>
         <translation>Låg fördröjning</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="856"/>
+        <location filename="../ui/UISettingsConnection.ui" line="919"/>
         <source>Throughput</source>
         <translation>Genomfart</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="861"/>
+        <location filename="../ui/UISettingsConnection.ui" line="924"/>
         <source>Reliability</source>
         <translation>Tillförlitlighet</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="866"/>
+        <location filename="../ui/UISettingsConnection.ui" line="929"/>
         <source>Minimal cost</source>
         <translation>Minimal kostnad</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="876"/>
+        <location filename="../ui/UISettingsConnection.ui" line="939"/>
         <source>Enable DHT</source>
         <translation>Aktivera DHT</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="900"/>
+        <location filename="../ui/UISettingsConnection.ui" line="963"/>
         <source>DHT port</source>
         <translation>DHT-port</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="925"/>
+        <location filename="../ui/UISettingsConnection.ui" line="988"/>
         <source>TLS settings</source>
         <translation>TLS-inställningar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="932"/>
+        <location filename="../ui/UISettingsConnection.ui" line="995"/>
         <source>Disable TLS</source>
         <translation>Inaktivera TLS</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="937"/>
+        <location filename="../ui/UISettingsConnection.ui" line="1000"/>
         <source>Allow TLS</source>
         <translation>Tillåt TLS</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="942"/>
+        <location filename="../ui/UISettingsConnection.ui" line="1005"/>
         <source>Require TLS</source>
         <translation>Kräver TLS</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="950"/>
+        <location filename="../ui/UISettingsConnection.ui" line="1013"/>
         <source>Allow untrusted certificate for hubs</source>
         <translation>Tillåt ej betrodda certifikat för hubbar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsConnection.ui" line="957"/>
+        <location filename="../ui/UISettingsConnection.ui" line="1020"/>
         <source>Allow untrusted certificate for clients</source>
         <translation>Tillåt ej betrodda certifikat för klienter</translation>
     </message>
 </context>
 <context>
     <name>UISettingsDownloads</name>
-    <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <location filename="../ui/UISettingsDownloads.ui" line="30"/>
         <source>Downloads</source>
@@ -5862,25 +5413,25 @@ p, li { white-space: pre-wrap; }
         <translation>Kataloger</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="51"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="60"/>
         <source>Download directory</source>
         <translation>Nedladdningskatalog</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="84"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="93"/>
         <source>Use unfinished downloads directory</source>
         <translation>Använd temporär katalog för nedladdningar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="97"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="106"/>
         <source>Limits</source>
         <translation>Begränsningar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="106"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="124"/>
         <source>This is another method of limiting simultaneous downloads,
 designed to prevent new downloads if your existing downloads
-exceed a specific threshold. It's measured in kibibytes per second,
+exceed a specific threshold. It&apos;s measured in kibibytes per second,
 and a value of zero will disable this limit.</source>
         <translation>Detta är ett annat sätt att begränsa samtidiga nedladdningar på,
 genom att övervaka befintliga nedladdningar och låta dem ej överstiga
@@ -5888,34 +5439,34 @@ ett bestämt värde. Det mäts i kibibytes per sekund, och värdet 0
 inaktiverar denna begränsning.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="119"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="137"/>
         <source>This limits the number of simultaneous downloads.
 A value of 0 means no limit.</source>
         <translation>Detta begränsar antaler samtidiga nedladdningar.
 Värdet 0 menas med obegränsat.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="133"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="151"/>
         <source>Maximum simultaneous downloads (0 = infinite)</source>
         <translation>Max antal samtidiga nedladdningar (0 = obegränsat)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="149"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="167"/>
         <source>No new downloads if speed exceeds (KiB/s, 0 = infinite)</source>
         <translation>Inga nya nedladdningar om hastigheter överskrider (KiB/s, 0 = avstängt)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="159"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="177"/>
         <source>Note: Because of changing download speeds, this is not 100% accurate</source>
         <translation>Obs: Eftersom hastigheten ändras hela tiden är detta inte 100% korrekt.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="172"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="190"/>
         <source>Public Hub lists</source>
         <translation>Publika hubblistor</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="181"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="208"/>
         <source>This HTTP proxy will only be used to request
 the Public Hub List specified above.
 It&apos;s not used for uploads, downloads, or connecting to a hub.</source>
@@ -5924,114 +5475,114 @@ till ovanstående publika hubblista.
 Den används inte till upp-/nedladdning eller anslutning till en hubb.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="190"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="217"/>
         <source>Http proxy (hub list only)</source>
         <translation>HTTP Proxy (endast för hubblistor)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="197"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="224"/>
         <source>Configure Public Hub Lists</source>
         <translation>Konfigurera publika hubblistor</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="221"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="248"/>
         <source>Download to</source>
         <translation>Laddar ned till</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="264"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="291"/>
         <source>Path</source>
         <translation>Sökväg</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="269"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="296"/>
         <source>Alias</source>
         <translation>Alias</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="278"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="305"/>
         <source>Queue</source>
         <translation>Nedladdningskö</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="284"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="311"/>
         <source>Auto-priority settings</source>
         <translation>Automatiska prioritetsinställningar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="293"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="329"/>
         <source>Files with the same or under the entered size
 will be set to Highest as priority. (default: 64 KiB)</source>
         <translation>Filer med samma eller mindre filstorlek kommer
 att få högsta prioritet. (standard: 64 KiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="304"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="340"/>
         <source>Files with the same or under the entered size, but above Highest
 prio max size, will be set to High as priority. (default: 0 KiB)</source>
         <translation>Filer med samma eller mindre filstorlek, men över högsta
 prioritet kommer att få hög prioritet. (standard: 0 KiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="315"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="351"/>
         <source>Files with the same or under the entered size, but above Highest and
 High prio max size, will be set to Normal as priority. (default: 0 KiB)</source>
         <translation>Filer med samma eller mindre filstorlek, men över högsta och hög
 prioritet kommer att få normal prioritet. (standard: 0 KiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="326"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="362"/>
         <source>Files with the same or under the entered size, but above Highest, High
 and Normal prio max size, will be set to Low as priority. (default: 0 KiB)</source>
         <translation>Filer med samma eller mindre filstorlek, men över högsta, hög och
 normal prioritet kommer att få låg prioritet. (standard: 0 KiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="343"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="379"/>
         <source>Highest priority max size (KiB)</source>
         <translation>Högsta prioritet maximal storlek (KiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="359"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="395"/>
         <source>High priority max size (KiB)</source>
         <translation>Hög prioritet maximal storlek (KiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="375"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="411"/>
         <source>Normal priority max size (KiB)</source>
         <translation>Normal prioritet maximal storlek (KiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="391"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="427"/>
         <source>Low priority max size (KiB)</source>
         <translation>Låg prioritet maximal storlek (KiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="420"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="456"/>
         <source>Auto-drop settings</source>
         <translation>Inställning för automatisk frånkoppling</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="429"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="474"/>
         <source>If the download speed of a file is below the entered value,
 the source will be dropped. (default: 1024 B/s)</source>
         <translation>Om nedladdningshastigheten på en fil är under angivit värde,
 kommer källan att kopplas från. (standard: 1024 B/s)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="440"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="485"/>
         <source>Check every x second(s) if the source is slow. (default: 10 s)</source>
         <translation>Kontrollera varje x sekund(er) om källan är långsam. (standard: 10 s)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="450"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="495"/>
         <source>Amount of time (in seconds) that has to pass since the download
 started before a source can be dropped. (default: 15 s)</source>
         <translation>Den tid (i sekunder) det måste gå innan nedladdningen startat
 tills en källa kopplas i från automatiskt. (standard: 15 s)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="461"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="506"/>
         <source>This is the maximal time since the last chunk of data for
 the file was received. It is meant to improve speed measurement
 accuracy and to prevent dropping sources that are going to be
@@ -6042,59 +5593,59 @@ och för att förhindra att förlora källor som kommer att kopplas bort
 på grund av deras inaktivitet. (standard: 10 s)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="474"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="519"/>
         <source>Minimum amount of sources before any sources
 will be dropped. (default: 1)</source>
         <translation>Minsta antal källor innan någon källa automatisk
 blir frånkopplad. (standard: 1)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="485"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="530"/>
         <source>Minimum filesize before sources will be dropped (in KiB). (default: 0 KiB)</source>
         <translation>Minsta filstorlek innan källorna kopplas från (KiB). (standard: 0 KiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="501"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="546"/>
         <source>Drop sources below (B/s)</source>
         <translation>Koppla från källor under (B/s)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="517"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="562"/>
         <source>Check every (s)</source>
         <translation>Kontrollera varje (s)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="533"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="578"/>
         <source>Min. elapsed (s)</source>
         <translation>Minst förflutit (s)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="549"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="594"/>
         <source>Max inactivity (s)</source>
         <translation>Maximal inaktivitet (s)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="565"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="610"/>
         <source>Min sources online</source>
         <translation>Minsta antalet källor som är anslutna</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="581"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="626"/>
         <source>Min filesize (KiB)</source>
         <translation>Minsta filstorlek (KiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="610"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="655"/>
         <source>Other options</source>
         <translation>Andra inställningar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="626"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="680"/>
         <source>Set lowest priority for newly added files larger than low priority size</source>
         <translation>Sätt lägsta prioritet för nya filer som är större än låg prioritetsstorlek</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="629"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="683"/>
         <source>With this enabled, files that are larger than Low prio max size
 are set to Lowest as priority.
 If disabled, the files will be set to Normal as priority.</source>
@@ -6103,12 +5654,12 @@ att bli Lägsta prioritet.
 Inaktiverad kommer filerna att ställas in med Normal prioritet.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="642"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="696"/>
         <source>Auto-drop slow sources for all queue items (except filelists)</source>
         <translation>Stäng automatiskt ner alla långsamma källor (utom fillistor)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="645"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="699"/>
         <source>This option removes the slow sources for all queue items (except file lists).
 To enable autodrop, turn on either &quot;Autodrop slow sources for all queue items&quot;
 or &quot;Remove slow file lists&quot; (or both of them).</source>
@@ -6116,12 +5667,12 @@ or &quot;Remove slow file lists&quot; (or both of them).</source>
 (utom fillistor). För att fungera måste du aktivera &quot;Stäng automatiskt ner alla långsamma källor&quot; eller  &quot;Ta bort långsamma fillistor&quot; (eller båda).</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="658"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="712"/>
         <source>Remove slow filelists</source>
         <translation>Ta bort långsamma fillistor</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="661"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="715"/>
         <source>With this option enabled, EiskaltDC++ will delete a file list whose speed
 was recognized as too slow.
 To enable autodrop, turn on either &quot;Autodrop slow sources for all queue items&quot;
@@ -6131,28 +5682,28 @@ För att fungera måste du aktivera &quot;Stäng automatiskt ner alla långsamma
 källor&quot; eller  &quot;Ta bort långsamma fillistor&quot; (eller båda).</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="675"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="729"/>
         <source>Don&apos;t remove the source when auto-dropping, only disconnect</source>
         <translation>Ta inte bort källan vid automatisk frånkoppling, koppla bara i från</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="678"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="732"/>
         <source>With this option enabled, sources will only be disconnected
 but not removed from the queue.</source>
         <translation>Aktiverad kommer källor att endast bli frånkopplade
 men inte borttagna ur kön.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="690"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="744"/>
         <source>Automatically search for alternative download locations</source>
         <translation>Sök automatiskt efter nya nedladdningskällor</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="693"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="747"/>
         <source>Every few minutes, the client will search for files in your
 Download Queue to find more download locations (more users/sources).
 The autosearch will find exact matches by searching via hash.
-The drawback is that it may won't find much more sources
+The drawback is that it may won&apos;t find much more sources
 and will prevent manual searches on hubs where
 a predefined search interval rule is in effect.</source>
         <translation>Klienter söker med några minuters mellanrum efter filer i din
@@ -6163,17 +5714,17 @@ och den hindrar även manuella sökningar i hubbar där
 en begränsning på sökintervaller finns.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="709"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="763"/>
         <source>Automatically match queue for auto search hits</source>
         <translation>Matcha nedladdningskön när nya källor hittas</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="712"/>
-        <source>Enable to automatically download a user's list and match them
-as sources for files in your Download Queue when they've been
-discovered as a source for one of the files you're downloading.
+        <location filename="../ui/UISettingsDownloads.ui" line="766"/>
+        <source>Enable to automatically download a user&apos;s list and match them
+as sources for files in your Download Queue when they&apos;ve been
+discovered as a source for one of the files you&apos;re downloading.
 If you download files in sets, that user is probably a source
-for many more files you're downloading. Enable if unsure.
+for many more files you&apos;re downloading. Enable if unsure.
 The drawbacks are that it might add slower sources, possibly
 increasing the time needed to complete a download,
 and that you&apos;ll download a lot of file lists.</source>
@@ -6185,12 +5736,12 @@ du ska välja. En nackdel kan vara att du lägger till en massa långsamma
 källor som förlänger nedladdningstiden och att du kommer att ladda ned många fillistor.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="730"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="784"/>
         <source>Skip zero-byte files</source>
         <translation>Ladda inte ned filer som är 0 byte</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="733"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="787"/>
         <source>When this option is enabled, any zero byte files you
 try to download will be silently skipped.
 Sometimes empty files contain information through their naming.
@@ -6201,49 +5752,49 @@ I bland innehåller sjäva filnamnet information men,
 varje fil, även tomma, tar upp lite diskutrymme.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="747"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="801"/>
         <source>Don&apos;t download files already in share</source>
         <translation>Ladda inte ned filer som redan finns utdelade</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="750"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="804"/>
         <source>This option will stop you from downloading files
 which already exist in one of your shared directories.</source>
         <translation>Denna inställning förhindrar dig från att ladda ned
 filer som redan finns i dina utdelade kataloger.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="762"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="816"/>
         <source>Don&apos;t download files already in the queue</source>
         <translation>Ladda inte ned filer som redan finns i nedladdningskön</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="765"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="819"/>
         <source>This option will stop you from downloading files
 which already exist in your queue.</source>
         <translation>Denna inställning förhindrar dig från att ladda ned
 filer som redan finns i din nedladdningskö.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="777"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="831"/>
         <source>SFV Check</source>
         <translation>SFV-kontroll</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="788"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="842"/>
         <source>Keep downloaded filelists</source>
         <translation>Behåll nedladdade fillistor</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="791"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="845"/>
         <source>Enable this option if you want to keep downloaded filelists
 in the download queue after they have been finished.
-After downloaded the queue items will have 'Finished' status
+After downloaded the queue items will have &apos;Finished&apos; status
 and you can delete these finished entries anytime later.
 Note that if you physically move/delete your downloaded files from
-their target location, it won't result automatic deletion of
+their target location, it won&apos;t result automatic deletion of
 the corresponding finished entries from the queue.
-If you disable this function, it won't remove existing finished items
+If you disable this function, it won&apos;t remove existing finished items
 from the queue either, you must do that manually.</source>
         <translation>Aktivera om du vill behålla nedladdade filer och mappar i
 nedladdningskön även efter de är klara. När de är klara kommer de
@@ -6256,23 +5807,23 @@ inte dessa försvinna från fönstret. Samma gäller om du stänger av
 denna funktionen, du måste då radera dem manuellt.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="807"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="861"/>
         <source>Keep downloaded files</source>
         <translation>Behåll nedladdade filer</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="810"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="864"/>
         <source>Enable this option if you want to keep downloaded files and folders
 in the download queue after they have been finished.
-After downloaded the queue items will have 'Finished' status
+After downloaded the queue items will have &apos;Finished&apos; status
 and you can delete these finished entries anytime later.
 Using this function you can keep track of what files are already
 downloaded right there in the download queue without the need
 of checking the Finished Downloads window.
 Note that if you physically move/delete your downloaded files from
-their target location, it won't result automatic deletion of
+their target location, it won&apos;t result automatic deletion of
 the corresponding finished entries from the queue.
-If you disable this function, it won't remove existing finished items
+If you disable this function, it won&apos;t remove existing finished items
 from the queue either, you must do that manually.</source>
         <translation>Aktivera om du vill behålla nedladdade filer och mappar i
 nedladdningskön även efter de är klara. När de är klara kommer de
@@ -6285,48 +5836,43 @@ inte dessa försvinna från fönstret. Samma gäller om du stänger av
 denna funktionen, du måste då radera dem manuellt.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="829"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="883"/>
         <source>Compressed transfers</source>
         <translation>Komprimerad överföring</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="840"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="894"/>
         <source>Segmented downloads</source>
         <translation>Segmenterad nedladdning</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="855"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="909"/>
         <source>Advanced</source>
         <translation>Avancerat</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="876"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="930"/>
         <source>Interval for auto search alternates (minutes)</source>
         <translation>Söktid för de automatiska nedladdningskällorna (minuter)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="899"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="953"/>
         <source>Segment size (in MB, 0 = auto segment size)</source>
         <translation>Storlek på segmenten (i MB, 0 = automatisk)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="916"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="970"/>
         <source>Allow simultaneous uploads by one user from few NMDC hubs</source>
         <translation>Tillåt mer än en samtidig uppladdning per användare i NMDC-hubbar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsDownloads.ui" line="923"/>
+        <location filename="../ui/UISettingsDownloads.ui" line="977"/>
         <source>Allow simultaneous uploads by one IP</source>
         <translation>Tillåt flera samtidiga uppladdningar från ett och samma IP</translation>
     </message>
 </context>
 <context>
     <name>UISettingsGUI</name>
-    <message>
-        <location filename="../ui/UISettingsGUI.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <location filename="../ui/UISettingsGUI.ui" line="24"/>
         <source>Basic</source>
@@ -6338,392 +5884,355 @@ denna funktionen, du måste då radera dem manuellt.</translation>
         <translation>Språkfil</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="64"/>
+        <location filename="../ui/UISettingsGUI.ui" line="55"/>
         <source>Theme</source>
         <translation>Tema</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="91"/>
+        <location filename="../ui/UISettingsGUI.ui" line="73"/>
         <source>Apply</source>
         <translation>Verkställ</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="101"/>
+        <location filename="../ui/UISettingsGUI.ui" line="83"/>
         <source>Application font</source>
         <translation>Programtypsnitt</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="122"/>
+        <location filename="../ui/UISettingsGUI.ui" line="95"/>
         <source>Change</source>
         <translation>Ändra</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="132"/>
+        <location filename="../ui/UISettingsGUI.ui" line="105"/>
         <source>Show icon in system tray</source>
         <translation>Visa ikon i meddelandefältet</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="141"/>
+        <location filename="../ui/UISettingsGUI.ui" line="114"/>
         <source>Remember window position on exit</source>
         <translation>Spara fönsterpositionen vid programavslut</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="151"/>
+        <location filename="../ui/UISettingsGUI.ui" line="124"/>
         <source>Always hide window to system tray at startup</source>
         <translation>Minimera alltid till meddelandefältet vid uppstart</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="158"/>
+        <location filename="../ui/UISettingsGUI.ui" line="131"/>
         <source>Always show window at startup</source>
         <translation>Visa alltid fönstret vid uppstart</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="170"/>
-        <location filename="../ui/UISettingsGUI.ui" line="186"/>
+        <location filename="../ui/UISettingsGUI.ui" line="143"/>
+        <location filename="../ui/UISettingsGUI.ui" line="159"/>
         <source>(need restart)</source>
         <translation>(omstart krävs)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="173"/>
+        <location filename="../ui/UISettingsGUI.ui" line="146"/>
         <source>User theme</source>
         <translation>Användartema</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="193"/>
+        <location filename="../ui/UISettingsGUI.ui" line="166"/>
         <source>Icon theme</source>
         <translation>Ikontema</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="209"/>
+        <location filename="../ui/UISettingsGUI.ui" line="182"/>
         <source>Emoticon theme</source>
         <translation>Uttryckssymboltema</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="227"/>
+        <location filename="../ui/UISettingsGUI.ui" line="200"/>
         <source>Try to use system icons (need restart)</source>
         <translation>Försök att använda systemikoner (kräver omstart)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="234"/>
+        <location filename="../ui/UISettingsGUI.ui" line="207"/>
         <source>Don&apos;t show icons in menus (need restart)</source>
         <translation>Visa inte ikoner i menyn (kräver omstart)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="242"/>
+        <location filename="../ui/UISettingsGUI.ui" line="215"/>
         <source>Use default ToolBar (need restart)</source>
         <translation>Använd standard verktygsfält (kräver omstart)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="247"/>
+        <location filename="../ui/UISettingsGUI.ui" line="220"/>
         <source>Use multi-line ToolBar (need restart)</source>
         <translation>Använd flerradig verktygsfält (kräver omstart)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="252"/>
+        <location filename="../ui/UISettingsGUI.ui" line="225"/>
         <source>Use SideBar instead of ToolBar (need restart)</source>
         <translation>Använd sidfält i ställer för verktygsfält (kräver omstart)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="274"/>
+        <location filename="../ui/UISettingsGUI.ui" line="247"/>
         <source>Chat</source>
         <translation>Chatt</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="280"/>
+        <location filename="../ui/UISettingsGUI.ui" line="253"/>
         <source>Show joins</source>
         <translation>Visa anslutningar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="290"/>
+        <location filename="../ui/UISettingsGUI.ui" line="263"/>
         <source>Show joins only for favorite users</source>
         <translation>Visa anslutningar endast för favoritanvändare</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="297"/>
+        <location filename="../ui/UISettingsGUI.ui" line="270"/>
         <source>Show hidden users</source>
         <translation>Visa gömda användare</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="304"/>
+        <location filename="../ui/UISettingsGUI.ui" line="277"/>
         <source>Ignore private messages from Hub</source>
         <translation>Ignorera privata meddelanden från Hubben</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="311"/>
+        <location filename="../ui/UISettingsGUI.ui" line="284"/>
         <source>Ignore private messages from Bot</source>
         <translation>Ignorera privata meddelanden från Bot:ar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="318"/>
+        <location filename="../ui/UISettingsGUI.ui" line="291"/>
         <source>Redirect messages from Bot to the main chat</source>
         <translation>Vidarbefodra meddelanden från Bot:ar till huvudchatten</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="325"/>
+        <location filename="../ui/UISettingsGUI.ui" line="298"/>
         <source>Redirect new personal messages to the main chat</source>
         <translation>Vidarbefodra nya privata meddelanden till huvudchatten</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="332"/>
+        <location filename="../ui/UISettingsGUI.ui" line="305"/>
         <source>Do not change focus on new incoming private messages</source>
         <translation>Ändra inte aktivt fönster vid nya inkommande privatmeddelanden</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="342"/>
+        <location filename="../ui/UISettingsGUI.ui" line="315"/>
         <source>Use separator for unread messages in the chat</source>
         <translation>Använd avgränsare för olästa meddelande i chatten</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="349"/>
+        <location filename="../ui/UISettingsGUI.ui" line="322"/>
         <source>Filter kick-messages from the chat</source>
         <translation>Filtrera bort kickmeddelanden från chatten</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="356"/>
+        <location filename="../ui/UISettingsGUI.ui" line="329"/>
         <source>Use Ctrl+Enter to send messages</source>
         <translation>Skicka meddelanden med CTRL+ENTER</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="366"/>
+        <location filename="../ui/UISettingsGUI.ui" line="339"/>
         <source>Enable emoticons</source>
         <translation>Aktivera uttryckssymboler</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="373"/>
-        <source>If checked, you'll see emoticons even in the middle of words.
-If unchecked, you'll see emoticons only if they are isolated
+        <location filename="../ui/UISettingsGUI.ui" line="346"/>
+        <source>If checked, you&apos;ll see emoticons even in the middle of words.
+If unchecked, you&apos;ll see emoticons only if they are isolated
 from other words by spaces.</source>
         <translation>Markerad, kommer du att se uttryckssymboler mitt inne i orden.
 Avmarkerad, kommer du endast se uttryckssymboler om
 de är avskilda från andra ord med mellanslag.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="378"/>
+        <location filename="../ui/UISettingsGUI.ui" line="351"/>
         <source>Force emoticon parsing</source>
         <translation>Visa uttryckssymboler i orden</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="385"/>
+        <location filename="../ui/UISettingsGUI.ui" line="358"/>
         <source>Use emoticons panel</source>
         <translation>Använd uttryckssymbolpanel</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="392"/>
+        <location filename="../ui/UISettingsGUI.ui" line="365"/>
         <source>Autohide emoticons panel</source>
         <translation>Göm uttryckssympolsraden automatiskt</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="413"/>
+        <location filename="../ui/UISettingsGUI.ui" line="386"/>
         <source>Chat (extended)</source>
         <translation>Chatt (utökad)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="427"/>
+        <location filename="../ui/UISettingsGUI.ui" line="400"/>
         <source>Double click action</source>
         <translation>Dubbelklicksfunktion</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="441"/>
-        <location filename="../ui/UISettingsGUI.ui" line="460"/>
+        <location filename="../ui/UISettingsGUI.ui" line="414"/>
+        <location filename="../ui/UISettingsGUI.ui" line="433"/>
         <source>Insert nick into input widget</source>
         <translation>Infoga användarnamnet i ingångs-widgeten</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="446"/>
-        <location filename="../ui/UISettingsGUI.ui" line="465"/>
+        <location filename="../ui/UISettingsGUI.ui" line="419"/>
+        <location filename="../ui/UISettingsGUI.ui" line="438"/>
         <source>Get file list</source>
         <translation>Hämta fillista</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="451"/>
-        <location filename="../ui/UISettingsGUI.ui" line="470"/>
+        <location filename="../ui/UISettingsGUI.ui" line="424"/>
+        <location filename="../ui/UISettingsGUI.ui" line="443"/>
         <source>Private message</source>
         <translation>Privata meddelande</translation>
     </message>
     <message>
-        <source>show kibibyte (KiB) or kilobyte (KB), etc.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsGUI.ui" line="487"/>
+        <location filename="../ui/UISettingsGUI.ui" line="460"/>
         <source>Application unit base</source>
         <translation>Appliceringsenhetsbas</translation>
     </message>
     <message>
-        <source>1024</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>1000</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsGUI.ui" line="528"/>
+        <location filename="../ui/UISettingsGUI.ui" line="504"/>
         <source>Timestamp</source>
         <translation>Tidsangivelser</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="598"/>
-        <source>hh:mm:ss</source>
-        <translation>hh:mm:ss</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsGUI.ui" line="547"/>
+        <location filename="../ui/UISettingsGUI.ui" line="523"/>
         <source>Middle click action</source>
         <translation>Mittknappsfunktion</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="484"/>
+        <location filename="../ui/UISettingsGUI.ui" line="457"/>
         <source>Show kibibyte (KiB) or kilobyte (KB), etc.</source>
         <translation>Visa kibibyte (KiB) eller kilobyte (KB), etc.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="501"/>
-        <source>IEC</source>
-        <translation>IEC</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsGUI.ui" line="506"/>
-        <source>JEDEC</source>
-        <translation>JEDEC</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsGUI.ui" line="511"/>
+        <location filename="../ui/UISettingsGUI.ui" line="487"/>
         <source>Metric</source>
         <translation>Metrisk</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="525"/>
+        <location filename="../ui/UISettingsGUI.ui" line="501"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;These expressions may be used for the time:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Expression&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Output&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;h&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the hour without a leading zero (0 to 23 or 1 to 12 if AM/PM display)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;hh&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the hour with a leading zero (00 to 23 or 01 to 12 if AM/PM display)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;H&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the hour without a leading zero (0 to 23, even with AM/PM display)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;HH&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the hour with a leading zero (00 to 23, even with AM/PM display)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;m&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the minute without a leading zero (0 to 59)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;mm&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the minute with a leading zero (00 to 59)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;s&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the second without a leading zero (0 to 59)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;ss&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the second with a leading zero (00 to 59)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;z&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the milliseconds without leading zeroes (0 to 999)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;zzz&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the milliseconds with leading zeroes (000 to 999)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;AP or A&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;use AM/PM display. &lt;span style=&quot; font-style:italic;&quot;&gt;A/AP&lt;/span&gt; will be replaced by either &amp;quot;AM&amp;quot; or &amp;quot;PM&amp;quot;.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;ap or a&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;use am/pm display. &lt;span style=&quot; font-style:italic;&quot;&gt;a/ap&lt;/span&gt; will be replaced by either &amp;quot;am&amp;quot; or &amp;quot;pm&amp;quot;.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;t&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;the timezone (for example &amp;quot;CEST&amp;quot;)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dessa uttryck kan användas för tillfälligt:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Uttryck&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Utsignal&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;h&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;timmar utan en nolla framför (0 till 23 eller 1 till 12 med AM/PM-visning)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;hh&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;timmar med en nolla framför (00 till 23 eller 01 till 12 med AM/PM-visning)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;H&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;timmar utan en nolla framför (0 till 23, även med AM/PM-visning)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;HH&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;timmar med en nolla framför (00 till 23, även med AM/PM-visning)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;m&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;minuter utan en nolla framför (0 till 59)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;mm&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;minuter med en nolla framför (00 till 59)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;s&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;sekunder utan en nolla framför (0 till 59)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;ss&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;sekunder med en nolla framför (00 till 59)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;z&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;millisekunder utan nollor framför (0 till 999)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;zzz&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;millisekunder med nollor framför (000 till 999)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;AP eller A&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;använd AM/PM-visning. &lt;span style=&quot; font-style:italic;&quot;&gt;A/AP&lt;/span&gt; kommer att ersättas av antingen &amp;quot;AM&amp;quot; eller &amp;quot;PM&amp;quot;.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;ap eller a&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;använd am/pm-visning. &lt;span style=&quot; font-style:italic;&quot;&gt;a/ap&lt;/span&gt; kommer att ersättas av antingen &amp;quot;am&amp;quot; eller &amp;quot;pm&amp;quot;.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;t&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:top;&quot;&gt;&lt;p&gt;tidszonen (till exampel &amp;quot;CEST&amp;quot;)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="566"/>
+        <location filename="../ui/UISettingsGUI.ui" line="542"/>
         <source>Default action with magnet</source>
         <translation>Standardhändelse för magnet-länkar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="580"/>
+        <location filename="../ui/UISettingsGUI.ui" line="556"/>
         <source>Ask</source>
         <translation>Fråga</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="585"/>
+        <location filename="../ui/UISettingsGUI.ui" line="561"/>
         <source>Search</source>
         <translation>Sök</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="590"/>
-        <location filename="../ui/UISettingsGUI.ui" line="938"/>
+        <location filename="../ui/UISettingsGUI.ui" line="566"/>
+        <location filename="../ui/UISettingsGUI.ui" line="878"/>
         <source>Download</source>
         <translation>Nedladdning</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="615"/>
+        <location filename="../ui/UISettingsGUI.ui" line="591"/>
         <source>Remember outgoing messages (0 = don&apos;t remember)</source>
         <translation>Kom i håg utgående meddelanden (0 = kom inte i håg)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="644"/>
+        <location filename="../ui/UISettingsGUI.ui" line="620"/>
         <source>Maximum paragraphs</source>
         <translation>Maximala paragrafer</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="670"/>
+        <location filename="../ui/UISettingsGUI.ui" line="646"/>
         <source>Separator in chat</source>
         <translation>Avgränsare i chatt</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="684"/>
-        <source>:</source>
-        <translation>:</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsGUI.ui" line="689"/>
-        <source>,</source>
-        <translation>,</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsGUI.ui" line="699"/>
+        <location filename="../ui/UISettingsGUI.ui" line="675"/>
         <source>Highlight favorite users in user list</source>
         <translation>Markera favoritanvändare i användarlistan</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="706"/>
+        <location filename="../ui/UISettingsGUI.ui" line="682"/>
         <source>Depending on hub configuration: information about
 them is usually available only to operators</source>
         <translation>Beroende på hubbinställningar är informationen om
 dem oftast bara tillgängliga för operatörer</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="710"/>
+        <location filename="../ui/UISettingsGUI.ui" line="686"/>
         <source>Show ip-addresses of users in chat</source>
         <translation>Visa IP-adressen på de användare jag privatchattar med</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="717"/>
+        <location filename="../ui/UISettingsGUI.ui" line="693"/>
         <source>Show country of users in chat</source>
         <translation>Visa landet på de användare jag privatchattar med</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="724"/>
+        <location filename="../ui/UISettingsGUI.ui" line="700"/>
         <source>Parse BBCode</source>
         <translation>Parse BBCode</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="745"/>
+        <location filename="../ui/UISettingsGUI.ui" line="721"/>
         <source>Colors</source>
         <translation>Färger</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="751"/>
+        <location filename="../ui/UISettingsGUI.ui" line="727"/>
         <source>Text colors in chat</source>
         <translation>Textfärg i chatten</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="782"/>
+        <location filename="../ui/UISettingsGUI.ui" line="749"/>
         <source>Highlighting of search results in the chat</source>
         <translation>Markera sökresultat i chatten</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="800"/>
-        <location filename="../ui/UISettingsGUI.ui" line="867"/>
+        <location filename="../ui/UISettingsGUI.ui" line="758"/>
+        <location filename="../ui/UISettingsGUI.ui" line="816"/>
         <source>Color</source>
         <translation>Färg</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="820"/>
-        <location filename="../ui/UISettingsGUI.ui" line="884"/>
+        <location filename="../ui/UISettingsGUI.ui" line="778"/>
+        <location filename="../ui/UISettingsGUI.ui" line="833"/>
         <source>Transparency</source>
         <translation>Genomskinlig</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="849"/>
+        <location filename="../ui/UISettingsGUI.ui" line="807"/>
         <source>Highlighting of already shared files</source>
         <translation>Markera redan utdelade filer</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="913"/>
+        <location filename="../ui/UISettingsGUI.ui" line="862"/>
         <source>Transfer colors</source>
         <translation>Överföringsfärger</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="945"/>
+        <location filename="../ui/UISettingsGUI.ui" line="885"/>
         <source>Upload</source>
         <translation>Laddar upp</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="972"/>
+        <location filename="../ui/UISettingsGUI.ui" line="912"/>
         <source>Reset</source>
         <translation>Återställ</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="984"/>
+        <location filename="../ui/UISettingsGUI.ui" line="924"/>
         <source>Change background color in the chat</source>
         <translation>Ändra bakgrundsfärg på chattfönstret</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsGUI.ui" line="1027"/>
+        <location filename="../ui/UISettingsGUI.ui" line="967"/>
         <source>Fonts</source>
         <translation>Tysnitt</translation>
     </message>
@@ -6731,49 +6240,39 @@ dem oftast bara tillgängliga för operatörer</translation>
 <context>
     <name>UISettingsHistory</name>
     <message>
-        <location filename="../ui/UISettingsHistory.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsHistory.ui" line="44"/>
+        <location filename="../ui/UISettingsHistory.ui" line="53"/>
         <source>Clear search history on program exit</source>
         <translation>Rensa sökhistoriken när programmet avslutas</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsHistory.ui" line="57"/>
+        <location filename="../ui/UISettingsHistory.ui" line="66"/>
         <source>Clear download directories history on program exit</source>
         <translation>Rensa historiken för nedladdningskataloger när programmet avslutas</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsHistory.ui" line="67"/>
-        <location filename="../ui/UISettingsHistory.ui" line="74"/>
+        <location filename="../ui/UISettingsHistory.ui" line="76"/>
+        <location filename="../ui/UISettingsHistory.ui" line="83"/>
         <source>Clear now</source>
         <translation>Rensa nu</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsHistory.ui" line="87"/>
+        <location filename="../ui/UISettingsHistory.ui" line="96"/>
         <source>Number of search history elements to store:</source>
         <translation>Antal sökningar som ska sparas i historiken:</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsHistory.ui" line="113"/>
+        <location filename="../ui/UISettingsHistory.ui" line="122"/>
         <source>Number of download directories history elements to store:</source>
         <translation>Antal nedladdningskataloger som ska sparas i historiken:</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsHistory.ui" line="152"/>
+        <location filename="../ui/UISettingsHistory.ui" line="161"/>
         <source>Memorize TTH search phrases</source>
         <translation>Kom i håg TTH-sökningar</translation>
     </message>
 </context>
 <context>
     <name>UISettingsLog</name>
-    <message>
-        <location filename="../ui/UISettingsLog.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <location filename="../ui/UISettingsLog.ui" line="430"/>
         <source>Log directory</source>
@@ -6833,8 +6332,8 @@ dem oftast bara tillgängliga för operatörer</translation>
     </message>
     <message>
         <location filename="../ui/UISettingsLog.ui" line="294"/>
-        <source>Cmd Debug</source>
-        <translation>Cmd debug</translation>
+        <source>Debug Console</source>
+        <translation>Felsökningskonsol</translation>
     </message>
     <message>
         <location filename="../ui/UISettingsLog.ui" line="346"/>
@@ -6863,12 +6362,12 @@ dem oftast bara tillgängliga för operatörer</translation>
     </message>
     <message>
         <location filename="../ui/UISettingsLog.ui" line="385"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;https://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'DejaVu Sans'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://dcplusplus.sourceforge.net/webhelp/settings_logs.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#296fbe;&quot;&gt;Help&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;https://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;DejaVu Sans&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -6877,11 +6376,6 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>UISettingsNotification</name>
-    <message>
-        <location filename="../ui/UISettingsNotification.ui" line="14"/>
-        <source>Form</source>
-        <translation>FormForm</translation>
-    </message>
     <message>
         <location filename="../ui/UISettingsNotification.ui" line="24"/>
         <source>Text</source>
@@ -6899,19 +6393,19 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../ui/UISettingsNotification.ui" line="49"/>
-        <location filename="../ui/UISettingsNotification.ui" line="192"/>
+        <location filename="../ui/UISettingsNotification.ui" line="201"/>
         <source>Your nick is mentioned in main chat</source>
         <translation>Ditt användarnamn har nämnts i huvudchatten</translation>
     </message>
     <message>
         <location filename="../ui/UISettingsNotification.ui" line="56"/>
-        <location filename="../ui/UISettingsNotification.ui" line="224"/>
+        <location filename="../ui/UISettingsNotification.ui" line="242"/>
         <source>Private message</source>
         <translation>Privatmeddelande</translation>
     </message>
     <message>
         <location filename="../ui/UISettingsNotification.ui" line="63"/>
-        <location filename="../ui/UISettingsNotification.ui" line="263"/>
+        <location filename="../ui/UISettingsNotification.ui" line="290"/>
         <source>Transfer done</source>
         <translation>Överföring klar</translation>
     </message>
@@ -6941,56 +6435,56 @@ p, li { white-space: pre-wrap; }
         <translation>Ändra ikon när huvudfönstret är synligt</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsNotification.ui" line="124"/>
+        <location filename="../ui/UISettingsNotification.ui" line="133"/>
         <source>Notification module</source>
         <translation>Meddelande</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsNotification.ui" line="144"/>
+        <location filename="../ui/UISettingsNotification.ui" line="153"/>
         <source>Default (Qt)</source>
         <translation>Standard (Qt)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsNotification.ui" line="149"/>
+        <location filename="../ui/UISettingsNotification.ui" line="158"/>
         <source>D-Bus</source>
         <translation>D-Bus</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsNotification.ui" line="177"/>
+        <location filename="../ui/UISettingsNotification.ui" line="186"/>
         <source>Sound</source>
         <translation>Ljud</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsNotification.ui" line="183"/>
+        <location filename="../ui/UISettingsNotification.ui" line="192"/>
         <source>Enable sounds</source>
         <translation>Aktivera ljud</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsNotification.ui" line="207"/>
-        <location filename="../ui/UISettingsNotification.ui" line="239"/>
-        <location filename="../ui/UISettingsNotification.ui" line="278"/>
-        <location filename="../ui/UISettingsNotification.ui" line="310"/>
+        <location filename="../ui/UISettingsNotification.ui" line="225"/>
+        <location filename="../ui/UISettingsNotification.ui" line="266"/>
+        <location filename="../ui/UISettingsNotification.ui" line="314"/>
+        <location filename="../ui/UISettingsNotification.ui" line="355"/>
         <source>Test</source>
         <translation>Test</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsNotification.ui" line="253"/>
+        <location filename="../ui/UISettingsNotification.ui" line="280"/>
         <source>Play sound on active PM window</source>
         <translation>Spela upp ljud vid privatmeddelande</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsNotification.ui" line="295"/>
+        <location filename="../ui/UISettingsNotification.ui" line="331"/>
         <source>Favorite user event</source>
         <translation>Favoritanvändarhändelse</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsNotification.ui" line="343"/>
+        <location filename="../ui/UISettingsNotification.ui" line="388"/>
         <source>Use external command</source>
         <translation>Använd externa kommando</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsNotification.ui" line="355"/>
-        <source>If your sound files' format is unsupported by Qt, you can define
+        <location filename="../ui/UISettingsNotification.ui" line="409"/>
+        <source>If your sound files&apos; format is unsupported by Qt, you can define
 custom media player here to play them.
 For example: /usr/bin/mplayer</source>
         <translation>Om dina ljudfiler är i ett format som Qt inte kan spela upp kan du
@@ -7001,68 +6495,63 @@ Till exempel: /usr/bin/mplayer</translation>
 <context>
     <name>UISettingsPersonal</name>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="20"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="38"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="47"/>
         <source>This description will show in the user list.
 It can be overridden on a per-hub basis in the Favorite Hub Properties.</source>
         <translation>Denna beskrivning visar i användarlistan.
 Det går att ha olika beskrivningar i olika hubbar och det ändras då i egenskaper för favorithubb.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="46"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="55"/>
         <source>If you are in away mode, this message will be sent to everybody
 who sends private message to you.</source>
         <translation>När du är i IVD-läge (Inte Vid Datorn), kommer detta meddelande
 att skickas till alla som skickar privata meddelanden till dig.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="54"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="63"/>
         <source>Nick</source>
         <translation>Användarnamn</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="61"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="70"/>
         <source>This nickname, or handle, will identify you when you join a hub.
 It can be overridden on a per-hub basis in the Favorite Hub Properties.</source>
         <translation>Detta användarnamn används när du ansluter till en hubb.
 Det går att ha olika användarnamn i olika hubbar och det ändras då i egenskaper för favorithubb.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="69"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="78"/>
         <source>E-Mail</source>
         <translation>Epost</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="76"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="85"/>
         <source>Description</source>
         <translation>Beskrivning</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="83"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="92"/>
         <source>Away message</source>
         <translation>Inte Vid Datorn-meddelande</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="90"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="99"/>
         <source>Auto away interval (min)</source>
         <translation>Tid för automatiskt IVD (min)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="110"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="119"/>
         <source>This field is for sharing your email address, if you wish it.</source>
         <translation>Detta fältet är till för att visa din epostadress, om du vill.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="151"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="169"/>
         <source>Line speed (upload)</source>
         <translation>Internethastighet (uppladdning)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="170"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="188"/>
         <source>This drop-down contains a number of common upload speeds (in MiB/s),
 please choose the one closest to your own.
 Do not put in your download speed; this setting is a measure
@@ -7072,23 +6561,18 @@ välj den som är närmast din.
 Välj inte din nedladdningshastighet då denna visar hur fort andra användare kan ladda ned från dig.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="186"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="204"/>
         <source>MiB/s</source>
         <translation>MiB/s</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsPersonal.ui" line="199"/>
+        <location filename="../ui/UISettingsPersonal.ui" line="217"/>
         <source>Default hub encoding</source>
         <translation>Standard teckenkodning i hubben</translation>
     </message>
 </context>
 <context>
     <name>UISettingsSharing</name>
-    <message>
-        <location filename="../ui/UISettingsSharing.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
     <message>
         <location filename="../ui/UISettingsSharing.ui" line="27"/>
         <source>Basic</source>
@@ -7207,72 +6691,42 @@ och kan få klienten att verka ha låst sig.</translation>
         <translation>Buffertstorlek (MiB)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="292"/>
-        <source>1</source>
-        <translation>1</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsSharing.ui" line="297"/>
-        <source>2</source>
-        <translation>2</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsSharing.ui" line="302"/>
-        <source>4</source>
-        <translation>4</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsSharing.ui" line="307"/>
+        <location filename="../ui/UISettingsSharing.ui" line="288"/>
         <source>8</source>
         <translation>8</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="312"/>
-        <source>16</source>
-        <translation>16</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsSharing.ui" line="317"/>
-        <source>32</source>
-        <translation>32</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsSharing.ui" line="322"/>
-        <source>64</source>
-        <translation>64</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsSharing.ui" line="338"/>
+        <location filename="../ui/UISettingsSharing.ui" line="341"/>
         <source>FastHash options (restart needed)</source>
         <translation>Inställningar för snabbindexering (omstart krävs)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="346"/>
+        <location filename="../ui/UISettingsSharing.ui" line="349"/>
         <source>Private page mapping</source>
         <translation>Privat sidmappning</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="353"/>
+        <location filename="../ui/UISettingsSharing.ui" line="356"/>
         <source>No reserve</source>
         <translation>Ej reserverad</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="367"/>
+        <location filename="../ui/UISettingsSharing.ui" line="370"/>
         <source>Proactive read from disk</source>
         <translation>Proaktiv läs från disk</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="379"/>
+        <location filename="../ui/UISettingsSharing.ui" line="382"/>
         <source>Use ADL search only in own file list</source>
         <translation>Använd endast ADL-sök i din fillista</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="394"/>
+        <location filename="../ui/UISettingsSharing.ui" line="397"/>
         <source>Automatically open extra slot if speed is below (KiB/s, 0 = infinite)</source>
         <translation>Öppna extra slott om hastigheten är lägre än (KiB/s, 0 = obegränsat)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="410"/>
+        <location filename="../ui/UISettingsSharing.ui" line="413"/>
         <source>If the average upload speed drops below the given number,
 an additional upload slot will be granted.
 These slots are granted once every 30 seconds at maximum.
@@ -7285,46 +6739,46 @@ Om hastigheten ökar kommer de extra slottarna inte att
 stängas ned.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="430"/>
+        <location filename="../ui/UISettingsSharing.ui" line="433"/>
         <source>Hashing delay on startup (seconds, -1 = infinity)</source>
         <translation>Fördröj indexering vid uppstart (sekunder, -1 = obegränsat)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="446"/>
-        <location filename="../ui/UISettingsSharing.ui" line="481"/>
+        <location filename="../ui/UISettingsSharing.ui" line="449"/>
+        <location filename="../ui/UISettingsSharing.ui" line="484"/>
         <source>Here you can set time interval of auto refreshing your share.</source>
         <translation>Här ställer du tiden när din utdelning automatiskt ska uppdateras.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="465"/>
+        <location filename="../ui/UISettingsSharing.ui" line="468"/>
         <source>Auto refresh time (minutes, 0 = off)</source>
         <translation>Automatisk uppdateringstid (minuter, 0 = av)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="497"/>
+        <location filename="../ui/UISettingsSharing.ui" line="500"/>
         <source>Max hash speed (MB/s) (0 = infinite)</source>
         <translation>Maximal indexeringshastighet (MB/s) (0 = obegränsat)</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="510"/>
+        <location filename="../ui/UISettingsSharing.ui" line="513"/>
         <source>You can limit maximum hash speed here
 if your system becomes slow while hashing files.</source>
         <translation>Du kan begränsa indexeringshastighet här
 om du tycker dator blir långsam vid indexeringen.</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="524"/>
+        <location filename="../ui/UISettingsSharing.ui" line="527"/>
         <source>Upload slots</source>
         <translation>Uppladdningsslottar</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsSharing.ui" line="534"/>
+        <location filename="../ui/UISettingsSharing.ui" line="537"/>
         <source>Configure the number of slots that other users can occupy
 to download files from you. A remote user can use only
-one slot for each hub that they're on with you.
+one slot for each hub that they&apos;re on with you.
 EiskaltDC++ supports uploading file lists and files below 64 KiB
 to other DC++ users without requiring a slot.
-There's a max of 3 connections in addition to normal slots,
+There&apos;s a max of 3 connections in addition to normal slots,
 these are called mini slots.
 Note: If a user leaves the hub, EiskaltDC++ will close his slots;
 if the user is back within 10 minutes, EiskaltDC++ will grant him a slot.</source>
@@ -7340,67 +6794,31 @@ stänga hans slott, men om användaren återkommer inom
     </message>
 </context>
 <context>
-    <name>UISettingsShortcuts</name>
-    <message>
-        <location filename="../ui/UISettingsShortcuts.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-</context>
-<context>
     <name>UISettingsUC</name>
     <message>
-        <location filename="../ui/UISettingsUC.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
-        <location filename="../ui/UISettingsUC.ui" line="42"/>
+        <location filename="../ui/UISettingsUC.ui" line="51"/>
         <source>Add</source>
         <translation>Lägg till</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsUC.ui" line="49"/>
+        <location filename="../ui/UISettingsUC.ui" line="58"/>
         <source>Change</source>
         <translation>Ändra</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsUC.ui" line="56"/>
+        <location filename="../ui/UISettingsUC.ui" line="65"/>
         <source>Remove</source>
         <translation>Ta bort</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsUC.ui" line="63"/>
+        <location filename="../ui/UISettingsUC.ui" line="72"/>
         <source>Up</source>
         <translation>Upp</translation>
     </message>
     <message>
-        <location filename="../ui/UISettingsUC.ui" line="83"/>
+        <location filename="../ui/UISettingsUC.ui" line="92"/>
         <source>Down</source>
         <translation>Ner</translation>
-    </message>
-</context>
-<context>
-    <name>UIShareBrowser</name>
-    <message>
-        <location filename="../ui/UIShareBrowser.ui" line="20"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message utf8="true">
-        <location filename="../ui/UIShareBrowser.ui" line="103"/>
-        <source>←</source>
-        <translation>←</translation>
-    </message>
-    <message utf8="true">
-        <location filename="../ui/UIShareBrowser.ui" line="110"/>
-        <source>→</source>
-        <translation>→</translation>
-    </message>
-    <message utf8="true">
-        <location filename="../ui/UIShareBrowser.ui" line="117"/>
-        <source>↑</source>
-        <translation>↑</translation>
     </message>
 </context>
 <context>
@@ -7440,11 +6858,6 @@ stänga hans slott, men om användaren återkommer inom
 <context>
     <name>UISpy</name>
     <message>
-        <location filename="../ui/UISpy.ui" line="14"/>
-        <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message>
         <location filename="../ui/UISpy.ui" line="35"/>
         <source>Ignore TTH search</source>
         <translation>Ignorera TTH-sök</translation>
@@ -7463,14 +6876,6 @@ stänga hans slott, men om användaren återkommer inom
         <location filename="../ui/UISpy.ui" line="69"/>
         <source>Clear</source>
         <translation>Rensa</translation>
-    </message>
-</context>
-<context>
-    <name>UITransferView</name>
-    <message>
-        <location filename="../ui/UITransferView.ui" line="20"/>
-        <source>Form</source>
-        <translation>Form</translation>
     </message>
 </context>
 <context>
@@ -7569,57 +6974,57 @@ stänga hans slott, men om användaren återkommer inom
 <context>
     <name>UserListModel</name>
     <message>
-        <location filename="../src/UserListModel.cpp" line="130"/>
+        <location filename="../src/UserListModel.cpp" line="131"/>
         <source>&lt;b&gt;Hub role&lt;/b&gt;: Operator</source>
         <translation>&lt;b&gt;Hubbroll&lt;/b&gt;: Operatör</translation>
     </message>
     <message>
-        <location filename="../src/UserListModel.cpp" line="132"/>
+        <location filename="../src/UserListModel.cpp" line="133"/>
         <source>&lt;b&gt;Hub role&lt;/b&gt;: User</source>
         <translation>&lt;b&gt;Hubbroll&lt;/b&gt;: Användare</translation>
     </message>
     <message>
-        <location filename="../src/UserListModel.cpp" line="135"/>
+        <location filename="../src/UserListModel.cpp" line="136"/>
         <source>&lt;br/&gt;&lt;b&gt;Favorite user&lt;/b&gt;</source>
         <translation>&lt;br/&gt;&lt;b&gt;Favoritanvändare&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../src/UserListModel.cpp" line="168"/>
+        <location filename="../src/UserListModel.cpp" line="169"/>
         <source>Nick</source>
         <translation>Användarnamn</translation>
     </message>
     <message>
-        <location filename="../src/UserListModel.cpp" line="169"/>
+        <location filename="../src/UserListModel.cpp" line="170"/>
         <source>Comment</source>
         <translation>Kommentar</translation>
     </message>
     <message>
-        <location filename="../src/UserListModel.cpp" line="170"/>
+        <location filename="../src/UserListModel.cpp" line="171"/>
         <source>Tag</source>
         <translation>Etikett</translation>
     </message>
     <message>
-        <location filename="../src/UserListModel.cpp" line="171"/>
+        <location filename="../src/UserListModel.cpp" line="172"/>
         <source>Connection</source>
         <translation>Anslutning</translation>
     </message>
     <message>
-        <location filename="../src/UserListModel.cpp" line="172"/>
+        <location filename="../src/UserListModel.cpp" line="173"/>
         <source>E-mail</source>
         <translation>Epost</translation>
     </message>
     <message>
-        <location filename="../src/UserListModel.cpp" line="173"/>
+        <location filename="../src/UserListModel.cpp" line="174"/>
         <source>Share</source>
         <translation>Utdelat</translation>
     </message>
     <message>
-        <location filename="../src/UserListModel.cpp" line="174"/>
+        <location filename="../src/UserListModel.cpp" line="175"/>
         <source>Exact share size</source>
         <translation>Exakt utdelningsstorlek</translation>
     </message>
     <message>
-        <location filename="../src/UserListModel.cpp" line="175"/>
+        <location filename="../src/UserListModel.cpp" line="176"/>
         <source>IP</source>
         <translation>IP</translation>
     </message>
@@ -7627,74 +7032,30 @@ stänga hans slott, men om användaren återkommer inom
 <context>
     <name>WulforSettings</name>
     <message>
-        <location filename="../src/WulforSettings.cpp" line="411"/>
-        <source>Gui setting %1: %2</source>
+        <location filename="../src/WulforSettings.cpp" line="404"/>
+        <source>GUI setting %1: %2</source>
         <translation>GUI-inställning %1: %2</translation>
     </message>
     <message>
-        <location filename="../src/WulforSettings.cpp" line="420"/>
-        <source>Change gui setting %1 to %2</source>
+        <location filename="../src/WulforSettings.cpp" line="413"/>
+        <source>Change GUI setting %1 to %2</source>
         <translation>Ändra GUI-inställning %1 till %2</translation>
     </message>
 </context>
 <context>
     <name>WulforUtil</name>
     <message>
-        <location filename="../src/WulforUtil.cpp" line="704"/>
+        <location filename="../src/WulforUtil.cpp" line="747"/>
         <source>System default</source>
         <translation>Systemstandard</translation>
     </message>
     <message>
-        <source>%1 B</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>%1 KiB</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>%1 MiB</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>%1 GiB</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>%1 TiB</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>%1 PiB</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>%1 KB</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>%1 MB</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>%1 GB</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>%1 TB</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <source>%1 PB</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../src/WulforUtil.cpp" line="1015"/>
+        <location filename="../src/WulforUtil.cpp" line="1054"/>
         <source>Offline</source>
         <translation>Frånkopplad</translation>
     </message>
     <message>
-        <location filename="../src/WulforUtil.cpp" line="1118"/>
+        <location filename="../src/WulforUtil.cpp" line="1157"/>
         <source>User commands</source>
         <translation>Användarkommandon</translation>
     </message>

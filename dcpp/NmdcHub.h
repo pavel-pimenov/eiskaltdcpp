@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2009-2019 EiskaltDC++ developers
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,11 +13,12 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
+
+#include <list>
 
 #include "TimerManager.h"
 #include "SettingsManager.h"
@@ -24,13 +26,14 @@
 #include "CriticalSection.h"
 #include "Text.h"
 #include "Client.h"
-#include "BufferedSocket.h"
-#include "ClientManager.h"
 
 #ifdef LUA_SCRIPT
 #include "ScriptManager.h"
 #endif
+
 namespace dcpp {
+
+using std::list;
 
 #ifdef LUA_SCRIPT
 struct NmdcHubScriptInstance : public ScriptInstance {
@@ -41,9 +44,10 @@ struct NmdcHubScriptInstance : public ScriptInstance {
 
 class ClientManager;
 
-class NmdcHub : public Client, private Flags
 #ifdef LUA_SCRIPT
-,public NmdcHubScriptInstance
+class NmdcHub : public Client, private Flags ,public NmdcHubScriptInstance
+#else
+class NmdcHub : public Client, private Flags
 #endif
 {
 public:
@@ -63,15 +67,16 @@ public:
     virtual size_t getUserCount() const { Lock l(cs); return users.size(); }
     virtual int64_t getAvailable() const;
 
-    virtual string escape(string const& str) const { return validateMessage(str, false); }
+    static string escape(const string& str) { return validateMessage(str, false); }
     static string unescape(const string& str) { return validateMessage(str, true); }
 
+    void emulateCommand(const string& cmd) { onLine(cmd); }
     virtual void send(const AdcCommand&) { dcassert(0); }
 
     static string validateMessage(string tmp, bool reverse);
 
 private:
-friend class ClientManager;
+    friend class ClientManager;
     enum SupportFlags {
         SUPPORTS_USERCOMMAND = 0x01,
         SUPPORTS_NOGETINFO = 0x02,
@@ -80,10 +85,7 @@ friend class ClientManager;
 
     mutable CriticalSection cs;
 
-    typedef unordered_map<string, OnlineUser*, CaseStringHash, CaseStringEq> NickMap;
-    typedef NickMap::iterator NickIter;
-
-    NickMap users;
+    unordered_map<string, OnlineUser*, CaseStringHash, CaseStringEq> users;
 
     int supportFlags;
 
@@ -100,10 +102,6 @@ friend class ClientManager;
 
     NmdcHub(const string& aHubURL, bool secure);
     virtual ~NmdcHub();
-
-    // Dummy
-    NmdcHub(const NmdcHub&);
-    NmdcHub& operator=(const NmdcHub&);
 
     void clearUsers();
 

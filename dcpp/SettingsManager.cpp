@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
@@ -84,7 +83,7 @@ const string SettingsManager::settingTags[] =
     "DontDlAlreadyQueued", "MaxCommandLength", "AllowUntrustedHubs",
     "AllowUntrustedClients", "TLSPort", "FastHash",
     "SegmentedDL", "FollowLinks", "SendBloom",
-    "Coral", "SearchFilterShared", "FinishedDLOnlyFull",
+    "SearchFilterShared", "FinishedDLOnlyFull",
     "SearchMerge", "HashBufferSize", "HashBufferPopulate",
     "HashBufferNoReserve", "HashBufferPrivate",
     "UseDHT", "DHTPort",
@@ -144,12 +143,14 @@ SettingsManager::SettingsManager()
 
     setDefault(DOWNLOAD_DIRECTORY, Util::getPath(Util::PATH_DOWNLOADS));
     setDefault(TEMP_DOWNLOAD_DIRECTORY, Util::getPath(Util::PATH_DOWNLOADS) + "Incomplete" PATH_SEPARATOR_STR);
+    setDefault(BIND_ADDRESS, "0.0.0.0");
     setDefault(SLOTS, 5);
     setDefault(TCP_PORT, 3000);
     setDefault(UDP_PORT, 3000);
     setDefault(TLS_PORT, 3001);
     setDefault(INCOMING_CONNECTIONS, INCOMING_DIRECT);
     setDefault(OUTGOING_CONNECTIONS, OUTGOING_DIRECT);
+    setDefault(AUTO_DETECT_CONNECTION, false);
     setDefault(AUTO_FOLLOW, true);
     setDefault(SHARE_HIDDEN, false);
     setDefault(FILTER_MESSAGES, true);
@@ -162,8 +163,14 @@ SettingsManager::SettingsManager()
     setDefault(LIST_DUPES, true);
     setDefault(BUFFER_SIZE, 64);
     setDefault(HUBLIST_SERVERS,
-               "http://dchublist.com/hublist.xml.bz2;"
-               "http://dchublist.ru/hublist.xml.bz2"
+               "https://www.te-home.net/?do=hublist&get=hublist.xml.bz2;"
+               "https://tankafett.biz/?do=hublist&get=hublist.xml.bz2;"
+               "https://dchublist.org/hublist.xml.bz2;"
+               "https://dchublist.biz/hublist.xml.bz2;"
+               "https://dchublist.ru/hublist.xml.bz2;"
+               "https://hublist.eu/hublist.xml.bz2;"
+               "https://dcnf.github.io/Hublist/hublist.xml.bz2;"
+               "https://dchublist.org/adchublist.xml.bz2;"
                );
     setDefault(DOWNLOAD_SLOTS, 3);
     setDefault(SKIPLIST_SHARE, "*.~*|*.*~");
@@ -194,10 +201,8 @@ SettingsManager::SettingsManager()
     setDefault(LOG_FILE_DOWNLOAD,     "Downloads.log");
     setDefault(LOG_FILE_FINISHED_DOWNLOAD, "Finished_downloads.log");
     setDefault(LOG_FILE_SYSTEM,       "System.log");
-    setDefault(LOG_FILE_SPY,       "Spy.log");
-    setDefault(LOG_FILE_CMD_DEBUG,       "CmdDebug.log");
-    setDefault(AUTO_AWAY, false);
-    setDefault(BIND_ADDRESS, "0.0.0.0");
+    setDefault(LOG_FILE_SPY,          "Spy.log");
+    setDefault(LOG_FILE_CMD_DEBUG,    "CmdDebug.log");
     setDefault(SOCKS_PORT, 1080);
     setDefault(SOCKS_RESOLVE, 1);
     setDefault(CONFIG_VERSION, "0.181");        // 0.181 is the last version missing configversion
@@ -206,6 +211,7 @@ SettingsManager::SettingsManager()
     setDefault(COMPRESS_TRANSFERS, true);
     setDefault(SFV_CHECK, true);
     setDefault(DEFAULT_AWAY_MESSAGE, "I'm away. State your business and I might answer later if you're lucky.");
+    setDefault(AUTO_AWAY, false);
     setDefault(TIME_STAMPS_FORMAT, "%H:%M");
     setDefault(MAX_COMPRESSION, 6);
     setDefault(NO_AWAYMSG_TO_BOTS, true);
@@ -251,9 +257,9 @@ SettingsManager::SettingsManager()
     setDefault(TLS_TRUSTED_CERTIFICATES_PATH, Util::getPath(Util::PATH_USER_CONFIG) + "Certificates" PATH_SEPARATOR_STR);
     setDefault(TLS_PRIVATE_KEY_FILE, Util::getPath(Util::PATH_USER_CONFIG) + "Certificates" PATH_SEPARATOR_STR "client.key");
     setDefault(TLS_CERTIFICATE_FILE, Util::getPath(Util::PATH_USER_CONFIG) + "Certificates" PATH_SEPARATOR_STR "client.crt");
-    setDefault(AUTO_REFRESH_TIME, 60);  // minutes
-    setDefault(HASHING_START_DELAY, 60); // seconds
     setDefault(USE_TLS, true);
+    setDefault(HASHING_START_DELAY, 60); // seconds
+    setDefault(AUTO_REFRESH_TIME, 60);
     setDefault(AUTO_SEARCH_LIMIT, 5);
     setDefault(AUTO_KICK_NO_FAVS, false);
     setDefault(PROMPT_PASSWORD, false);
@@ -265,7 +271,6 @@ SettingsManager::SettingsManager()
     setDefault(SEGMENTED_DL, true);
     setDefault(FOLLOW_LINKS, false);
     setDefault(SEND_BLOOM, true);
-    setDefault(CORAL, true);
     setDefault(FINISHED_DL_ONLY_FULL, true);
     setDefault(SEARCH_MERGE, true);
     setDefault(HASH_BUFFER_SIZE_MB, 8);
@@ -274,19 +279,18 @@ SettingsManager::SettingsManager()
     setDefault(HASH_BUFFER_PRIVATE, true);
     setDefault(RECONNECT_DELAY, 15);
     setDefault(DHT_PORT, 6250);
-    setDefault(USE_DHT, false);
+    setDefault(USE_DHT, true);
     setDefault(SEARCH_PASSIVE, false);
-    setDefault(AUTO_DETECT_CONNECTION, false);
     setDefault(MAX_UPLOAD_SPEED_MAIN, 0);
     setDefault(MAX_DOWNLOAD_SPEED_MAIN, 0);
     setDefault(TIME_DEPENDENT_THROTTLE, false);
-    setDefault(THROTTLE_ENABLE, false);
     setDefault(MAX_DOWNLOAD_SPEED_ALTERNATE, 0);
     setDefault(MAX_UPLOAD_SPEED_ALTERNATE, 0);
     setDefault(BANDWIDTH_LIMIT_START, 1);
     setDefault(BANDWIDTH_LIMIT_END, 1);
     setDefault(SLOTS_ALTERNATE_LIMITING, 1);
     setDefault(SLOTS_PRIMARY, 3);
+    setDefault(THROTTLE_ENABLE, false);
     setDefault(KEEP_FINISHED_FILES, false);
     setDefault(USE_IP, true);
     setDefault(SHOW_FREE_SLOTS_DESC, false);
@@ -308,6 +312,8 @@ SettingsManager::SettingsManager()
     setDefault(CHECK_TARGETS_PATHS_ON_START, false);
     setDefault(SHARE_SKIP_ZERO_BYTE, false);
     setDefault(APP_UNIT_BASE, 0);
+    setDefault(REQUIRE_TLS, true); // True by default: We assume TLS is commonplace enough among ADC clients.
+
     setSearchTypeDefaults();
 }
 
@@ -390,7 +396,7 @@ void SettingsManager::load(string const& aFileName)
             }
         }
 
-        if(SETTING(PRIVATE_ID).length() != 39 || CID(SETTING(PRIVATE_ID)).isZero()) {
+        if(SETTING(PRIVATE_ID).length() != 39 || !CID(SETTING(PRIVATE_ID))) {
             set(PRIVATE_ID, CID::generate().toBase32());
         }
 
@@ -424,6 +430,8 @@ void SettingsManager::load(string const& aFileName)
             set(AUTO_SEARCH_LIMIT, 5);
         else if(SETTING(AUTO_SEARCH_LIMIT) < 1)
             set(AUTO_SEARCH_LIMIT, 1);
+        if(SETTING(MAX_FILELIST_SIZE) < 1024)
+            set(MAX_FILELIST_SIZE, 1024);
 
 #ifdef _DEBUG
         set(PRIVATE_ID, CID::generate().toBase32());
@@ -437,10 +445,10 @@ void SettingsManager::load(string const& aFileName)
         xml.stepOut();
 
     } catch(const Exception&) {
-        if(CID(SETTING(PRIVATE_ID)).isZero())
+        if(!CID(SETTING(PRIVATE_ID)))
             set(PRIVATE_ID, CID::generate().toBase32());
     }
-    if (SETTING(DHT_KEY).length() != 39 || CID(SETTING(DHT_KEY)).isZero())
+    if (SETTING(DHT_KEY).length() != 39 || !CID(SETTING(DHT_KEY)))
         set(DHT_KEY, CID::generate().toBase32());
 }
 
@@ -494,9 +502,9 @@ void SettingsManager::save(string const& aFileName) {
 
     xml.addTag("SearchTypes");
     xml.stepIn();
-    for(SearchTypesIterC i = searchTypes.begin(); i != searchTypes.end(); ++i) {
-        xml.addTag("SearchType", Util::toString(";", i->second));
-        xml.addChildAttrib("Id", i->first);
+    for(auto& i: searchTypes) {
+        xml.addTag("SearchType", Util::toString(";", i.second));
+        xml.addChildAttrib("Id", i.first);
     }
     xml.stepOut();
 
@@ -531,7 +539,7 @@ void SettingsManager::setSearchTypeDefaults() {
     searchTypes.clear();
 
     // for conveniency, the default search exts will be the same as the ones defined by SEGA.
-    const vector<StringList>& searchExts = AdcHub::getSearchExts();
+    const auto& searchExts = AdcHub::getSearchExts();
     for(size_t i = 0, n = searchExts.size(); i < n; ++i)
         searchTypes[string(1, '1' + i)] = searchExts[i];
 
@@ -581,7 +589,7 @@ SettingsManager::SearchTypesIter SettingsManager::getSearchType(const string& na
     return ret;
 }
 
-bool SettingsManager::getType(const char* name, int& n, int& type) const {
+bool SettingsManager::getType(const char* name, int& n, Types &type) const {
     for(n = 0; n < INT64_LAST; n++) {
         if (strcmp(settingTags[n].c_str(), name) == 0) {
             if (n < STR_LAST) {
@@ -599,7 +607,7 @@ bool SettingsManager::getType(const char* name, int& n, int& type) const {
     return false;
 }
 
-const std::string SettingsManager::parseCoreCmd(const std::string& cmd) {
+const std::string SettingsManager::parseCoreCmd(const string& cmd) {
     StringTokenizer<string> sl(cmd, ' ');
     if (sl.getTokens().size() == 1) {
         string ret;
@@ -614,13 +622,14 @@ const std::string SettingsManager::parseCoreCmd(const std::string& cmd) {
     return Util::emptyString;
 }
 
-bool SettingsManager::parseCoreCmd(string& ret, const std::string& key, const string& value) {
+bool SettingsManager::parseCoreCmd(string& ret, const string& key, const string& value) {
     if (key.empty()) {
         return false;
     }
 
-    int n,type;
-    getType(key.c_str(),n,type);
+    int n;
+    SettingsManager::Types type;
+    getType(key.c_str(), n, type);
     if (type == SettingsManager::TYPE_INT) {
         if (!value.empty()) {
             int i = atoi(value.c_str());

@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -235,12 +234,12 @@ void WulforUtil::openURI(const string &uri)
     if (!SETTING(MIME_HANDLER).empty())
         argv[0] = (gchar *)(SETTING(MIME_HANDLER)).c_str();
     else
-#if defined(__APPLE__)
-    argv[0] = (gchar *)"open";
+#if defined(__APPLE__) && defined(__MACH__)
+        argv[0] = (gchar *)"open";
 #elif defined(_WIN32)
-    argv[0] = (gchar *)"start";
+        argv[0] = (gchar *)"start";
 #else
-    argv[0] = (gchar *)"xdg-open";
+        argv[0] = (gchar *)"xdg-open";
 #endif
     argv[1] = (gchar *)Text::fromUtf8(uri).c_str();
     argv[2] = NULL;
@@ -272,7 +271,7 @@ string WulforUtil::colorToString(const GdkColor *color)
     gchar strcolor[14];
 
     g_snprintf(strcolor, sizeof(strcolor), "#%04X%04X%04X",
-        color->red, color->green, color->blue);
+               color->red, color->green, color->blue);
     //printf("WulforUtil::colorToString{GdkColor} %s\n", strcolor);fflush(stdout);
     return strcolor;
 }
@@ -283,7 +282,7 @@ string WulforUtil::colorToString(const GdkRGBA *color)
     gchar strcolor[14];
 
     g_snprintf(strcolor, sizeof(strcolor), "#%04X%04X%04X",
-        (uint16_t)(color->red*65535.0), (uint16_t)(color->green*65535.0), (uint16_t)(color->blue*65535.0));
+               (uint16_t)(color->red*65535.0), (uint16_t)(color->green*65535.0), (uint16_t)(color->blue*65535.0));
     //printf("WulforUtil::colorToString{GdkRGBA} %s\n",strcolor);fflush(stdout);
     return strcolor;
 }
@@ -312,7 +311,7 @@ GdkPixbuf* WulforUtil::scalePixbuf(const GdkPixbuf *pixbuf, const int width, con
     else
         scale = gdk_pixbuf_scale_simple(pixbuf, (int)(Width * k * 0.85), (int)(Height * k * 0.85), type);
     return
-        scale;
+            scale;
 }
 
 string WulforUtil::makeMagnet(const string &name, const int64_t size, const string &tth)
@@ -338,9 +337,9 @@ bool WulforUtil::splitMagnet(const string &magnet, string &name, int64_t &size, 
         tth=params["xt"];
         size = Util::toInt64(params["xl"]);
         name = params["dn"];
-        return TRUE;
+        return true;
     }
-    return FALSE;
+    return false;
 }
 
 bool WulforUtil::splitMagnet(const string &magnet, string &line)
@@ -352,9 +351,9 @@ bool WulforUtil::splitMagnet(const string &magnet, string &line)
     if (splitMagnet(magnet, name, size, tth))
         line = name + " (" + Util::formatBytes(size) + ")";
     else
-        return FALSE;
+        return false;
 
-    return TRUE;
+    return true;
 }
 
 bool WulforUtil::isMagnet(const string &text)
@@ -365,22 +364,23 @@ bool WulforUtil::isMagnet(const string &text)
 bool WulforUtil::isLink(const string &text)
 {
     return g_ascii_strncasecmp(text.c_str(), "http://", 7) == 0 ||
-        g_ascii_strncasecmp(text.c_str(), "https://", 8) == 0 ||
-        g_ascii_strncasecmp(text.c_str(), "www.", 4) == 0 ||
-        g_ascii_strncasecmp(text.c_str(), "ftp://", 6) == 0 ||
-        g_ascii_strncasecmp(text.c_str(), "sftp://", 7) == 0 ||
-        g_ascii_strncasecmp(text.c_str(), "irc://", 6) == 0 ||
-        g_ascii_strncasecmp(text.c_str(), "ircs://", 7) == 0 ||
-        g_ascii_strncasecmp(text.c_str(), "im:", 3) == 0 ||
-        g_ascii_strncasecmp(text.c_str(), "mailto:", 7) == 0 ||
-        g_ascii_strncasecmp(text.c_str(), "news:", 5) == 0;
+            g_ascii_strncasecmp(text.c_str(), "https://", 8) == 0 ||
+            g_ascii_strncasecmp(text.c_str(), "www.", 4) == 0 ||
+            g_ascii_strncasecmp(text.c_str(), "ftp://", 6) == 0 ||
+            g_ascii_strncasecmp(text.c_str(), "sftp://", 7) == 0 ||
+            g_ascii_strncasecmp(text.c_str(), "irc://", 6) == 0 ||
+            g_ascii_strncasecmp(text.c_str(), "ircs://", 7) == 0 ||
+            g_ascii_strncasecmp(text.c_str(), "im:", 3) == 0 ||
+            g_ascii_strncasecmp(text.c_str(), "mailto:", 7) == 0 ||
+            g_ascii_strncasecmp(text.c_str(), "news:", 5) == 0;
 }
 
 bool WulforUtil::isHubURL(const string &text)
 {
     return g_ascii_strncasecmp(text.c_str(), "dchub://", 8) == 0 ||
-        g_ascii_strncasecmp(text.c_str(), "adc://", 6) == 0 ||
-        g_ascii_strncasecmp(text.c_str(), "adcs://", 7) == 0;
+            g_ascii_strncasecmp(text.c_str(), "nmdcs://", 8) == 0 ||
+            g_ascii_strncasecmp(text.c_str(), "adc://", 6) == 0 ||
+            g_ascii_strncasecmp(text.c_str(), "adcs://", 7) == 0;
 }
 
 bool WulforUtil::profileIsLocked()
@@ -388,7 +388,7 @@ bool WulforUtil::profileIsLocked()
     static bool profileIsLocked = false;
 
     if (profileIsLocked)
-        return TRUE;
+        return true;
 
     // We can't use Util::getConfigPath() since the core has not been started yet.
     // Also, Util::getConfigPath() is utf8 and we need system encoding for g_open().
@@ -427,9 +427,9 @@ bool WulforUtil::profileIsLocked()
 }
 
 
-gboolean WulforUtil::getNextIter_gui(GtkTreeModel *model, GtkTreeIter *iter, bool children /* = TRUE */, bool parent /* = TRUE */)
+gboolean WulforUtil::getNextIter_gui(GtkTreeModel *model, GtkTreeIter *iter, bool children /* = true */, bool parent /* = true */)
 {
-    gboolean valid = FALSE;
+    gboolean valid = false;
     GtkTreeIter old = *iter;
 
     if (children && gtk_tree_model_iter_has_child(model, iter))
@@ -469,7 +469,7 @@ GtkTreeIter WulforUtil::copyRow_gui(GtkListStore *store, GtkTreeIter *fromIter, 
 
 void WulforUtil::copyValue_gui(GtkListStore *store, GtkTreeIter *fromIter, GtkTreeIter *toIter, int position)
 {
-    GValue value = {0, };
+    GValue value = G_VALUE_INIT;
     gtk_tree_model_get_value(GTK_TREE_MODEL(store), fromIter, position, &value);
     gtk_list_store_set_value(store, toIter, position, &value);
     g_value_unset(&value);
@@ -492,7 +492,7 @@ GtkTreeIter WulforUtil::copyRow_gui(GtkTreeStore *store, GtkTreeIter *fromIter, 
 
 void WulforUtil::copyValue_gui(GtkTreeStore *store, GtkTreeIter *fromIter, GtkTreeIter *toIter, int position)
 {
-    GValue value = {0, };
+    GValue value = G_VALUE_INIT;
     gtk_tree_model_get_value(GTK_TREE_MODEL(store), fromIter, position, &value);
     gtk_tree_store_set_value(store, toIter, position, &value);
     g_value_unset(&value);

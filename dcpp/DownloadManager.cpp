@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdinc.h"
@@ -67,10 +66,10 @@ void DownloadManager::on(TimerManagerListener::Second, uint64_t aTick) noexcept 
 
         DownloadList tickList;
         // Tick each ongoing download
-        for(auto i = downloads.begin(); i != downloads.end(); ++i) {
-            if((*i)->getPos() > 0) {
-                tickList.push_back(*i);
-                (*i)->tick();
+        for(auto i: downloads) {
+            if(i->getPos() > 0) {
+                tickList.push_back(i);
+                i->tick();
             }
         }
 
@@ -80,40 +79,38 @@ void DownloadManager::on(TimerManagerListener::Second, uint64_t aTick) noexcept 
 
         // Automatically remove or disconnect slow sources
         if((uint32_t)(aTick / 1000) % SETTING(AUTODROP_INTERVAL) == 0) {
-            for(auto i = downloads.begin(); i != downloads.end(); ++i) {
-                Download* d = *i;
+            for(auto d: downloads) {
                 uint64_t timeElapsed = aTick - d->getStart();
                 uint64_t timeInactive = aTick - d->getUserConnection().getLastActivity();
                 uint64_t bytesDownloaded = d->getPos();
                 bool timeElapsedOk = timeElapsed >= (uint32_t)SETTING(AUTODROP_ELAPSED) * 1000;
                 bool timeInactiveOk = timeInactive <= (uint32_t)SETTING(AUTODROP_INACTIVITY) * 1000;
                 bool speedTooLow = timeElapsedOk && timeInactiveOk && bytesDownloaded > 0 ?
-                    bytesDownloaded / timeElapsed * 1000 < (uint32_t)SETTING(AUTODROP_SPEED) : false;
+                            bytesDownloaded / timeElapsed * 1000 < (uint32_t)SETTING(AUTODROP_SPEED) : false;
                 bool isUserList = d->getType() == Transfer::TYPE_FULL_LIST;
                 bool onlineSourcesOk = isUserList ?
-                    true : QueueManager::getInstance()->countOnlineSources(d->getPath()) >= SETTING(AUTODROP_MINSOURCES);
+                            true : QueueManager::getInstance()->countOnlineSources(d->getPath()) >= SETTING(AUTODROP_MINSOURCES);
                 bool filesizeOk = !isUserList && d->getSize() >= ((int64_t)SETTING(AUTODROP_FILESIZE)) * 1024;
                 bool dropIt = (isUserList && BOOLSETTING(AUTODROP_FILELISTS)) ||
-                    (filesizeOk && BOOLSETTING(AUTODROP_ALL));
+                        (filesizeOk && BOOLSETTING(AUTODROP_ALL));
                 if(speedTooLow && onlineSourcesOk && dropIt) {
                     if(BOOLSETTING(AUTODROP_DISCONNECT) && isUserList) {
                         d->getUserConnection().disconnect();
                     } else {
-                        dropTargets.push_back(make_pair(d->getPath(), d->getUser()));
+                        dropTargets.emplace_back(d->getPath(), d->getUser());
                     }
                 }
             }
         }
     }
-    for(auto i = dropTargets.begin(); i != dropTargets.end(); ++i) {
-        QueueManager::getInstance()->removeSource(i->first, i->second, QueueItem::Source::FLAG_SLOW_SOURCE);
+    for(auto& i: dropTargets) {
+        QueueManager::getInstance()->removeSource(i.first, i.second, QueueItem::Source::FLAG_SLOW_SOURCE);
     }
 }
 
 void DownloadManager::checkIdle(const UserPtr& user) {
     Lock l(cs);
-    for(auto i = idlers.begin(); i != idlers.end(); ++i) {
-        UserConnection* uc = *i;
+    for(auto uc: idlers) {
         if(uc->getUser() == user) {
             uc->updated();
             return;
@@ -130,7 +127,8 @@ void DownloadManager::addConnection(UserConnectionPtr conn) {
         conn->disconnect();
         return;
     }
-    if (BOOLSETTING(IPFILTER) && !ipfilter::getInstance()->OK(conn->getRemoteIp(),eDIRECTION_IN)) {
+
+    if (BOOLSETTING(IPFILTER) && !IPFilter::getInstance()->OK(conn->getRemoteIp(),eDIRECTION_IN)) {
         conn->error("Your IP is Blocked!");
         LogManager::getInstance()->message(_("IPFilter: Blocked outgoing connection to ") + conn->getRemoteIp());
         QueueManager::getInstance()->removeSource(conn->getUser(), QueueItem::Source::FLAG_REMOVED);
@@ -170,8 +168,6 @@ bool DownloadManager::startDownload(QueueItem::Priority prio) {
 }
 
 void DownloadManager::checkDownloads(UserConnection* aConn) {
-    dcassert(aConn->getDownload() == NULL);
-
     QueueItem::Priority prio = QueueManager::getInstance()->hasDownload(aConn->getUser());
     if(!startDownload(prio)) {
         removeConnection(aConn);
@@ -339,8 +335,8 @@ void DownloadManager::endData(UserConnection* aSource) {
         // First, finish writing the file (flushing the buffers and closing the file...)
         try {
             d->getFile()->flush();
-                } catch(const Exception& e) {
-                        d->resetPos();
+        } catch(const Exception& e) {
+            d->resetPos();
             failDownload(aSource, e.getError());
             return;
         }
@@ -366,8 +362,7 @@ void DownloadManager::endData(UserConnection* aSource) {
 int64_t DownloadManager::getRunningAverage() {
     Lock l(cs);
     int64_t avg = 0;
-    for(auto i = downloads.begin(); i != downloads.end(); ++i) {
-        Download* d = *i;
+    for(auto d: downloads) {
         avg += d->getAverageSpeed();
     }
     return avg;
@@ -501,7 +496,7 @@ void DownloadManager::fileNotAvailable(UserConnection* aSource) {
     dcdebug("File Not Available: %s\n", d->getPath().c_str());
 
     removeDownload(d);
-    fire(DownloadManagerListener::Failed(), d, str(F_("%1%: File not available") % d->getTargetFileName()));
+    fire(DownloadManagerListener::Failed(), d, str(F_("%1%: File not available") % Util::addBrackets(d->getTargetFileName())));
 
     QueueManager::getInstance()->removeSource(d->getPath(), aSource->getUser(), d->getType() == Transfer::TYPE_TREE ? QueueItem::Source::FLAG_NO_TREE : QueueItem::Source::FLAG_FILE_NOT_AVAILABLE, false);
 

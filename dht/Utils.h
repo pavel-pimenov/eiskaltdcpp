@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
@@ -39,7 +38,7 @@ namespace dht
         }
 
         /** Detect whether it is correct to use IP:port in DHT network */
-        static bool isGoodIPPort(const string& ip, uint16_t port);
+        static bool isGoodIPPort(const string& ip, const string& port);
 
         /** General flooding protection */
         static bool checkFlood(const string& ip, const AdcCommand& cmd);

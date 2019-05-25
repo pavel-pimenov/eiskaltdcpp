@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "stdafx.h"
@@ -47,11 +46,11 @@ namespace dht
     /*
      * Detect whether it is correct to use IP:port in DHT network
      */
-    bool Utils::isGoodIPPort(const string& ip, uint16_t port)
+    bool Utils::isGoodIPPort(const string& ip, const string& port)
     {
         // don't allow empty IP and port lower than 1024
         // ports below 1024 are known service ports, so they shouldn't be used for DHT else it could be used for attacks
-        if(ip.empty() || port < 1024)
+        if(ip.empty() || Util::toInt(port) < 1024)
             return false;
 
         // don't allow private IPs

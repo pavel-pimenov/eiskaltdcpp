@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2012 Jacek Sieka, arnetheduck on gmail point com
+ * Copyright (C) 2001-2019 Jacek Sieka, arnetheduck on gmail point com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
@@ -22,17 +21,10 @@
 #include "Speaker.h"
 #include "Singleton.h"
 
-#ifdef TIMER_OLD_BOOST
-    #include "Semaphore.h"
-#else
-    #include <boost/thread/mutex.hpp>
-#endif
+#include <boost/thread/mutex.hpp>
 
 #ifndef _WIN32
-    #include <ctime>
-    #ifdef TIMER_OLD_BOOST
-        #include <climits>
-    #endif
+#include <ctime>
 #endif
 
 namespace dcpp {
@@ -58,12 +50,9 @@ public:
     static uint64_t getTick();
 private:
     friend class Singleton<TimerManager>;
-#ifdef TIMER_OLD_BOOST
-    Semaphore s;
-    static timeval tv;
-#else
-    boost::timed_mutex boostmtx;
-#endif
+
+    boost::timed_mutex mtx;
+
     TimerManager();
     virtual ~TimerManager();
 

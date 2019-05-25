@@ -12,8 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * In addition, as a special exception, compiling, linking, and/or
  * using OpenSSL with this program is allowed.
@@ -32,23 +31,22 @@ FavoriteHubs::FavoriteHubs():
 {
     // Configure the dialog
     gtk_dialog_set_alternative_button_order(GTK_DIALOG(getWidget("favoriteHubsDialog")), GTK_RESPONSE_OK, GTK_RESPONSE_CANCEL, -1);
-    gtk_widget_set_sensitive(getWidget("comboboxCharset"), FALSE);
-    gtk_widget_set_sensitive(getWidget("entryNick"), FALSE);
-    gtk_widget_set_sensitive(getWidget("entryUserDescription"), FALSE);
+    gtk_widget_set_sensitive(getWidget("comboboxCharset"), false);
+    gtk_widget_set_sensitive(getWidget("entryNick"), false);
+    gtk_widget_set_sensitive(getWidget("entryUserDescription"), false);
 
     // menu
     g_object_ref_sink(getWidget("menu"));
 
     gtk_window_set_transient_for(GTK_WINDOW(getWidget("favoriteHubsDialog")), GTK_WINDOW(WulforManager::get()->getMainWindow()->getContainer()));
-    gtk_window_set_destroy_with_parent(GTK_WINDOW(getWidget("favoriteHubsDialog")), TRUE);
+    gtk_window_set_destroy_with_parent(GTK_WINDOW(getWidget("favoriteHubsDialog")), true);
 
     // Fill the charset drop-down list in edit fav hub dialog.
-    vector<string> &charsets = WulforUtil::getCharsets();
-    for (auto it = charsets.begin(); it != charsets.end(); ++it)
-        gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(getWidget("comboboxCharset")), it->c_str());
+    for (auto& it : WulforUtil::getCharsets())
+        gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(getWidget("comboboxCharset")), it.c_str());
 
     // Initialize favorite hub list treeview
-    favoriteView.setView(GTK_TREE_VIEW(getWidget("favoriteView")), TRUE, "favoritehubs");
+    favoriteView.setView(GTK_TREE_VIEW(getWidget("favoriteView")), true, "favoritehubs");
     favoriteView.insertColumn(_("Auto Connect"), G_TYPE_BOOLEAN, TreeView::BOOL, 100);
     favoriteView.insertColumn(_("Name"), G_TYPE_STRING, TreeView::STRING, 150);
     favoriteView.insertColumn(_("Description"), G_TYPE_STRING, TreeView::STRING, 250);
@@ -67,7 +65,7 @@ FavoriteHubs::FavoriteHubs():
     favoriteStore = gtk_list_store_newv(favoriteView.getColCount(), favoriteView.getGTypes());
     gtk_tree_view_set_model(favoriteView.get(), GTK_TREE_MODEL(favoriteStore));
     g_object_unref(favoriteStore);
-    gtk_tree_view_set_fixed_height_mode(favoriteView.get(), TRUE);
+    gtk_tree_view_set_fixed_height_mode(favoriteView.get(), true);
     favoriteSelection = gtk_tree_view_get_selection(favoriteView.get());
     GList *list = gtk_cell_layout_get_cells(GTK_CELL_LAYOUT(gtk_tree_view_get_column(favoriteView.get(), favoriteView.col(_("Auto Connect")))));
     GtkCellRenderer *renderer = (GtkCellRenderer *)g_list_nth_data(list, 0);
@@ -128,21 +126,21 @@ void FavoriteHubs::editEntry_gui(StringMap &params, GtkTreeIter *iter)
     string password = params["Password"].empty() ? "" : string(8, '*');
 
     gtk_list_store_set(favoriteStore, iter,
-        favoriteView.col(_("Auto Connect")), Util::toInt(params["Auto Connect"]),
-        favoriteView.col(_("Name")), params["Name"].c_str(),
-        favoriteView.col(_("Description")), params["Description"].c_str(),
-        favoriteView.col(_("Nick")), params["Nick"].c_str(),
-        favoriteView.col(_("Password")), password.c_str(),
-        favoriteView.col("Hidden Password"), params["Password"].c_str(),
-        favoriteView.col("Mode"), params["Mode"].c_str(),
-        favoriteView.col("Search Interval"), params["Search Interval"].c_str(),
-        favoriteView.col("Disable Chat"), Util::toInt(params["Disable Chat"]),
-        favoriteView.col("External IP"), params["External IP"].c_str(),
-        favoriteView.col("Internet IP"), Util::toInt(params["Internet IP"]),
-        favoriteView.col(_("Address")), params["Address"].c_str(),
-        favoriteView.col(_("User Description")), params["User Description"].c_str(),
-        favoriteView.col(_("Encoding")), params["Encoding"].c_str(),
-        -1);
+                       favoriteView.col(_("Auto Connect")), Util::toInt(params["Auto Connect"]),
+            favoriteView.col(_("Name")), params["Name"].c_str(),
+            favoriteView.col(_("Description")), params["Description"].c_str(),
+            favoriteView.col(_("Nick")), params["Nick"].c_str(),
+            favoriteView.col(_("Password")), password.c_str(),
+            favoriteView.col("Hidden Password"), params["Password"].c_str(),
+            favoriteView.col("Mode"), params["Mode"].c_str(),
+            favoriteView.col("Search Interval"), params["Search Interval"].c_str(),
+            favoriteView.col("Disable Chat"), Util::toInt(params["Disable Chat"]),
+            favoriteView.col("External IP"), params["External IP"].c_str(),
+            favoriteView.col("Internet IP"), Util::toInt(params["Internet IP"]),
+            favoriteView.col(_("Address")), params["Address"].c_str(),
+            favoriteView.col(_("User Description")), params["User Description"].c_str(),
+            favoriteView.col(_("Encoding")), params["Encoding"].c_str(),
+            -1);
 }
 
 void FavoriteHubs::removeEntry_gui(string address)
@@ -165,59 +163,65 @@ void FavoriteHubs::removeEntry_gui(string address)
 bool FavoriteHubs::showErrorDialog_gui(const string &description, FavoriteHubs *fh)
 {
     GtkWidget* dialog = gtk_message_dialog_new(GTK_WINDOW(fh->getWidget("favoriteHubsDialog")),
-        GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_WARNING, GTK_BUTTONS_OK, "%s", description.c_str());
+                                               GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_WARNING, GTK_BUTTONS_OK, "%s", description.c_str());
 
     gint response = gtk_dialog_run(GTK_DIALOG(dialog));
 
     // Fix crash, if the dialog gets programmatically destroyed.
     if (response == GTK_RESPONSE_NONE)
-        return FALSE;
+        return false;
 
     gtk_widget_destroy(dialog);
 
-    return TRUE;
+    return true;
 }
 
 void FavoriteHubs::popupMenu_gui()
 {
     if (!gtk_tree_selection_get_selected(favoriteSelection, NULL, NULL))
     {
-        gtk_widget_set_sensitive(getWidget("propertiesMenuItem"), FALSE);
-        gtk_widget_set_sensitive(getWidget("removeMenuItem"), FALSE);
-        gtk_widget_set_sensitive(getWidget("connectMenuItem"), FALSE);
+        gtk_widget_set_sensitive(getWidget("propertiesMenuItem"), false);
+        gtk_widget_set_sensitive(getWidget("removeMenuItem"), false);
+        gtk_widget_set_sensitive(getWidget("connectMenuItem"), false);
     }
     else
     {
-        gtk_widget_set_sensitive(getWidget("propertiesMenuItem"), TRUE);
-        gtk_widget_set_sensitive(getWidget("removeMenuItem"), TRUE);
-        gtk_widget_set_sensitive(getWidget("connectMenuItem"), TRUE);
+        gtk_widget_set_sensitive(getWidget("propertiesMenuItem"), true);
+        gtk_widget_set_sensitive(getWidget("removeMenuItem"), true);
+        gtk_widget_set_sensitive(getWidget("connectMenuItem"), true);
     }
+#if GTK_CHECK_VERSION(3,22,0)
+    gtk_menu_popup_at_pointer(GTK_MENU(getWidget("menu")),NULL);
+#else
     gtk_menu_popup(GTK_MENU(getWidget("menu")), NULL, NULL, NULL, NULL, 0, gtk_get_current_event_time());
+#endif
 }
 
 gboolean FavoriteHubs::onButtonPressed_gui(GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
+    (void)widget;
     FavoriteHubs *fh = (FavoriteHubs *)data;
     fh->previous = event->type;
-    return FALSE;
+    return false;
 }
 
 gboolean FavoriteHubs::onButtonReleased_gui(GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
+    (void)widget;
     FavoriteHubs *fh = (FavoriteHubs *)data;
     GtkTreeIter iter;
 
     if (!gtk_tree_selection_get_selected(fh->favoriteSelection, NULL, &iter))
     {
-        gtk_widget_set_sensitive(fh->getWidget("buttonProperties"), FALSE);
-        gtk_widget_set_sensitive(fh->getWidget("buttonRemove"), FALSE);
-        gtk_widget_set_sensitive(fh->getWidget("buttonConnect"), FALSE);
+        gtk_widget_set_sensitive(fh->getWidget("buttonProperties"), false);
+        gtk_widget_set_sensitive(fh->getWidget("buttonRemove"), false);
+        gtk_widget_set_sensitive(fh->getWidget("buttonConnect"), false);
     }
     else
     {
-        gtk_widget_set_sensitive(fh->getWidget("buttonProperties"), TRUE);
-        gtk_widget_set_sensitive(fh->getWidget("buttonRemove"), TRUE);
-        gtk_widget_set_sensitive(fh->getWidget("buttonConnect"), TRUE);
+        gtk_widget_set_sensitive(fh->getWidget("buttonProperties"), true);
+        gtk_widget_set_sensitive(fh->getWidget("buttonRemove"), true);
+        gtk_widget_set_sensitive(fh->getWidget("buttonConnect"), true);
 
         if (fh->previous == GDK_BUTTON_PRESS && event->button == 3)
         {
@@ -226,12 +230,12 @@ gboolean FavoriteHubs::onButtonReleased_gui(GtkWidget *widget, GdkEventButton *e
         else if (fh->previous == GDK_2BUTTON_PRESS && event->button == 1)
         {
             WulforManager::get()->getMainWindow()->showHub_gui(
-                fh->favoriteView.getString(&iter, _("Address")),
-                fh->favoriteView.getString(&iter, _("Encoding")));
+                        fh->favoriteView.getString(&iter, _("Address")),
+                        fh->favoriteView.getString(&iter, _("Encoding")));
         }
     }
 
-    return FALSE;
+    return false;
 }
 
 gboolean FavoriteHubs::onKeyReleased_gui(GtkWidget *widget, GdkEventKey *event, gpointer data)
@@ -241,31 +245,32 @@ gboolean FavoriteHubs::onKeyReleased_gui(GtkWidget *widget, GdkEventKey *event, 
 
     if (gtk_tree_selection_get_selected(fh->favoriteSelection, NULL, &iter))
     {
-        gtk_widget_set_sensitive(fh->getWidget("buttonProperties"), TRUE);
-        gtk_widget_set_sensitive(fh->getWidget("buttonRemove"), TRUE);
-        gtk_widget_set_sensitive(fh->getWidget("buttonConnect"), TRUE);
+        gtk_widget_set_sensitive(fh->getWidget("buttonProperties"), true);
+        gtk_widget_set_sensitive(fh->getWidget("buttonRemove"), true);
+        gtk_widget_set_sensitive(fh->getWidget("buttonConnect"), true);
 
-        if (event->keyval == GDK_Return || event->keyval == GDK_KP_Enter)
+        if (event->keyval == GDK_KEY_Return || event->keyval == GDK_KEY_KP_Enter)
         {
             WulforManager::get()->getMainWindow()->showHub_gui(
-                fh->favoriteView.getString(&iter, _("Address")),
-                fh->favoriteView.getString(&iter, _("Encoding")));
+                        fh->favoriteView.getString(&iter, _("Address")),
+                        fh->favoriteView.getString(&iter, _("Encoding")));
         }
-        else if (event->keyval == GDK_Delete || event->keyval == GDK_BackSpace)
+        else if (event->keyval == GDK_KEY_Delete || event->keyval == GDK_KEY_BackSpace)
         {
             fh->onRemoveEntry_gui(widget, data);
         }
-        else if (event->keyval == GDK_Menu || (event->keyval == GDK_F10 && event->state & GDK_SHIFT_MASK))
+        else if (event->keyval == GDK_KEY_Menu || (event->keyval == GDK_KEY_F10 && event->state & GDK_SHIFT_MASK))
         {
             fh->popupMenu_gui();
         }
     }
 
-    return FALSE;
+    return false;
 }
 
 void FavoriteHubs::onAddEntry_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     FavoriteHubs *fh = (FavoriteHubs *)data;
     const string emptyString = "";
 
@@ -283,7 +288,7 @@ void FavoriteHubs::onAddEntry_gui(GtkWidget *widget, gpointer data)
     params["Disable Chat"] = "0";
     params["External IP"] = emptyString;
     params["Internet IP"] = "0";
- 
+
     bool updatedEntry = fh->showFavoriteHubDialog_gui(params, fh);
 
     if (updatedEntry)
@@ -296,6 +301,7 @@ void FavoriteHubs::onAddEntry_gui(GtkWidget *widget, gpointer data)
 
 void FavoriteHubs::onEditEntry_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     FavoriteHubs *fh = (FavoriteHubs *)data;
     GtkTreeIter iter;
 
@@ -345,16 +351,16 @@ bool FavoriteHubs::showFavoriteHubDialog_gui(StringMap &params, FavoriteHubs *fh
     
 
     // Set the auto connect checkbox
-    gboolean autoConnect = params["Auto Connect"] == "1" ? TRUE : FALSE;
+    gboolean autoConnect = params["Auto Connect"] == "1" ? true : false;
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(fh->getWidget("checkButtonAutoConnect")), autoConnect);
 
-    gboolean disableChat = params["Disable Chat"] == "1" ? TRUE : FALSE;
+    gboolean disableChat = params["Disable Chat"] == "1" ? true : false;
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(fh->getWidget("checkDisableChat")), disableChat);
 
     gboolean externalIP = !(params["External IP"].empty() || params["External IP"] == SETTING(EXTERNAL_IP));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(fh->getWidget("checkExternalIP")), externalIP);
 
-    gboolean internetIP = params["Internet IP"] == "1" ? TRUE : FALSE;
+    gboolean internetIP = params["Internet IP"] == "1" ? true : false;
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(fh->getWidget("checkInternetIP")), internetIP);
 
     // Set the override default encoding checkbox. Check for "Global hub default"
@@ -375,7 +381,7 @@ bool FavoriteHubs::showFavoriteHubDialog_gui(StringMap &params, FavoriteHubs *fh
 
     // Fix crash, if the dialog gets programmatically destroyed.
     if (response == GTK_RESPONSE_NONE)
-        return FALSE;
+        return false;
 
     while (response == GTK_RESPONSE_OK)
     {
@@ -422,24 +428,25 @@ bool FavoriteHubs::showFavoriteHubDialog_gui(StringMap &params, FavoriteHubs *fh
 
                 // Fix crash, if the dialog gets programmatically destroyed.
                 if (response == GTK_RESPONSE_NONE)
-                    return FALSE;
+                    return false;
             }
             else
-                return FALSE;
+                return false;
         }
         else
         {
             gtk_widget_hide(fh->getWidget("favoriteHubsDialog"));
-            return TRUE;
+            return true;
         }
     }
 
     gtk_widget_hide(fh->getWidget("favoriteHubsDialog"));
-    return FALSE;
+    return false;
 }
 
 void FavoriteHubs::onRemoveEntry_gui(GtkWidget *widget, gpointer data)
 {
+    (void)widget;
     FavoriteHubs *fh = (FavoriteHubs *)data;
     GtkTreeIter iter;
 
@@ -450,8 +457,8 @@ void FavoriteHubs::onRemoveEntry_gui(GtkWidget *widget, gpointer data)
             string name = fh->favoriteView.getString(&iter, _("Name")).c_str();
             GtkWindow* parent = GTK_WINDOW(WulforManager::get()->getMainWindow()->getContainer());
             GtkWidget* dialog = gtk_message_dialog_new(parent,
-                GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE,
-                _("Are you sure you want to delete favorite hub \"%s\"?"), name.c_str());
+                                                       GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE,
+                                                       _("Are you sure you want to delete favorite hub \"%s\"?"), name.c_str());
             gtk_dialog_add_buttons(GTK_DIALOG(dialog), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_REMOVE, GTK_RESPONSE_YES, NULL);
             gtk_dialog_set_alternative_button_order(GTK_DIALOG(dialog), GTK_RESPONSE_YES, GTK_RESPONSE_CANCEL, -1);
             gint response = gtk_dialog_run(GTK_DIALOG(dialog));
@@ -461,9 +468,9 @@ void FavoriteHubs::onRemoveEntry_gui(GtkWidget *widget, gpointer data)
                 return;
         }
 
-        gtk_widget_set_sensitive(fh->getWidget("buttonProperties"), FALSE);
-        gtk_widget_set_sensitive(fh->getWidget("buttonRemove"), FALSE);
-        gtk_widget_set_sensitive(fh->getWidget("buttonConnect"), FALSE);
+        gtk_widget_set_sensitive(fh->getWidget("buttonProperties"), false);
+        gtk_widget_set_sensitive(fh->getWidget("buttonRemove"), false);
+        gtk_widget_set_sensitive(fh->getWidget("buttonConnect"), false);
 
         string address = fh->favoriteView.getString(&iter, _("Address"));
 
@@ -475,17 +482,19 @@ void FavoriteHubs::onRemoveEntry_gui(GtkWidget *widget, gpointer data)
 
 void FavoriteHubs::onConnect_gui(GtkButton *widget, gpointer data)
 {
+    (void)widget;
     FavoriteHubs *fh = (FavoriteHubs *)data;
     GtkTreeIter iter;
 
     if (gtk_tree_selection_get_selected(fh->favoriteSelection, NULL, &iter))
         WulforManager::get()->getMainWindow()->showHub_gui(
-            fh->favoriteView.getString(&iter, _("Address")),
-            fh->favoriteView.getString(&iter, _("Encoding")));
+                    fh->favoriteView.getString(&iter, _("Address")),
+                    fh->favoriteView.getString(&iter, _("Encoding")));
 }
 
 void FavoriteHubs::onToggledClicked_gui(GtkCellRendererToggle *cell, gchar *path, gpointer data)
 {
+    (void)cell;
     FavoriteHubs *fh = (FavoriteHubs *)data;
     GtkTreeIter iter;
 
@@ -518,8 +527,6 @@ void FavoriteHubs::onCheckButtonToggled_gui(GtkToggleButton *button, gpointer da
 void FavoriteHubs::initializeList_client()
 {
     StringMap params;
-    typedef Func1<FavoriteHubs, StringMap> F1;
-    //F1 *func;
     const FavoriteHubEntryList& fl = FavoriteManager::getInstance()->getFavoriteHubs();
 
     for (auto it = fl.begin(); it != fl.end(); ++it)
@@ -535,8 +542,8 @@ void FavoriteHubs::getFavHubParams_client(const FavoriteHubEntry *entry, StringM
 {
     params["Auto Connect"] = entry->getConnect() ? "1" : "0";
     params["Name"] = entry->getName();
-    params["Description"] = entry->getDescription();
-    params["Nick"] = entry->getNick(FALSE); // Don't display default nick to avoid accidentally saving it
+    params["Description"] = entry->getHubDescription();
+    params["Nick"] = entry->getNick(false); // Don't display default nick to avoid accidentally saving it
     params["Password"] = entry->getPassword();
     params["Address"] = entry->getServer();
     params["User Description"] = entry->getUserDescription();
@@ -554,7 +561,7 @@ void FavoriteHubs::addEntry_client(StringMap params)
     entry.setConnect(Util::toInt(params["Auto Connect"]));
     entry.setName(params["Name"]);
     entry.setServer(params["Address"]);
-    entry.setDescription(params["Description"]);
+    entry.setHubDescription(params["Description"]);
     entry.setNick(params["Nick"]);
     entry.setPassword(params["Password"]);
     entry.setUserDescription(params["User Description"]);
@@ -579,7 +586,7 @@ void FavoriteHubs::editEntry_client(string address, StringMap params)
         entry->setConnect(Util::toInt(params["Auto Connect"]));
         entry->setName(params["Name"]);
         entry->setServer(params["Address"]);
-        entry->setDescription(params["Description"]);
+        entry->setHubDescription(params["Description"]);
         entry->setNick(params["Nick"]);
         entry->setPassword(params["Password"]);
         entry->setUserDescription(params["User Description"]);

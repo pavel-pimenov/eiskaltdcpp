@@ -22,7 +22,7 @@
 #include "utility.h"
 //---------------------------------------------------------------------------
 
-ServerThread *ServersS = NULL;
+ServerThread *ServersS = nullptr;
 bool bServerRunning = false, bServerTerminated = false, bIsRestart = false, bIsClose = false;
 bool bDaemon = false;
 #ifdef _WIN32
@@ -32,20 +32,20 @@ bool bDaemon = false;
 #endif
 bool bsyslog = false;
 
-void callBack(void* x, const string& a)
+void callBack(void*, const string &a)
 {
     logging(bDaemon, bsyslog, true, "Loading: " + a);
 }
 
 void ServerInitialize()
 {
-    ServersS = NULL;
+    ServersS = nullptr;
     bServerRunning = bIsRestart = bIsClose = false;
 }
 
 bool ServerStart()
 {
-    dcpp::startup(callBack, NULL);
+    dcpp::startup(callBack, nullptr);
     ServerThread::newInstance();
     ServersS = ServerThread::getInstance();
 
@@ -68,7 +68,7 @@ void ServerStop()
     logging(bDaemon, bsyslog, true, "waiting finished");
     ServersS->release();
 
-    ServersS = NULL;
+    ServersS = nullptr;
     logging(bDaemon, bsyslog, true, "library stops");
     dcpp::shutdown();
     logging(bDaemon, bsyslog, true, "library was stopped");
