@@ -12,15 +12,50 @@ This program is licensed under the GNU General Public License. See the [COPYING]
 
 ## Description
 
-EiskaltDC++ is a cross-platform program that uses the [Direct Connect](https://en.wikipedia.org/wiki/Direct_Connect_\(protocol\)) (DC aka NMDC) and [Advanced Direct Connect](https://en.wikipedia.org/wiki/Advanced_Direct_Connect) (ADC) protocols. It is compatible with DC++, FlylinkDC++, LinuxDC++ and other DC clients. EiskaltDC++ also interoperates with all common DC hub software.
+EiskaltDC++ is a cross-platform program that uses the [Direct Connect](https://en.wikipedia.org/wiki/Direct_Connect_\(protocol\)) (DC aka NMDC) and [Advanced Direct Connect](https://en.wikipedia.org/wiki/Advanced_Direct_Connect) (ADC) protocols. It is compatible with DC++, AirDC++, FlylinkDC++ and other [DC clients](https://en.wikipedia.org/wiki/Comparison_of_ADC_software#Client_software). EiskaltDC++ also interoperates with all common DC hub software.
 
 Currently supported systems (in order of decreasing importance): GNU/Linux, macOS, MS Windows, FreeBSD, Haiku and GNU/Hurd.
 
 Currently supported features (not full list):
 
-* 1
-* 2
-* 3
+* Programs with graphical user interface (UI) on Qt (main) and GTK+ (alternative), plus daemon which may be controlled from command line or from Web UI (connected via JSON-RPC).
+* Multi-threaded download (download fragments of a single file from several sources at once).
+* Support of PFSR (partial file sharing): users may download parts of file from each other during file download even when no one of them do not have fully downloaded file.
+* Support of DHT (allows to search file by TTH and exchange these files without connection to any hub). Implementation of this feature is based on StrongDC++ code and compatible with all versions of StrongDC++, ApexDC++, RSX++, FlylinkDC++ and Pulse++K where this feature exists. (Some DC clients have dropped the support of this function in lastest versions.)
+* Support of UPnP (simplifies network connection configuration when user Wi-Fi router supports this feature).
+* Support of binding to specific network interface or address (in case when user system has few network connections simultaneously).
+* Support of auto updating of external IPv4 address via DynDNS services.
+* Support of case-sensitive file lists. This feature is extremely important on all supported systems except MS Windows (in fact even NTFS supports case-sensitive file names, but MS Windows does not use this feature.).
+* GUI programs are localized to few languages.
+* GUI programs allow to place list of widgets on sidebar, on multiline tabbar panel or on single-line tabbar.
+* GUI program based on Qt has support of hiding the program menu (it will be available by special button to the toolbar).
+* Advanced search with the ability to group results; black list for search results.
+* Lists of downloaded and uploaded files; ability to save logs of downloads.
+* Lists of public and favorite hubs. Public hubs lists have multiple sources; favorite hubs are extremely flexible in configuration features.
+* Lists of favorite users (they will receive extra slot for downloading files, etc.).
+* List of active transfers (downloads/uploads), including the queue of users waiting for the slot (user may temporary grant extra slot for them).
+* Flexible settings for downloading files (lists of destination directories, directory for incomplete downloads, limitation of number of simultaneous downloads, compressed transfers, check of check sums, etc.).
+* Indicator of free space on disk where main downloads directory is located.
+* Support of IP filter and basic antispam.
+* Search spy (allows to see search phrases which send other users, but without identifying users of course).
+* ADL search with support for Perl-style regular expressions (using PCRE library).
+* Flexible filter (with regular expressions support) in users list, search results, public hubs lists, file lists, etc.. (Use ##&lt;regexp&gt; string and read about Qt QRegExp syntax.)
+* Full-featured chat (different fonts, nick coloring, parsing of magnet links and other links, emoticons, chat search, chat commands, BBCode support, disable/enable/clear chat, spell check (Aspell is used), keywords highlighting in the chat, separator for unread messages, saving of chat logs, the ability to display IP addresses and countries of users in the chat (depends on hub settings: some of them hide this data for usual users).
+* User commands on hub.
+* Flexible keyboard shortcuts settings.
+* Text and sound notifications for different events.
+* Highlighting of duplicates in shared files.
+* Flexible settings for files hashing (speed of hashing, filters for ignoring files, etc.).
+* Indicator of hashing progress in program status bar.
+* Special tool for calculating of TTH for any file (without necessity to share this file) and preparing magnet link or web maget link for it.
+* Support of limitations of download/upload speed (permanent or by timetable).
+* Support of limitations by size of shared files. (Yes, this is questionable feature, but it is highly demanded by users.)
+* Support of handling of magnet links, web magnet links and hub links transferred via command line from other programs (for example from web browsers).
+* Support of files drag-and-drop into field for entering messages (if file is present in user file list, magnet link to it will be added).
+* Support of automatic replies to private messages in case of user absent.
+* Support of user extensions on QtScript (only in Qt based GUI) and Lua.
+* Support of IDNA (recognition of national domain names).
+* Support of URL encoded strings for hub addresses.
 
 <a href="https://tehnick.github.io/eiskaltdcpp/eiskaltdcpp-qt-2.2.10-588_search_widget.png" title="Example of search results">
     <img src="https://tehnick.github.io/eiskaltdcpp/eiskaltdcpp-qt-2.2.10-588_search_widget.png" width="99%">
@@ -72,15 +107,15 @@ All programs from EiskaltDC++ project (`eiskaltdcpp-qt`, `eiskaltdcpp-gtk` and `
 During the development EiskaltDC++ in past years we have used different CVS (Subversion first and then Git) and different development models. Currently the process looks like this:
 
 * All development of is done in git `work` branch or special (feature) branches detached from `work` branch.
-* Change log file should be updated together with changes in source code. It may be done in a same git commit or in a separate git commit depending on situation. Just use common sense for this. (There were no rule of updating change log in the past which leads to significant delaying of stable releases.)
+* Changelog file should be updated together with changes in source code. It may be done in a same git commit or in a separate git commit depending on situation. Just use common sense for this. (There were no rule of updating change log in the past which leads to significant delaying of stable releases.)
 * Once the changes from `work` branch are ready for usage and build of program is tested for most important systems (Linux, macOS, Windows) they may be merged to `master` branch.
 * Daily builds of program for testers, active users and just curious people should be done from git `master` branch.
 * Version scheme for builds from git snapshots should look like: `<major>.<minor>.<patch>-<commits>-g<hash>` (where `<major>`, `<minor>` and `<patch>` are not digits but numbers). `<major>.<minor>.<patch>` is last git tag (for stable release), `<commits>` &ndash; the number of commits since last git tag and `<hash>` &ndash; short hash of current git commit.
 * Once there is noticeable amount of changes since last stable release or if there are very important bug fixes which should be quickly delivered to users new git tag (`v<major>.<minor>.<patch>`) is created and tarballs with sources are uploaded to SourceForge.
-* There is no strict limitation of type of changes suitable for new releases: even "minor" or "patch" version may contain new features and significant changes in GUI.
-* In case of noticeable changes in Core of program (library libeiskaltdcpp) the `<major>` part of program version should be changed.
-* In case of significant changes (for example, total code refactoring) in any part of program the `<major>` part of program version should be changed.
+* In case of noticeable changes in Core of program (library libeiskaltdcpp) the `<minor>` or `<major>` part of program version should be changed.
+* In case of significant changes (for example, total code refactoring) in any part of program the `<minor>` or `<major>` part of program version should be changed.
 * In case when where are very few changes since last stable release, but they are important and should be quickly delivered to users the `<patch>` part of program version should be changed.
+* There are no limits for changes suitable for a new `<patch>` releases if they do not affect Core of program: they may contain new features and noticeable changes in any part of GUI.
 
 During development all changes are tested on Continuous Integration services [Travis CI](https://travis-ci.org/eiskaltdcpp/eiskaltdcpp) and [Sibuserv CI](https://sibuserv-ci.org/projects/eiskaltdcpp).
 
@@ -145,6 +180,7 @@ But you may send donations to project contributors (developers, maintainers, tra
 * [Official Snap packages for Ubuntu and other distros](https://snapcraft.io/eiskaltdcpp) (daily builds)
 * [Official builds for Windows](https://sourceforge.net/projects/eiskaltdcpp/files/Windows/)
 * [Official builds for macOS](https://sourceforge.net/projects/eiskaltdcpp/files/macOS/)
+* [Official builds for Linux](https://sourceforge.net/projects/eiskaltdcpp/files/Linux/)
 * [Official packages in Debian](https://tracker.debian.org/pkg/eiskaltdcpp)
 * [Official packages in Ubuntu](https://launchpad.net/ubuntu/+source/eiskaltdcpp)
 * [Official packages in Fedora](https://apps.fedoraproject.org/packages/s/eiskaltdcpp)
